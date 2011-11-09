@@ -1,0 +1,103 @@
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a contributed volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[graybox]{svmult}
+
+% choose options for [] as required from the list
+% in the Reference Guide
+
+\usepackage{mathptmx}       % selects Times Roman as basic font
+\usepackage{helvet}         % selects Helvetica as sans-serif font
+\usepackage{courier}        % selects Courier as typewriter font
+\usepackage{type1cm}        % activate if the above 3 fonts are
+                            % not available on your system
+%
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsfonts}		% math fonts.
+
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\N}{\operatorname{N}}
+\newcommand{\bool}{\operatorname*{\mathcal{B}}}
+\newcommand{\Pos}{\operatorname{Pos}}
+\newcommand{\Nec}{\operatorname{Nec}}
+\newcommand{\T}{\mathcal{T}}
+
+\begin{document}
+
+\title*{An overview on temporal databases.\\
+ New approaches and proposals.}
+% Use \titlerunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\author{Jos\'e Pons \and Christophe Billiet \and Olga Pons}
+% Use \authorrunning{Short Title} for an abbreviated version of
+% your contribution title if the original one is too long
+\institute{Jos\'e Pons \at Department of Computer Science and Artificial Intelligence, Univeristy of Granada, C/ Periodista Daniel Saucedo Aranda s/n \email{jpons@decsai.ugr.es}
+\and Christophe Billiet \at Department of Telecommunications and Information Processing, Ghent University, Belgium, St.-Pietersnieuwstraat 41, B-9000 Gent,Belgium. \email{Christophe.Billiet@telin.ugent.be}
+\and Olga Pons \at Department of Computer Science and Artificial Intelligence, Univeristy of Granada, C/ Periodista Daniel Saucedo Aranda s/n \email{opc@decsai.ugr.es}
+}
+%
+% Use the package "url.sty" to avoid
+% problems with special characters
+% used in your e-mail or web address
+%
+\maketitle
+
+\abstract*{There exist some objects in the nature that have a time-variant (e.g. an employee's working life) or time-related (e.g. the transactions in a bank account) nature. Modelling these objects in a (relational) database is possible, but the time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. These models deal both with the problem of representation and querying. Time itself is a source of imprecision / vagueness / uncertainty since the measures of time are inherently imprecise. Humans beings manage the time with imprecision and vagueness. Nevertheless, the amount of uncertainty in the temporal indications are defined by socially well-known boundaries. Several proposals for dealing with imprecision in time have been done: some proposals consider the basis of the system the imprecision related to the conversion of diferent time points and intervals. While some other proposals consider the specification of the time as the source of imprecision: the time points are ill-known.}
+
+\abstract{There exist some objects in the nature that have a time-variant (e.g. an employee's working life) or time-related (e.g. the transactions in a bank account) nature. Modelling these objects in a (relational) database is possible, but the time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. These models deal both with the problem of representation and querying. Time itself is a source of imprecision / vagueness / uncertainty since the measures of time are inherently imprecise. Humans beings manage the time with imprecision and vagueness. Nevertheless, the amount of uncertainty in the temporal indications are defined by socially well-known boundaries. Several proposals for dealing with imprecision in time have been done: some proposals consider the basis of the system the imprecision related to the conversion of diferent time points and intervals. While some other proposals consider the specification of the time as the source of imprecision: the time points are ill-known.}
+
+\section{Introduction}
+\label{sec:introduction}
+\input{sources/intro.tex}
+
+\section{Time modelling}
+\label{sec:time-domain}
+\input{sources/timeDomain.tex}
+
+\section{Temporal Databases}
+\label{sec:temporal-databases}
+\input{sources/temporalDatabases.tex}
+
+\section{Imprecision, Uncertainty and vagueness in temporal databases}
+\label{sec:imprecision-uncertainty}
+\input{sources/fuzzyTemporalDatabases.tex}
+
+\section{Bipolarity on temporal databases}
+\label{sec:bipolarity}
+\input{sources/bipolarity.tex}
+
+\section{Further research work}
+\label{sec:further-research-work}
+\input{sources/frw.tex}
+
+\section*{Acknowledgements}
+Part of this research is supported by the grant BES-2009-013805 within the research project TIN2008-02066: \emph{Fuzzy Temporal Information treatment in relational DBMS}.
+
+
+
+\input{referenc}
+\end{document}

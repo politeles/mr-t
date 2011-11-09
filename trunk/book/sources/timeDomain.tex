@@ -1,0 +1,165 @@
+%
+% Time domain
+%
+In order to define and to work with time it is necessary to study and understand the underlying domain. Moreover, the definition of a temporal domain is the basis for almost any temporal system. In the following subsection \ref{subsec:basic-concepts} we will introduce several concepts that are widely used in the community of temporal databases. Most of the concepts explained here have been introduced in the \emph{'Consensus Glossary of Temporal Database Concepts'}~\cite{Dyreson:1994:CGT:181550.181560}.
+
+
+
+\subsection{Basic concepts and properties}
+\label{subsec:basic-concepts}
+
+Time is usually represented as a set with an imposed partial order. There are two main models of time: \textbf{linear} and \textbf{cyclic}. In the linear model, time advances from the past to the future in a totally ordered fashion (a relationship of total order is imposed to the set). A cyclic model of time is used for recurrent processes. The majority of the proposals work with a linear model of time.
+
+\begin{svgraybox}
+The basic elements in a temporal domain are the following:\\
+%\begin{itemize}
+%\item
+\textbf{Instant}:  Is a time point over an underlying temporal domain.\\
+%\item
+\textbf{Time interval}: Is the time between two instants.\\
+%\item
+\textbf{Event}: Is an instantaneous fact. Something that happens at an instant.\\
+%\item
+\textbf{Chronon}: Is a non-decomposable time interval of fixed duration. It is possible for a temporal model to leave the chronon duration unspecified. The duration will be specified later in the implementation of the model.
+%\end{itemize}
+\end{svgraybox}
+
+Attending to the density between the chronons, a model can be classified into the following three types:
+
+\begin{itemize}
+\item
+\textbf{Discrete model}:  The discrete model of time is isomorphic in relation to the natural numbers. According to this model, each natural number corresponds to a \emph{chronon}. 
+\item
+\textbf{Dense model}: This model is isomorphic in relation to the rational or the real numbers. It represents one instant of time in the gap between another two instants.
+\item
+\textbf{Continuous model}: This is an extension of the dense model with no gaps. It is isomorphic in relation to the real numbers.
+\end{itemize}
+
+
+
+
+Restrictions on time range may be performed on the base of the following two concepts:
+\begin{itemize}
+\item
+\textbf{Time boundedness}: Time can be bounded orthogonally in the past and in the future.
+\item
+\textbf{Time distance}: As a metric, time has a distance function which presents four properties:
+\begin{enumerate}
+\item
+Distance is non-negative.
+\item
+The distance between two different elements is not equal to zero.
+\item
+The distance from $\alpha$ to $\beta$ is the same as that between $\beta$ and $\alpha$.
+\item
+Triangle inequality: The distance from $\alpha$ to $\gamma$ is equal or greater than the distance from $\alpha$ to $\beta$ plus the distance from $\beta$ to $\gamma$.
+\end{enumerate}
+\end{itemize}
+
+On the other hand, time may be \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers 'absolute time' is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
+
+%%% time as points and time as intervals:
+
+%%% granularity
+
+
+\subsection{Temporal Relations}
+%an explanation on allen's temporal relations.
+
+
+
+\subsection{An example of time domain: Julian Day Number}
+% proposal for the underlying Julian Day Number domain.
+
+The Julian Day number \cite{Dir96} is a counter. Its value is incremented in one unit every day from 1 January 4713 B.C. at 12:00 noon. The particularity of starting at noon was useful for astronomers: the observations they took one night belonged to the same Julian Day. Actually it has not any transcendence.\\
+Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicited after the Julian Day number.\\
+
+\subsubsection{Representation alternatives}
+There are many alternatives to optimize the representation of Julian Day numbers because of its extremely far origin (4713 B.C. year). Table \ref{table:juliandayrepresentations} shows several time domains that can be calculated from the Julian Date, some of them are proposed just for optimization purposes.
+
+
+\begin{table}
+\caption{Julian Day representations}
+\label{table:juliandayrepresentations}
+
+\begin{tabular}{p{2cm}p{4cm}p{4cm}p{2cm}}
+%header ------------------------------------------------------
+\hline\noalign{\smallskip}
+Name & From & Formula & Current Value  \\ 
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+%header ------------------------------------------------------
+Julian Date (JD)$^a$ & 12:00 noon Monday 1 January 4713 B.C & & 2455278. 85488  \\ 
+Julian Day Number (JDN)$^b$ & 12:00 noon  Monday 1 January 4713 B.C. & JND = floor(JD) & 2455278 \\ 
+Reduced Julian Day (RJD)$^c$ & 12:00 noon Tuesday 16 November 1858 A.C. & RJD = JD - 2400000 & 55278.85488  \\ 
+Modified Julian Day (MJD)$^d$ & 00:00 Wednesday 17 November 1858 A.C. & MJD = JD - 2400000,5 & 55278.35488 \\ 
+Truncated Julian Day (TJD)$^e$ & 00:00 Friday 24 May 1968 A.C. & TJD = JD - 2440000,5 & 15278.35488  \\ 
+Truncated Julian Day (TJD)$^f$ & 00:00 Thursday 10 November 1995 A.C. & TJD = (JD- 0,5) mod 10000 & 5278. 35488   \\ 
+Dublin Julian Day (DJD))$^g$ & 12:00 noon Sunday 31 December 1899 A.C. & DJD = JD - 2415020 & 40258. 85488 \\ 
+Chronological Julian Day (CJD)$^h$  & 00:00 Monday 1 January 4713 B.C. & CJD = JD + 0,5 + timezone adjust. & 2455279. 3548843 (UT)  \\ 
+Lilian Day Number$^i$ & Friday 15 October 1582 & floor(JD-2299160,5) & 156118 \\ 
+ANSI Date$^j$  & Monday 1 January 1601 & floor(JD-2305812,5) & 149466  \\ 
+Rata die$^k$  & Monday 1 January 1 A.C & floor(JD - 1721424.5) & 733854 \\ 
+Unix time$^l$  & Thursday 1 January 1970 A.C. & (JD – 2440587.5) × 86400 & 1269333062 \\ 
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+$^a$ This is an extension of the Julian Day that allows time representation. \\
+$^b$  Each day changes at noon. \\
+$^c$  Used by astronomers. \\
+$^d$ It starts at midnight. \\
+$^e$ Definition from NASA. \cite{Sch}. \\
+$^f$ Definition from NIST. \cite{Nis}. \\
+$g$ Introduced by the IAU in 1995. \\
+$^h$ The timezone must be explicited. Each day changes at midnight. \\
+$^i$ The number of days since Gregorian calendar in Universal Time. \\
+$^j$ The origin for COBOL integer dates. \\
+$^k$  The number of days since actual era. \\
+$^l$  It counts the seconds not the day. \\
+\end{table}
+
+
+\subsubsection{Conversion among dates}
+\paragraph{Conversion between Gregorian and Julian dates}
+The Julian Date consist on the Julian Day number and the time. It is computed with the formula \cite{Usn}:\\
+\begin{equation}
+\label{eq:julian day}
+JD = JDN + \frac{hour-12}{24} + \frac{minutes}{1440} + \frac{seconds}{86400}
+\end{equation}
+
+Here the JDN is the Julian Day Number. This equation does not take into account the leap seconds \footnote{A leap second(s) is the amount of second(s) added or deleted every year in the Universal Time.\cite{Wik},\cite{Lea}. }.
+
+\paragraph{Gregorian calendar to Julian day}
+Any date from Gregorian calendar \footnote{As Gregorian calendar entered in use in 1582, any use before that date is called \emph{proleptic calendar}.} can be converted into a Julian Day using the following formula:\\
+\begin{equation}
+\label{eq:JDN}
+JDN = \frac{1461x(Y + 4800 + \frac{M-14}{12})}{4}+\frac{367x(M-2-12x\frac{M-14}{12})}{12}-\frac{3x\frac{Y+4900+\frac{M-14}{12}}{100}}{4} 
+\end{equation}
+
+This formula was created by Henry Fliegel and Thomas C. van Flandern in 1968. \cite{Fliegel:1968:LEM:364096.364097} It takes into account leap years and that they are applicable only when the century is divisible by 400. The value $Y$ represents the year and the value $M$ represents the month.
+\paragraph{Julian calendar to Julian day}
+The algorithm to convert between Julian calendar and Julian Day Number is only valid for dates since 4713 B.C (positive values of Julian Day) \cite{Dog}:\\
+\begin{equation}
+\label{eq:JDN_2_JD}
+JDN=367Y-\frac{7 (Y + 5001 + \frac{M-9}{7})}{4}+\frac{275xM}{9}+D+1729777
+\end{equation}
+
+Where $Y$ is the year value, $M$ is the month value, and $D$ is the day value.
+
+%\subsubsection{Membership degree computation}
+%The main advantage from the Julian day number is the ability to make calculations. Thus, the membership degree computation for a fuzzy number based on a Julian day is explained here. \\
+%Let a trapezoidal possibility distribution defined by four JDN named $a$,$b$,$c$ and $d$. The fuzzy validity period \emph{FVP}, can be represented as in figure \ref{fig:fuzzy-validity-period}. The following equation shows the membership degree for a Julian day number \emph{JDN} in a \emph{FVP} represented by means of the possibility distribution of $[a,b,c,d]$. In a valid-time database, the values for the valid starting time \emph{VST} and the valid ending time \emph{VET} can be fuzzyfied as shown in equation \ref{eq:fuzzy-validity-period}.
+%
+%The membership function for a given $x$ number in \emph{JDN} format is the following:\\
+%\begin{equation}
+%\label{eq:trapezoidal distribution}
+%%\[
+%T(x)=
+%\begin{cases}
+%0, \mbox(if x \leq a, x \geq d)\\
+%1, \mbox(if x \in [b,c])\\
+%\frac{x-a}{b-a}   \mbox(if x \in (a,b])\\
+%\frac{d-x}{d-c} 	 \mbox(if x \in (c,d])\\
+%\end{cases}
+%%\]
+%\end{equation}
+%The points outside the trapezium or inside the interval $[a,b]$ are trivial. The points inside the other intervals has the following particularities:\\
+%The subtraction operation with Julian day numbers gives as result a scalar value (as explained before). The division operation between two scalars gives as result an scalar in the interval $[0,1]$ which represents the membership degree.
