@@ -1,0 +1,111 @@
+\documentclass{llncs}
+%
+%
+
+\usepackage[dvips]{graphicx}
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\hyphenation{pro-per-ties}
+\hyphenation{ge-ne-ral-ly}
+\hyphenation{pre-fe-ren-ces}
+\hyphenation{u-sing}
+\hyphenation{pu-nish-ment}
+
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\N}{\operatorname{N}}
+\newcommand{\bool}{\operatorname*{\mathcal{B}}}
+\newcommand{\Pos}{\operatorname{Pos}}
+\newcommand{\Nec}{\operatorname{Nec}}
+\newcommand{\T}{\mathcal{T}}
+\begin{document}
+
+\mainmatter              % start of the contributions
+%
+\title{A possibilistic valid-time model}
+%
+%\titlerunning{A Fuzzy Valid-Time Model}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{Jos\'e Enrique Pons \and Christophe Billiet \and Olga Pons Capote \and Guy de Tr\'e}
+%Jeffrey Dean \and David Grove \and Craig Chambers \and Kim~B.~Bruce \and
+%Elsa Bertino}
+%
+\authorrunning{Jos\'e Enrique Pons et al.} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+%\tocauthor{Ivar Ekeland, Roger Temam, Jeffrey Dean, David Grove,
+%Craig Chambers, Kim B. Bruce, and Elisa Bertino}
+%
+\institute{
+Department of Computer Science and Artificial Intelligence \\
+Universidad de Granada \\
+Escuela T\'ecnica Superior de Ingenier\'ia Inform\'atica \\
+C/Periodista Daniel Saucedo Aranda s/n \\
+E-18071 (Granada-Spain)\\
+\email{jpons,opc@decsai.ugr.es}\\ 
+%WWW home page:
+%\texttt{http://users/\homedir iekeland/web/welcome.html}
+%\and
+%Universit\'{e} de Paris-Sud,
+%Laboratoire d'Analyse Num\'{e}rique, B\^{a}timent 425,\\
+%F-91405 Orsay Cedex, France
+\and 
+Department of Telecommunications and Information Processing
+Ghent University
+Sint Pietersniewstraat 41 B-9000, Gent, Belgium.
+\email{Christophe.Billiet,Guy.De.Tre@ugent.be}
+}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+
+\end{abstract}
+
+%
+\section{Introduction}
+\label{sec:Introduction}
+\input{introduction}
+%
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+\input{preliminaries}
+
+
+
+\section{Proposal}
+\label{sec:proposal}
+\input{proposal}
+
+
+%%%%%%%%%%%%%%%%
+%
+% FURTHER RESEARCH WORK
+%
+%%%%%%%%%%%%%%%
+%
+\section{Conclusions and further research work}
+\label{sec:futher-research}
+\input{conclusions}
+%
+
+
+
+
+%
+\section*{Acknowledgements}
+%
+The researchers are supported by the grant BES-2009-013805 within the research project TIN2008-02066: \emph{Fuzzy Temporal Information treatment in relational DBMS}.
+
+
+\bibliographystyle{spmpsci}
+\bibliography{ipmu}
+
+
+
+
+\end{document}
