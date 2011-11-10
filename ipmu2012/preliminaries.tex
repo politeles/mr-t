@@ -1,3 +1,7 @@
+%Introductory text:
+This background section is dedicated to introduce some basic concepts about possibilistic variables, the differences between fuzzy numbers and intervals. The interval evaluation by means of ill-known constraints is explained.
+
+The preliminaries section concludes with a brief introduction to temporal databases.
 
 
 
@@ -81,21 +85,21 @@ The problem of the interval evaluation is explained in \cite{Pon11}: For a crisp
 \min\bigg(\inf_{a<w}1-\pi_{X}(w),\inf_{b>w}1-\pi_{Y}(w)\bigg).
 \end{eqnarray}
 
-\paragraph{Example} Consider the ill-known values $X = \left[5, 2, 8\right]$ and $Y = \left[9, 7, 10 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$  is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure~\ref{fig:3d-possibility} shows a 3D plot of the possibility that an interval $[a,b]$ passes the evaluations specified by the ill-known constraints. Note the triangular form for the resulting possibility distribution since the condition $a \leq b$ holds.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{graphs/3D_possibility.eps}
-\caption{Possibility of evaluation for the interval $[a,b]$.}
-\label{fig:3d-possibility}
-\end{figure}
-The necessity plot is obtained in a similar way and is shown in Figure~\ref{fig:3d-necessity}. Notice that the necessity measure is not normalized because the supports of $X$ and $Y$ overlap.
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.4]{graphs/3D_necessity.eps}
-\caption{Necessity of evaluation for the interval $[a,b]$.}
-\label{fig:3d-necessity}
-\end{figure}
+%\paragraph{Example} Consider the ill-known values $X = \left[5, 2, 8\right]$ and $Y = \left[9, 7, 10 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$  is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure~\ref{fig:3d-possibility} shows a 3D plot of the possibility that an interval $[a,b]$ passes the evaluations specified by the ill-known constraints. Note the triangular form for the resulting possibility distribution since the condition $a \leq b$ holds.
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{graphs/3D_possibility.eps}
+%\caption{Possibility of evaluation for the interval $[a,b]$.}
+%\label{fig:3d-possibility}
+%\end{figure}
+%The necessity plot is obtained in a similar way and is shown in Figure~\ref{fig:3d-necessity}. Notice that the necessity measure is not normalized because the supports of $X$ and $Y$ overlap.
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{graphs/3D_necessity.eps}
+%\caption{Necessity of evaluation for the interval $[a,b]$.}
+%\label{fig:3d-necessity}
+%\end{figure}
 
 
 
