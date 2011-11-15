@@ -16,13 +16,13 @@ The possibility distributions $\pi_X$ and $\pi_Y$ are given in the way of a tria
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[scale=0.2]{graphs/2_triangular.eps}
+%  \includegraphics[scale=0.2]{graphs/2_triangular.eps}
   \caption{Two fuzzy numbers $X$ and $Y$ denoting a Possibilistic Valid-Time Period \emph{PVT}.}
   \label{fig:pvp}
 \end{figure}
 
 \subsection{Storage of valid-time intervals}
-Each database row containing a \emph{PVP} stores it as two triangular possibility distributions. In our approach we propose the representation of that as proposed in the  fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a,Gal98}. In this representation it is also possible to represent not only fuzzy numbers but fuzzy constants (see table \ref{table:relational-representation-pvp}):
+Each database row containing a \emph{PVP} stores it as two triangular possibility distributions. In our approach we propose the representation of that as proposed in the  fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a,Gal98,Gal06}. In this representation it is also possible to represent not only fuzzy numbers but fuzzy constants (see table \ref{table:relational-representation-pvp}):
 
 \begin{itemize}
 \item
@@ -50,9 +50,30 @@ $\left[D,\ a,\ b \right]$ & 3 & $D$ & $D-a$ & $D+b$ \\
 \end{table}
 
 \subsection{Querying ill-known valid-time intervals}
+In order to provide a complete model, we will provide the tools for querying. This allows the user to specify both the preferences and an ill-known valid-time interval in the query. It is important to notice that the possibilistic / fuzzy data stored in the database has a \emph{disjunctive interpretation} (it is said that we have \emph{uncertainty}: the valid-time interval has only one value but, for some reason the value is ill-known). In the query specification, the user is allowed to express \emph{imprecision} or \emph{vagueness} (this is referred as a \emph{conjunctive interpretation}).
+In this subsection we will define the query specification, then the evaluation of the query and finally the ranking for the query.
 
 \subsubsection{Query specification}
+A query in our framework has two different parts: the first one is the query specification for regular attributes. The second part is the temporal specification. 
+
+\begin{definition}
+A query $\tilde Q$ is specified by:
+\begin{equation}
+\tilde Q = \left( Q^{time}, Q \right)
+\end{equation}
+\end{definition}
+Where $Q$ are the (possibly fuzzy) preferences of the user  and $Q^{time}$ is the temporal part specified by a possibilistic valid-time period,\emph{PVP}.
+
+%explain the sematics of vt.
 
 \subsubsection{Query evaluation}
+Fuzzy querying of regular (relational) databases, query satisfaction modelling is a matter of degree. Usually, criteria satisfaction is modelled by means of a satisfaction degree $s \in \left[ 0, 1\right]$. In the model, every record $r$ contains a \emph{PVP} $V_r$ to model the valid-time for that record.
+
+The query evaluation method is the following:
+\begin{itemize}
+\item
+For each record $r$ in the database, the preferences expressed in $Q$ are evaluated in the unit interval.
+\end{itemize}
+
 
 \subsubsection{Ranking}
