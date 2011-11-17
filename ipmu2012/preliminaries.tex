@@ -31,7 +31,7 @@ In this work, the interpretation is as follows. The possibility of an event expr
 Information on the possibility of distinct elements of the universe of discourse $\Omega$ can now be given by a \emph{possibility distribution} $\pi$ on $\Omega$, defined by:
 
 \begin{definition}
-Consider a possibility measure $\Pi$ on $\Omega$. A \emph{possibility distribution} $\pi$ underlying the possibility measure $\Pi$ is then a function defined by:
+Consider a possibility measure $\Pi$ on $\Omega$. A \emph{possibility distribution} $\pi$ on $\Omega$ underlying the possibility measure $\Pi$ is then a function defined by:
 	\begin{align}
 	\pi : \Omega \rightarrow \left[0, 1\right] : \pi(u) = \Pi(\{u\})
 	\end{align}
@@ -55,17 +55,27 @@ Possibility and necessity measures are dual in the sense that:
 Regarding interpretation, the above can be seen as: the degree to which an event is necessary is the degree to which every other possible event is not plausible.
 
 \subsection{\label{subsec:possibilistic-variables}Possibilistic Variables}
-A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The possibility distribution $\pi_X$ gives the available knowledge about the value that $X$ takes. For each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
+A \emph{possibilistic variable} can intuitively be seen as a variable for which the possible values are described by its possibility distribution\cite{Pon11}.
 
-It is important to understand the difference between the following two concepts:
-\begin{itemize}
-\item
-A \emph{possibilistic variable} $X$ is bounded to take only one value , but this value is not known due to incomplete knowledge. 
-\item
-An \emph{ill-known set}~\cite{Dubois88b}: a possibilistic variable defined over the universe $\Pow(U)$.
-\end{itemize}
+\begin{definition}
+A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The possibility distribution $\pi_X$ on $U$ gives the available knowledge about the value that $X$ takes: for each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
+\end{definition}
 
-Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
+The exact value a possibilistic variable takes, which is (partially) unknown, is called an \emph{ill-known value} in this work\cite{Dubois88b}.
+
+When a possibilistic variable is defined on the powerset $\Pow(R)$ of some universe $R$, the unique value the variable takes will be a crisp set. In this case, the exact set is off course (partially) unknown, but the available knowledge is given in the form of a possibility distribution on the powerset $\Pow(R)$. This exact value (a crisp set) the variable takes, is now called an \emph{ill-known set}\cite{Dubois88b}.
+
+In this work, an ill-known set will be defined via its start and end point, which will be ill-known values. The correspondences and transitions between these two representations are part of the authors current research.
+
+%It is important to understand the difference between the following two concepts:
+%\begin{itemize}
+%\item
+%A \emph{possibilistic variable} $X$ is bounded to take only one value , but this value is not known due to incomplete knowledge. 
+%\item
+%An \emph{ill-known set}~\cite{Dubois88b}: a possibilistic variable defined over the universe $\Pow(U)$.
+%\end{itemize}
+
+%Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
 
 
 \subsection{\label{subsec:fuzzy-numbers}Fuzzy numbers and fuzzy intervals}
