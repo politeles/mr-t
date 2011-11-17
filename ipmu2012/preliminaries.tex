@@ -63,9 +63,9 @@ A possibilistic variable $X$ over a universe $U$ is defined as a variable taking
 
 The exact value a possibilistic variable takes, which is (partially) unknown, is called an \emph{ill-known value} in this work\cite{Dubois88b}.
 
-When a possibilistic variable is defined on the powerset $\Pow(R)$ of some universe $R$, the unique value the variable takes will be a crisp set. In this case, the exact set is off course (partially) unknown, but the available knowledge is given in the form of a possibility distribution on the powerset $\Pow(R)$. This exact value (a crisp set) the variable takes, is now called an \emph{ill-known set}\cite{Dubois88b}.
+When a possibilistic variable is defined on the powerset $\Pow(R)$ of some universe $R$, the unique value the variable takes will be a crisp set. In this case, the exact set is off course (partially) unknown, but the available knowledge is given in the form of a possibility distribution on the powerset $\Pow(R)$, which describes the possibility of each crisp subset of $R$ to be the value the variable takes. This exact value (a crisp set) the variable takes, is now called an \emph{ill-known set}\cite{Dubois88b}.
 
-In this work, an ill-known set will be defined via its start and end point, which will be ill-known values. The correspondences and transitions between these two representations are part of the authors current research.
+In this work, an ill-known set will be defined and represented via its start and end point, which will be ill-known values. The correspondences and transitions between these two representations are part of the authors current research.
 
 %It is important to understand the difference between the following two concepts:
 %\begin{itemize}
@@ -79,39 +79,22 @@ In this work, an ill-known set will be defined via its start and end point, whic
 
 
 \subsection{\label{subsec:fuzzy-numbers}Fuzzy numbers and fuzzy intervals}
-Dubois and Prade~\cite{Dubois1983} proposed the following definition of \emph{fuzzy interval}.
+Among others, Dubois and Prade~\cite{Dubois1983} use the following definition of a \emph{fuzzy interval}.
 \begin{definition}
-A fuzzy interval is a fuzzy set $M$ on the set of real numbers $\mathbb{R}$ such that:
+A fuzzy interval is a fuzzy set $M$, defined by a membership function $\mu_{M}$, on the set of real numbers $\mathbb{R}$ such that:
 \begin{eqnarray}
-\forall (u,v)\in\mathbb{R}^2:&\\
-\nonumber
-\forall w \in [u,v]:&\mu_M(w) \geq\min(\mu_M(u),\mu_M(v))  \\
-\exists m \in \mathbb{R}:& \mu_M(m)=1 
+\mu_{M} : & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\! \mathbb{R} \rightarrow \left[0,1\right] \nonumber \\ 
+\forall (u,v)\in\mathbb{R}^2: \forall w \in [u,v]:&\mu_M(w) \geq\min(\mu_M(u),\mu_M(v))  \\
+\exists m \in \mathbb{R} : & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\! \mu_M(m)=1 
 \end{eqnarray}
 \end{definition}
-If $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}, instead of a \emph{fuzzy interval}. In other words, if the core of a fuzzy interval is a singleton, it can be seen as a fuzzy number. In their work, Dubois and Prade propose four different functions (two possibility and two necessity functions) to asses the position of a fuzzy number N relative to  a fuzzy number M taken as a reference.
+If this modal value $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}, instead of a \emph{fuzzy interval}. In other words, if the core of a fuzzy interval is a singleton, it is referred to as a fuzzy number.
 
-The most convenient representation for the membership function of a fuzzy number is a triangular function. The membership function $\mu_M$ for the fuzzy set $M$ has also the properties of convexity and normalization. Three values represent a triangular function (see Figure~\ref{fig:triangular}):
-\begin{itemize}
-\item
-$D$ is the singleton value in the core of $\mu_M(x)$.
-\item
-$D-a$ is the lower value in the support of $\mu_M(x)$. 
-\item
-$D+b$ is the upper value in the support of $\mu_M(x)$.
-\end{itemize}
-Note that the values $a$ and $b$ are values in the underlying ordered domain. E.g. $(a,b) \in \mathbb{R}^2$. The notation for a triangular function adopted here is $[D,a,b]$.
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.4]{graphs/triangular.eps}
-  \caption{Triangular function.}
-  \label{fig:triangular}
-\end{figure}
-
-The most simple representation for the membership function of a fuzzy interval is a trapezoidal function. This membership function $\mu_T$ for the fuzzy interval $T$ is convex and normalized. Four values represent a trapezoidal membership function (figure  \ref{fig:trapezoidal}): $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. The membership function is given by:
+A simple form of the membership function of a fuzzy interval is a trapezoidal function. It can be shown that such a membership function $\mu_T$ for a fuzzy interval $T$ is convex and normalized. A visualization is given in figure \ref{fig:trapezoidal}. Four reel values, denoted $\alpha$, $\beta$, $\gamma$ and $\delta$ and chosen as in figure \ref{fig:trapezoidal}, suffice to represent a trapezoidal membership function of a fuzzy interval. In this work, a fuzzy interval defined as such will be noted as $\left[\alpha, \beta, \gamma, \delta\right]$. The corresponding membership function definition for this $\mu_T$ is then given by:
 
 \begin{align}
-\mu_T(x)
+\mu_T : & \quad \mathbb{R} \rightarrow \left[0,1\right] \\
+ : & \quad x \rightarrow
 \begin{cases}
 1 & \mbox{ if } x \in [\beta,\gamma] \\
 0 & \mbox{ if } x > \delta \vee x < \alpha \\
@@ -123,11 +106,29 @@ The most simple representation for the membership function of a fuzzy interval i
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.4]{graphs/trapezoidalDistribution.eps}
-  \caption{Trapezoidal distribution.}
+  \caption{Trapezoidal membership function}
   \label{fig:trapezoidal}
 \end{figure}
 
-\subsubsection{Set evaluation by ill-known constraints}
+The most convenient form of the membership function of a fuzzy number is a triangular function. It can be shown that such a membership function $\mu_M$ for a fuzzy number $M$ is convex and normalized. A visualization is given in figure \ref{fig:triangular}. Three reel values, denoted $a$, $b$ and $D$, suffice to represent a triangular membership function of a fuzzy number.
+\begin{itemize}
+\item
+$D$ denotes the single value in the core of $M$
+\item
+$D-a$ is then $\inf \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
+\item
+$D+b$ is then $\sup \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
+\end{itemize}
+In this work, a fuzzy number defined as such will be noted as $\left[D, a, b \right]$.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.4]{graphs/triangular.eps}
+  \caption{Triangular membership function.}
+  \label{fig:triangular}
+\end{figure}
+
+
+%\subsubsection{Set evaluation by ill-known constraints}
 
 \subsubsection{Interval evaluation by ill-known constraints}
 The problem of the interval evaluation is explained in \cite{Pon11}: For a crisp interval $I = \left[ a, b \right]$, we want to know if all points in this interval reside between the boundaries of the ill-known interval $\left[ X , Y \right]$, where $X,Y$ are ill-known values on the set of real numbers $\mathbb{R}$, and $\lambda$ is the evaluation function.
