@@ -77,8 +77,14 @@ In this work, an ill-known set will be defined and represented via its start and
 
 %Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
 
+A specific application of possibilistic variables is obtained when the universe under consideration is the set of boolean values $\mathbb{B}$ = $\{T,F\}$. Indeed, any boolean propositional variable $p$ takes just one value in $\mathbb{B}$. If the knowledge on which value this variable $p$ will take is given by a possibility distribution $\pi_p$, the variable can be seen as a possibilistic variable. As the interest lies with the case where the proposition holds, the possibility and necessity that $p$ = $T$ (the proposition holds) demands most attention. This possibility and necessity is noted here as:
+\begin{align}
+Pos(p) & = \pi_p(T) \label{propholdsposs} \\
+Nec(p) & = 1-\pi_p(F) \label{propholdsnecc}
+\end{align}
+Here, notation \ref{propholdsposs} denotes the possibility that $p$ = $T$ and the proposition holds, notation \ref{propholdsnecc} denotes the necessity that $p$ = $T$ and the proposition holds.
 
-\subsection{\label{subsec:fuzzy-numbers}Fuzzy numbers and fuzzy intervals}
+\subsection{\label{subsec:fuzzy-numbers}Fuzzy Numbers and Fuzzy Intervals}
 Among others, Dubois and Prade~\cite{Dubois1983} use the following definition of a \emph{fuzzy interval}.
 \begin{definition}
 A fuzzy interval is a fuzzy set $M$, defined by a membership function $\mu_{M}$, on the set of real numbers $\mathbb{R}$ such that:
@@ -130,7 +136,7 @@ In this work, a fuzzy number defined as such will be noted as $\left[D, a, b \ri
 
 %\subsubsection{Set evaluation by ill-known constraints}
 
-\subsubsection{Interval evaluation by ill-known constraints}
+\subsubsection{Interval Evaluation by Ill-known Constraints}
 The problem of the interval evaluation is explained in \cite{Pon11}: For a crisp interval $I = \left[ a, b \right]$, we want to know if all points in this interval reside between the boundaries of the ill-known interval $\left[ X , Y \right]$, where $X,Y$ are ill-known values on the set of real numbers $\mathbb{R}$, and $\lambda$ is the evaluation function.
 
 We assume that $X$ specifies the lower bound and $Y$ the upper bound for a given interval, we want to known whether all points in the interval are larger than or equal to $X$ and smaller than or equal to $Y$. Therefore, we consider two ill-known constraints:
@@ -171,7 +177,7 @@ The following expressions compute the possibility and the necessity:
 
 
 
-\subsection{Temporal databases}
+\subsection{Temporal Databases}
 %In this section, the proposed reasoning is applied to the specific context of intervals on the real line. This setting is of specific interest in the context of fuzzy temporal databases.
 A temporal database \cite{Dyreson1994} is a database that manages some aspects of time in its schema. A \textbf{chronon} is the shortest duration of time supported by the database. The time can be represented either as points or intervals \cite{655777}. Fuzzy temporal models \cite{schockaert08} are proposed when the time points or intervals are not precisely known. There are proposals for the  fuzzyfication of the time point and the fuzzyfication of the time interval.\\
 Allen \cite{Allen83} studied the comparison between two crisp time intervals. For fuzzy intervals, several proposals \cite{ohlbach04,nagypal03,schockaert08} have been done.
