@@ -1,0 +1,482 @@
+\documentclass[twoside,twocolumn,a4paper]{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage{estylf_en}
+
+% In order to work with mathematical environments (propositions, theorems, etc.), the following packages are suggested:
+%\usepackage{amsmath,amsthm}
+\usepackage{amsmath, amsthm}
+\usepackage{amsfonts}
+
+\hyphenation{pro-per-ties}
+\hyphenation{ge-ne-ral-ly}
+\hyphenation{pre-fe-ren-ces}
+\hyphenation{u-sing}
+\hyphenation{pu-nish-ment}
+
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\N}{\operatorname{N}}
+\newcommand{\bool}{\operatorname*{\mathcal{B}}}
+\newcommand{\Pos}{\operatorname{Pos}}
+\newcommand{\Nec}{\operatorname{Nec}}
+\newcommand{\T}{\mathcal{T}}
+
+\begin{document}
+
+\title{Possibilistic evaluation of fuzzy temporal intervals}
+
+%*******************************************************
+% REMARKS ABOUT THE AUTHORS
+%*******************************************************
+% In order to write the name and surname of an author in the the same line, the symbol ~ will be required.
+%*******************************************************
+% If all the authors share the same affiliation, the following commands are suggested to avoid the superscript:
+% \author{Name1~Surname1}
+% \address{Address1}{autor1@e-mail1.com}
+%*******************************************************
+
+\author[1]{Jos\'e Enrique~Pons}
+\author[2]{Antoon~Bronselaer}
+\author[1]{Olga~Pons}
+\author[2]{Guy~De Tr\'e}
+\address[1]{Department of Computer Science and Artificial Intelligence,University of Granada, Spain}{\{jpons,opc\}@decsai.ugr.es}
+\address[2]{Department of Telecommunications and Information Processing, Ghent University, Belgium}{\{Antoon.Bronselaer,Guy.De.Tre\}@telin.ugent.be}
+
+\maketitle
+
+\begin{abstract}
+Possibility theory tries to quantify the uncertainty caused by incomplete information. A specific case of incomplete information is that of ill-known temporal intervals. The study of these fuzzy intervals is of particular interest in temporal database research. In order to optimize the storage of fuzzy temporal intervals, some transformations have been proposed. In this paper we analyze the possibilistic evaluation of the ill-known temporal intervals and the proposed transformations. It is shown how the reasoning behind the transformations implies a possibilistic information lost. 
+
+\textbf{Keywords:} Possibility theory, ill-known values, ill-known sets, intervals, temporal databases.\vspace{9mm}
+\end{abstract}
+
+\section{INTRODUCTION}
+
+The connection of possibility theory \cite{Zadeh78},\cite{Shackle61},\cite{Gaines75} and fuzzy sets has been studied among others by Zadeh \cite{Zadeh65}. This connection establishes two different natures for a fuzzy set \cite{Dubois97}:
+\begin{itemize}
+\item
+\textbf{Conjunctive nature}: The fuzzyfication of a regular set. This interpretation corresponds with the following two semantics: \textit{Degree of preference} and \textit{degree of similarity}.
+\item
+\textbf{Disjunctive nature}: In this case, the disjunctive nature indicates a description of incomplete knowledge. This interpretation corresponds with the semantics for the \textit{degree of uncertainty}.
+\end{itemize}
+
+The disjunctive nature can be seen as an additional connection between fuzzy set theory and possibility theory. Dubois and Prade \cite{Dubois88b} have studied the problem of inferring uncertainty about sets from uncertainty about values. They explain how the incomplete knowledge about a set can be represented as a possibility distribution over a universe $\Pow \left(U \right)$, the power set over the universe $U$. The main drawback of the approach is the large overhead that such a distribution introduces.  A mechanism for the propagation of uncertainty about set elements towards uncertainty about sets is introduced in \textit{'Possibilistic evaluation of sets'} \cite{Pon11}.
+
+There are several proposals in the literature for inferring uncertainty about sets from uncertainty about values. It is of particular interest for fuzzy temporal databases, the application on temporal intervals. The transformation from two ill-known temporal points to a ill-known set has been discussed in \cite{Garrido2009}. In this work we will analyze the major pitfalls of these approaches and the benefit of using the mechanism proposed in \cite{Pon11}.
+
+The paper is organized as follows. In Section \ref{sec:preliminaries}, some preliminaries and concepts about the possibilistic evaluation framework and the temporal databases are presented. The proposal for interval evaluation is done in Section \ref{sec:interval-eval}. In Section \ref{sec:analysis}, the analysis among the different transformations is done. Finally, Section \ref{sec:conclusions} presents the main conclusions and some lines for the future work in this research.
+
+
+\section{\label{sec:preliminaries}PRELIMINARIES}
+In this section we will introduce some basic concepts. First of all, an introduction to possibility theory is explained. Then, the concepts of fuzzy numbers and fuzzy intervals introduced by Dubois and Prade \cite{Dubois1983} are discussed. Finally, a brief introduction to temporal databases is done.
+
+\subsection{\label{subsec:possibilistic-variables}Possibilistic variables}
+A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The possibility distribution $\pi_X$ gives the available knowledge about the value that $X$ takes. For each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
+
+It is important to understand the difference between the following two concepts:
+\begin{itemize}
+\item
+A \emph{possibilistic variable} $X$ is bounded to take only one value , but this value is not known due to incomplete knowledge. 
+\item
+An \emph{ill-known set}~\cite{Dubois88b}: a possibilistic variable defined over the universe $\Pow(U)$.
+\end{itemize}
+
+Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
+
+
+\subsection{\label{subsec:fuzzy-numbers}Fuzzy numbers and fuzzy intervals}
+Dubois and Prade~\cite{Dubois1983} proposed the following definition of \emph{fuzzy interval}.
+%\begin{definition}
+A fuzzy interval is a fuzzy set $M$ on the set of real numbers $\mathbb{R}$ such that:
+\begin{eqnarray}
+\forall (u,v)\in\mathbb{R}^2:&\\
+\nonumber
+\forall w \in [u,v]:&\mu_M(w) \geq\min(\mu_M(u),\mu_M(v))  \\
+\exists m \in \mathbb{R}:& \mu_M(m)=1 
+\end{eqnarray}
+%\end{definition}
+If $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}, instead of a \emph{fuzzy interval}. In other words, if the core of a fuzzy interval is a singleton, it can be seen as a fuzzy number. In their work, Dubois and Prade propose four different functions (two possibility and two necessity functions) to asses the position of a fuzzy number N relative to  a fuzzy number M taken as a reference.
+
+The most convenient representation for the membership function of a fuzzy number is a triangular function. The membership function $\mu_M$ for the fuzzy set $M$ has also the properties of convexity and normalization. Three values represent a triangular function (see Figure~\ref{fig:triangular}):
+\begin{itemize}
+\item
+$D$ is the singleton value in the core of $\mu_M(x)$.
+\item
+$D-a$ is the lower value in the support of $\mu_M(x)$. 
+\item
+$D+b$ is the upper value in the support of $\mu_M(x)$.
+\end{itemize}
+Note that the values $a$ and $b$ are values in the underlying ordered domain. E.g. $(a,b) \in \mathbb{R}^2$. The notation for a triangular function adopted here is $[D,a,b]$.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.4]{graphs/triangular.pdf}
+  \caption{Triangular function.}
+  \label{fig:triangular}
+\end{figure}
+
+The most simple representation for the membership function of a fuzzy interval is a trapezoidal function. This membership function $\mu_T$ for the fuzzy interval $T$ is convex and normalized. Four values represent a trapezoidal membership function (figure  \ref{fig:trapezoidal}): $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. The membership function is given by:
+
+\begin{align}
+\mu_T(x)
+\begin{cases}
+1 & \mbox{ if } x \in [\beta,\gamma] \\
+0 & \mbox{ if } x > \delta \vee x < \alpha \\
+\frac{x-\alpha}{\beta - \alpha} & \mbox{ if } x \in [\alpha,\beta[ \\
+\frac{\delta -x}{\delta - \gamma} & \mbox{ if } x \in ]\gamma,\delta] \\
+\end{cases}
+\end{align}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.4]{graphs/trapezoidalDistribution.pdf}
+  \caption{Trapezoidal distribution.}
+  \label{fig:trapezoidal}
+\end{figure}
+
+
+
+\subsection{\label{subsec:temporal}Temporal databases}
+%In this section, the proposed reasoning is applied to the specific context of intervals on the real line. This setting is of specific interest in the context of fuzzy temporal databases.
+A temporal database \cite{Dyreson1994} is a database that manages some aspects of time in its schema. A \textbf{chronon} is the shortest duration of time supported by the database. The time can be represented either as points or intervals \cite{655777}. Fuzzy temporal models \cite{4481150} are proposed when the time points or intervals are not precisely known. There are proposals for the  fuzzyfication of the time point \cite{Dubois89} and the fuzzyfication of the time interval \cite{Garrido2009}.\\
+Allen \cite{Allen:1983:MKT:182.358434} studied the comparison between two crisp time intervals. For fuzzy intervals, several proposals \cite{4481150}, \cite{springerlink:10.1007/978-3-540-39964-3_57},\cite{10.1109/TIME.2004.1314418} have been done.
+
+
+%Time granularity is also associated with the representation of the time. A granularity is the result of partitioning on the set of chronons. The conversion among granularities is a common issue within temporal databases \cite{Lin97efficientconversion}. Granularity is the basis of some systems \cite{Cru97},\cite{624013}.
+
+
+Despite of user-defined time (an uninterpreted attribute; supported in the standard SQL2 \cite{Mel93}), there are 3 types of time in a temporal database:
+
+\begin{itemize}
+	\item
+	\textbf{Transaction time}: The time when the fact is stored in the database.
+	\item
+	\textbf{Valid time}: The time when the fact is true in the modelled reality.
+	\item
+	\textbf{Decision time} \cite{Nascimento95decisiontime}: The time when an event was decided to happen. 
+	\end{itemize}
+	
+	 The  database model can be then classified into: transaction time \cite{Ston87},\cite{Jensen:1991:IIM:627283.627484}, Valid time, bi-temporal \cite{Snodgrass:1984:TQL:588011.588041}(both valid and transaction time) or tri-temporal \cite{Nascimento95decisiontime} (valid, transaction and decision time).
+
+Fuzzy temporal models \cite{4481150} deal with time points \cite{Dubois89} or intervals \cite{Garrido2009} that are ill-known. Some fuzzy temporal models assume that the time stored in the database is an interval. The temporal interval is represented by two ill-known time points: $X$  an ill-known starting point and $Y$ an ill-known ending point. The interval $\left[X,Y\right]$ is not a fuzzy interval but an ill-known interval: it is a crisp interval but it is partially unknown which values are in this interval.
+
+
+
+% In such databases, points in time can be ill-known, i.e. the starting, the ending or both points are ill-known. a point in time is modelled as an ill-known value. When two such ill-known points are given, an interesting problem is the inference of uncertainty about the interval that is enclosed by these two ill-known points. In the proposed framework, this problem can be solved by evaluating an interval against two ill-known constraints, where the binary relations are ordering relations on the set of real numbers.
+
+\section{\label{sec:interval-eval}INTERVAL EVALUATION BY ILL-KNOWN CONSTRAINTS}
+The problem of the interval evaluation is explained in \cite{Pon11}: For a crisp interval $I = \left[ a, b \right]$, we want to know if all points in this interval reside between the boundaries of the ill-known interval $\left[ X , Y \right]$, where $X,Y$ are ill-known values on the set of real numbers $\mathbb{R}$, and $\lambda$ is the evaluation function. The following expressions compute the possibility and the necessity: 
+
+\begin{eqnarray}
+\label{eq:interval-pos}
+\Pos\left(\lambda([a,b])\right)=\\
+\nonumber
+\min\bigg(\sup_{a\geq w}\pi_{X}(w),\sup_{b\leq w}\pi_{Y}(w)\bigg)\\
+\label{eq:interval-nec}
+\Nec\left(\lambda([a,b])\right)=\\
+\nonumber
+\min\bigg(\inf_{a<w}1-\pi_{X}(w),\inf_{b>w}1-\pi_{Y}(w)\bigg).
+\end{eqnarray}
+
+\paragraph{Example} Consider the ill-known values $X = \left[5, 2, 8\right]$ and $Y = \left[9, 7, 10 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$  is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure~\ref{fig:3d-possibility} shows a 3D plot of the possibility that an interval $[a,b]$ passes the evaluations specified by the ill-known constraints. Note the triangular form for the resulting possibility distribution since the condition $a \leq b$ holds.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{graphs/3D_possibility.pdf}
+\caption{Possibility of evaluation for the interval $[a,b]$.}
+\label{fig:3d-possibility}
+\end{figure}
+The necessity plot is obtained in a similar way and is shown in Figure~\ref{fig:3d-necessity}. Notice that the necessity measure is not normalized because the supports of $X$ and $Y$ overlap.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{graphs/3D_necessity.pdf}
+\caption{Necessity of evaluation for the interval $[a,b]$.}
+\label{fig:3d-necessity}
+\end{figure}
+
+
+\section{\label{sec:analysis}ANALYSIS OF PROPOSED TRANSFORMATIONS}
+
+There are several proposals to transform two fuzzy numbers that represent an ill-known interval into one fuzzy interval. This reasoning is however not consistent with possibility theory. We provide several arguments to prove this, which have been previously reasoned by Dubois and Prade \cite{Dubois88b}:
+
+\begin{enumerate}
+\item
+The fuzzy set given by the two fuzzy numbers is conceptually different from a fuzzy set represented by the fuzzy interval. The fuzzy set given by the two fuzzy numbers belong to $\Pow(\mathbb{R})$ while the fuzzy interval obtained after the transformation is not a possibility distribution on $\Pow(\mathbb{R})$  but on $\mathbb{R}$.
+\item
+In some cases, (like in the convex hull transformation) because of the underlying ordered domain, the membership function provided for the fuzzy interval preserves the possibility. However, the necessity is not preserved at all.
+\end{enumerate}
+
+In the next subsections we will analyze the two major approaches: The transformation that preserves the imprecision and the convex hull. 
+
+
+
+
+\subsection{\label{subsubsec:transf-pres-imp}Transformation that preserves the imprecision}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.2]{graphs/preservingImprecision.pdf}
+  \caption{Transformation of two fuzzy numbers into one fuzzy interval preserving the amount of imprecision.}
+  \label{fig:transf-pres-imp}
+\end{figure}
+This transformation has been proposed in \cite{Garrido2009}. They assume that the imprecision of a fuzzy set is its area. Therefore the transformation consists of preserving the area of both fuzzy numbers that compose the interval. The transformation is performed by means of geometrical computations. The starting point of the fuzzy temporal interval is given by the fuzzy number $S = [d_s,a_s,b_s]$ respectively, the ending point of the fuzzy interval is given by $E = [d_e,a_e,b_e]$ (see Figure \ref{fig:transf-pres-imp}).
+
+The transformation defines a fuzzy interval $T$ by means of a trapezoidal membership function. In order to define the membership function for the fuzzy interval, the following two equalities between the areas from the fuzzy numbers and the fuzzy interval are forced: $S1=S2$ and $S3=S4$. The calculation for the first equality, based on triangle equivalence is:
+
+\begin{equation}
+\label{eq:preserving-imprecision}
+S1=S2 \Rightarrow \frac{\left(d_s+b_s\right)-\left(d_s-a_s\right)}{2}
+\end{equation}        			
+The calculation for the right side ($S3=S4$) is analogous.
+This transformation is specially widely used when transforming fuzzy time points into fuzzy intervals. The reasoning is the following: the core of the transformed fuzzy interval corresponds with the time when the fact happened. The left and right slopes of the possibility distribution show the imprecision around the starting and the ending times. 
+
+The membership function for this fuzzy interval T is represented by the trapezoid $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$:
+
+\begin{align}
+\nonumber
+\alpha & =  d_s - a_s \\
+\nonumber
+\beta & = d_s + b_s \\
+\nonumber
+\gamma &= d_e - a_e \\
+\nonumber
+\delta &= d_e + b_e 
+\end{align}
+
+Note that when the supports of the two fuzzy numbers overlap, this transformation makes no sense.
+
+%\paragraph{Comparison}
+%In this subsection we will study the knowledge we have about the interval $[u,v]$ w.r.t. the fuzzy interval $T$  which is built preserving the imprecision as explained in Section \ref{subsubsec:transf-pres-imp}. Note that this approach is only valid when the supports of the original fuzzy numbers $X$ and $Y$ are disjoint (see Example \ref{ex:preserving-imprecision} below). Now, the knowledge we have about a number $u$ w.r.t. the transformated fuzzy interval $T$ is:
+%\begin{eqnarray}
+%\Pos\left(u\in T\right) &=& \mu_{T}\left(u\right) \\
+%\Nec\left(u\in T\right) &=& 1 - \mu_{T}\left(u\right).
+%\end{eqnarray}
+%Therefore, the knowledge about an interval $[u,v]$ w.r.t. $T$ is:
+%\begin{eqnarray}
+%\nonumber
+%\Pos\left([u,v]=T\right) &= \min \left(\Pos\left(u\in T\right),\Pos\left(v\in T\right)\right) &= \min \left(\mu_{T}\left(u\right),\mu_{T}\left(v\right)\right) \\
+%\nonumber
+%\Nec\left([u,v]=T\right) &= \min \left(\Nec\left(u\in T\right),\Nec\left(v\in T\right)\right) &= \min \left(1 - \mu_{T}\left(\overline{u},1 - \mu_{T}\left(\overline{v}\right)\right)\right)
+%\end{eqnarray}
+
+
+%\begin{example}
+%\label{ex:preserving-imprecision}
+\paragraph{Example}
+In this example we are going to transform the two ill-known points $X= \left[5, 3, 3 \right]$ and $Y= \left[9, 2, 1 \right]$ into one fuzzy interval $T$ using the preserving the imprecision approach. Again, the two fuzzy numbers are represented by means of two triangular possibility distributions:
+
+Then, following the equation presented in \eqref{eq:preserving-imprecision} we obtain the following trapezoidal shape:
+\begin{equation}
+\mu_{T}\left(x\right) = [d_s-a_s,d_s+b_s,d_e-a_e,d_e+b_e] = [2,8,7,10]
+\end{equation}
+This construction make no sense when the supports of the fuzzy numbers are disjoint. It is easy to build a rational membership function just by ordering the elements in the representation (e.g. $[2,7,8,10]$) but then, the amount of imprecision is not preserved at all. 
+%\end{example}
+
+
+\subsection{\label{subsubsec:trans-convex-hull}Transformation based on the convex hull}
+The transformation based on the convex hull is more intuitive than the previous one. The transformation builds a trapezoidal possibility distribution with the left slope equal to the left slope of the starting fuzzy number (in the graphic, from $d_s-a_s$ to $d_s$) , the core equal to the interval $[d_s,d_e]$ and the right slope equal to the right slope of the ending fuzzy number (from $d_e$ to $d_e+b_e$). The interpretation of this convex hull is the ``most possible'' starting point and the ``most possible'' ending point. Figure \ref{fig:convexHull} shows the resulting transformation.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.4]{graphs/convexHull.pdf}
+  \caption{Transformation of two fuzzy numbers into one fuzzy interval with the convex hull approach.}
+  \label{fig:convexHull}
+\end{figure}
+
+In this approach, the trapezoidal membership function ($\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$) is built in a different way:
+
+\begin{align}
+\nonumber
+\alpha & =  d_s - a_s \\
+\nonumber
+\beta & = d_s \\
+\nonumber
+\gamma &= d_e  \\
+\nonumber
+\delta &= d_e + b_e 
+\end{align}
+%\paragraph{Comparison}
+%Now, we will compare the knowledge we have about the interval $[u,v]$ w.r.t. the fuzzy interval $T$, which is the result of the convex hull transformation between the two fuzzy numbers $X$ and $Y$. The membership degree for the convex hull is given by:
+
+%\begin{align}
+%\label{eq:ch-possibility}
+%\Pos\left([u,v]=T\right) &= \Pos\left(p^{\left(1\right)}\right) \cap \Pos\left(p^{\left(4\right)}\right) \\ 
+%&= \min \left( \sup_{w \leq d}\ \mu_X\left(w\right) , \sup_{w \geq d}\ \mu_Y\left(w\right)\right)
+%\end{align}
+
+%The necessity measure for the convex hull is not consistent with the necessity measure for the individual fuzzy numbers $X$ and $Y$. This transformation results in an information lost.
+
+%The necessity measures for the following predicates:
+
+%\begin{align}
+%\Nec\left(p^{\left(1\right)}\right) &=  \inf_{w \geq d} 1 - \mu_T\left(w\right) \\
+%\Nec\left(p^{\left(4\right)}\right) &=  \inf_{w \leq d} 1 - \mu_T\left(w\right)
+%\end{align}
+
+%Therefore the necessity for the interval $[u,v]$ to be inside the fuzzy interval $T$ is:
+
+%\begin{align}
+%\label{eq:ch-necessity}
+%\Nec\left([u,v]=T\right) &= \min \left(\Nec\left(p^{\left(1\right)}\right), p^{\left(4\right)}\right) \\
+%& \min \left(\inf_{w \geq d} 1 - \mu_T\left(w\right),inf_{w \leq d} 1 - \mu_T\left(w\right)\right)
+%\end{align}
+
+%\begin{example}
+\paragraph{Example}
+In this example we are going to build the convex hull for the two ill-known starting and ending points $X= \left[5, 3, 3\right]$ and $Y = \left[9, 2, 1\right]$.
+
+
+\begin{figure}[h!]
+  \centering
+ % \includegraphics[scale=0.2]{graphs/convexHull/convexHull.pdf}
+ \input{scripts/convexhull.tex}
+  \caption{Construction of the convex hull $T$ w.r.t the ill-known values $X$ and $Y$.}
+  \label{fig:convex-hull-T}
+\end{figure}
+
+
+The convex hull for the fuzzy numbers $X$ and $Y$, represented by means of two triangular possibility distributions results in a trapezoidal possibility distribution with membership function $\mu_T(x)$ (see Figure \ref{fig:convex-hull-T}), represented by $[2,5,9,10]$.
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.2]{graphs/convexHull/possAfterBefore.eps}
+%  \caption{Possibility distributions for  both $u$ possibly greater or equal to $T$ and $u$ possibly smaller or equal to $T$.}
+%  \label{fig:convex-hull-pos}
+%\end{figure}
+
+%\begin{align}
+%\label{eq:ch-possibly-greater}
+%\Pos\left(u \geq T\right) & = \sup_{d \leq u} \mu_{T}\left(d\right)  = [2,5,9,+\infty] \\
+%\label{eq:ch-possibly-smaller}
+%\Pos\left(u \leq T\right) & = \sup_{d \geq u} \mu_{T}\left(d\right)  = [-\infty,5,9,10] 
+%\end{align}
+
+%Respectively, the necessity mesaures for a point $u$ w.r.t. the convex hull $T$ are the following (Figure \ref{fig:convex-hull-nec}):
+
+%\begin{align}
+%\Nec\left(u \geq T\right) &=  1 - \Pos\left(u \geq T\right) = 1 - \sup_{d \geq u} \mu_{T}\left(d\right) = [9,10,+\infty,+\infty] \\ 
+%\Nec\left(u \leq T\right) & = 1 - \Pos\left(u \geq T\right)  = \sup_{d \leq u} \mu_{T}\left(d\right)  = [-\infty,-\infty, 2,5]
+%\end{align}
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.2]{graphs/convexHull/necessity.eps}
+%  \caption{Necessity distributions for both $u$ is necessarily greater or equal to $T$ and $u$ is necessarily smaller or equal to $T$.}
+%  \label{fig:convex-hull-nec}
+%\end{figure}
+
+The membership about an interval $[u,v]$ w.r.t the convex hull $T$ is given by:
+
+\begin{equation}
+\label{eq:membership-ch}
+\mu_T([u,v]) = \min \left( \mu_T\left(u\right), \mu_T\left(v\right)\right)
+\end{equation}
+
+
+Figure \ref{fig:ch-3d-possibility} shows the 3D plot of the membership function for any interval $[u,v]$ w.r.t. the convex hull $T$ (equation \eqref{eq:membership-ch}). Note that figure Figure \ref{fig:ch-3d-possibility} is equivalent to figure \ref{fig:3d-possibility}. Due to the transformation, it is impossible to obtain a necessity measure.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.4]{graphs/convexHull/3dpossibility.pdf}
+  \caption{Membership function for interval $[u,v]$ w.r.t. the convex hull $T$.}
+  \label{fig:ch-3d-possibility}
+\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.4]{graphs/convexHull/3dnecessity.eps}
+%  \caption{Necessity of any interval $[u,v]$ w.r.t. the convex hull $T$.}
+%  \label{fig:ch-3d-necessity}
+%\end{figure}
+
+
+%\end{example}
+
+
+
+
+
+
+
+
+\section{\label{sec:conclusions}CONCLUSIONS AND FUTURE WORK}
+The problem of evaluation of sets in the framework of possibility theory has been addressed by Dubois and Prade. They conclude that a correct treatment of sets imply an overly complex possibility distribution. Based on the previous work from the authors, this work is focused on the evaluation of fuzzy temporal interval in the framework of possibility theory. The aim of the paper is to clarify the difference between fuzzy numbers, fuzzy intervals and ill-known intervals. Several proposals can be found in the literature with respect to transforming two fuzzy numbers into a fuzzy interval. We have shown that these techniques are not fully correct in the sense of possibility theory.\\
+
+
+%Submitted full papers are to be 4 to 6 pages length. Papers must be written on two columns with an overall width of 17.2 cm (8.25 cm each column and 0.7 cm of space between columns). On odd pages, left margin should be of 2.5 cm while the right one should be of 1.3 cm. On even pages, margins are just the contrary (left 1.3 cm, and right 2.5 cm). On all pages, odd and even ones, upper margin should be of 2.5 cm, and lower margin should be of 3.5 cm. Text alignment must be \textit{justify}. The pages must not be numbered.
+%
+%LaTeX style file (estylf\_en.sty) and the example file
+%(estylf2012\_en.tex) are available in the ESTYLF2012 web page.
+%
+%\section{PRELIMINARIES}
+%
+%\subsection{SECTIONS AND SUBSECTIONS}
+%
+%\subsubsection{Subsection}
+%All subsections must follow the same format as this one.
+%
+%\subsection{EQUATIONS}
+%All equations must be centered.
+%\begin{equation}
+%\mu_A = f(a,b,c).
+%\end{equation}
+%
+%\subsection{FIGURES}
+%All figures must be centered like Figure~\ref{figure1}. The number and caption of the figure must always appear below the figure.
+
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=8cm,height=2.5cm]{estylf2012.jpg}
+%\end{center}
+%\caption{Example of figure caption.}
+%\label{figure1}
+%\end{figure}
+
+%\subsection{TABLES}
+%All tables must be centered and clear. The number and title always appear above the table (see Table~\ref{table1}).
+%
+%\begin{table}[ht]
+%\begin{center}
+%\caption{Example of table title.}
+%\label{table1}
+%\begin{tabular}{|c|l|} \hline
+%\textbf{NAME} & \textbf{DESCRIPTION} \\ \hline
+%$A$ & Fuzzy set \\ \hline
+%$\mu_{A}$ & Membership function \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+%\subsection{FOOTNOTES}
+%Footnotes must be numbered\footnote{Example of footnote.}, and placed at the bottom of the column where they appear.
+%
+%\subsection{CITATIONS}
+%Citations must include the reference number between square brackets, for example \cite{AlsinaT05}.
+
+\begin{ack}
+Part of this research is supported by the grant BES-2009-013805 within the research project TIN2008-02066: \emph{Fuzzy Temporal Information treatment in relational DBMS}.
+\end{ack}
+
+\bibliographystyle{acm}
+\bibliography{biblio}
+
+%\begin{thebibliography}{99}
+
+%\bibitem{AlsinaT05}
+%C. Alsina, E. Trillas: On the symmetric difference of fuzzy sets. \emph{Fuzzy Sets and Systems} 153, pp.~181--194, 2005.
+%
+%\bibitem{Fishburn73}
+%P.C. Fishburn: \emph{Utility Theory for Decision Making}. Wiley, New York, 1970.
+%
+%\bibitem{Yager03}
+%R.R. Yager: E-Z OWA weights. In: \emph{Proceedings of the 10th IFSA World Congress}, Istanbul (Turkey), pp.~39--42, 2003.
+%
+%\bibitem{Zadeh71}
+%L.A. Zadeh: Towards a theory of fuzzy systems. In: R.E. Kalman, N. DeClaris (Eds.), \emph{Aspects of Network and System Theory}, Holt, Rinehart and Winston, New York, pp.~469--490, 1971.
+
+%\end{thebibliography}
+
+%References must be sorted by the author name.
+
+\end{document}
