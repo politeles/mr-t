@@ -48,14 +48,15 @@
 \maketitle
 
 \begin{abstract}
-Possibility theory tries to quantify the uncertainty caused by incomplete information. A specific case of incomplete information is that of ill-known temporal intervals. The study of these fuzzy intervals is of particular interest in temporal database research. In order to optimize the storage of fuzzy temporal intervals, some transformations have been proposed. In this paper we analyze the possibilistic evaluation of the ill-known temporal intervals and the proposed transformations. It is shown how the reasoning behind the transformations implies a possibilistic information lost. 
+%Possibility theory tries to quantify the uncertainty caused by incomplete information. A specific case of incomplete information is that of ill-known temporal intervals. 
+The study of fuzzy intervals is of particular interest in temporal database research. In order to optimize the storage of fuzzy temporal intervals, some transformations have been proposed. In this paper we analyze the possibilistic evaluation of the ill-known temporal intervals. We propose a framework to deal with the evaluation of ill-known temporal intervals. It is shown how the reasoning behind the transformations implies a possibilistic information lost. 
 
 \textbf{Keywords:} Possibility theory, ill-known values, ill-known sets, intervals, temporal databases.\vspace{9mm}
 \end{abstract}
 
 \section{INTRODUCTION}
 
-The connection of possibility theory \cite{Zadeh78},\cite{Shackle61},\cite{Gaines75} and fuzzy sets has been studied among others by Zadeh \cite{Zadeh65}. This connection establishes two different natures for a fuzzy set \cite{Dubois97}:
+The connection between possibility theory \cite{Zadeh78},\cite{Shackle61},\cite{Gaines75} and fuzzy sets has been studied among others by Zadeh \cite{Zadeh65}. This connection establishes two different natures for a fuzzy set \cite{Dubois97}:
 \begin{itemize}
 \item
 \textbf{Conjunctive nature}: The fuzzyfication of a regular set. This interpretation corresponds with the following two semantics: \textit{Degree of preference} and \textit{degree of similarity}.
@@ -65,7 +66,8 @@ The connection of possibility theory \cite{Zadeh78},\cite{Shackle61},\cite{Gaine
 
 The disjunctive nature can be seen as an additional connection between fuzzy set theory and possibility theory. Dubois and Prade \cite{Dubois88b} have studied the problem of inferring uncertainty about sets from uncertainty about values. They explain how the incomplete knowledge about a set can be represented as a possibility distribution over a universe $\Pow \left(U \right)$, the power set over the universe $U$. The main drawback of the approach is the large overhead that such a distribution introduces.  A mechanism for the propagation of uncertainty about set elements towards uncertainty about sets is introduced in \textit{'Possibilistic evaluation of sets'} \cite{Pon11}.
 
-There are several proposals in the literature for inferring uncertainty about sets from uncertainty about values. It is of particular interest for fuzzy temporal databases, the application on temporal intervals. The transformation from two ill-known temporal points to a ill-known set has been discussed in \cite{Garrido2009}. In this work we will analyze the major pitfalls of these approaches and the benefit of using the mechanism proposed in \cite{Pon11}.
+%There are several proposals in the literature for inferring uncertainty about sets from uncertainty about values. It is of particular interest for fuzzy temporal databases, the application on temporal intervals. 
+The transformation from two ill-known temporal points to a ill-known set has been discussed in \cite{Garrido2009}. In this work we will analyze the major pitfalls of these approaches and the benefit of using the mechanism proposed in \cite{Pon11}.
 
 The paper is organized as follows. In Section \ref{sec:preliminaries}, some preliminaries and concepts about the possibilistic evaluation framework and the temporal databases are presented. The proposal for interval evaluation is done in Section \ref{sec:interval-eval}. In Section \ref{sec:analysis}, the analysis among the different transformations is done. Finally, Section \ref{sec:conclusions} presents the main conclusions and some lines for the future work in this research.
 
@@ -100,7 +102,7 @@ A fuzzy interval is a fuzzy set $M$ on the set of real numbers $\mathbb{R}$ such
 %\end{definition}
 If $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}, instead of a \emph{fuzzy interval}. In other words, if the core of a fuzzy interval is a singleton, it can be seen as a fuzzy number. In their work, Dubois and Prade propose four different functions (two possibility and two necessity functions) to asses the position of a fuzzy number N relative to  a fuzzy number M taken as a reference.
 
-The most convenient representation for the membership function of a fuzzy number is a triangular function. The membership function $\mu_M$ for the fuzzy set $M$ has also the properties of convexity and normalization. Three values represent a triangular function: %(see Figure~\ref{fig:triangular}):
+The most convenient representation for the membership function of a fuzzy number is a triangular function. The membership function $\mu_M$ for the fuzzy set $M$ has also the properties of convexity and normalization. Three values represent a triangular function: 
 \begin{itemize}
 \item
 $D$ is the singleton value in the core of $\mu_M(x)$.
@@ -110,56 +112,24 @@ $D-a$ is the lower value in the support of $\mu_M(x)$.
 $D+b$ is the upper value in the support of $\mu_M(x)$.
 \end{itemize}
 Note that the values $a$ and $b$ are values in the underlying ordered domain. E.g. $(a,b) \in \mathbb{R}^2$. The notation for a triangular function adopted here is $[D,a,b]$.
-%\begin{figure}[h!]
-%  \centering
-%  \includegraphics[scale=0.4]{graphs/triangular.pdf}
-%  \caption{Triangular function.}
-%  \label{fig:triangular}
-%\end{figure}
 
 The most simple representation for the membership function of a fuzzy interval is a trapezoidal function. This membership function $\mu_T$ for the fuzzy interval $T$ is convex and normalized. Four values represent a trapezoidal membership function %(figure  \ref{fig:trapezoidal}):
- $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. The membership function is given by:
-
-%\begin{align}
-%\mu_T(x)
-%\begin{cases}
-%1 & \mbox{ if } x \in [\beta,\gamma] \\
-%0 & \mbox{ if } x > \delta \vee x < \alpha \\
-%\frac{x-\alpha}{\beta - \alpha} & \mbox{ if } x \in [\alpha,\beta[ \\
-%\frac{\delta -x}{\delta - \gamma} & \mbox{ if } x \in ]\gamma,\delta] \\
-%\end{cases}
-%\end{align}
-%
-%\begin{figure}[h!]
-%  \centering
-%  \includegraphics[scale=0.4]{graphs/trapezoidalDistribution.pdf}
-%  \caption{Trapezoidal distribution.}
-%  \label{fig:trapezoidal}
-%\end{figure}
-
-
-
+ $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. 
+ 
 \subsection{\label{subsec:temporal}Temporal databases}
 %In this section, the proposed reasoning is applied to the specific context of intervals on the real line. This setting is of specific interest in the context of fuzzy temporal databases.
 A temporal database \cite{Dyreson1994} is a database that manages some aspects of time in its schema. A \textbf{chronon} is the shortest duration of time supported by the database. The time can be represented either as points or intervals \cite{655777}. Fuzzy temporal models \cite{4481150} are proposed when the time points or intervals are not precisely known. There are proposals for the  fuzzyfication of the time point \cite{Dubois89} and the fuzzyfication of the time interval \cite{Garrido2009}.\\
-Allen \cite{Allen:1983:MKT:182.358434} studied the comparison between two crisp time intervals. For fuzzy intervals, several proposals \cite{4481150}, \cite{springerlink:10.1007/978-3-540-39964-3_57},\cite{10.1109/TIME.2004.1314418} have been done.
-
-
-%Time granularity is also associated with the representation of the time. A granularity is the result of partitioning on the set of chronons. The conversion among granularities is a common issue within temporal databases \cite{Lin97efficientconversion}. Granularity is the basis of some systems \cite{Cru97},\cite{624013}.
-
-
+Allen \cite{Allen:1983:MKT:182.358434} studied the comparison between two crisp time intervals. For fuzzy intervals, several proposals \cite{4481150}, \cite{springerlink:10.1007/978-3-540-39964-3_57},\cite{10.1109/TIME.2004.1314418} have been done.\\
 Despite of user-defined time (an uninterpreted attribute; supported in the standard SQL2 \cite{Mel93}), there are 3 types of time in a temporal database:
-
 \begin{itemize}
-	\item
+	\item  
 	\textbf{Transaction time}: The time when the fact is stored in the database.
-	\item
+	\item 
 	\textbf{Valid time}: The time when the fact is true in the modelled reality.
-	\item
+	\item 
 	\textbf{Decision time} \cite{Nascimento95decisiontime}: The time when an event was decided to happen. 
-	\end{itemize}
-	
-	 The  database model can be then classified into: transaction time \cite{Ston87},\cite{Jensen:1991:IIM:627283.627484}, Valid time, bi-temporal \cite{Snodgrass:1984:TQL:588011.588041}(both valid and transaction time) or tri-temporal \cite{Nascimento95decisiontime} (valid, transaction and decision time).
+\end{itemize}	
+The  database model can be then classified into: transaction time \cite{Ston87},\cite{Jensen:1991:IIM:627283.627484}, Valid time, bi-temporal \cite{Snodgrass:1984:TQL:588011.588041}(both valid and transaction time) or tri-temporal \cite{Nascimento95decisiontime} (valid, transaction and decision time).
 
 Fuzzy temporal models \cite{4481150} deal with time points \cite{Dubois89} or intervals \cite{Garrido2009} that are ill-known. Some fuzzy temporal models assume that the time stored in the database is an interval. The temporal interval is represented by two ill-known time points: $X$  an ill-known starting point and $Y$ an ill-known ending point. The interval $\left[X,Y\right]$ is not a fuzzy interval but an ill-known interval: it is a crisp interval but it is partially unknown which values are in this interval.
 
@@ -180,8 +150,8 @@ The problem of the interval evaluation is explained in \cite{Pon11}: For a crisp
 \min\bigg(\inf_{a<w}1-\pi_{X}(w),\inf_{b>w}1-\pi_{Y}(w)\bigg).
 \end{eqnarray}
 
-Note that the expressions in \eqref{eq:interval-pos},\eqref{eq:interval-nec} cannot be simplified in a more efficient expressions. %repensar
-An ill-known point is given by a triangular membership function. The ill-known values $X$ and $Y$ are represented by the triangular membership functions $\left[D_X,a_X,b_X \right]$ and $\left[D_Y,a_Y,b_Y \right]$ respectively. The equation \eqref{eq:interval-pos} is derived to:
+Note that the expressions in \eqref{eq:interval-pos},\eqref{eq:interval-nec} cannot be simplified in a more efficient expressions.
+An ill-known point is given by a triangular membership function. The ill-known values $X$ and $Y$ are represented by the triangular membership functions $\left[D_X,a_X,b_X \right]$ and $\left[D_Y,a_Y,b_Y \right]$ respectively. The equation \eqref{eq:interval-pos} is then derived to:
 
 \begin{eqnarray}
 \label{eq:interval-pos-triangular-a}
@@ -219,15 +189,17 @@ The necessity expression of \eqref{eq:interval-nec} for triangular membership fu
 \end{cases}
 \end{eqnarray}
 
+Note that with this approach, both possibility and necessity measures are obtained. When querying a temporal database, these two measures may be used to compute a ranking. E.g. the results for a query may be ordered by a lexicographical order $(\Pos,\Nec)$. Note also that with only the possibility measure, as provided in the transformations, some interesting information is lost: e.g. If the user wants to know if the interval $[a,b]$ is inside the ill-known interval $[X,Y]$, and the evaluation returns a possibility of 1 and a necessity of 0.5.  Then, the user may interpret that the interval $[a,b]$ is inside $[X,Y]$ but it is not between the cores of both $X$ and $Y$.
+
 \paragraph{Example} Consider the ill-known values $X = \left[3, 2, 1\right]$ and $Y = \left[7, 2, 3 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$ w.r.t. $X$ and $Y$ is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure \ref{fig:interval-rep} shows the graphical representation for the ill-known values $X$ and $Y$. The representation for equations \eqref{eq:interval-pos-triangular-a},\eqref{eq:interval-pos-triangular-b},\eqref{eq:interval-nec-triangular-a},\eqref{eq:interval-nec-triangular-b} are shown respectively in figures \ref{fig:interval_membership_pos_a},\ref{fig:interval_membership_pos_b},\ref{fig:interval_membership_nec_a},\ref{fig:interval_membership_nec_b}.
 
 Consider now that the value for the interval $\left[a, b \right]$ is $\left[2, 6 \right]$. The evaluation for the possibility and necessity are:
 
 \begin{eqnarray}
-\label{eq:interval-pos}
+%\label{eq:interval-pos}
 \nonumber
 \Pos\left(\lambda([3,6])\right)=\min(1,1)= 1\\
-\label{eq:interval-nec}
+%\label{eq:interval-nec}
 \nonumber
 \Nec\left(\lambda([3,6])\right)=\min(1,0.5 ) = 0.5
 \end{eqnarray}
@@ -352,7 +324,7 @@ Figure \ref{fig:example_pi} shows the two membership degrees for both $\left(1-\
   \label{fig:example_pi}
 \end{figure}
 
-In this example it is shown how this transformation is misleading: it is clear that the temporal interval $[3,6]$ is completely contained by the fuzzy temporal interval represented by $[X,Y]$. Nevertheless, the \emph{CONTAINS} operator applied to this transformation returns a 0.667 membership degree. Therefore, if the user is looking for a temporal interval $[a,b]$ and the database contains a tuple with a fuzzy interval $[X,Y]$, this transformation returns a possibility below 1, thus the user may interprete that the temporal interval $[a,b]$ is not completely inside the fuzzy interval $[X,Y]$. Plus, there is not possible to compute a necessity measure for the \emph{CONTAINS} operator in order to obtain more information about $[a,b]$.
+In this example it is shown how this transformation is misleading: it is clear that the temporal interval $[3,6]$ is completely contained by the fuzzy temporal interval represented by $[X,Y]$. Nevertheless, the \emph{CONTAINS} operator applied to this transformation returns a 0.667 membership degree. Therefore, if the user is looking for a temporal interval $[a,b]$ and the database contains a tuple with a fuzzy interval $[X,Y]$, this transformation returns a possibility below 1, thus the user may interpret that the temporal interval $[a,b]$ is not completely inside the fuzzy interval $[X,Y]$. Plus, there is not possible to compute a necessity measure for the \emph{CONTAINS} operator in order to obtain more information about $[a,b]$.
 
 
 
@@ -365,16 +337,6 @@ The transformation based on the convex hull is more intuitive than the previous 
 
 In this approach, the trapezoidal membership function ($\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$) is built in a different way: $\left[d_s - a_s,d_s,d_e,d_e + b_e \right]$
 
-%\begin{align}
-%\nonumber
-%\alpha & =  d_s - a_s \\
-%\nonumber
-%\beta & = d_s \\
-%\nonumber
-%\gamma &= d_e  \\
-%\nonumber
-%\delta &= d_e + b_e 
-%\end{align}
 
 \paragraph{Example}
 Consider again the previous two ill-known points representing a time interval:  $X = \left[3, 2, 1\right]$ and $Y = \left[7, 2, 3 \right]$.
@@ -414,8 +376,15 @@ This transformation is also misleading. Even though the possibility obtained is 
 
 
 \section{\label{sec:conclusions}CONCLUSIONS AND FUTURE WORK}
-The problem of evaluation of sets in the framework of possibility theory has been addressed by Dubois and Prade. They conclude that a correct treatment of sets imply an overly complex possibility distribution. Based on the previous work from the authors, this work is focused on the evaluation of fuzzy temporal interval in the framework of possibility theory. The aim of the paper is to clarify the difference between fuzzy numbers, fuzzy intervals and ill-known intervals. Several proposals can be found in the literature with respect to transforming two fuzzy numbers into a fuzzy interval. We have shown that these techniques are not fully correct in the sense of possibility theory.\\
-
+In this work we presented a framework to deal with the evaluation for the ill-known interval $[X,Y]$ to contains the crisp interval $[a,b]$. Our proposal keeps the reasoning in the power set $\Pow(U)$ while the transformations make the reasoning in the set $U$, therefore the transformations result in a possibilistic information lost. The proposed framework offer more accurate results, as have been shown in the examples. Also the two measures provided: possibility and necessity can be used for the ranking of results.The framework will be extended with the implementation of the Allen's operators and the comparison between two ill-known intervals.
+%
+%
+%The problem of evaluation of sets in the framework of possibility theory has been addressed by Dubois and Prade. They conclude that a correct treatment of sets imply an overly complex possibility distribution. Based on the previous work from the authors, this work is focused on the evaluation of fuzzy temporal interval in the framework of possibility theory. 
+%
+%
+%
+%The aim of the paper is to clarify the difference between fuzzy numbers, fuzzy intervals and ill-known intervals. Several proposals can be found in the literature with respect to transforming two fuzzy numbers into a fuzzy interval. We have shown that these techniques are not fully correct in the sense of possibility theory.\\
+%
 
 
 \begin{ack}
