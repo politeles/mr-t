@@ -12,13 +12,13 @@ PVP = \left[X,\ Y \right]
 $X$ and $Y$ are ill-known values in the set of the real numbers $\mathbb{R}$. The uncertainty about the values taken by $X$ and $Y$ are given by the possibility distributions $\pi_X$ and $\pi_Y$.
 \end{definition}
 
-The possibility distributions $\pi_X$ and $\pi_Y$ are given in the way of a triangular distribution, as explained in subsection \ref{subsec:fuzzy-numbers}. This representation allows overlapping (Fig. \ref{fig:pvp}).
+For convenience, the possibility distributions $\pi_X$ and $\pi_Y$ are given in the way of a triangular distribution, as explained in subsection \ref{subsec:fuzzy-numbers}. This representation allows overlapping (Fig. \ref{fig:pvp}). Note that while the two ill-known values $X,Y \in \mathbb{R}$, the fuzzy interval  $[X,Y] \in \mathbb{R}^2$.
 
 
 \begin{figure}[h!]
   \centering
-%  \includegraphics[scale=0.2]{graphs/2_triangular.eps}
-  \caption{Two fuzzy numbers $X$ and $Y$ denoting a Possibilistic Valid-Time Period \emph{PVT}.}
+  \input{./graphs/2_triangular.tex}
+  \caption{Two fuzzy numbers $X$ and $Y$ denoting a Possibilistic Valid-Time Period \emph{PVP}.}
   \label{fig:pvp}
 \end{figure}
 
@@ -30,33 +30,33 @@ Each database row containing a \emph{PVP} stores it as two triangular possibilit
 \item
 \emph{NULL}: This constant refers to a completely ignorance about the value. The possibility distribution for a given fuzzy number $X$ is not defined, therefore, any comparison between a fuzzy number and the \emph{NULL} constant always returns $0$.
 \item
-\emph{UNKNOWN}: The point has a value but it is unknown. The possibility distribution for a given fuzzy number $X$ is $\pi_X=1$
+\emph{UNKNOWN}: The point has a value but it is unknown.% The possibility distribution for a given fuzzy number $X$ is $\pi_X=1$
 \item
-\emph{UNDEFINED}: The point does not have a value. The possibility distribution for a given fuzzy number $X$ is $\pi_X=0$
+\emph{UNDEFINED}: The point does not have a value. %The possibility distribution for a given fuzzy number $X$ is $\pi_X=0$
 \end{itemize}
 
 
 \begin{table}
-\caption{Relational representation for a Possibilistic Valid-Time Period.}
+\caption{Relational representation for an ill-known time point. A \emph{PVP} is represented by two ill-known points.}
 \centering
-\begin{tabular}{c c c c c c}
+\begin{tabular}{c c c c c c c}
 \hline
-Value & FT & F1 & F2 & F3  \\ \hline
-UNKNOWN & 0 & NULL & NULL & NULL  \\ 
-UNDEFINED & 1 & NULL & NULL & NULL  \\ 
-NULL & 2 & NULL & NULL & NULL  \\ 
-$\left[D,\ a,\ b \right]$ & 3 & $D$ & $D-a$ & $D+b$ \\ 
+Value & FT & F1 & F2 & F3 & $\mu(x)$ \\ \hline
+UNKNOWN & 0 & NULL & NULL & NULL  & not defined. \\ 
+UNDEFINED & 1 & NULL & NULL & NULL & $0$ \\ 
+NULL & 2 & NULL & NULL & NULL & $1$  \\ 
+$\left[D,\ a,\ b \right]$ & 3 & $D$ & $D-a$ & $D+b$ & $\mu(\left[D,\ a,\ b \right])$ \\ 
 \hline
 \end{tabular}
 \label{table:relational-representation-pvp}
 \end{table}
 
 \subsection{Querying Ill-known Valid-time Intervals}
-In order to provide a complete model, we will provide the tools for querying. This allows the user to specify both the preferences and an ill-known valid-time interval in the query. It is important to notice that the possibilistic / fuzzy data stored in the database has a \emph{disjunctive interpretation} (it is said that we have \emph{uncertainty}: the valid-time interval has only one value but, for some reason the value is ill-known). In the query specification, the user is allowed to express a crisp time interval. In this approach, the interpretation is the following: the user w
+In order to provide a complete model, we will provide the tools for querying. This allows the user to specify both the preferences and an ill-known valid-time interval in the query. It is important to notice that the possibilistic / fuzzy data stored in the database has a \emph{disjunctive interpretation} (it is said that we have \emph{uncertainty}: the valid-time interval has only one value but, for some reason the value is ill-known). In the query specification, the user is allowed to express a crisp time interval. 
 In this subsection we will define the query specification, then the evaluation of the query and finally the ranking for the query.
 
 \subsubsection{Query specification}
-A query in our framework has two different parts: the first one is the query specification for regular attributes. The second part is the temporal specification. 
+A query in our framework has two different parts: the first one is the temporal specification. The second part is the query specification for regular attributes.
 
 \begin{definition}
 A query $\tilde Q$ is specified by:
@@ -77,40 +77,40 @@ Where $ \left[a, \ b \right] $ is the specification for the crisp interval and $
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|c|c|}
 \hline
-Allen Relation & Constraints & $\bool(p_1,...,p_n)$ \\
+Allen Relation & Constraints & $\bool(p_1,...,p_n)$ & $\Pos\left(\lambda \left[a,b \right] \right)$ \\
 \hline
-I before J & $C_1\stackrel{\triangle}{=} \left(<,X\right)$ & $p_1$ \\
+I before J & $C_1\stackrel{\triangle}{=} \left(<,X\right)$ & $p_1$ & $\sup_{a>w}\pi_x(w)$\\
 \hline
 \multirow{4}{*}
-{I equal J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$ & \text{$p_1\wedge\neg p_2\wedge p_3\wedge\neg p_4$}\\
- & $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & \\
- & $C_3\stackrel{\triangle}{=} \left(\leq,Y\right)$ & \\
- & $C_4\stackrel{\triangle}{=} \left(\neq,Y\right)$ & \\
+{I equal J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$ & \text{$p_1\wedge\neg p_2\wedge p_3\wedge\neg p_4$} & $\min ( \sup_{a \leq w}\pi_x(w),$\\
+ & $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & & $\pi_x(w),$ \\
+ & $C_3\stackrel{\triangle}{=} \left(\leq,Y\right)$ & & $\sup_{b \geq w}\pi_Y(w),$ \\
+ & $C_4\stackrel{\triangle}{=} \left(\neq,Y\right)$ & & $\pi_Y(w))$ \\
 \hline
 \multirow{2}{*}
-{I meets J} & $C_1\stackrel{\triangle}{=} \left(\leq,X\right)$ & $p_1\wedge\neg p_2$\\
- & $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & \\
+{I meets J} & $C_1\stackrel{\triangle}{=} \left(\leq,X\right)$ & $p_1\wedge\neg p_2$ & $\min (\sup_{a\geq w} \pi_X(w),$\\
+ & $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ &  & $\pi_X(w))$ \\
 \hline
 \multirow{3}{*}
-{I overlaps J} & $C_1\stackrel{\triangle}{=} \left(<,Y\right)$ & $p_1\wedge\neg p_2\wedge\neg p_3$\\
- & $C_2\stackrel{\triangle}{=} \left(\leq,X\right)$ & \\
- & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & \\
+{I overlaps J} & $C_1\stackrel{\triangle}{=} \left(<,Y\right)$ & $p_1\wedge\neg p_2\wedge\neg p_3$ & $\min ( \sup_{b>w}\pi_Y(w), $\\
+ & $C_2\stackrel{\triangle}{=} \left(\leq,X\right)$ & &  $\sup_{a \geq w}\pi_X(w),$\\
+ & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & & $\sup_{a \leq w}\pi_X(w))$ \\
 \hline
 \multirow{4}{*}
-{I during J} & $C_1\stackrel{\triangle}{=} \left(>,X\right)$ & $(p_1\wedge p_2)\vee(p_3\wedge p_4)$\\
- & $C_2\stackrel{\triangle}{=} \left(\leq,Y\right)$ & \\
- & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & \\
- & $C_4\stackrel{\triangle}{=} \left(<,Y\right)$ & \\
+{I during J} & $C_1\stackrel{\triangle}{=} \left(>,X\right)$ & $(p_1\wedge p_2)\vee(p_3\wedge p_4)$ & $max ( min ( \sup_{a<w}\pi_X(w),$\\
+ & $C_2\stackrel{\triangle}{=} \left(\leq,Y\right)$ & & $\sup_{b \geq w}\pi_Y(w)),$\\
+ & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & & $\min ( \sup_{a \leq w }\pi_X(w),$\\
+ & $C_4\stackrel{\triangle}{=} \left(<,Y\right)$ & & $\sup_{b>w}\pi_Y(w)$\\
 \hline
 \multirow{2}{*}
-{I starts J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$ & $p_1\wedge\neg p_2$\\
- &  $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & \\
+{I starts J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$ & $p_1\wedge\neg p_2$ & $\min( \sup_{a \leq w}\pi_X(w),$\\
+ &  $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & & $\pi_X(w))$\\
 \hline
 \multirow{2}{*}
-{I finishes J} & $C_1\stackrel{\triangle}{=} \left(\leq,Y\right)$ & $p_1\wedge\neg p_2$\\
- & $C_2\stackrel{\triangle}{=} \left(\neq,Y\right)$ & \\
+{I finishes J} & $C_1\stackrel{\triangle}{=} \left(\leq,Y\right)$ & $p_1\wedge\neg p_2$ & $\min ( \sup_{b \geq w} \pi_Y(w),$\\
+ & $C_2\stackrel{\triangle}{=} \left(\neq,Y\right)$ & & $\pi_Y(w))$\\
 \hline
 \end{tabular}
 \label{tab:allen-relations}
@@ -121,9 +121,7 @@ I before J & $C_1\stackrel{\triangle}{=} \left(<,X\right)$ & $p_1$ \\
 
 
 \subsubsection{Query evaluation}
-Fuzzy querying of regular (relational) databases, query satisfaction modelling is a matter of degree. Usually, criteria satisfaction is modelled by means of a satisfaction degree $s \in \left[ 0, 1\right]$. In the model, every record $r$ contains a \emph{PVP} $V_r$ to model the valid-time for that record.
-
-The query evaluation method is the following:
+In fuzzy querying of regular (relational) databases, the query satisfaction modelling is a matter of degree. Usually, criteria satisfaction is modelled by means of a satisfaction degree $s \in \left[ 0, 1\right]$. In the model, every record $r$ contains a \emph{PVP}, $V_r$, to model the valid-time.The query evaluation method is the following:
 \begin{itemize}
 \item
 For each record $r$ in the database, the preferences expressed in $Q$ are evaluated in the unit interval. Thus, $e(Q) \in \left[0, 1\right]$ is the evaluation function for the criteria in $Q$.
