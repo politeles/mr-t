@@ -67,13 +67,13 @@ The connection between possibility theory \cite{Zadeh78},\cite{Shackle61},\cite{
 The disjunctive nature can be seen as an additional connection between fuzzy set theory and possibility theory. Dubois and Prade \cite{Dubois88b} have studied the problem of inferring uncertainty about sets from uncertainty about values. They explain how the incomplete knowledge about a set can be represented as a possibility distribution over a universe $\Pow \left(U \right)$, the power set over the universe $U$. The main drawback of the approach is the large overhead that such a distribution introduces.  A mechanism for the propagation of uncertainty about set elements towards uncertainty about sets is introduced in \textit{'Possibilistic evaluation of sets'} \cite{Pon11}.
 
 %There are several proposals in the literature for inferring uncertainty about sets from uncertainty about values. It is of particular interest for fuzzy temporal databases, the application on temporal intervals. 
-The transformation from two ill-known temporal points to a ill-known set has been discussed in \cite{Garrido2009}. In this work we will analyze the major pitfalls of these approaches and the benefit of using the mechanism proposed in \cite{Pon11}.
+The transformation from two ill-known temporal points to an ill-known set has been discussed in \cite{Garrido2009}. In this work we will analyze the major pitfalls of these approaches and the benefit of using the mechanism proposed in \cite{Pon11}.
 
 The paper is organized as follows. In Section \ref{sec:preliminaries}, some preliminaries and concepts about the possibilistic evaluation framework and the temporal databases are presented. The proposal for interval evaluation is done in Section \ref{sec:interval-eval}. In Section \ref{sec:analysis}, the analysis among the different transformations is done. Finally, Section \ref{sec:conclusions} presents the main conclusions and some lines for the future work in this research.
 
 
 \section{\label{sec:preliminaries}PRELIMINARIES}
-In this section we will introduce some basic concepts. First of all, an introduction to possibility theory is explained. Then, the concepts of fuzzy numbers and fuzzy intervals introduced by Dubois and Prade \cite{Dubois1983} are discussed. Finally, a brief introduction to temporal databases is done.
+In this section we will introduce some basic concepts. First of all, an introduction to possibility theory is included. Then, the concepts of fuzzy numbers and fuzzy intervals introduced by Dubois and Prade \cite{Dubois1983} are discussed. Finally, a brief introduction to temporal databases is done.
 
 \subsection{\label{subsec:possibilistic-variables}Possibilistic variables}
 A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The possibility distribution $\pi_X$ gives the available knowledge about the value that $X$ takes. For each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
@@ -324,7 +324,7 @@ Figure \ref{fig:example_pi} shows the two membership degrees for both $\left(1-\
   \label{fig:example_pi}
 \end{figure}
 
-In this example it is shown how this transformation is misleading: it is clear that the temporal interval $[3,6]$ is completely contained by the fuzzy temporal interval represented by $[X,Y]$. Nevertheless, the \emph{CONTAINS} operator applied to this transformation returns a 0.667 membership degree. Therefore, if the user is looking for a temporal interval $[a,b]$ and the database contains a tuple with a fuzzy interval $[X,Y]$, this transformation returns a possibility below 1, thus the user may interpret that the temporal interval $[a,b]$ is not completely inside the fuzzy interval $[X,Y]$. Plus, there is not possible to compute a necessity measure for the \emph{CONTAINS} operator in order to obtain more information about $[a,b]$.
+In this example it is shown how this transformation is misleading: it is clear that the temporal interval $[3,6]$ is completely contained by the fuzzy temporal interval represented by $[X,Y]$. Nevertheless, the \emph{CONTAINS} operator applied to this transformation returns a 0.667 membership degree. Therefore, if the user is looking for a temporal interval $[a,b]$ and the database contains a tuple with a fuzzy interval $[X,Y]$, this transformation returns a possibility below 1, thus the user may interpret that the temporal interval $[a,b]$ is not completely inside the fuzzy interval $[X,Y]$. Plus, it is not possible to compute a necessity measure for the \emph{CONTAINS} operator in order to obtain more information about $[a,b]$.
 
 
 
@@ -360,7 +360,7 @@ Figure \ref{fig:example_ch} shows the two membership degrees for both $\left(1-\
   \label{fig:example_ch}
 \end{figure}
 
-This transformation is also misleading. Even though the possibility obtained is similar to the possibility obtained in our proposal, there is not possible to compute the necessity for the \emph{CONTAINS} operator. Therefore, it is not possible to obtain a complete information for the interval $[a,b]$ w.r.t the fuzzy interval $[X,Y]$.
+This transformation is also misleading. Even though the possibility obtained is similar to the possibility obtained in our proposal, it is not possible to compute the necessity for the \emph{CONTAINS} operator. Therefore, it is not possible to obtain a complete information for the interval $[a,b]$ w.r.t the fuzzy interval $[X,Y]$.
 
 \begin{figure}[h!]
   \centering
@@ -370,13 +370,8 @@ This transformation is also misleading. Even though the possibility obtained is 
 \end{figure}
 
 
-
-
-
-
-
 \section{\label{sec:conclusions}CONCLUSIONS AND FUTURE WORK}
-In this work we presented a framework to deal with the evaluation for the ill-known interval $[X,Y]$ to contains the crisp interval $[a,b]$. Our proposal keeps the reasoning in the power set $\Pow(U)$ while the transformations make the reasoning in the set $U$, therefore the transformations result in a possibilistic information lost. The proposed framework offer more accurate results, as have been shown in the examples. Also the two measures provided: possibility and necessity can be used for the ranking of results.The framework will be extended with the implementation of the Allen's operators and the comparison between two ill-known intervals.
+In this work we have presented a framework to deal with the evaluation for the ill-known interval $[X,Y]$ to contain the crisp interval $[a,b]$. Our proposal keeps the reasoning in the power set $\Pow(U)$ while the transformations make the reasoning in the set $U$, therefore the transformations result in a possibilistic information lost. The proposed framework offer more accurate results, as shown in the examples. Also the two measures provided: possibility and necessity can be used for the ranking of results.The framework will be extended with the implementation of the Allen's operators and the comparison between two ill-known intervals.
 %
 %
 %The problem of evaluation of sets in the framework of possibility theory has been addressed by Dubois and Prade. They conclude that a correct treatment of sets imply an overly complex possibility distribution. Based on the previous work from the authors, this work is focused on the evaluation of fuzzy temporal interval in the framework of possibility theory. 
