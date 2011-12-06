@@ -24,28 +24,28 @@ For convenience, the possibility distributions $\pi_X$ and $\pi_Y$ are given in 
 
 \subsection{Storage of Valid-time Intervals}
 \label{subsec:storage}
-Each database row containing a \emph{PVP} stores it as two triangular possibility distributions. In our approach we propose the representation of that as proposed in the  fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a,Gal98}. In this representation it is also possible to represent not only fuzzy numbers but fuzzy constants (see table \ref{table:relational-representation-pvp}):
+Each database row containing a \emph{PVP} stores it as two triangular possibility distributions. In our approach we propose the representation of that as proposed in the  fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a,Gal98}. In this representation it is also possible to represent not only fuzzy numbers but fuzzy constants (see table \ref{table:relational-representation-pvp}). Note that the field \emph{FT} denotes the Fuzzy Type (\emph{NULL}, \emph{UNKNOWN}, \emph{UNDEFINED} or $\left[D,\ a,\ b \right]$) and the fields F1 to F3 store the value. Note also that while \emph{NULL} denotes the fuzzy constant, \emph{N} denotes a null value in the database.
 
-\begin{itemize}
-\item
-\emph{NULL}: This constant refers to a completely ignorance about the value. The possibility distribution for a given fuzzy number $X$ is not defined, therefore, any comparison between a fuzzy number and the \emph{NULL} constant always returns $0$.
-\item
-\emph{UNKNOWN}: The point has a value but it is unknown.% The possibility distribution for a given fuzzy number $X$ is $\pi_X=1$
-\item
-\emph{UNDEFINED}: The point does not have a value. %The possibility distribution for a given fuzzy number $X$ is $\pi_X=0$
-\end{itemize}
-
+%\begin{itemize}
+%\item
+%\emph{NULL}: This constant refers to a completely ignorance about the value. The possibility distribution for a given fuzzy number $X$ is not defined, therefore, any comparison between a fuzzy number and the \emph{NULL} constant always returns $0$.
+%\item
+%\emph{UNKNOWN}: % The possibility distribution for a given fuzzy number $X$ is $\pi_X=1$
+%\item
+%\emph{UNDEFINED}: The point does not have a value. %The possibility distribution for a given fuzzy number $X$ is $\pi_X=0$
+%\end{itemize}
+%
 
 \begin{table}
-\caption{Relational representation for an ill-known time point. A \emph{PVP} is represented by two ill-known points.}
+\caption{Relational representation for an ill-known time point.}%  A \emph{PVP} is represented by two ill-known points.}
 \centering
-\begin{tabular}{c c c c c c c}
+\begin{tabular}{c c c c c c c p{2cm}}
 \hline
-Value & FT & F1 & F2 & F3 & $\mu(x)$ \\ \hline
-UNKNOWN & 0 & NULL & NULL & NULL  & not defined. \\ 
-UNDEFINED & 1 & NULL & NULL & NULL & $0$ \\ 
-NULL & 2 & NULL & NULL & NULL & $1$  \\ 
-$\left[D,\ a,\ b \right]$ & 3 & $D$ & $D-a$ & $D+b$ & $\mu(\left[D,\ a,\ b \right])$ \\ 
+Value & FT & F1 & F2 & F3 & $\mu(x)$ & Description \\ \hline
+UNKNOWN & 0 & N & N & N  & $1$ & The point has a value but it is unknown. \\ 
+UNDEFINED & 1 & N & N & N & $0$ & The point does not have a value. \\ 
+NULL & 2 & N & N & N &not defined. & Completely ignorance aboute the value. \\ 
+$\left[D,\ a,\ b \right]$ & 3 & $D$ & $a$ & $b$ & $\mu(\left[D,\ a,\ b \right])$ & triangular poss. distr. \\ 
 \hline
 \end{tabular}
 \label{table:relational-representation-pvp}
@@ -65,8 +65,7 @@ A query $\tilde Q$ is specified by:
 \tilde Q = \left( Q^{time}, Q \right)
 \end{equation}
 \end{definition}
-Where $Q$ are the (possibly fuzzy) preferences of the user  and $Q^{time}$ is the temporal part specified by a crisp interval. The temporal part is composed by two arguments:
-
+Where $Q$ are the (possibly fuzzy) preferences of the user  and $Q^{time}$ is the temporal part specified by a crisp interval.
 \begin{definition}
  $Q^{time}$ is composed by:
 \begin{equation}
@@ -76,6 +75,7 @@ Where $ \left[a, \ b \right] $ is the specification for the crisp interval and $
 \end{definition}
 
 \begin{table}[h]
+\label{tab:allen-relations}
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -83,37 +83,37 @@ Allen Relation & Constraints & $\bool(p_1,...,p_n)$ & $\Pos\left(\lambda \left[a
 \hline
 I before J & $C_1\stackrel{\triangle}{=} \left(<,X\right)$ & $p_1$ & $\sup_{a>w}\pi_x(w)$\\
 \hline
-\multirow{4}{*}
-{I equal J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$ & \text{$p_1\wedge\neg p_2\wedge p_3\wedge\neg p_4$} & $\min ( \sup_{a \leq w}\pi_x(w),$\\
- & $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & & $\pi_x(w),$ \\
- & $C_3\stackrel{\triangle}{=} \left(\leq,Y\right)$ & & $\sup_{b \geq w}\pi_Y(w),$ \\
- & $C_4\stackrel{\triangle}{=} \left(\neq,Y\right)$ & & $\pi_Y(w))$ \\
-\hline
 \multirow{2}{*}
-{I meets J} & $C_1\stackrel{\triangle}{=} \left(\leq,X\right)$ & $p_1\wedge\neg p_2$ & $\min (\sup_{a\geq w} \pi_X(w),$\\
- & $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ &  & $\pi_X(w))$ \\
+{I equal J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$,$C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & \text{$p_1\wedge\neg p_2\wedge p_3\wedge\neg p_4$} & $\min ( \sup_{a \leq w}\pi_x(w),\pi_x(w),$\\
+ & $C_3\stackrel{\triangle}{=} \left(\leq,Y\right)$,$C_4\stackrel{\triangle}{=} \left(\neq,Y\right)$ & & $\sup_{b \geq w}\pi_Y(w),\pi_Y(w))$\\
+% &  & &  \\
+% &  & &  \\
+\hline
+%\multirow{2}{*}
+{I meets J} & $C_1\stackrel{\triangle}{=} \left(\leq,X\right)$ ,$C_2\stackrel{\triangle}{=} \left(\neq,X\right)$& $p_1\wedge\neg p_2$ & $\min (\sup_{a\geq w} \pi_X(w),$ $\pi_X(w))$ \\
+% &  &  & \\
 \hline
 \multirow{3}{*}
-{I overlaps J} & $C_1\stackrel{\triangle}{=} \left(<,Y\right)$ & $p_1\wedge\neg p_2\wedge\neg p_3$ & $\min ( \sup_{b>w}\pi_Y(w), $\\
- & $C_2\stackrel{\triangle}{=} \left(\leq,X\right)$ & &  $\sup_{a \geq w}\pi_X(w),$\\
- & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & & $\sup_{a \leq w}\pi_X(w))$ \\
+{I overlaps J} & $C_1\stackrel{\triangle}{=} \left(<,Y\right)$,$C_2\stackrel{\triangle}{=} \left(\leq,X\right)$ & $p_1\wedge\neg p_2\wedge\neg p_3$ & $\min ( \sup_{b>w}\pi_Y(w), $ \\
+ & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & & $\sup_{a \geq w}\pi_X(w),$ \\
+ &  & & $\sup_{a \leq w}\pi_X(w))$ \\
 \hline
 \multirow{4}{*}
-{I during J} & $C_1\stackrel{\triangle}{=} \left(>,X\right)$ & $(p_1\wedge p_2)\vee(p_3\wedge p_4)$ & $max ( min ( \sup_{a<w}\pi_X(w),$\\
- & $C_2\stackrel{\triangle}{=} \left(\leq,Y\right)$ & & $\sup_{b \geq w}\pi_Y(w)),$\\
- & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ & & $\min ( \sup_{a \leq w }\pi_X(w),$\\
- & $C_4\stackrel{\triangle}{=} \left(<,Y\right)$ & & $\sup_{b>w}\pi_Y(w)$\\
+{I during J} & $C_1\stackrel{\triangle}{=} \left(>,X\right)$, $C_2\stackrel{\triangle}{=} \left(\leq,Y\right)$ & $(p_1\wedge p_2)\vee(p_3\wedge p_4)$ & $max ( min ( \sup_{a<w}\pi_X(w),$ \\
+ & $C_3\stackrel{\triangle}{=} \left(\geq,X\right)$ ,$C_4\stackrel{\triangle}{=} \left(<,Y\right)$ & & $\sup_{b \geq w}\pi_Y(w)),$\\
+ & & & $\min ( \sup_{a \leq w }\pi_X(w),$ \\
+ &  & & $\sup_{b>w}\pi_Y(w)$\\
 \hline
-\multirow{2}{*}
-{I starts J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$ & $p_1\wedge\neg p_2$ & $\min( \sup_{a \leq w}\pi_X(w),$\\
- &  $C_2\stackrel{\triangle}{=} \left(\neq,X\right)$ & & $\pi_X(w))$\\
+%\multirow{2}{*}
+{I starts J} & $C_1\stackrel{\triangle}{=} \left(\geq,X\right)$,$C_2\stackrel{\triangle}{=} \left(\neq,X\right)$  & $p_1\wedge\neg p_2$ & $\min( \sup_{a \leq w}\pi_X(w),$ $\pi_X(w))$\\
+% &  & & \\
 \hline
-\multirow{2}{*}
-{I finishes J} & $C_1\stackrel{\triangle}{=} \left(\leq,Y\right)$ & $p_1\wedge\neg p_2$ & $\min ( \sup_{b \geq w} \pi_Y(w),$\\
- & $C_2\stackrel{\triangle}{=} \left(\neq,Y\right)$ & & $\pi_Y(w))$\\
+%\multirow{2}{*}
+{I finishes J} & $C_1\stackrel{\triangle}{=} \left(\leq,Y\right)$, $C_2\stackrel{\triangle}{=} \left(\neq,Y\right)$  & $p_1\wedge\neg p_2$ & $\min ( \sup_{b \geq w} \pi_Y(w),$ $\pi_Y(w))$\\
+% && & \\
 \hline
 \end{tabular}
-\label{tab:allen-relations}
+
 \caption{Allen's relations represented in the framework.}
 \end{table}
 
@@ -126,18 +126,21 @@ In fuzzy querying of regular (relational) databases, the query satisfaction mode
 \item
 For each record $r$ in the database, the preferences expressed in $Q$ are evaluated in the unit interval. Thus, $e(Q) \in \left[0, 1\right]$ is the evaluation function for the criteria in $Q$.
 \item
-For each record $r$ in the database, the interval $ \left[a, \ b \right]$ is compared to the $PVP$ value by means of the corresponding Allen relation specified by $ar$. The result is again in the unit interval. Here, $e(Q^{time}) \in \left[0, 1 \right]$ is the evaluation function for the criteria $Q^{time}$.
+For each record $r$ in the database, the interval $ \left[a, \ b \right]$ is compared to the $PVP$ value by means of the corresponding Allen relation specified by $ar$. Here, $e(Q^{time}) \in \left[0, 1 \right]$ is the evaluation function for the criteria $Q^{time}$.
 \end{itemize}
 
 
-\subsubsection{Ranking}
-In order to present the results to the user, a ranking method must be used. Both $Q$ and $Q^{time}$ are evaluated independently and also both are evaluated in the unit interval. The ranking is computed using a convex combination of both values:
+\subsubsection{Ranking and aggregation}
+In order to present the results to the user, a ranking method must be used. Both $Q$ and $Q^{time}$ are evaluated independently and also both are evaluated in the unit interval.
+First of all, the possibility and the necessity are ranked with the convex combination in \eqref{eq:convex-comb} with $\omega=0.5$. Finally this value is aggregated with the rest of the criteria with the same combination. %In this case the value for the aggregation is also $\omega = 0.5$
 
 \begin{equation}
-e(\tilde{Q})\ =\ \omega*e(Q)\ +\ (1-\omega)*e(Q^{time})
+\label{eq:convex-comb}
+e(u,v)\ =\ \omega*v\ +\ (1-\omega)*v, \omega \in \left[0, 1 \right]
 \end{equation}
-Where $\omega \in \left[0, 1 \right]$. By increasing the value for the parameter $\omega$, the preferences expressed in the query $Q$ can be given more importance. By lowering the value for $\omega$, the temporal criteria is emphasized.
-The following example illustrates the querying process.
+
+ By increasing the value for the parameter $\omega$, the preferences expressed in the query $Q$ can be given more importance. By lowering the value for $\omega$, the temporal criteria is emphasized.
+%The following example illustrates the querying process.
 
 
 \begin{example} 
@@ -155,8 +158,8 @@ ID & IID & Segment & Manufac. & Name & Start & End  \\ [0.5ex]
 \hline
 001 & 1 & B & Peugeot & 205 & [1985,2,3] & [1997,2,1] \\
 002 & 1 & C & Peugeot & 305 & [1977,2,2] & [1989,2,3] \\
-003 & 1 & B & Citroen & C2 & [2003,3,2] & [2006,1,1] \\
-001 & 2 & B & Peugeot & 206 & [1998,1,1] & [2011,2,1] \\
+003 & 1 & B & Citroen & C2 & [2002,2,2] & [2006,1,1] \\
+001 & 2 & B & Peugeot & 206 & [2000,1,2] & [2011,2,1] \\
 001 & 3 & B & Peugeot & 207 & [2006,1,1] & [2011,1,1]\\
 \hline
 \end{tabular}
@@ -171,7 +174,7 @@ Consider the following query:
 
 \emph{The user wants to obtain a list of models in the segment B for the manufacturer Peugeot before the year interval 2001-2005.}
 
-The query is translated to the following expression, using the structure given in equation \eqref{eq:query-definition}:
+The query is translated to the following expression, using equation \eqref{eq:query-definition}. The evaluation for the criteria are presented in the result table \ref{tb:results}.
 
 \begin{center}
 $\tilde{Q} = \left(  c^{time}, c_{segment} \right)$
@@ -185,20 +188,20 @@ $c^{time}\ = \ ( \left[ 2001,\ 2005 \right],\ $  before $)$.
 $c_{segment}\ = \ $ Peugeot.
 \end{itemize}
 
-The evaluation for the criteria are presented in the result table \ref{tb:results}.
+
 
 \begin{table}[ht]
 \caption{Result table and ranking}
 \centering
-\begin{tabular}{c c c c c }
+\begin{tabular}{c c c c c c c}
 \hline
-ID & IID &  $c^{time}$ & $c_{segment}$ & rank ($\omega=0.5$) \\ [0.5ex]
+ID & IID &  $\Pos_{c^{time}}$ &$\Nec_{c^{time}}$ & $e(C^{time})$ & $c_{segment}$ & rank ($\omega=0.5$) \\ [0.5ex]
 \hline
-001 & 1  & 1 & 1 & 1 \\
-002 & 1  & 1 & 0 & 0.5 \\
-003 & 1  & 0.333  & 0 & 0.166\\
-001 & 2 & 1 & 1 & 1 \\
-001 & 3 & 0 & 1 & 0.5\\
+001 & 1 & 1 &  1 & 1 & 1 & 1 \\
+002 & 1 & 1 & 1 & 1 & 0.5 & 0.75 \\
+003 & 1 & 1 & 0.5 & 0.75 &0 & 0.375\\
+001 & 2 & 1 & 0 & 0.5 &1 & 0.75 \\
+001 & 3 & 0 & 0 & 0 &1 & 0.5\\
 \hline
 \end{tabular}
 \label{tb:results}
