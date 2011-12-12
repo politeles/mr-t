@@ -49,6 +49,8 @@ To store a PVP, the possibility distributions defining the ill-known start and e
 %\end{itemize}
 %
 
+\vspace{-10pt}
+
 \begin{table}
 \centering
 \begin{tabular}{c c c c c c l p{2cm}}
@@ -168,6 +170,9 @@ I meets J & $C_1\triangleq \left(\leq,X\right)$ ,$C_2\triangleq \left(\neq,X\rig
 
 \end{table}
 
+
+\vspace{-5pt}
+
 \subsubsection{Ranking and aggregation}
 In order to present the results to the user, a ranking method is used. First of all, $e_{Q^{time}}(r)$ is rescaled to the unit interval. The final ranking $e_{final}$ is now given by a convex combination:
 
@@ -185,15 +190,13 @@ The use of this convex combination allows a record to make up for a low score on
 
 \subsection{Example}
 
-FROM HERE
-
 %\begin{example} 
 \subsubsection{The database}
-Consider a database describing car models, containing general attributes (model name, manufacturer, car segment) and one temporal attribute containing the approximate period of time during which the car model was sold. The temporal data is stored as explained in subsection \ref{subsec:storage}. The value for $D$ is stored in \emph{yyyy} format and $a$ and $b$ are represented by an integer, for the convenience of the representation. Therefore the chronons in our example will be years. The ID field identifies a car model while the field Instance ID (IID) identifies the instance for a car model.
+Consider example database \ref{tb:car-models} describing car models, containing general attributes (model name, manufacturer, car segment) and one temporal attribute containing the approximate period of time during which the car model was sold. The temporal data is stored as explained in subsection \ref{subsec:storage}. Let the chronons in our example be years. The value for $D$ is stored in \emph{yyyy} format and $a$ and $b$ are represented by an integer. The ID field identifies a car model while the field Instance ID (IID) identifies the instance for a car model, thus a car model in a certain state.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample table for the car models. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[ht]
+\begin{table}[h]
 \centering
 \begin{tabular}{c c c c c c c}
 \hline
@@ -207,32 +210,46 @@ ID & IID & Segment & Manufacturer & Name & Start & End  \\ [0.5ex]
 \hline
 \end{tabular}
 \vspace{10pt}
-\caption{Sample database}
+\caption{Example database}
 \label{tb:car-models}
+
+\vspace{-30pt}
+
 \end{table}
 
-
-
-\textbf{The query}
+\subsubsection{The query}
 Consider the following query:
 
-\emph{The user wants to obtain a list of models in the segment B for the manufacturer Peugeot before the year interval 2001-2005.}
-
-The query is translated to the following expression, using equation \eqref{eq:query-definition}. The evaluation for the criteria are presented in the result table \ref{tb:results}.
-
 \begin{center}
-$\tilde{Q} = \left(  c^{time}, c_{segment} \right)$
+\emph{The user wants to obtain a list of models from segment B, made by manufacturer Peugeot before the year interval 2001-2005}
 \end{center}
 
-Where:
-\begin{itemize}
-\item
-$c^{time}\ = \ ( \left[ 2001,\ 2005 \right],\ $  before $)$.
-\item
-$c_{segment}\ = \ $ Peugeot.
-\end{itemize}
+Using the introduced notations, the query is translated to the following expression:
 
+\vspace{-10pt}
 
+\begin{center}
+$\tilde{Q} = \left(Q^{time}, Q\right)$
+\end{center}
+
+\vspace{-10pt}
+
+In this expression:
+%\begin{itemize}
+%\item
+%$Q^{time}\ = \ ( \left[ 2001,\ 2005 \right],\ $  before $)$.
+%\item
+%$c_{segment}\ = \ $ Peugeot.
+%\end{itemize}
+
+\vspace{-15pt}
+
+\begin{align}
+Q^{time} & = \left(\left[ 2001, 2005 \right], before\right) \\
+Q & = \left(Segment =  B\right) \wedge \left(Manufacturer = Peugeot\right)
+\end{align}
+
+The evaluation for the criteria are presented in the result table \ref{tb:results}.
 
 \begin{table}[ht]
 \caption{Result table and ranking}
