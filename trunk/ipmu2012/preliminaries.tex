@@ -129,6 +129,8 @@ $D+b$ is then $\sup \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
 
 The membership function of such a fuzzy number is then given by:
 
+\vspace{-10pt}
+
 \begin{align}
 \mu_M : & \quad \mathbb{R} \rightarrow \left[0,1\right] \nonumber\\
  : & \quad x \rightarrow
@@ -165,6 +167,8 @@ Set $A$ now satisfies the constraint if and only if:
 
 The satisfaction of a constraint $C \triangleq (R,V)$ by a set $A$ is now still a Boolean matter, but due to the uncertainty about the ill-known value $V$, it can be uncertain whether $C$ is satisfied by $A$ or not\cite{Pon11}. In fact, this satisfaction now behaves as a proposition. Based on the possibility distribution $\pi_{V}$ of $V$, the possibility and necessity that $A$ satisfies $C$ can be found. This proposition can thus be seen as a possibilistic variable on $\mathbb{B}$. The required possibility and necessity are:
 
+\vspace{-10pt}
+
 \begin{align}
 \Pos(A\text{ satisfies }C) & = \min_{a \in A}\left(\sup_{(a,w) \in R}\pi_{V}(w))\right) \label{ill-known-pos}\\
 \Nec(A\text{ satisfies }C) & = \min_{a \in A}\left(\inf_{(a,w) \notin R} 1-\pi_{V}(w)\right) \label{ill-known-nec}
@@ -174,12 +178,16 @@ Now, to check if crisp interval $I = \left[j, k\right]$ is included in $\left[X,
 
 %We assume that $X$ specifies the lower bound and $Y$ the upper bound for a given interval, we want to known whether all points in the interval are larger than or equal to $X$ and smaller than or equal to $Y$. Therefore, we consider two ill-known constraints:
 
+\vspace{-10pt}
+
 \begin{eqnarray}
 C_1\triangleq\left(\geq,X\right)\\
 C_2\triangleq\left(\leq,Y\right).
 \end{eqnarray}
 
 To calculate possibility and necessity concerning a conjunction of constraints, the $\min$ operator is used. The possibility and necessity of the set satisfying both constraints is then:
+
+\vspace{-10pt}
 
 \begin{align}
 \label{eq:interval-pos}
