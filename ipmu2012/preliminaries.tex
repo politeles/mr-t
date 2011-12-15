@@ -185,7 +185,7 @@ C_1\triangleq\left(\geq,X\right)\\
 C_2\triangleq\left(\leq,Y\right).
 \end{eqnarray}
 
-To calculate possibility and necessity concerning a conjunction of constraints, the $\min$ operator is used. The possibility and necessity of the set satisfying both constraints is then:
+To calculate possibility and necessity concerning a conjunction of constraints, the $\min$ operator is used. The possibility and necessity of the set is: %satisfying both constraints is then:
 
 \vspace{-10pt}
 
@@ -216,7 +216,7 @@ To calculate possibility and necessity concerning a conjunction of constraints, 
 
 \subsection{Temporal Databases}
 %In this section, the proposed reasoning is applied to the specific context of intervals on the real line. This setting is of specific interest in the context of fuzzy temporal databases.
-A \emph{temporal database} is a database that manages some aspects of time in its schema. The reality a temporal database tries to model, contains some temporal notions which have to be handled specifically in order to maintain a consistent modelling behavior. A \emph{chronon} is the shortest duration of time supported by the database. Time can be represented either as points or intervals \cite{655777}.
+A \emph{temporal database} is a database that manages some aspects of time in its schema \cite{Dyreson1994}. The reality a temporal database tries to model, contains some temporal notions which have to be handled specifically in order to maintain a consistent modelling behavior. A \emph{chronon} is the shortest duration of time supported by the database. Time can be represented either as points~\cite{Dubois89} or intervals ~\cite{Garrido2009},\cite{655777} that may be subject to imperfection.
 %There are proposals for the fuzzyfication of the time point and the fuzzyfication of the time interval.
 
 
@@ -226,14 +226,14 @@ The temporal notions in temporal databases can be classified into 4 types based 
 
 \begin{itemize}
 	\item
-	\emph{Transaction time}: The time when the fact is stored in the database.
+	\emph{Transaction time}~\cite{Jensen91}: The time when the fact is stored in the database.
 	\item
-	\emph{Valid time}: The time when the fact is true in the modelled reality.
+	\emph{Valid time}~\cite{Snodgrass84}: The time when the fact is true in the modelled reality.
 	\item
-	\emph{Decision time}: The time when an event was decided to happen. 
+	\emph{Decision time}~\cite{Nascimento95}: The time when an event was decided to happen. 
 \end{itemize}
 	
-Database models can then be classified into transaction time \cite{Jensen91}, decision time, valid time, bi-temporal \cite{Snodgrass84}(both valid and transaction time) or tri-temporal \cite{Nascimento95} (valid, transaction and decision time) models.
+Database models can also be classified into \emph{bi-temporal} (both valid and transaction-time) or \emph{tri-temporal}  (bi-temporal and decision time) models.
 
 
-To deal with time points \cite{Dubois89} or intervals \cite{Garrido2009} that are subject to imperfection and can thus not be precisely known, fuzzy temporal models \cite{schockaert08} exist. %Some fuzzy temporal models assume that the time stored in the database is an interval. The temporal interval is represented by two ill-known time points: $X$  an ill-known starting point and $Y$ an ill-known ending point. The interval $\left[X,Y\right]$ is not a fuzzy interval but an ill-known interval: it is a crisp interval but it is partially unknown which values are in this interval.
+%To deal with time points  or intervals  that are subject to imperfection and can thus not be precisely known, fuzzy temporal models \cite{schockaert08} exist. %Some fuzzy temporal models assume that the time stored in the database is an interval. The temporal interval is represented by two ill-known time points: $X$  an ill-known starting point and $Y$ an ill-known ending point. The interval $\left[X,Y\right]$ is not a fuzzy interval but an ill-known interval: it is a crisp interval but it is partially unknown which values are in this interval.
