@@ -23,6 +23,7 @@ The basic elements in a temporal domain are the following:\\
 \textbf{Chronon}: Is a non-decomposable time interval of fixed duration. It is possible for a temporal model to leave the chronon duration unspecified. The duration will be specified later in the implementation of the model.
 %\end{itemize}
 \end{svgraybox}
+Any temporal model may represent the time as points as well as intervals. The equivalence between a interval-based and point-based temporal data models is demonstrated in \cite{Böhlen_point-versus}.
 
 Attending to the density between the chronons, a model can be classified into the following three types:
 
@@ -56,25 +57,36 @@ Triangle inequality: The distance from $\alpha$ to $\gamma$ is equal or greater 
 \end{enumerate}
 \end{itemize}
 
-On the other hand, time may be \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers 'absolute time' is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
+On the other hand, time may be \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers \emph{absolute time} is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
 
-%%% time as points and time as intervals:
 
 %%% granularity
+%\subsubsection{Granularity}
+Next to the inherent difficulties of time, an issue is \textbf{temporal granularity}. A temporal granularity is a partitioning of the time line used by a system, usually dependent on the application. For example, the age of an adult human being is usually expressed in years: one will use sentences like \emph{`Laura is 21 years old'} instead of \emph{`Laura is 21 years, 3 months and 4 days old'}. In this example any time period shorter than a year needs no representation and thus the used granularity allows no specification for time periods shorter than a year.
 
+The transition between granularities~\cite{Lin97} is also considered as a source of imprecision. In a sentence like \emph{`The Alhambra is 612 years old'}, the temporal notion is very precise if time periods shorter than a year are irrelevant in the used granularity. However, if one is concerned with the exact day on which the last stone of the building is laid, a transition to a finer granularity, allowing the specification of time periods shorter than a year, is needed. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
 
 \subsection{Temporal Relations}
 %an explanation on allen's temporal relations.
+%definition of fuzzy temporal interval
 
 
+Several operators are defined in order to compare temporal elements. Allen~\cite{Allen83} first described the relations between time intervals and to a lesser extent, between time points. Figure \ref{fig:allen} shows the temporal relations. There are some proposals that can be applied to both crisp and fuzzy temporal interval ~\cite{ohlbach2004},\cite{nagypal2003},\cite{schockaert08}. For this fuzzy comparisons~\cite{garrido2009} proposed some different temporal relations that can be easyly implemented by means of regular fuzzy operations.
 
-\subsection{An example of time domain: Julian Day Number}
+\begin{figure}
+\centering
+\input{graphs/allen.tex}
+\caption{Allen relations between two time intervals.}
+\label{fig:allen}
+\end{figure}
+
+
+\subsection{An example of temporal domain: Julian Day Number}
 % proposal for the underlying Julian Day Number domain.
 
-The Julian Day number \cite{Dir96} is a counter. Its value is incremented in one unit every day from 1 January 4713 B.C. at 12:00 noon. The particularity of starting at noon was useful for astronomers: the observations they took one night belonged to the same Julian Day. Actually it has not any transcendence.\\
-Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicited after the Julian Day number.\\
+The Julian Day number \emph{JDN} \cite{Dir96} is a counter. Its value is incremented in one unit every day from 1 January 4713 B.C. at 12:00 noon. The particularity of starting at noon was useful for astronomers: the observations they took one night belonged to the same Julian Day.\\
+Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicited after the Julian Day number. There are several conversion formulas~\cite{Usn}\cite{Wik}\cite{Lea} between a date in Gregorian calendar  format and a date in  JDN format. The inverse conversion formula is proposed in~\cite{Fliegel:1968:LEM:364096.364097}\\
 
-\subsubsection{Representation alternatives}
 There are many alternatives to optimize the representation of Julian Day numbers because of its extremely far origin (4713 B.C. year). Table \ref{table:juliandayrepresentations} shows several time domains that can be calculated from the Julian Date, some of them are proposed just for optimization purposes.
 
 
@@ -117,34 +129,34 @@ $^l$  It counts the seconds not the day. \\
 \end{table}
 
 
-\subsubsection{Conversion among dates}
-\paragraph{Conversion between Gregorian and Julian dates}
-The Julian Date consist on the Julian Day number and the time. It is computed with the formula \cite{Usn}:\\
-\begin{equation}
-\label{eq:julian day}
-JD = JDN + \frac{hour-12}{24} + \frac{minutes}{1440} + \frac{seconds}{86400}
-\end{equation}
+%\subsubsection{Conversion among dates}
+%\paragraph{Conversion between Gregorian and Julian dates}
+%The Julian Date consist on the Julian Day number and the time. It is computed with the formula \cite{Usn}:\\
+%\begin{equation}
+%\label{eq:julian day}
+%JD = JDN + \frac{hour-12}{24} + \frac{minutes}{1440} + \frac{seconds}{86400}
+%\end{equation}
+%
+%Here the JDN is the Julian Day Number. This equation does not take into account the leap seconds \footnote{A leap second(s) is the amount of second(s) added or deleted every year in the Universal Time.\cite{Wik},\cite{Lea}. }.
 
-Here the JDN is the Julian Day Number. This equation does not take into account the leap seconds \footnote{A leap second(s) is the amount of second(s) added or deleted every year in the Universal Time.\cite{Wik},\cite{Lea}. }.
-
-\paragraph{Gregorian calendar to Julian day}
-Any date from Gregorian calendar \footnote{As Gregorian calendar entered in use in 1582, any use before that date is called \emph{proleptic calendar}.} can be converted into a Julian Day using the following formula:\\
-\begin{equation}
-\label{eq:JDN}
-JDN = \frac{1461x(Y + 4800 + \frac{M-14}{12})}{4}+\frac{367x(M-2-12x\frac{M-14}{12})}{12}-\frac{3x\frac{Y+4900+\frac{M-14}{12}}{100}}{4} 
-\end{equation}
-
-This formula was created by Henry Fliegel and Thomas C. van Flandern in 1968. \cite{Fliegel:1968:LEM:364096.364097} It takes into account leap years and that they are applicable only when the century is divisible by 400. The value $Y$ represents the year and the value $M$ represents the month.
-\paragraph{Julian calendar to Julian day}
-The algorithm to convert between Julian calendar and Julian Day Number is only valid for dates since 4713 B.C (positive values of Julian Day) \cite{Dog}:\\
-\begin{equation}
-\label{eq:JDN_2_JD}
-JDN=367Y-\frac{7 (Y + 5001 + \frac{M-9}{7})}{4}+\frac{275xM}{9}+D+1729777
-\end{equation}
-
-Where $Y$ is the year value, $M$ is the month value, and $D$ is the day value.
-
-%\subsubsection{Membership degree computation}
+%\paragraph{Gregorian calendar to Julian day}
+%Any date from Gregorian calendar \footnote{As Gregorian calendar entered in use in 1582, any use before that date is called \emph{proleptic calendar}.} can be converted into a Julian Day using the following formula:\\
+%\begin{equation}
+%\label{eq:JDN}
+%JDN = \frac{1461x(Y + 4800 + \frac{M-14}{12})}{4}+\frac{367x(M-2-12x\frac{M-14}{12})}{12}-\frac{3x\frac{Y+4900+\frac{M-14}{12}}{100}}{4} 
+%\end{equation}
+%
+%This formula was created by Henry Fliegel and Thomas C. van Flandern in 1968. \cite{Fliegel:1968:LEM:364096.364097} It takes into account leap years and that they are applicable only when the century is divisible by 400. The value $Y$ represents the year and the value $M$ represents the month.
+%\paragraph{Julian calendar to Julian day}
+%The algorithm to convert between Julian calendar and Julian Day Number is only valid for dates since 4713 B.C (positive values of Julian Day) \cite{Dog}:\\
+%\begin{equation}
+%\label{eq:JDN_2_JD}
+%JDN=367Y-\frac{7 (Y + 5001 + \frac{M-9}{7})}{4}+\frac{275xM}{9}+D+1729777
+%\end{equation}
+%
+%Where $Y$ is the year value, $M$ is the month value, and $D$ is the day value.
+%
+%%\subsubsection{Membership degree computation}
 %The main advantage from the Julian day number is the ability to make calculations. Thus, the membership degree computation for a fuzzy number based on a Julian day is explained here. \\
 %Let a trapezoidal possibility distribution defined by four JDN named $a$,$b$,$c$ and $d$. The fuzzy validity period \emph{FVP}, can be represented as in figure \ref{fig:fuzzy-validity-period}. The following equation shows the membership degree for a Julian day number \emph{JDN} in a \emph{FVP} represented by means of the possibility distribution of $[a,b,c,d]$. In a valid-time database, the values for the valid starting time \emph{VST} and the valid ending time \emph{VET} can be fuzzyfied as shown in equation \ref{eq:fuzzy-validity-period}.
 %
