@@ -1,0 +1,138 @@
+%%Created by jPicEdt 1.4.1_03: mixed JPIC-XML/LaTeX format
+%%Thu Jan 12 17:23:31 CET 2012
+%%Begin JPIC-XML
+%<?xml version="1.0" standalone="yes"?>
+%<jpic x-min="-2.5" x-max="60" y-min="-2" y-max="32.5" auto-bounding="true">
+%<multicurve right-arrow= "head"
+%	 fill-style= "none"
+%	 points= "(0,0);(0,0);(55,0);(55,0)"
+%	 />
+%<multicurve right-arrow= "head"
+%	 fill-style= "none"
+%	 points= "(0,0);(0,0);(0,30);(0,30)"
+%	 />
+%<text right-arrow= "head"
+%	 fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(-2.5,27.5)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%1
+%</text>
+%<text right-arrow= "head"
+%	 fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(-2.5,0)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%0
+%</text>
+%<text right-arrow= "head"
+%	 fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(15,32.5)"
+%	 text-rotation= "135"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%Membership Degree
+%</text>
+%<multicurve fill-style= "none"
+%	 points= "(5,0);(5,0);(15,27.5);(15,27.5)"
+%	 />
+%<multicurve fill-style= "none"
+%	 points= "(15,27.5);(15,27.5);(35,27.5);(35,27.5)"
+%	 />
+%<multicurve fill-style= "none"
+%	 points= "(35,27.5);(35,27.5);(50,0);(50,0)"
+%	 />
+%<text fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(60,0)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%Time
+%</text>
+%<text fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 stroke-dasharray= "1;1"
+%	 anchor-point= "(40,25)"
+%	 stroke-style= "dashed"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%T
+%</text>
+%<text fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(6,-2)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$\alpha$
+%</text>
+%<text fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(16,-2)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$\beta$
+%</text>
+%<text fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(38,-2)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$\gamma$
+%</text>
+%<text fill-style= "none"
+%	 text-vert-align= "center-v"
+%	 anchor-point= "(50,-2)"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$\delta$
+%</text>
+%</jpic>
+%%End JPIC-XML
+%LaTeX-picture environment using emulated lines and arcs
+%You can rescale the whole picture (to 80% for instance) by using the command \def\JPicScale{0.8}
+\ifx\JPicScale\undefined\def\JPicScale{1}\fi
+\unitlength \JPicScale mm
+\begin{picture}(60,32.5)(0,0)
+\linethickness{0.3mm}
+\put(0,0){\line(1,0){55}}
+\put(55,0){\vector(1,0){0.12}}
+\linethickness{0.3mm}
+\put(0,0){\line(0,1){30}}
+\put(0,30){\vector(0,1){0.12}}
+\put(-2.5,27.5){\makebox(0,0)[cc]{1}}
+
+\put(-2.5,0){\makebox(0,0)[cc]{0}}
+
+\put(15,32.5){\makebox(0,0)[cc]{Membership Degree}}
+
+\linethickness{0.3mm}
+\multiput(5,0)(0.12,0.33){83}{\line(0,1){0.33}}
+\linethickness{0.3mm}
+\put(15,27.5){\line(1,0){20}}
+\linethickness{0.3mm}
+\multiput(35,27.5)(0.12,-0.22){125}{\line(0,-1){0.22}}
+\put(60,0){\makebox(0,0)[cc]{Time}}
+
+\put(40,25){\makebox(0,0)[cc]{T}}
+
+\put(6,-2){\makebox(0,0)[cc]{$\alpha$}}
+
+\put(16,-2){\makebox(0,0)[cc]{$\beta$}}
+
+\put(38,-2){\makebox(0,0)[cc]{$\gamma$}}
+
+\put(50,-2){\makebox(0,0)[cc]{$\delta$}}
+
+\end{picture}
