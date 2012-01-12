@@ -1,3 +1,39 @@
 %
 % Fuzzy temporal databases
 %
+Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be stimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
+
+There are several approaches to manage uncertainty in the temporal information stored in a database. Valid-time is usually represented as an interval, and therefore it is suitable for the representation of uncertainty in the valid-time interval. Nevertheless, the values for transaction and decision time are usually precisely known.
+Some models deal with probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions at the endpoints of the time interval. In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
+
+In fuzzy databases~\cite{Galindo2006}, uncertainty is managed at storage level whereas imprecision is managed at querying level. In subsection \ref{subsec:representation-time-intervals} we will explain the main approach for the storage of uncertainty in the valid-time interval. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying in a flexible way valid-time intervals are analyzed.
+
+\subsection{Representation of ill-known temporal intervals}
+\label{subsec:representation-time-intervals}
+The uncertainty in a valid-time interval may be represented with uncertainty at one or both starting and ending points. The uncertainty is usually represented by means of a possibility distribution in one or both points. It is also possible to represent with rough sets~\cite{Pawlak1995} time intervals~\cite{Qia09}.
+
+Several authors ~\cite{garrido2009} propose some transformations in order to optimize the storage of the valid-time interval. Further research has shown how these transformations drive to a possibilistic information lost~\cite{Pon11}. A comparison between the transformations in ~\cite{garrido2009}  and the framework in~\cite{Pon11} is done in~\cite{pon12}. 
+
+\begin{figure}
+\centering
+\input{graphs/interval.tex}
+\caption{Two ill-known values $X$ and $Y$, represented by means of triangular possibility distributions denoting the starting and ending points of an ill-known interval. }
+\label{fig:interval}
+\end{figure}
+
+
+An ill-known temporal interval is usually represented by means of two possibility distributions one in each starting and ending points. Figure \ref{fig:interval} shows an ill-known valid-time interval. The starting and ending points are denoted by two fuzzy numbers, $X$ and $Y$, represented by means of two triangular possibility distributions (see the Appendix). For illustration, figure \ref{fig:convexhull} shows one of the transformations based in the convex hull and proposed in~\cite{garrido2009}.
+
+\begin{figure}
+\centering
+\input{graphs/convexhull.tex}
+\caption{Transformation based in the convex hull from the two ill-known points $X$ and $Y$. }
+\label{fig:convexhull}
+\end{figure}
+
+\subsection{Querying fuzzy temporal databases}
+\label{subsec:querying-time-intervals}
+
+
+
+\subsubsection{Bipolarity in temporal database querying}
