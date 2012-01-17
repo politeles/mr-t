@@ -1,0 +1,104 @@
+Possibility theory, like probability theory, deals with uncertainty about the outcome of an experiment. In probability theory, this uncertainty is caused by the \emph{variability} in the outcomes, while in possibility theory, the uncertainty is caused by \emph{incomplete knowledge} about the experiment. The quantification of confidence in a theory of uncertainty is achieved using a confidence measure\cite{Pon11}. In probability theory this is a measure of chance, in possibility theory, possibility and necessity measures are used.
+
+\begin{definition}
+Consider a set of outcomes $\Omega$. Let $\wp(\Omega)$ denote the powerset of $\Omega$ and let $A$ and $B$ be elements of $\wp(\Omega)$. A \emph{confidence measure on $\Omega$} is defined by a function
+	\begin{align}
+	g : \wp(\Omega) & \rightarrow \left[0,1\right]
+	\end{align}
+that satisfies
+	\begin{align}
+	g(\emptyset) &= 0 \\
+	g(\Omega) &= 1 	\label{NormalizationProperty} \\
+	A \subseteq B &\Rightarrow g(A) \leq g(B) \label{MonotonicityProperty}
+	\end{align}
+\end{definition}
+
+Both possibility measures and necessity measures are special cases of confidence measures.
+
+\begin{definition}
+Consider a confidence measure $\Pi$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $\Pi$ is now a \emph{possibility measure on $\Omega$} if it satisfies:
+	\begin{align}
+	\Pi\left(\bigcup_{j \in J} A_{j} \right) = \sup_{j \in J} \Pi(A_{j})
+	\end{align}
+\end{definition}
+
+In this work, the interpretation is as follows. The possibility of an event expresses how plausible the occurrence of the event seems to an observer of the experiment, given the (partial) knowledge of the observer about the experiment.
+
+Information on the possibility of distinct elements of the universe of discourse $\Omega$ can now be given by a \emph{possibility distribution} $\pi$ on $\Omega$, defined by:
+
+\begin{definition}
+Consider a possibility measure $\Pi$ on $\Omega$. A \emph{possibility distribution} $\pi$ on $\Omega$ underlying the possibility measure $\Pi$ is then a function defined by:
+	\begin{align}
+	\pi : \Omega \rightarrow \left[0, 1\right] : \pi(u) = \Pi(\{u\})
+	\end{align}
+\end{definition}
+
+\begin{definition}
+Consider a confidence measure $N$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $N$ is now a \emph{necessity measure} on $\Omega$ if it satisfies:
+	\begin{align}
+	N\left(\bigcap_{j \in J} A_{j} \right) = \inf_{j \in J} N(A_{j})
+	\end{align}
+\end{definition}
+
+In this work, the interpretation is as follows. The necessity of an event expresses how necessary the occurrence of the event seems to an observer of the experiment, given the (partial) knowledge of the observer about the experiment.
+
+Possibility and necessity measures are dual in the sense that:
+
+\begin{align}
+\forall A \subseteq \Omega : N(A) = 1 - \Pi(\bar{A})
+\end{align}
+
+Regarding interpretation, the above can be seen as: the degree to which an event is necessary is the degree to which every other possible event is not plausible.
+
+\subsection*{\label{subsec:fuzzy-numbers}Fuzzy numbers and fuzzy intervals}
+Dubois and Prade~\cite{Dubois1983} proposed the following definition of \emph{fuzzy interval}.
+%\begin{definition}
+A fuzzy interval is a fuzzy set $M$ on the set of real numbers $\mathbb{R}$ such that:
+\begin{eqnarray}
+\forall (u,v)\in\mathbb{R}^2:&\\
+\nonumber
+\forall w \in [u,v]:&\mu_M(w) \geq\min(\mu_M(u),\mu_M(v))  \\
+\exists m \in \mathbb{R}:& \mu_M(m)=1 
+\end{eqnarray}
+%\end{definition}
+If $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}, instead of a \emph{fuzzy interval}. In other words, if the core of a fuzzy interval is a singleton, it can be seen as a fuzzy number. In their work, Dubois and Prade propose four different functions (two possibility and two necessity functions) to asses the position of a fuzzy number N relative to  a fuzzy number M taken as a reference.
+
+The most convenient representation for the membership function of a fuzzy number is a triangular function (fig. \ref{fig:triangular}). The membership function $\mu_M$ for the fuzzy set $M$ has also the properties of convexity and normalization. Three values represent a triangular function: 
+\begin{itemize}
+\item
+$D$ is the singleton value in the core of $\mu_M(x)$.
+\item
+$D-a$ is the lower value in the support of $\mu_M(x)$. 
+\item
+$D+b$ is the upper value in the support of $\mu_M(x)$.
+\end{itemize}
+
+\begin{figure}
+\centering
+\input{graphs/triangular.tex}
+\caption{Triangular possibility distribution. }
+\label{fig:triangular}
+\end{figure}
+
+Note that the values $a$ and $b$ are values in the underlying ordered domain. E.g. $(a,b) \in \mathbb{R}^2$. The notation for a triangular function adopted here is $[D,a,b]$.
+
+The most simple representation for the membership function of a fuzzy interval is a trapezoidal function. This membership function $\mu_T$ for the fuzzy interval $T$ is convex and normalized. Four values represent a trapezoidal membership function (figure  \ref{fig:trapezoidal}):
+ $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. The membership function is:
+
+\begin{align}
+\mu_T(x)
+\begin{cases}
+1 & \mbox{ if } x \in [\beta,\gamma] \\
+0 & \mbox{ if } x > \delta \vee x < \alpha \\
+\frac{x-\alpha}{\beta - \alpha} & \mbox{ if } x \in [\alpha,\beta[ \\
+\frac{\delta -x}{\delta - \gamma} & \mbox{ if } x \in ]\gamma,\delta] \\
+\end{cases}
+\end{align}
+
+ 
+\begin{figure}
+\centering
+\input{graphs/trapezoidalDistribution.tex}
+\caption{Trapezoidal possibility distribution $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. }
+\label{fig:trapezoidal}
+\end{figure}

@@ -1,0 +1,93 @@
+%%Created by jPicEdt 1.4.1_03: mixed JPIC-XML/LaTeX format
+%%Tue Jan 17 10:05:05 CET 2012
+%%Begin JPIC-XML
+%<?xml version="1.0" standalone="yes"?>
+%<jpic x-min="-4" x-max="50" y-min="-2" y-max="20" auto-bounding="true">
+%<multicurve fill-style= "none"
+%	 points= "(0,0);(0,0);(50,0);(50,0)"
+%	 />
+%<multicurve fill-style= "none"
+%	 points= "(0,20);(0,20);(50,20);(50,20)"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(-4,20)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$\alpha$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(-4,0)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$\C$
+%</text>
+%<multicurve fill-style= "none"
+%	 points= "(14,0);(14,0);(22,20);(22,20)"
+%	 />
+%<multicurve fill-style= "none"
+%	 points= "(22,20);(22,20);(28,0);(28,0)"
+%	 />
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(10,10)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$f(i_\alpha)$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(16,-2)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$c_\bot$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(20,-2)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$c^{'}_\bot$
+%</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(26,-2)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$c^{''}_\bot$
+%</text>
+%</jpic>
+%%End JPIC-XML
+%LaTeX-picture environment using emulated lines and arcs
+%You can rescale the whole picture (to 80% for instance) by using the command \def\JPicScale{0.8}
+\ifx\JPicScale\undefined\def\JPicScale{1}\fi
+\unitlength \JPicScale mm
+\begin{picture}(50,20)(0,0)
+\linethickness{0.3mm}
+\put(0,0){\line(1,0){50}}
+\linethickness{0.3mm}
+\put(0,20){\line(1,0){50}}
+\put(-4,20){\makebox(0,0)[cc]{$\alpha$}}
+
+\put(-4,0){\makebox(0,0)[cc]{$\C$}}
+
+\linethickness{0.3mm}
+\multiput(14,0)(0.12,0.3){67}{\line(0,1){0.3}}
+\linethickness{0.3mm}
+\multiput(22,20)(0.12,-0.4){50}{\line(0,-1){0.4}}
+\put(10,10){\makebox(0,0)[cc]{$f(i_\alpha)$}}
+
+\put(16,-2){\makebox(0,0)[cc]{$c_\bot$}}
+
+\put(20,-2){\makebox(0,0)[cc]{$c^{'}_\bot$}}
+
+\put(26,-2){\makebox(0,0)[cc]{$c^{''}_\bot$}}
+
+\end{picture}
