@@ -33,7 +33,54 @@ An ill-known temporal interval is usually represented by means of two possibilit
 
 \subsection{Querying fuzzy temporal databases}
 \label{subsec:querying-time-intervals}
+One of the main pourposes of a database is to allow the information retrieval. The standard query language for databases is SQL ~\cite{Mel93}, however, there are several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bi-temporal ~\cite{TSQL}. Some authors have studied how to support temporal querying in SQL~\cite{Snodgrass98}.
 
+In the querying of a fuzzy temporal database it is possible to distinguish among the following cases:
+
+\begin{itemize}
+\item
+Fuzzy data stored in the database and crisp specification in the query.
+\item
+Crisp data stored in the database and fuzzy data in the query specification.
+\item
+Both data stored in the database and the query specification are fuzzy.
+\end{itemize}
+In this subsection we will explain the query specification for a database that stores ill-known time intervals and crisp values in the query. Afterwards, the aggregation and ranking of the temporal results is explained.
+
+\subsubsection{Query structure}
+Consider that in a regular or fuzzy relational database, the query specification for the non-temporal attributes is given by $Q$. Therefore, the query specification in a temporal or fuzzy temporal database is given by $\tilde{Q}$:
+
+\begin{definition}
+\textbf{(query specification)}
+A query $\tilde{Q}$ is given by:
+\begin{equation}
+\tilde{Q} = \left( Q^{time}, Q \right)
+\end{equation}
+Here $Q$ are the possibly fuzzy non-temporal contraints and $Q^{time}$ are the temporal constraints specified in the query:
+\end{definition}
+
+\begin{definition}
+\textbf{(temporal query specification)}
+$Q^{time}$ is defined by:
+\begin{equation}
+Q^{time} = \left( I,AR \right)
+\end{equation}
+Where $I$ is a crisp time interval and $AR$ is one of the Allen's relations. The interpretation is that given an ill-known time interval $J$, the user request the set of records in which $I$ AR $J$ hold.
+\end{definition}
+
+\subsubsection{Query evaluation}
+Query satisfaction in a (fuzzy) relational database is a matter of degree. Tipically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
+
+The query $\tilde{Q}$ is evaluated in two parts that happen simultaneously:
+\begin{itemize}
+\item
+The non-temporal part, $Q$ is evaluated resulting in a satisfaction degree noted as $e_Q(r)$ for each record $r$.
+\item
+The temporal part, $Q^{time}$ is evaluated depending on $AR$. A specific set of ill-known constraints is considered depending on the Allen relation in $AR$. Then both possibility and necessity measures are computed and aggregated.
+\end{itemize}
+
+\subsubsection{Ranking and aggregation}
+For each temporal attribute $r_{time}$ for the record $r$, both possibility $\Pos \left( Q_{time}\right)$ and necessity $\Nec \left( Q_{time} \right)$ measures are obtained.
 
 
 \subsubsection{Bipolarity in temporal database querying}
