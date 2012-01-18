@@ -1,7 +1,7 @@
 %
 % Time domain
 %
-In order to define and to work with time it is necessary to study and understand the underlying domain. Moreover, the definition of a temporal domain is the basis for almost any temporal system. In the following subsection \ref{subsec:basic-concepts} we will introduce several concepts that are widely used in the community of temporal databases. Most of the concepts explained here have been introduced in the \emph{'Consensus Glossary of Temporal Database Concepts'}~\cite{Dyreson:1994:CGT:181550.181560}.
+In order to define and to work with time it is necessary to study and understand the underlying domain. Moreover, the definition of a temporal domain is the basis for almost any temporal system. In the following subsection \ref{subsec:basic-concepts} we will introduce several concepts that are widely used in the community of temporal databases. Most of the concepts explained here have been introduced in the \emph{'Consensus Glossary of Temporal Database Concepts'}~\cite{Dyreson1994}.
 
 
 
@@ -24,7 +24,7 @@ The basic elements in a temporal domain are the following:\\
 %\end{itemize}
 \end{svgraybox}
 
-\begin{definition}
+\begin{definition}\textbf{(set of chronons)}
 \label{def:set-chronon}
 The \textbf{\emph{set of all the chronons}} in a system is denoted by $\C$. A chronon $c$ is therefore defined as:
 \begin{equation}
@@ -76,12 +76,12 @@ The formal definition for granularity is given in ~\cite{Lin97}:
 
 
 \begin{definition}
-\label{def:granularity}
+\label{def:granularity}\textbf{(granularity)}
 A \textbf{\emph{granularity}} $\alpha$ is an ordered set of non-overlapping and continuous time elements called granules. \\
 \end{definition}
 
 \begin{definition}
-\label{def:granule}
+\label{def:granule}\textbf{(granule)}
 A \textbf{\emph{granule}} is the basic time unit represented by a granularity. E.g. in the hours granularity, an hour is a granule.
 As granularity $\alpha$ it is an ordered set, each \emph{granule} may be indexed by an integer number:\\
 \begin{equation}
@@ -93,6 +93,7 @@ In a system, the smallest granularity is the \emph{chronons} granularity, denote
 
 \begin{definition}
 \label{def:mapping-function}
+\textbf{(mapping function)}
 The \textbf{\emph{mapping function}} $f$ in a given granule $i_\alpha$ is denoted by:\\
 %\begin{align}
 $f:i_\alpha \rightarrow \C$\\
@@ -132,7 +133,7 @@ The granules in $\alpha$ do not overlap: If $i_\alpha \neq j_\alpha$ then $f(i_\
 The mapping function $f$ allows the comparison among granularities:
 
 \begin{definition}
-\label{def:finner-than}
+\label{def:finner-than}\textbf{(finner than)}
 A granularity $\alpha$ is \emph{``finner than''} granularity $\beta$ when the set of corresponding chronons for a given granule $i_\alpha$ is smaller than the set of the corresponding chronons for a given granule $j_\beta$.
 \begin{equation}
 \label{eq:finner-than}
@@ -141,7 +142,7 @@ A granularity $\alpha$ is \emph{``finner than''} granularity $\beta$ when the se
 \end{definition}
 
 \begin{definition}
-\label{def:coarser-than}
+\label{def:coarser-than}\textbf{(coarser than)}
 A granularity $\alpha$ is \emph{``coarser than''} granularity $\beta$ when the set of corresponding chronons for a given granule $i_\alpha$ is greater than the set of the corresponding chronons for a given granule $j_\beta$.
 \begin{equation}
 \label{eq:coarser-than}
@@ -250,14 +251,15 @@ $^l$  It counts the seconds not the day. \\
 \subsection{Temporal Relations}
 %an explanation on allen's temporal relations.
 %definition of fuzzy temporal interval
-
-
-Several operators are defined in order to compare temporal elements. Allen~\cite{Allen83} first described the relations between time intervals and to a lesser extent, between time points. Figure \ref{fig:allen} shows the temporal relations. There are some proposals that can be applied to both crisp and fuzzy temporal interval ~\cite{ohlbach2004},\cite{nagypal2003},\cite{schockaert08}. For this fuzzy comparisons~\cite{garrido2009} proposed some different temporal relations that can be easyly implemented by means of regular fuzzy operations.
-
-\begin{figure}
+\def\JPicScale{0.5}
+\begin{figure}[h]
 \centering
 \input{graphs/allen.tex}
 \caption{Allen relations between two time intervals.}
 \label{fig:allen}
 \end{figure}
+
+Several operators are defined in order to compare temporal elements. Allen~\cite{Allen83} first described the relations between time intervals and to a lesser extent, between time points. Figure \ref{fig:allen} shows the temporal relations. There are some proposals that can be applied to both crisp and fuzzy temporal interval ~\cite{ohlbach2004},\cite{nagypal2003},\cite{schockaert08}. For this fuzzy comparisons~\cite{garrido2009} proposed some different temporal relations that can be easyly implemented by means of regular fuzzy operations.
+
+
 
