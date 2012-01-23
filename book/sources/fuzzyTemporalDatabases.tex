@@ -1,7 +1,7 @@
 %
 % Fuzzy temporal databases
 %
-Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be estimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
+Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be stimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
 
 There are several approaches to manage uncertainty in the temporal information stored in a database. Valid-time is usually represented as an interval, and therefore it is suitable for the representation of uncertainty in the valid-time interval. Nevertheless, the values for transaction and decision time are usually precisely known.
 Some models deal with probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions at the endpoints of the time interval. In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
@@ -33,7 +33,55 @@ An ill-known temporal interval is usually represented by means of two possibilit
 
 \subsection{Querying fuzzy temporal databases}
 \label{subsec:querying-time-intervals}
-One of the main purposes of a database is to allow the information retrieval. The standard query language for databases is SQL ~\cite{Mel93}, however, there are several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bi-temporal ~\cite{TSQL}. Some authors have studied how to support temporal querying in SQL~\cite{Snodgrass98}.
+
+
+\begin{table}[h]
+
+\caption{Allen's relations used in the framework. Here, $I = \left[a, b\right]$ denotes a crisp time interval, $J = \left[X, Y\right]$ denotes an ill-known time interval, with $\pi_{X}$ and $\pi_{Y}$ the possibility distributions of $X$ and $Y$ respectively. The second column contains the corresponding formula to calculate the possibility that $I$ satisfies all constraints given by the Allen's relation.}
+
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Allen Relation &  $\Pos\left(\text{I satisfies all constraints }C_{i}, i = 1,2,...\right)$ \\
+\hline
+I before J & $\sup_{a>w}\pi_x(w)$\\
+\hline
+
+\multirow{2}{*}
+{I equal J} &  $\min ( \sup_{a \leq w}\pi_x(w),\pi_x(w),$ \\
+ &  $\sup_{b \geq w}\pi_Y(w),\pi_Y(w))$\\
+\hline
+
+I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ $\pi_X(w))$ \\
+\hline
+
+\multirow{2}{*}
+{I overlaps J}  & $\min ( \sup_{b>w}\pi_Y(w), $ \\
+ & $\sup_{a \geq w}\pi_X(w),\sup_{a \leq w}\pi_X(w))$ \\
+\hline
+
+\multirow{2}{*}
+{I during J}  & $\max ( \min ( \sup_{a<w}\pi_X(w),\sup_{b \geq w}\pi_Y(w)),$ \\
+ & $\min ( \sup_{a \leq w }\pi_X(w),\sup_{b>w}\pi_Y(w)$\\
+\hline
+
+{I starts J} &  $\min( \sup_{a \leq w}\pi_X(w),$ $\pi_X(w))$\\
+\hline
+
+{I finishes J} &  $\min ( \sup_{b \geq w} \pi_Y(w),$ $\pi_Y(w))$ \\
+\hline 
+
+\end{tabular}
+%
+%\vspace{10pt}
+%
+%
+%\vspace{-25pt}
+\label{tab:fuzzy-allen-relations}
+\end{table}
+
+
+One of the main pourposes of a database is to allow the information retrieval. The standard query language for databases is SQL ~\cite{Mel93}, however, there are several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bi-temporal ~\cite{TSQL}. Some authors have studied how to support temporal querying in SQL~\cite{Snodgrass98}.
 
 In the querying of a fuzzy temporal database it is possible to distinguish among the following cases:
 
@@ -57,7 +105,7 @@ A query $\tilde{Q}$ is given by:
 \label{eq:query-specification}
 \tilde{Q} = \left( Q^{time}, Q \right)
 \end{equation}
-Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy non-temporal constraints and $Q^{time}$ are the temporal constraints specified in the query:
+Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy non-temporal contraints and $Q^{time}$ are the temporal constraints specified in the query:
 \end{definition}
 
 %%specify better this:
@@ -80,12 +128,12 @@ $Q^{time}$ is defined by:
 \begin{equation}
 Q^{time} = \left( I,AR \right)
 \end{equation}
-Where $I$ is a crisp time interval and $AR$ is one of the Allen's relations. The interpretation is that given an ill-known time interval $J$, the user request the set of records in which $I$ AR $J$ hold.
+Where $I$ is a crisp time interval and $AR$ is one of the Allen's relations, see table \ref{tab:fuzzy-allen-relations}. The interpretation is that given an ill-known time interval $J$, the user request the set of records in which $I$ AR $J$ hold.
 \end{definition}
 
 \subsubsection{Query evaluation}
 \label{subsubsec:query-evaluation}
-Query satisfaction in a (fuzzy) relational database is a matter of degree. Typically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
+Query satisfaction in a (fuzzy) relational database is a matter of degree. Tipically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
 
 \begin{definition}
 \label{def:evaluation-function}
@@ -131,12 +179,12 @@ e_{final} \left( r \right) = \left \lbrace t \mid t = \omega \ast e_{Q} \left( r
 
 \subsubsection{Bipolarity in temporal database querying}
 \label{subsubsec:bipolarity}
-Humans express their preferences in both positive and negative statements. This property is interesting in querying of databases, because sometimes, the user does not know exactly his / her preferences but what he / she does not want. This introduces the necessity of a bipolar way of querying databases. Therefore, the bipolar querying of databases is a querying technique which allows to express both positive and negative criteria in the database query.
+Humans express their preferences in both positive and negative statements. This property is interesting in querying of databases, because sometimes, the user does not know exactly his / her preferences but what he / she does not want. This introduces de necessity of a bipolar way of querying databases. Therefore, the bipolar querying of databases is a querying technique which allows to express both positive and negative criteria in the database query.
 
 In this subsection we will address a proposal for the bipolar querying of temporal databases made by Billiet~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. First of all, the query structure is shown. Then, both evaluation and ranking proposed by the authors are explained. The model deals with a fuzzy valid-time specification as in~\cite{garrido2009}.
 
 \paragraph{Query structure}
-The approach in this work follows the query specification given in \eqref{eq:query-specification}. The query has a global time demand, $Q^{time}$ and here, the regular query constraints specified by $Q$ are split into positive and negative preferences:
+The approach in this work follows the query specification given in \eqref{eq:query-specification}. The query has a global time demand, $Q^{time}$ and here, the regular query constraints specified by $Q$ are splitted into possitive and negative preferences:
 
 \begin{equation}
 \label{eq:bipolar-specification}
@@ -156,6 +204,6 @@ The temporal specification is evaluated as explained in \ref{subsubsec:query-eva
 \end{itemize}
 
 \paragraph{Ranking}
-In order to present the results to the user, it is necessary to design a combination function. This function allows the classification of the results in the unit interval the preferred way is to made a convex combination as  presented in equation \eqref{eq:convex-combination}.
+In order to present the results to the user, it is necessary to design a combination function. This function allows the classification of the results in the unit interval the preffered way is to made a convex combination as  presented in equation \eqref{eq:convex-combination}.
 
 
