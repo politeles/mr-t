@@ -20,7 +20,7 @@
                             % not available on your system
 %
 \usepackage{makeidx}         % allows index generation
-\usepackage{graphicx}        % standard LaTeX graphics tool
+\usepackage[dvips]{graphicx}        % standard LaTeX graphics tool
                              % when including figure files
 \usepackage{multicol}        % used for the two-column index
 \usepackage[bottom]{footmisc}% places footnotes at page bottom
@@ -28,6 +28,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{multirow}
+\usepackage{color}
 
 \hyphenation{pro-per-ties}
 \hyphenation{ge-ne-ral-ly}
@@ -62,17 +63,20 @@
 \newcommand{\R}{\mathbb{R}}
 \begin{document}
 
-\title*{An overview on temporal databases.\\
- New approaches and proposals.}
+\title*{An Overview on Temporal Databases.\\
+ New Approaches and Proposals.}
 % Use \titlerunning{Short Title} for an abbreviated version of
 % your contribution title if the original one is too long
-\author{Jos\'e Pons \and Christophe Billiet \and Olga Pons \and Guy de Tr\'e}
+\author{Jos\'e Pons \and Christophe Billiet \and Olga Pons \and Guy De Tr\'e}
 % Use \authorrunning{Short Title} for an abbreviated version of
 % your contribution title if the original one is too long
-\institute{Jos\'e Pons \at Department of Computer Science and Artificial Intelligence, Univeristy of Granada, C/ Periodista Daniel Saucedo Aranda s/n \email{jpons@decsai.ugr.es}
-\and Christophe Billiet \at Department of Telecommunications and Information Processing, Ghent University, Belgium, St.-Pietersnieuwstraat 41, B-9000 Gent,Belgium. \email{Christophe.Billiet@telin.ugent.be}
-\and Olga Pons \at Department of Computer Science and Artificial Intelligence, Univeristy of Granada, C/ Periodista Daniel Saucedo Aranda s/n \email{opc@decsai.ugr.es}
-\and Guy De Tr\'e \at Department of Telecommunications and Information Processing, Ghent University, Belgium, St.-Pietersnieuwstraat 41, B-9000 Gent,Belgium. \email{Guy.DeTre@telin.ugent.be}
+\institute{
+Jos\'e Pons \at Department of Computer Science and Artificial Intelligence, Escuela T\'ecnica Superior de Ingenier\'ia Inform\'atica, Universidad de Granada,  C/Periodista Daniel Saucedo Aranda s/n, E-18071, Granada, Spain.
+\email{jpons@decsai.ugr.es}
+\and Christophe Billiet \at Department of Telecommunications and Information Processing, Ghent University, St.-Pietersnieuwstraat 41, B-9000 Gent, Belgium. \email{Christophe.Billiet@telin.ugent.be}
+\and Olga Pons \at Department of Computer Science and Artificial Intelligence, Escuela T\'ecnica Superior de Ingenier\'ia Inform\'atica, Universidad de Granada,  C/Periodista Daniel Saucedo Aranda s/n, E-18071, Granada, Spain.
+\email{opc@decsai.ugr.es}
+\and Guy De Tr\'e \at Department of Telecommunications and Information Processing, Ghent University, St.-Pietersnieuwstraat 41, B-9000 Gent, Belgium. \email{Guy.DeTre@telin.ugent.be}
 }
 %
 % Use the package "url.sty" to avoid
@@ -81,9 +85,17 @@
 %
 \maketitle
 
-\abstract*{There exist some objects in the nature that have a time-variant (e.g. an employee's working life) or time-related (e.g. the transactions in a bank account) nature. Modelling these objects in a (relational) database is possible, but the time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. These models deal both with the problem of representation and querying. Time itself is a source of imprecision / vagueness / uncertainty since the measures of time are inherently imprecise. Humans beings manage the time with imprecision and vagueness. Nevertheless, the amount of uncertainty in the temporal indications are defined by socially well-known boundaries. Several proposals for dealing with imprecision in time have been done: some proposals consider the basis of the system the imprecision related to the conversion of diferent time points and intervals. While some other proposals consider the specification of the time as the source of imprecision: the time points are ill-known.}
 
-\abstract{There exist some objects in the nature that have a time-variant (e.g. an employee's working life) or time-related (e.g. the transactions in a bank account) nature. Modelling these objects in a (relational) database is possible, but the time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. These models deal both with the problem of representation and querying. Time itself is a source of imprecision / vagueness / uncertainty since the measures of time are inherently imprecise. Humans beings manage the time with imprecision and vagueness. Nevertheless, the amount of uncertainty in the temporal indications are defined by socially well-known boundaries. Several proposals for dealing with imprecision in time have been done: some proposals consider the basis of the system the imprecision related to the conversion of diferent time points and intervals. While some other proposals consider the specification of the time as the source of imprecision: the time points are ill-known.}
+\vspace{-35pt}
+%\abstract*{There exist some objects in the nature that have a time-variant (e.g. an employee's working life) or time-related (e.g. the transactions in a bank account) nature. Modelling these objects in a (relational) database is possible, but the time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. These models deal both with the problem of representation and querying. Time itself is a source of imprecision / vagueness / uncertainty since the measures of time are inherently imprecise. Humans beings manage the time with imprecision and vagueness. Nevertheless, the amount of uncertainty in the temporal indications are defined by socially well-known boundaries. Several proposals for dealing with imprecision in time have been done: some proposals consider the basis of the system the imprecision related to the conversion of diferent time points and intervals. While some other proposals consider the specification of the time as the source of imprecision: the time points are ill-known.}
+
+\abstract*{
+In reality, some objects or concepts have properties with a time-variant (e.g. an employee's job function) or time-related (e.g. financial transactions of a bank account) nature. Modelling these kinds of objects or concepts in a (relational) database schema is possible, but time-variant and time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. Time itself is a source of imprecision, vagueness and uncertainty, since existing time measuring devices are inherently imperfect. Accordingly, human beings manage time using temporal indications and temporal notions, which may contain imprecision, vagueness and uncertainty. However, the imperfection in human-used temporal indications is to some degree constrained by socially well-known boundaries. Several proposals for dealing with such imperfections exist. Some of these proposals consider the basis of the system to be the conversion of the specificity of temporal notions between used temporal expressions. Other proposals consider the temporal indications in the used temporal expressions to be the source of imperfection. In this chapter, an overview is given, concerning the basic concepts and issues related to the modelling of time as such or in (relational) database models and the imperfections that arise during or as a result of this modelling. Next to this, a novel and currently researched technique for handling some of these imperfections is presented.
+}
+
+\abstract{
+In reality, some objects or concepts have properties with a time-variant (e.g. an employee's job function) or time-related (e.g. financial transactions of a bank account) nature. Modelling these kinds of objects or concepts in a (relational) database schema is possible, but time-variant and time-related attributes have an impact on the consistency of the entire database. Therefore, some temporal database models have been proposed to deal with this. Time itself is a source of imprecision, vagueness and uncertainty, since existing time measuring devices are inherently imperfect. Accordingly, human beings manage time using temporal indications and temporal notions, which may contain imprecision, vagueness and uncertainty. However, the imperfection in human-used temporal indications is to some degree constrained by socially well-known boundaries. Several proposals for dealing with such imperfections exist. Some of these proposals consider the basis of the system to be the conversion of the specificity of temporal notions between used temporal expressions. Other proposals consider the temporal indications in the used temporal expressions to be the source of imperfection. In this chapter, an overview is given, concerning the basic concepts and issues related to the modelling of time as such or in (relational) database models and the imperfections that arise during or as a result of this modelling. Next to this, a novel and currently researched technique for handling some of these imperfections is presented.
+}
 
 \section{Introduction}
 \label{sec:introduction}
