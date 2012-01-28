@@ -1,7 +1,7 @@
 %
 % Fuzzy temporal databases
 %
-Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be stimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
+Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be estimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
 
 There are several approaches to manage uncertainty in the temporal information stored in a database. Valid-time is usually represented as an interval, and therefore it is suitable for the representation of uncertainty in the valid-time interval. Nevertheless, the values for transaction and decision time are usually precisely known.
 Some models deal with probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions at the endpoints of the time interval. In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
@@ -81,7 +81,7 @@ I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ $\pi_X(w))$ \\
 \end{table}
 
 
-One of the main pourposes of a database is to allow the information retrieval. The standard query language for databases is SQL ~\cite{Mel93}, however, there are several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bi-temporal ~\cite{TSQL}. Some authors have studied how to support temporal querying in SQL~\cite{Snodgrass98}.
+One of the main purposes of a database is to allow the information retrieval. The standard query language for databases is SQL ~\cite{Mel93}, however, there are several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bi-temporal ~\cite{TSQL}. Some authors have studied how to support temporal querying in SQL~\cite{Snodgrass98}.
 
 In the querying of a fuzzy temporal database it is possible to distinguish among the following cases:
 
@@ -105,7 +105,7 @@ A query $\tilde{Q}$ is given by:
 \label{eq:query-specification}
 \tilde{Q} = \left( Q^{time}, Q \right)
 \end{equation}
-Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy non-temporal contraints and $Q^{time}$ are the temporal constraints specified in the query:
+Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy non-temporal constraints and $Q^{time}$ are the temporal constraints specified in the query:
 \end{definition}
 
 %%specify better this:
@@ -133,7 +133,7 @@ Where $I$ is a crisp time interval and $AR$ is one of the Allen's relations, see
 
 \subsubsection{Query evaluation}
 \label{subsubsec:query-evaluation}
-Query satisfaction in a (fuzzy) relational database is a matter of degree. Tipically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
+Query satisfaction in a (fuzzy) relational database is a matter of degree. Typically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
 
 \begin{definition}
 \label{def:evaluation-function}
@@ -177,33 +177,67 @@ e_{final} \left( r \right) = \left \lbrace t \mid t = \omega \ast e_{Q} \left( r
 
 
 
-\subsubsection{Bipolarity in temporal database querying}
+\subsection{Bipolarity in temporal databases}
 \label{subsubsec:bipolarity}
-Humans express their preferences in both positive and negative statements. This property is interesting in querying of databases, because sometimes, the user does not know exactly his / her preferences but what he / she does not want. This introduces de necessity of a bipolar way of querying databases. Therefore, the bipolar querying of databases is a querying technique which allows to express both positive and negative criteria in the database query.
+Humans express their preferences in both positive and negative statements. This property is interesting in querying of databases, because sometimes, the user does not know exactly his / her preferences but what he / she does not want. \emph{Bipolarity} is therefore a technique to model both positive and negative preferences. Sometimes positive and negative information are clearly symmetric and therefore, it is possible to derive one information from another e.g. a person may define the concept of tall as 1.80 meters or higher. The negative would be the opposite, not tall is therefore, being less than 1.80 meters.  But in some cases, positive information can not be obtained directly from the negative information and vice-verse. E.g. a person wants to buy a blue motorbike, this does not mean that the person would reject a black motorbike. This heterogeneous semantics are given by the \emph{heterogeneous bipolarity}~\cite{Dubois2006},~\cite{Dubois2008}.\\
 
-In this subsection we will address a proposal for the bipolar querying of temporal databases made by Billiet~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. First of all, the query structure is shown. Then, both evaluation and ranking proposed by the authors are explained. The model deals with a fuzzy valid-time specification as in~\cite{garrido2009}.
+Some previous work have been done in ~\cite{Lacroix87}. There, instead of positive and negative criteria, desired and mandatory query conditions are explained. This can be seen as a way to specify positive and negative information: the inverse of a mandatory condition is what should be rejected (negative information), whereas desired conditions can be seen as positive information.\\
 
-\paragraph{Query structure}
-The approach in this work follows the query specification given in \eqref{eq:query-specification}. The query has a global time demand, $Q^{time}$ and here, the regular query constraints specified by $Q$ are splitted into possitive and negative preferences:
 
-\begin{equation}
-\label{eq:bipolar-specification}
-\tilde{Q} = \left \lbrace Q^{time}, \left( Q^{pos}, Q^{neg} \right) \right \rbrace
-\end{equation}
+This introduces the necessity of a bipolar way of querying databases. Therefore, the bipolar querying of databases~\cite{DeTre2009} is a querying technique which allows the user to express both positive and negative criteria in the database query.\\
 
-Here $Q^{pos}$ and $Q^{neg}$ represent the positive and the negative criteria, respectively. The temporal demand in $Q^{time}$ may be specified as in ~\cite{garrido2009} or as in ~ \cite{Pon11}, see section \ref{subsec:representation-time-intervals}.
-.
-\paragraph{Query evaluation}
-As explained previously in the query evaluation section (\ref{subsubsec:query-evaluation}), each element in $\tilde{Q}$ is evaluated independently:
+Bipolarity is handled by means of different tools:
 
 \begin{itemize}
 \item
-The query $Q$ has now two elements: $Q^{pos}$ and $Q^{neg}$. Each element is again evaluated independently and the result is a tuple $\left(s,d \right)$ in which $s$ is the satisfaction degree for $Q^{pos}$. $d$ is called dissatisfaction degree for $Q^{neg}$. The tuple $\left(s,d \right) s,d \in \left[0,1 \right]$ is called \emph{Bipolar Satisfaction Degree}.
+The intuitionistic fuzzy sets  \emph{AFS} by Atannasov ~\cite{Atanassov1986}. The approach re-define the concept of inverse. Instead of considering the inverse of a set just the complementary, a AFS is defined by means of a membership function and a non-membership function.
 \item
-The temporal specification is evaluated as explained in \ref{subsubsec:query-evaluation} and the result is a value in the unit interval.
+The interval valued fuzzy sets \emph{IVFS} were introduced independently by Zadeh~\cite{Zadeh75a}, Grattan-Guiness~\cite{Grattan76}, Janh~\cite{Jahn75}, Sambuc~\cite{Sambuc75} in the seventies~\cite{Dubois05}. %look for the reference!
+\item
+The two fold fuzzy sets \emph{(TFS)} by Dubois and Prade~\cite{Dubois02}. This approach defines desired and mandatory query conditions.
 \end{itemize}
 
-\paragraph{Ranking}
-In order to present the results to the user, it is necessary to design a combination function. This function allows the classification of the results in the unit interval the preffered way is to made a convex combination as  presented in equation \eqref{eq:convex-combination}.
+From a theoretical point of view, in a database, bipolarity may be found at:
+\begin{description}
+\item[\textbf{The query}] It is possible to distinguish between:
+	\begin{itemize}
+	\item
+	Inside criterion bipolarity: Each individual criteria may be specified with both positive and negative conditions. E.g. the user wants a black car, but definitively not a red neither a blue one.
+	\item
+	Outside criterion bipolarity: The query is specified with a global positive and negative conditions. E.g. The user wants a black car with a fuel consumption of 5 liters or less but definitively not a white car with a fuel consumption of 6 liters or more. 
+	\end{itemize}
+\item[\textbf{The data storage}] In the database some attributes or even at tuple level it should be possible to specify them with bipolarity. Nevertheless, there is not so many research on this topic.
+%	\begin{itemize}
+%	\item
+%	Attribute bipolarity: Each attribute may be specified  
+%	\item
+%	Tuple bipolarity:
+%	\end{itemize}
+\end{description}
 
+A proposal for the bipolar querying of temporal databases has been made by Billiet~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. First of all, the query structure is shown. Then, both evaluation and ranking methods are defined. The model deals with a fuzzy valid-time specification in~\cite{garrido2009}.
+
+%\paragraph{Query structure}
+%The approach in this work follows the query specification given in \eqref{eq:query-specification}. The query has a global time demand, $Q^{time}$ and here, the regular query constraints specified by $Q$ are splitted into possitive and negative preferences:
+%
+%\begin{equation}
+%\label{eq:bipolar-specification}
+%\tilde{Q} = \left \lbrace Q^{time}, \left( Q^{pos}, Q^{neg} \right) \right \rbrace
+%\end{equation}
+%
+%Here $Q^{pos}$ and $Q^{neg}$ represent the positive and the negative criteria, respectively. The temporal demand in $Q^{time}$ may be specified as in ~\cite{garrido2009} or as in ~ \cite{Pon11}, see section \ref{subsec:representation-time-intervals}.
+
+%\paragraph{Query evaluation}
+%As explained previously in the query evaluation section (\ref{subsubsec:query-evaluation}), each element in $\tilde{Q}$ is evaluated independently:
+%
+%\begin{itemize}
+%\item
+%The query $Q$ has now two elements: $Q^{pos}$ and $Q^{neg}$. Each element is again evaluated independently and the result is a tuple $\left(s,d \right)$ in which $s$ is the satisfaction degree for $Q^{pos}$. $d$ is called dissatisfaction degree for $Q^{neg}$. The tuple $\left(s,d \right) s,d \in \left[0,1 \right]$ is called \emph{Bipolar Satisfaction Degree}.
+%\item
+%The temporal specification is evaluated as explained in \ref{subsubsec:query-evaluation} and the result is a value in the unit interval.
+%\end{itemize}
+%
+%\paragraph{Ranking}
+%In order to present the results to the user, it is necessary to design a combination function. This function allows the classification of the results in the unit interval the preffered way is to made a convex combination as  presented in equation \eqref{eq:convex-combination}.
+%
 
