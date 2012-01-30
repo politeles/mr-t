@@ -1,8 +1,8 @@
 %%Created by jPicEdt 1.4.1_03: mixed JPIC-XML/LaTeX format
-%%Tue Jan 17 10:05:05 CET 2012
+%%Mon Jan 30 18:38:18 CET 2012
 %%Begin JPIC-XML
 %<?xml version="1.0" standalone="yes"?>
-%<jpic x-min="-4" x-max="50" y-min="-2" y-max="20" auto-bounding="true">
+%<jpic x-min="-4" x-max="50" y-min="-2" y-max="22" auto-bounding="true">
 %<multicurve fill-style= "none"
 %	 points= "(0,0);(0,0);(50,0);(50,0)"
 %	 />
@@ -15,7 +15,7 @@
 %	 text-frame= "noframe"
 %	 text-hor-align= "center-h"
 %	 >
-%$\alpha$
+%$G$
 %</text>
 %<text text-vert-align= "center-v"
 %	 anchor-point= "(-4,0)"
@@ -37,7 +37,7 @@
 %	 text-frame= "noframe"
 %	 text-hor-align= "center-h"
 %	 >
-%$f(i_\alpha)$
+%$f(i_G)$
 %</text>
 %<text text-vert-align= "center-v"
 %	 anchor-point= "(16,-2)"
@@ -63,18 +63,26 @@
 %	 >
 %$c^{''}_\bot$
 %</text>
+%<text text-vert-align= "center-v"
+%	 anchor-point= "(22,22)"
+%	 fill-style= "none"
+%	 text-frame= "noframe"
+%	 text-hor-align= "center-h"
+%	 >
+%$i_G$
+%</text>
 %</jpic>
 %%End JPIC-XML
 %LaTeX-picture environment using emulated lines and arcs
 %You can rescale the whole picture (to 80% for instance) by using the command \def\JPicScale{0.8}
 \ifx\JPicScale\undefined\def\JPicScale{1}\fi
 \unitlength \JPicScale mm
-\begin{picture}(50,20)(0,0)
+\begin{picture}(50,22)(0,0)
 \linethickness{0.3mm}
 \put(0,0){\line(1,0){50}}
 \linethickness{0.3mm}
 \put(0,20){\line(1,0){50}}
-\put(-4,20){\makebox(0,0)[cc]{$\alpha$}}
+\put(-4,20){\makebox(0,0)[cc]{$G$}}
 
 \put(-4,0){\makebox(0,0)[cc]{$\C$}}
 
@@ -82,12 +90,14 @@
 \multiput(14,0)(0.12,0.3){67}{\line(0,1){0.3}}
 \linethickness{0.3mm}
 \multiput(22,20)(0.12,-0.4){50}{\line(0,-1){0.4}}
-\put(10,10){\makebox(0,0)[cc]{$f(i_\alpha)$}}
+\put(10,10){\makebox(0,0)[cc]{$f(i_G)$}}
 
 \put(16,-2){\makebox(0,0)[cc]{$c_\bot$}}
 
 \put(20,-2){\makebox(0,0)[cc]{$c^{'}_\bot$}}
 
 \put(26,-2){\makebox(0,0)[cc]{$c^{''}_\bot$}}
+
+\put(22,22){\makebox(0,0)[cc]{$i_G$}}
 
 \end{picture}
