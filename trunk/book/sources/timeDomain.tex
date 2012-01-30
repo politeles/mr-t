@@ -1,53 +1,110 @@
 %
 % Time domain
 %
-In order to define and to work with time it is necessary to study and understand the underlying domain. Moreover, the definition of a temporal domain is the basis for almost any temporal system. In the following subsection \ref{subsec:basic-concepts} we will introduce several concepts that are widely used in the community of temporal databases. Most of the concepts explained here have been introduced in the \emph{'Consensus Glossary of Temporal Database Concepts'}~\cite{Dyreson1994}.
+Before considering the introduction of temporal modelling to information systems, it is necessary to define and explain some main concepts concerning temporal modelling and their corresponding terminology, to situate these and to discuss some properties and issues related to these concepts. In this section, several basic concepts and corresponding terminology will be defined, explained and situated. Most of these concepts are widely used in the community of temporal databases and their definitions have been agreed upon in the context of~\cite{Dyreson1994}. For these concepts, in the entire chapter, the contents of~\cite{Dyreson1994} are followed (and often cited).
+
+In subsection \ref{subsec:basic-concepts}, some basic concepts of time modelling are presented and explained.
+
+%In order to define and to work with time it is necessary to study and understand the underlying domain. Moreover, the definition of a temporal domain is the basis for almost any temporal system. In the following subsection \ref{subsec:basic-concepts} we will introduce several concepts that are widely used in the community of temporal databases. Most of the concepts explained here have been introduced in the \emph{'Consensus Glossary of Temporal Database Concepts'}~\cite{Dyreson1994}.
 
 
 
 \subsection{Basic concepts and properties}
 \label{subsec:basic-concepts}
+In information systems, time itself is usually percieved as a linear or cyclic concept. Therefore, a time domains modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model and a \emph{cyclic} model. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
 
-Time is usually represented as a set with an imposed partial order. There are two main models of time: \textbf{linear} and \textbf{cyclic}. In the linear model, time advances from the past to the future in a totally ordered fashion (a relationship of total order is imposed to the set). A cyclic model of time is used for recurrent processes. The majority of the proposals work with a linear model of time.
+Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
 
 \begin{svgraybox}
-The basic elements in a temporal domain are the following:\\
-%\begin{itemize}
-%\item
-\textbf{Instant}:  Is a time point over an underlying temporal domain.\\
-%\item
-\textbf{Time interval}: Is the time between two instants.\\
-%\item
-\textbf{Event}: Is an instantaneous fact. Something that happens at an instant.\\
-%\item
-\textbf{Chronon}: Is a non-decomposable time interval of fixed duration. It is possible for a temporal model to leave the chronon duration unspecified. The duration will be specified later in the implementation of the model.
-%\end{itemize}
+\vspace{-10pt}
+\begin{definition}\textbf{(Instant)}\\
+An \emph{\textbf{instant}} is a time point on an underlying time axis.
+\end{definition}
+\vspace{-10pt}
 \end{svgraybox}
 
-\begin{definition}\textbf{(set of chronons)}
-\label{def:set-chronon}
-The \textbf{\emph{set of all the chronons}} in a system is denoted by $\C$. A chronon $c$ is therefore defined as:
-\begin{equation}
-\left \lbrace c \mid c \in \C \right \rbrace
-\end{equation}
+Thus, an instant is basically an instantanious time point in a time model.
+
+Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models. In a discrete model, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another, while the set of instants can still be seen as a discrete one. Here, intuitively, the set of instants can be seen as isomporphic to the set of rational numbers $\Q$ or the set of real numbers $\R$. In a continuous model, the notion also exists that between any two instants always lies another one, but unlike dense models, the set of instants is seen as continuous and there are no ``gaps'' between successive instants.
+
+Some other necessary concepts are:
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{Time Interval}\\
+A \emph{\textbf{time interval}} is the time between two instants.
 \end{definition}
 
-Any temporal model may represent the time as points as well as intervals. The equivalence between a interval-based and point-based temporal data models is demonstrated in \cite{Böhlen_point-versus}.
+\begin{definition}\textbf{Temporal Element}\\
+A \emph{\textbf{temporal element}} is a finite union of time intervals.
+\end{definition}
 
-Attending to the density in the set $\C$ of the chronons, a model can be classified into the following three types:
+\begin{definition}\textbf{Event}\\
+An \emph{\textbf{event}} is an instantaneous fact, i.e. something occurringat an instant.
+\end{definition}
 
-\begin{itemize}
-\item
-\textbf{Discrete model} ($\C \subset \Nat$):  The discrete model of time is isomorphic in relation to the natural numbers. According to this model, each natural number corresponds to a \emph{chronon}.
-\item
-\textbf{Dense model} ($\C \subset \Q$ or $\C \subset \R$): This model is isomorphic in relation to the rational or the real numbers. It represents one instant of time in the gap between another two instants. 
-\item
-\textbf{Continuous model} ($\C \subset \R$): This is an extension of the dense model with no gaps. It is isomorphic in relation to the real numbers. 
-\end{itemize}
+\begin{definition}\textbf{Duration}\\
+A \emph{\textbf{duration}} is an amount of time with known length, but no specific starting or ending instants.
+\end{definition}
 
+\begin{definition}\textbf{`Temporal' as Modifier}\\
+The modifier \emph{\textbf{`temporal'}} is used to indicate that the modified concept concerns some aspect of time.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
 
+%In the linear model, time advances from the past to the future in a totally ordered fashion (a relationship of total order is imposed to the set). A cyclic model of time is used for recurrent processes. The majority of the proposals work with a linear model of time.
 
+Data models might now represent an underlying time domain using chronons:
 
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{Chronon}\\
+In a data model, a \emph{\textbf{chronon}} is a non-decomposable time interval of some fixed, minimal duration.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+A data model may now represent a time model or time domain by a sequence of consecutive chronons. These chronons have identical durations. A data model will typically not specify the exact chronon duration, so it can be fixed later by applications implementing the data model.
+
+The fact that chronons are actually time intervals has a particular effect on the representation of instants and time intervals. In a data model representing a time domain using chronons, an instant is of course represented as a chronon, but one single chronon may represent multiple instants. A time interval may be represented by a set of contiguous chronons, depending on the amount of time the time interval comprises.
+
+%\begin{svgraybox}
+%The basic elements in a temporal domain are the following:\\
+%\begin{itemize}
+%\item
+%\textbf{Instant}:  Is a time point over an underlying temporal domain.\\
+%\item
+%\textbf{Time interval}: Is the time between two instants.\\
+%\item
+%\textbf{Event}: Is an instantaneous fact. Something that happens at an instant.\\
+%\item
+%\textbf{Chronon}: Is a non-decomposable time interval of fixed duration. It is possible for a temporal model to leave the chronon duration unspecified. The duration will be specified later in the implementation of the model.
+%\end{itemize}
+%\end{svgraybox}
+
+%\begin{definition}\textbf{(set of chronons)}
+%\label{def:set-chronon}
+%The \textbf{\emph{set of all the chronons}} in a system is denoted by $\C$. A chronon $c$ is therefore defined as:
+%\begin{equation}
+%\left \lbrace c \mid c \in \C \right \rbrace
+%\end{equation}
+%\end{definition}
+
+Another classification of time models concerns the use of points or intervals to model time. The equivalence between interval-based and point-based time models is demonstrated in \cite{Böhlen_point-versus}.
+
+%Attending to the density in the set $\C$ of the chronons, a model can be classified into the following three types:
+
+%\begin{itemize}
+%\item
+%\textbf{Discrete model} ($\C \subset \Nat$):  The discrete model of time is isomorphic in relation to the natural numbers. %According to this model, each natural number corresponds to a \emph{chronon}.
+%\item
+%\textbf{Dense model} ($\C \subset \Q$ or $\C \subset \R$): This model is isomorphic in relation to the rational or the real %numbers. It represents one instant of time in the gap between another two instants. 
+%\item
+%\textbf{Continuous model} ($\C \subset \R$): This is an extension of the dense model with no gaps. It is isomorphic in relation to the real numbers. 
+%\end{itemize}
+
+\textcolor{red}{CHECK}
 Restrictions on time range may be performed on the base of the following two concepts:
 \begin{itemize}
 \item
@@ -65,141 +122,185 @@ The distance from $\alpha$ to $\beta$ is the same as that between $\beta$ and $\
 Triangle inequality: The distance from $\alpha$ to $\gamma$ is equal or greater than the distance from $\alpha$ to $\beta$ plus the distance from $\beta$ to $\gamma$.
 \end{enumerate}
 \end{itemize}
+\textcolor{red}{END CHECK}
 
+\textcolor{red}{MOVE TO TEMPORAL DATABASE PART}
 On the other hand, time may be \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers \emph{absolute time} is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
+\textcolor{red}{END MOVE}
 
+Subsection \ref{subsec:granularity} gives a short survey on the concept of temporal granularities.
 
 %%% granularity
-\subsection{\label{subsec:granularity}Granularity}
-Next to the inherent difficulties of time, an issue is \textbf{temporal granularity}. A temporal granularity is a partitioning of the time line used by a system, usually dependent on the application. For example, the age of an adult human being is usually expressed in years: one will use sentences like \emph{`Laura is 21 years old'} instead of \emph{`Laura is 21 years, 3 months and 4 days old'}. In this example any time period shorter than a year needs no representation and thus the used granularity allows no specification for time periods shorter than a year.
-The formal definition for granularity is given in ~\cite{Lin97}:
+\subsection{Granularities}\label{subsec:granularity}
+An important issue in time modelling concerns the concept of \emph{temporal granularities}. A formal definition for this concept is given in~\cite{Lin97}:
 
-
-\begin{definition}
-\label{def:granularity}\textbf{(granularity)}
-A \textbf{\emph{granularity}} $\alpha$ is an ordered set of non-overlapping and continuous time elements called granules. \\
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{(Granularity)}\\
+A \emph{\textbf{granularity}} is an ordered set of non-overlapping and continuous temporal elements called \emph{granules}.
 \end{definition}
 
-\begin{definition}
-\label{def:granule}\textbf{(granule)}
-A \textbf{\emph{granule}} is the basic time unit represented by a granularity. E.g. in the hours granularity, an hour is a granule.
-As granularity $\alpha$ it is an ordered set, each \emph{granule} may be indexed by an integer number:\\
+\begin{definition}\textbf{(Granule)}\\
+A \textbf{\emph{granule}} is the basic time unit in a granularity.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+A temporal granularity is in fact a partitioning of the time line (time model) used by a system, usually dependent on the application. For example, the age of an adult human being is usually expressed in years: one will use sentences like `Laura is 21 years old' instead of sentences like `Laura is 21 years, 3 months and 4 days old'. In this example any duration shorter than a year needs no representation and thus the used granularity allows no specification for durations shorter than a year. The granules are years.
+
+As a granularity $G$ is an ordered set, each granule may be represented by an integer. In this representation, to keep track of the granularity a granule is an element of, the corresponding granularity is added in subscript:
+
 \begin{equation}
-\alpha = \left \lbrace \ldots, 0_\alpha, 1_\alpha, \ldots \right \rbrace
+G = \left\{i_{G}\ |\ i \in \Z \right\}
 \end{equation}
-\end{definition}
 
-In a system, the smallest granularity is the \emph{chronons} granularity, denoted with the index $\bot$. It is possible to define a function $f$ that maps from  a given granule $i_\alpha$ (in the given granularity $\alpha$) to the set of the corresponding chronons. 
-
-\begin{definition}
-\label{def:mapping-function}
-\textbf{(mapping function)}
-The \textbf{\emph{mapping function}} $f$ in a given granule $i_\alpha$ is denoted by:\\
-%\begin{align}
-$f:i_\alpha \rightarrow \C$\\
-$f(i_\alpha) = \lbrace c_\bot \mid c_\bot$ is in $i_\alpha \rbrace \wedge c_\bot \in \C$\\
-%\end{align}
-\end{definition}
+%Next to the inherent difficulties of time, an issue is \textbf{temporal granularity}. A temporal granularity is a partitioning of the time line used by a system, usually dependent on the application. For example, the age of an adult human being is usually expressed in years: one will use sentences like \emph{`Laura is 21 years old'} instead of \emph{`Laura is 21 years, 3 months and 4 days old'}. In this example any time period shorter than a year needs no representation and thus the used granularity allows no specification for time periods shorter than a year.
+%The formal definition for granularity is given in ~\cite{Lin97}:
 
 
-If $\alpha$ is a granularity, then the following properties must hold:\\
+%\begin{definition}
+%\label{def:granularity}\textbf{(granularity)}
+%A \textbf{\emph{granularity}} $\alpha$ is an ordered set of non-overlapping and continuous time elements called granules. \\
+%\end{definition}
+
+%As granularity $\alpha$ it is an ordered set, each \emph{granule} may be indexed by an integer number:\\
+%\begin{equation}
+%\alpha = \left \lbrace \ldots, 0_\alpha, 1_\alpha, \ldots \right \rbrace
+%\end{equation}
+
+In a system, the granularity with the shortest granules is the \emph{chronons granularity}, which is denoted as $\bot$. It is the granularity of which the granules are chronons. It is now possible to define a function $f$, called a \emph{mapping function}, that maps a given granule $i_G$, $i \in \Z$, from a given granularity $G$ to a set of corresponding chronons. The function definition should look like this:
+\vspace{-10pt}
+
+\begin{align}
+f & : G \rightarrow \Pow(\bot)\nonumber\\
+  & : i_{G} \rightarrow \lbrace c_\bot\ |\ (c_\bot\text{ is contained in }i_{G}) \wedge (c_\bot \in \bot)\rbrace\nonumber
+\end{align}
+
+For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that the following properties hold:
+
 \begin{itemize}
 \item
-$\alpha$ is an ordered set: if $c_\bot \in f(i_\alpha)$ and $c^{'}_\bot \in f(j_\alpha)$ and $c_\bot < c^{'}_\bot$ implies that $i_\alpha < j_\alpha$.
+$G$ \emph{is an ordered set}: for a given $i_{G} \in G$ holds: if $c_\bot \in f(i_G)$ and $c^{'}_\bot \in f(j_G)$, then $c_\bot < c^{'}_\bot$ implies that $i_G < j_G$. This is illustrated in figure \ref{fig:granularity-prop1}.
 \begin{figure}
 \centering
 \input{graphs/granularity-prop1.tex}
-\caption{$\alpha$ is an ordered set}
+\caption{$G$ is an ordered set}
 \label{fig:granularity-prop1}
 \end{figure}
+
 \item
-$\alpha$ is a set of continuous granules. Consider the chronons $c_\bot < c^{'}_\bot < c^{''}_\bot$. Then $c_\bot \in f(i_\alpha)$,$c^{''}_\bot \in f(i_\alpha)$ implies that $c^{'}_\bot \in f(i_\alpha)$.
+$G$ \emph{is a set of continuous granules}: for a given $i_{G} \in G$ and given chronons $c_\bot$, $c^{'}_\bot$ and $c^{''}_\bot$ holds: if $c_\bot < c^{'}_\bot < c^{''}_\bot$, then $c_\bot \in f(i_G)$ and $c^{''}_\bot \in f(i_G)$ implies that $c^{'}_\bot \in f(i_G)$. This is illustrated in figure \ref{fig:granularity-prop2}.
 \begin{figure}
 \centering
 \input{graphs/granularity-prop2.tex}
-\caption{$\alpha$ is a set of continuous granules}
+\caption{$G$ is a set of continuous granules}
 \label{fig:granularity-prop2}
 \end{figure}
+
 \item
-The granules in $\alpha$ do not overlap: If $i_\alpha \neq j_\alpha$ then $f(i_\alpha) \cap f(j_\alpha) = \emptyset$.
+\emph{The granules in} $G$ \emph{do not overlap}: for given $i_{G}\text{ and } j_{G} \in G$ holds: if $i_G \neq j_G$, then $f(i_G) \cap f(j_G) = \emptyset$. This is illustrated in figure \ref{fig:granularity-prop3}.
 \begin{figure}
 \centering
 \input{graphs/granularity-prop3.tex}
-\caption{The granules in $\alpha$ do not overlap}
+\caption{The granules in $G$ do not overlap}
 \label{fig:granularity-prop3}
 \end{figure}
 \end{itemize}
 
-The mapping function $f$ allows the comparison among granularities:
+Mapping functions between granularities and the chronons granularity also allow comparing granularities with respect to the length of their granules. In this context, two important concepts can be discerned.
+%A granularity $G$ is said to be \emph{\textbf{finner than}} a granularity $H$ when the set of chronons on which a given granule $i_G$ is mapped by a mapping function $f$ has less elements than the set of chronons on which a given granule $j_H$ is mapped by $f$.
+%A granularity $\alpha$ is \emph{``coarser than''} granularity $\beta$ when the set of corresponding chronons for a given granule $i_\alpha$ is greater than the set of the corresponding chronons for a given granule $j_\beta$.
 
-\begin{definition}
-\label{def:finner-than}\textbf{(finner than)}
-A granularity $\alpha$ is \emph{``finner than''} granularity $\beta$ when the set of corresponding chronons for a given granule $i_\alpha$ is smaller than the set of the corresponding chronons for a given granule $j_\beta$.
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{(Finner Than)}\\
+Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ respectively. Granularity $G$ is now said to be \emph{\textbf{finner than}} granularity $H$ if:
 \begin{equation}
 \label{eq:finner-than}
-\mid f \left( i_\alpha \right) \mid < \mid  f \left( j_\beta \right) \mid
+| f \left( i_G \right) |\ <\ |  f \left( j_H \right)| \nonumber
 \end{equation} 
 \end{definition}
 
 \begin{definition}
 \label{def:coarser-than}\textbf{(coarser than)}
-A granularity $\alpha$ is \emph{``coarser than''} granularity $\beta$ when the set of corresponding chronons for a given granule $i_\alpha$ is greater than the set of the corresponding chronons for a given granule $j_\beta$.
+Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ repectively. Granularity $G$ is now said to be \emph{\textbf{coarser than}} granularity $H$ if:
 \begin{equation}
 \label{eq:coarser-than}
-\mid f \left( i_\alpha \right) \mid > \mid  f \left( j_\beta \right) \mid
+| f \left( i_G \right)|\ >\ |  f \left( j_H \right)| \nonumber
 \end{equation} 
 \end{definition}
+\vspace{-10pt}
+\end{svgraybox}
 
-
-
-
-A function,\emph{Cast} may be specified to map between two granularities $\alpha$ and $\beta$. The specification for that function is:
+It is also possible to describe the relation between different granularities. For this, a function, in this chapter denoted as $cast$, may be specified which maps granules from a granularity $G$ to granules from a different granularity $H$. The mathematical notation concerning this function is now:
 \begin{equation}
 \label{eq:cast-function}
-\mbox{Cast} \left( i_\alpha,\alpha,\beta \right) = j_\beta
+\mbox{cast} \left( i_G,G,H \right) = j_H \nonumber
 \end{equation}
-This function associates a granule $i_\alpha$ in the granularity $\alpha$ to a corresponding granule $j_\beta$ in the corresponding granularity $\beta$. An \emph{upwards mapping} is the mapping from a granularity $\alpha$ to a coarser granularity $\beta$, whereas a downwards mapping is the mapping from a granularity $\gamma$ to a finner granularity $\delta$. Figure \ref{fig:granularity-graph-example} shows a granularity graph example with the Gregorian Calendar and the academic days as possible granularities.
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.5]{graphs/granularityGraph.pdf}
-\caption{A granularity graph example}
-\label{fig:granularity-graph-example}
-\end{figure}
-
-The mapping between two granularities may be classified into the following types and are explained within the figure \ref{fig:granularity-graph-example}:
+This notation indicates that the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions. Figure \ref{fig:granularity-graph-example} shows a granularity graph example. Mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}.
 \begin{itemize}
 \item
-Regular mapping: When the mapping function between two granularities is calculated by means of multiplications or divisions and maybe some anchor adjustment. E.g. the mapping between hours and minutes. This mapping is represented in the figure with a normal arrow.
+\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function between the two granularities is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g. the mapping between hours and minutes is calculated using a multiplication by $60$. Regular mappings are visualised in figure \ref{fig:granularity-graph-example} as normal arrows.
 \item
-Irregular mapping: When the mapping function can not be calculated by means of multiplications or divisions. E.g. the mapping between months and days. (This mapping is represented in the figure with a bold arrow.
+\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function can not be calculated by means of multiplications and/or divisions. E.g. the mapping between months and days is dependent on the exact month or day. Irregular mappings are visualised in figure \ref{fig:granularity-graph-example} as bold arrows.
 \item
-Congruent mapping: Two granularities that have the same granules but with different anchos. E.g. the mapping between the Gregorian Calendar and academic days. This mapping is represented in the figure with a straight line without arrow.
+\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities in the mapping have the same granules but a different anchor. E.g. the mapping between the days (Gregorian calendar days) and the academic days. Both concern the same days, but the academic year starts on octobre 1st, whereas the Gregorian calendar year starts on january 1st. Congruent mappings are visualised in figure \ref{fig:granularity-graph-example} as straight lines without arrow heads.
 \end{itemize}
 
+\textcolor{red}{MOVE TO CHAPTER 4}
 The transition between granularities~\cite{Lin97} is also considered as a source of imprecision. In a sentence like \emph{`The Alhambra is 612 years old'}, the temporal notion is very precise if time periods shorter than a year are irrelevant in the used granularity. However, if one is concerned with the exact day on which the last stone of the building is laid, a transition to a finer granularity, allowing the specification of time periods shorter than a year, is needed. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
 
+\textcolor{red}{END MOVE TO CHAPTER 4}
+
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.5]{graphs/granularityGraph.pdf}
+%\caption{A granularity graph example}
+%\label{fig:granularity-graph-example}
+%\end{figure}
 
 
-\subsection{\label{subsec:timedomain-calendar}Time domain: Calendars}
+Next, in subsection \ref{subsec:timedomain-calendar}, some basic concepts and issues concerning calendars are explained.
+
+\subsection{Calendars}
+\label{subsec:timedomain-calendar}
 %maybe introduce previously the concept of time units, linear hierarchy and time point.
-A Calendar is a organization of different granularities (e.g. day, month, year) in a hierarchy. 
-In order to define a calendar, some previous concepts should be introduced~\cite{Kraus1997}:
 
-\begin{definition}
-\label{def:granularity-hierarchy}
-\textbf{(Linear hierarchy of granularities)} A linear hierarchy of granularities is a finite collection of granularities with a linear order $\sqsubset$ among these granularities. The coarser granularity is called the top of the hierarchy and it must be an infinite set while all the others granularities must be finite sets.
+This subsection will concern \emph{calendars}. A calendar provides some sort of human interpretation of time. As such, calendars provide meaning or interpretation to temporal values where this meaning or interpretation is relevant or useful to the user. More precisely, calendars determine the mapping between human-meaningful time values and an underlying time model~\cite{Dyreson1994}. More formally, a calendar is an organization of different granularities (e.g. granularities day, month and year) in a hierarchy. In order to formally define what a calendar is, some other concepts should first be introduced~\cite{Kraus1997}:
+
+
+%\begin{svgraybox}
+%\vspace{-10pt}
+%\begin{definition}\textbf{(Calendar)}\\
+%A \emph{\textbf{calendar}} 
+%\end{definition}
+%\vspace{-10pt}
+%\end{svgraybox}
+
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{(Linear Hierarchy of Granularities)}\\
+A \emph{\textbf{linear hierarchy of granularities}} is a finite set of granularities with a linear order (denoted $\sqsubset$). The most coarse granularity is called \emph{the top of the hierarchy} and must be an infinite set while all other granularities must be finite sets.
 \end{definition}
+\vspace{-10pt}
+\end{svgraybox}
 
-The hierarchy of days $\sqsubset$ months $\sqsubset$ years defines a linear hierarchy.
+An example of a linear hierarchy is the set $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years. With this, a \emph{linear calendar} can be defined.
 
-\begin{definition}
-\label{def:linear-calendar}
-\textbf{(Linear Calendar)} A linear calendar consist of a linear hierarchy $H$ of granularities and a validity predicate which specifies if a granule is valid in  the calendar.
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{(Linear Calendar)}\\
+A \emph{\textbf{linear calendar}} consist of a linear hierarchy of granularities and a validity predicate which specifies if a granule is valid in the calendar.
 \end{definition}
+\vspace{-10pt}
+\end{svgraybox}
 
-The linear hierarchy days $\sqsubset$ months $\sqsubset$ years represents a linear calendar. It is necessary to define the validity predicates because 17 January 2012 is a valid element of the calendar whereas 30 February 2012 is not.
+An example of a linear calendar could be the linear hierarchy $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years, together with a validity predicate that excludes time indications like `32 april 2012' or `30 february 2012'.
+
+%The linear hierarchy days $\sqsubset$ months $\sqsubset$ years represents a linear calendar. It is necessary to define the validity predicates because 17 January 2012 is a valid element of the calendar whereas 30 February 2012 is not.
  
+\textcolor{red}{CHECK}
 \subsubsection{\label{subsubsubsec:julian-day-number}An example of temporal domain: Julian Day Number}
 % proposal for the underlying Julian Day Number domain.
 
@@ -247,10 +348,15 @@ $^k$  The number of days since actual era. \\
 $^l$  It counts the seconds not the day. \\
 \end{table}
 
+\textcolor{red}{END CHECK}
 
-\subsection{Temporal Relations}
+The next section briefly introduces temporal relationships.
+
+\subsection{Temporal Relationships}
 %an explanation on allen's temporal relations.
 %definition of fuzzy temporal interval
+In this section, a brief introduction can be found, concerning \emph{temporal relationships}, sometimes also called `temporal relations'\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. Temporal relationships can be seen as relationships between temporal elements or instants.
+
 \def\JPicScale{0.5}
 \begin{figure}[h]
 \centering
@@ -259,7 +365,10 @@ $^l$  It counts the seconds not the day. \\
 \label{fig:allen}
 \end{figure}
 
-Several operators are defined in order to compare temporal elements. Allen~\cite{Allen83} first described the relations between time intervals and to a lesser extent, between time points. Figure \ref{fig:allen} shows the temporal relations. There are some proposals that can be applied to both crisp and fuzzy temporal interval ~\cite{ohlbach2004},\cite{nagypal2003},\cite{schockaert08}. For this fuzzy comparisons~\cite{garrido2009} proposed some different temporal relations that can be easily implemented by means of regular fuzzy operations.
+Several operators are defined in order to compare temporal elements or time points. Allen~\cite{Allen83} first described the relationships between time intervals and as a special case, between time points. Figure \ref{fig:allen} shows the temporal relationships Allen discerned. Some proposals can be applied to both crisp and fuzzy temporal intervals~\cite{ohlbach2004},~\cite{nagypal2003},~\cite{schockaert08}. 
 
+\textcolor{red}{MOVE TO FUZZY PART}
+For this fuzzy comparisons~\cite{garrido2009} proposed some different temporal relations that can be easily implemented by means of regular fuzzy operations.
+\textcolor{red}{END MOVE TO FUZZY PART}
 
-
+In the next section, some basic concepts and terminology about temporal databases are presented, followed by an overview of some interesting issues concerning temporal databases and a survey of some commercial temporal database systems.
