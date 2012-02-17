@@ -98,8 +98,9 @@ In this subsection we will explain the query specification for a database that s
 \subsubsection{Query structure}
 Consider that in a regular or fuzzy relational database, the query specification for the non-temporal attributes is given by $Q$. Therefore, the query specification in a temporal or fuzzy temporal database is given by $\tilde{Q}$:
 
+\begin{svgraybox}
 \begin{definition}
-\textbf{(query specification)}
+\textbf{Query specification}
 A query $\tilde{Q}$ is given by:
 \begin{equation}
 \label{eq:query-specification}
@@ -107,7 +108,7 @@ A query $\tilde{Q}$ is given by:
 \end{equation}
 Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy non-temporal constraints and $Q^{time}$ are the temporal constraints specified in the query:
 \end{definition}
-
+\end{svgraybox}
 %%specify better this:
 %\begin{svgraybox}
 %\begin{definition}
@@ -121,29 +122,33 @@ Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy 
 %\end{equation}
 %\end{definition}
 
-
+\begin{svgraybox}
 \begin{definition}
-\textbf{(temporal query specification)}
+\textbf{Temporal query specification}
 $Q^{time}$ is defined by:
 \begin{equation}
 Q^{time} = \left( I,AR \right)
 \end{equation}
 Where $I$ is a crisp time interval and $AR$ is one of the Allen's relations, see table \ref{tab:fuzzy-allen-relations}. The interpretation is that given an ill-known time interval $J$, the user request the set of records in which $I$ AR $J$ hold.
 \end{definition}
+\end{svgraybox}
 
 \subsubsection{Query evaluation}
 \label{subsubsec:query-evaluation}
 Query satisfaction in a (fuzzy) relational database is a matter of degree. Typically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
 
+\begin{svgraybox}
 \begin{definition}
 \label{def:evaluation-function}
-\textbf{(evaluation function)}
+\textbf{Evaluation function}
 An evaluation function $e_{Q} \left( r \right)$ is a mapping from the attribute value from the row $r$ in the database with respect to the constraints $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ to the unit interval $\left[ 0,1 \right]$. 
 \begin{equation}
 \label{eq:evaluation-function} 
 e_{Q} = t \mid t \in \left[ 0,1 \right]
 \end{equation}
 \end{definition}
+\end{svgraybox}
+
 
 Each element in $\tilde{Q}$ is evaluated independently:
 \begin{itemize}

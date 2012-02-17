@@ -17,7 +17,7 @@ Data models used by information systems (and in specific, temporal database syst
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{(Instant)}\\
+\begin{definition}\textbf{Instant}\\
 An \emph{\textbf{instant}} is a time point on an underlying time axis.
 \end{definition}
 \vspace{-10pt}
@@ -136,11 +136,11 @@ An important issue in time modelling concerns the concept of \emph{temporal gran
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{(Granularity)}\\
+\begin{definition}\textbf{Granularity}\\
 A \emph{\textbf{granularity}} is an ordered set of non-overlapping and continuous temporal elements called \emph{granules}.
 \end{definition}
 
-\begin{definition}\textbf{(Granule)}\\
+\begin{definition}\textbf{Granule}\\
 A \textbf{\emph{granule}} is the basic time unit in a granularity.
 \end{definition}
 \vspace{-10pt}
@@ -213,7 +213,7 @@ Mapping functions between granularities and the chronons granularity also allow 
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{(Finner Than)}\\
+\begin{definition}\textbf{Finner Than}\\
 Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ respectively. Granularity $G$ is now said to be \emph{\textbf{finner than}} granularity $H$ if:
 \begin{equation}
 \label{eq:finner-than}
@@ -222,7 +222,7 @@ Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granulari
 \end{definition}
 
 \begin{definition}
-\label{def:coarser-than}\textbf{(coarser than)}
+\label{def:coarser-than}\textbf{Coarser Than}
 Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ repectively. Granularity $G$ is now said to be \emph{\textbf{coarser than}} granularity $H$ if:
 \begin{equation}
 \label{eq:coarser-than}
@@ -280,7 +280,7 @@ This subsection will concern \emph{calendars}. A calendar provides some sort of 
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{(Linear Hierarchy of Granularities)}\\
+\begin{definition}\textbf{Linear Hierarchy of Granularities}\\
 A \emph{\textbf{linear hierarchy of granularities}} is a finite set of granularities with a linear order (denoted $\sqsubset$). The most coarse granularity is called \emph{the top of the hierarchy} and must be an infinite set while all other granularities must be finite sets.
 \end{definition}
 \vspace{-10pt}
@@ -290,7 +290,7 @@ An example of a linear hierarchy is the set $\left\{ \text{days, months, years} 
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{(Linear Calendar)}\\
+\begin{definition}\textbf{Linear Calendar}\\
 A \emph{\textbf{linear calendar}} consist of a linear hierarchy of granularities and a validity predicate which specifies if a granule is valid in the calendar.
 \end{definition}
 \vspace{-10pt}
