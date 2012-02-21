@@ -11,13 +11,13 @@ In subsection \ref{subsec:basic-concepts}, some basic concepts of time modelling
 
 \subsection{Basic concepts and properties}
 \label{subsec:basic-concepts}
-In information systems, time itself is usually percieved as a linear or cyclic concept. Therefore, a time domains modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model and a \emph{cyclic} model. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
+In information systems, time itself is usually percieved as a linear or cyclic concept~\cite{Jensen94thetsql2}. Therefore, a time domains modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model~\cite{benthem82} and a \emph{cyclic} model~\cite{lorentzos88}. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
 
-Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
+Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{Instant}\\
+\begin{definition}\textbf{Instant}~\cite{Dyreson1994}\\
 An \emph{\textbf{instant}} is a time point on an underlying time axis.
 \end{definition}
 \vspace{-10pt}
@@ -25,9 +25,9 @@ An \emph{\textbf{instant}} is a time point on an underlying time axis.
 
 Thus, an instant is basically an instantanious time point in a time model.
 
-Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models. In a discrete model, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another, while the set of instants can still be seen as a discrete one. Here, intuitively, the set of instants can be seen as isomporphic to the set of rational numbers $\Q$ or the set of real numbers $\R$. In a continuous model, the notion also exists that between any two instants always lies another one, but unlike dense models, the set of instants is seen as continuous and there are no ``gaps'' between successive instants.
+Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models. In a discrete model~\cite{Clifford:1985:AHR:971699.318922}, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another, while the set of instants can still be seen as a discrete one. Here, intuitively, the set of instants can be seen as isomporphic to the set of rational numbers $\Q$ or the set of real numbers $\R$. In a continuous model, the notion also exists that between any two instants always lies another one, but unlike dense models, the set of instants is seen as continuous and there are no ``gaps'' between successive instants.
 
-Some other necessary concepts are:
+Some other necessary concepts are ~\cite{Dyreson1994}:
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -105,7 +105,7 @@ Another classification of time models concerns the use of points or intervals to
 %\end{itemize}
 
 \textcolor{red}{CHECK}
-Restrictions on time range may be performed on the base of the following two concepts:
+Restrictions on time range may be performed on the base of the following two concepts~\cite{Jensen94thetsql2}:
 \begin{itemize}
 \item
 \textbf{Time boundedness}: Time can be bounded orthogonally in the past and in the future.
@@ -125,7 +125,7 @@ Triangle inequality: The distance from $\alpha$ to $\gamma$ is equal or greater 
 \textcolor{red}{END CHECK}
 
 \textcolor{red}{MOVE TO TEMPORAL DATABASE PART}
-On the other hand, time may be \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers \emph{absolute time} is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
+On the other hand, time may be~\cite{Jensen94thetsql2} \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers \emph{absolute time} is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
 \textcolor{red}{END MOVE}
 
 Subsection \ref{subsec:granularity} gives a short survey on the concept of temporal granularities.
@@ -136,7 +136,7 @@ An important issue in time modelling concerns the concept of \emph{temporal gran
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{Granularity}\\
+\begin{definition}\textbf{Granularity}~\cite{wang93}\\
 A \emph{\textbf{granularity}} is an ordered set of non-overlapping and continuous temporal elements called \emph{granules}.
 \end{definition}
 
@@ -176,7 +176,7 @@ f & : G \rightarrow \Pow(\bot)\nonumber\\
   & : i_{G} \rightarrow \lbrace c_\bot\ |\ (c_\bot\text{ is contained in }i_{G}) \wedge (c_\bot \in \bot)\rbrace\nonumber
 \end{align}
 
-For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that the following properties hold:
+For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that the following properties hold~\cite{Lin97}:
 
 \begin{itemize}
 \item
