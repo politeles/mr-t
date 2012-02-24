@@ -11,7 +11,7 @@ In subsection \ref{subsec:basic-concepts}, some basic concepts of time modelling
 
 \subsection{Basic concepts and properties}
 \label{subsec:basic-concepts}
-In information systems, time itself is usually percieved as a linear or cyclic concept~\cite{Jensen94thetsql2}. Therefore, a time domains modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model~\cite{benthem82} and a \emph{cyclic} model~\cite{lorentzos88}. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
+In information systems, time itself is usually perceived as a linear or cyclic concept~\cite{Jensen94thetsql2}. Therefore, a time domains modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model~\cite{benthem82} and a \emph{cyclic} model~\cite{lorentzos88}. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
 
 Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
 
@@ -23,7 +23,7 @@ An \emph{\textbf{instant}} is a time point on an underlying time axis.
 \vspace{-10pt}
 \end{svgraybox}
 
-Thus, an instant is basically an instantanious time point in a time model.
+Thus, an instant is basically an instantaneous time point in a time model.
 
 Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models. In a discrete model~\cite{Clifford:1985:AHR:971699.318922}, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another, while the set of instants can still be seen as a discrete one. Here, intuitively, the set of instants can be seen as isomporphic to the set of rational numbers $\Q$ or the set of real numbers $\R$. In a continuous model, the notion also exists that between any two instants always lies another one, but unlike dense models, the set of instants is seen as continuous and there are no ``gaps'' between successive instants.
 
@@ -40,7 +40,7 @@ A \emph{\textbf{temporal element}} is a finite union of time intervals.
 \end{definition}
 
 \begin{definition}\textbf{Event}\\
-An \emph{\textbf{event}} is an instantaneous fact, i.e. something occurringat an instant.
+An \emph{\textbf{event}} is an instantaneous fact, i.e. something occurring at an instant.
 \end{definition}
 
 \begin{definition}\textbf{Duration}\\
@@ -168,18 +168,32 @@ G = \left\{i_{G}\ |\ i \in \Z \right\}
 %\alpha = \left \lbrace \ldots, 0_\alpha, 1_\alpha, \ldots \right \rbrace
 %\end{equation}
 
-In a system, the granularity with the shortest granules is the \emph{chronons granularity}, which is denoted as $\bot$. It is the granularity of which the granules are chronons. It is now possible to define a function $f$, called a \emph{mapping function}, that maps a given granule $i_G$, $i \in \Z$, from a given granularity $G$ to a set of corresponding chronons. The function definition should look like this:
+In a system, the granularity with the shortest granules is the \emph{chronons granularity}, which is denoted as $\bot$. It is the granularity of which the granules are chronons. 
+%It is now possible to define a function $f$, called a \emph{mapping function}, that maps a given granule $i_G$, $i \in \Z$, from a given granularity $G$ to a set of corresponding chronons. The function definition should look like this:
+
+\begin{svgraybox}
+\begin{definition}
+\label{def:mapping-function}
+\textbf{Mapping function}~\cite{Lin97}\\ 
+A mapping function $f$ is a function that translates from a given granule $i_G$, $i \in \Z$, in a given granularity $G$, to a set of corresponding chronons.\\
+
 \vspace{-10pt}
 
 \begin{align}
 f & : G \rightarrow \Pow(\bot)\nonumber\\
   & : i_{G} \rightarrow \lbrace c_\bot\ |\ (c_\bot\text{ is contained in }i_{G}) \wedge (c_\bot \in \bot)\rbrace\nonumber
 \end{align}
+\end{definition}
+\end{svgraybox}
 
-For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that the following properties hold~\cite{Lin97}:
+Note that a mapping function $f$ always maps from a given granularity $G$ to the set of chronons $\bot$. Therefore, the output for a mapping function is a subset of $\Pow(\bot)$. \\
+ A mapping function $f$ requires that the following properties hold~\cite{Lin97}:
 
-\begin{itemize}
-\item
+%
+%
+%For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that 
+\begin{property}
+%\item
 $G$ \emph{is an ordered set}: for a given $i_{G} \in G$ holds: if $c_\bot \in f(i_G)$ and $c^{'}_\bot \in f(j_G)$, then $c_\bot < c^{'}_\bot$ implies that $i_G < j_G$. This is illustrated in figure \ref{fig:granularity-prop1}.
 \begin{figure}
 \centering
@@ -187,8 +201,10 @@ $G$ \emph{is an ordered set}: for a given $i_{G} \in G$ holds: if $c_\bot \in f(
 \caption{$G$ is an ordered set}
 \label{fig:granularity-prop1}
 \end{figure}
+\end{property}
 
-\item
+%\item
+\begin{property}
 $G$ \emph{is a set of continuous granules}: for a given $i_{G} \in G$ and given chronons $c_\bot$, $c^{'}_\bot$ and $c^{''}_\bot$ holds: if $c_\bot < c^{'}_\bot < c^{''}_\bot$, then $c_\bot \in f(i_G)$ and $c^{''}_\bot \in f(i_G)$ implies that $c^{'}_\bot \in f(i_G)$. This is illustrated in figure \ref{fig:granularity-prop2}.
 \begin{figure}
 \centering
@@ -196,8 +212,10 @@ $G$ \emph{is a set of continuous granules}: for a given $i_{G} \in G$ and given 
 \caption{$G$ is a set of continuous granules}
 \label{fig:granularity-prop2}
 \end{figure}
+\end{property}
 
-\item
+%\item
+\begin{property}
 \emph{The granules in} $G$ \emph{do not overlap}: for given $i_{G}\text{ and } j_{G} \in G$ holds: if $i_G \neq j_G$, then $f(i_G) \cap f(j_G) = \emptyset$. This is illustrated in figure \ref{fig:granularity-prop3}.
 \begin{figure}
 \centering
@@ -205,7 +223,8 @@ $G$ \emph{is a set of continuous granules}: for a given $i_{G} \in G$ and given 
 \caption{The granules in $G$ do not overlap}
 \label{fig:granularity-prop3}
 \end{figure}
-\end{itemize}
+\end{property}
+%\end{itemize}
 
 Mapping functions between granularities and the chronons granularity also allow comparing granularities with respect to the length of their granules. In this context, two important concepts can be discerned.
 %A granularity $G$ is said to be \emph{\textbf{finner than}} a granularity $H$ when the set of chronons on which a given granule $i_G$ is mapped by a mapping function $f$ has less elements than the set of chronons on which a given granule $j_H$ is mapped by $f$.
@@ -223,7 +242,7 @@ Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granulari
 
 \begin{definition}
 \label{def:coarser-than}\textbf{Coarser Than}
-Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ repectively. Granularity $G$ is now said to be \emph{\textbf{coarser than}} granularity $H$ if:
+Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ respectively. Granularity $G$ is now said to be \emph{\textbf{coarser than}} granularity $H$ if:
 \begin{equation}
 \label{eq:coarser-than}
 | f \left( i_G \right)|\ >\ |  f \left( j_H \right)| \nonumber
@@ -232,32 +251,49 @@ Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granulari
 \vspace{-10pt}
 \end{svgraybox}
 
-It is also possible to describe the relation between different granularities. For this, a function, in this chapter denoted as $cast$, may be specified which maps granules from a granularity $G$ to granules from a different granularity $H$. The mathematical notation concerning this function is now:
+It is also possible to describe the relation between different granularities. This is called a casting function:
+\begin{svgraybox}
+\begin{definition}
+\textbf{Casting function}~\cite{Lin97}\\
+\label{def:casting-fucntion}
+A casting function $cast$ maps granules from a granularity $G$ to granules from a different granularity $H$.
 \begin{equation}
 \label{eq:cast-function}
 \mbox{cast} \left( i_G,G,H \right) = j_H \nonumber
 \end{equation}
-This notation indicates that the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions. Figure \ref{fig:granularity-graph-example} shows a granularity graph example. Mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}.
+\end{definition}
+\end{svgraybox}
+
+This notation indicates that the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions.
+
+ Mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}.
 \begin{itemize}
 \item
-\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function between the two granularities is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g. the mapping between hours and minutes is calculated using a multiplication by $60$. Regular mappings are visualised in figure \ref{fig:granularity-graph-example} as normal arrows.
+\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function between the two granularities is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g. the mapping between hours and minutes is calculated using a multiplication by $60$. 
 \item
-\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function can not be calculated by means of multiplications and/or divisions. E.g. the mapping between months and days is dependent on the exact month or day. Irregular mappings are visualised in figure \ref{fig:granularity-graph-example} as bold arrows.
+\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function can not be calculated by means of multiplications and/or divisions. E.g. the mapping between months and days is dependent on the exact month or day. 
 \item
-\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities in the mapping have the same granules but a different anchor. E.g. the mapping between the days (Gregorian calendar days) and the academic days. Both concern the same days, but the academic year starts on octobre 1st, whereas the Gregorian calendar year starts on january 1st. Congruent mappings are visualised in figure \ref{fig:granularity-graph-example} as straight lines without arrow heads.
+\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities in the mapping have the same granules but a different anchor. E.g. the mapping between the days (Gregorian calendar days) and the academic days. 
 \end{itemize}
+
+\begin{example}
+Consider a systems that models both Gregorian Calendar dates as well as Academic dates. The chronons granularity in this system are milliseconds. Figure \ref{fig:granularity-graph-example} shows the complete granularity graph example. The transitions between Chronons and Seconds and between Seconds and Minutes and so on is called a \emph{regular mapping}. The transition between Days and Months is not defined by a multiplication or division, this is called a \emph{irregular mapping}. In the graph, these \emph{irregular mappings} are noted with a bold arrow. Finally, the transition between a Gregorian Calendar Day and an Academic Day is called a \emph{Congruent mapping}: two granularities with the same granules but with different anchors. Both concern the same days, but the academic year starts on October 1st, whereas the Gregorian calendar year starts on January 1st. Congruent mappings are visualised as straight lines without arrow heads.
+
+\end{example}
+
+
 
 \textcolor{red}{MOVE TO CHAPTER 4}
 The transition between granularities~\cite{Lin97} is also considered as a source of imprecision. In a sentence like \emph{`The Alhambra is 612 years old'}, the temporal notion is very precise if time periods shorter than a year are irrelevant in the used granularity. However, if one is concerned with the exact day on which the last stone of the building is laid, a transition to a finer granularity, allowing the specification of time periods shorter than a year, is needed. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
 
 \textcolor{red}{END MOVE TO CHAPTER 4}
 
-%\begin{figure}
-%\centering
-%\includegraphics[scale=0.5]{graphs/granularityGraph.pdf}
-%\caption{A granularity graph example}
-%\label{fig:granularity-graph-example}
-%\end{figure}
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{graphs/granularityGraph.eps}
+\caption{A granularity graph example}
+\label{fig:granularity-graph-example}
+\end{figure}
 
 
 Next, in subsection \ref{subsec:timedomain-calendar}, some basic concepts and issues concerning calendars are explained.
@@ -296,7 +332,7 @@ A \emph{\textbf{linear calendar}} consist of a linear hierarchy of granularities
 \vspace{-10pt}
 \end{svgraybox}
 
-An example of a linear calendar could be the linear hierarchy $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years, together with a validity predicate that excludes time indications like `32 april 2012' or `30 february 2012'.
+An example of a linear calendar could be the linear hierarchy $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years, together with a validity predicate that excludes time indications like `32 April 2012' or `30 February 2012'.
 
 %The linear hierarchy days $\sqsubset$ months $\sqsubset$ years represents a linear calendar. It is necessary to define the validity predicates because 17 January 2012 is a valid element of the calendar whereas 30 February 2012 is not.
  
@@ -305,7 +341,7 @@ An example of a linear calendar could be the linear hierarchy $\left\{ \text{day
 % proposal for the underlying Julian Day Number domain.
 
 The Julian Day number \emph{JDN} \cite{Dir96} is a counter. Its value is incremented in one unit every day from 1 January 4713 B.C. at 12:00 noon. The particularity of starting at noon was useful for astronomers: the observations they took one night belonged to the same Julian Day.\\
-Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicited after the Julian Day number. There are several conversion formulas~\cite{Usn}\cite{Wik}\cite{Lea} between a date in Gregorian calendar  format and a date in  JDN format. The inverse conversion formula is proposed in~\cite{Fliegel:1968:LEM:364096.364097}\\
+Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicit after the Julian Day number. There are several conversion formulas~\cite{Usn}\cite{Wik}\cite{Lea} between a date in Gregorian calendar  format and a date in  JDN format. The inverse conversion formula is proposed in~\cite{Fliegel:1968:LEM:364096.364097}\\
 
 There are many alternatives to optimize the representation of Julian Day numbers because of its extremely far origin (4713 B.C. year). Table \ref{table:juliandayrepresentations} shows several time domains that can be calculated from the Julian Date, some of them are proposed just for optimization purposes.
 
