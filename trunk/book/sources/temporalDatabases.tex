@@ -195,7 +195,7 @@ There are several commercial temporal DBMS. Table \ref{table:commercial-temporal
 
 Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in an OracleDB. Nevertheless TimeDB and Postgree Temporal~\cite{posgree2009} are similar. Both are simple implementations that implement a subset of the Allen's operators and some operations for the creation and manipulation of a temporal attribute (valid, transaction or both times) in a table. Nevertheless, Teradata~\cite{teradata2011} is mainly a business intelligence database designed for data-mining. 
 
-The most complete implementation is the Workspace Manager, which is described briefly in the following section. Unfortunately, none of these systems work with uncertainty or imprecision neither in the data storage nor in the query.
+The most complete implementation is the Workspace Manager. Unfortunately, none of these systems work with uncertainty or imprecision neither in the data storage nor in the query.
 
 \begin{table}
 \centering
@@ -216,28 +216,28 @@ Teradata & VT and TT. & Used for data-mining. & \cite{teradata2011}\\
 
 \end{table}
 
-\subsubsection{Oracle Workspace Manager}
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.5]{graphs/workspaceTopology.eps}
-\caption{A sample topology in the workspace manager.}
-\label{fig:workspace-topology}
-\end{figure}
-
-Oracle workspace manager \cite{OraE118602} package allows to get several versions of the data in the same database. It is also possible to version only a table. The main benefits of this are two:
-
-\begin{itemize}
-\item
-Organization and optimization of data in a hierarchical frames: It is possible to create a frame of time (a workspace) and work only with that partial version of the data. It is provided a mechanism to merge data among different workspaces and to solve conflicts. The organization of data in these workspaces for very large tables result in smaller time access.
-\item
-Valid time as well as transaction time are managed by the system. Each update sentence makes a change in the versioning of a row.
-\end{itemize}
-
-When a table is versioned, the system creates a few tables and views as well as auxiliary structures to allow keep several version of the data, while keeping the primary key defined by the user.
-
-A workspace is a logical group of a set of changes (versions of tuples) and allows consistent access, thus the user always obtain the correct data version. Workspaces are ordered in a hierarchy. The top level is called LIVE workspace (see figure \ref{fig:workspace-topology}).  \\
-
-The system only makes a copy of a tuple if it is changed. In order to access different versions of the tuple, the context must be changed. Also, it is not necessarily to modify the SQL code to access to versioned tables.\\
-%When a table is versioned, it is renamed as table\_LT. Here is stored all the data for the information together metadata for the versioning. An auxiliary table is created with the workspace metadata with the name table\_AUX. A view is created with the name of the original table to allow querying without versioning.
+%\subsubsection{Oracle Workspace Manager}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.5]{graphs/workspaceTopology.eps}
+%\caption{A sample topology in the workspace manager.}
+%\label{fig:workspace-topology}
+%\end{figure}
+%
+%Oracle workspace manager \cite{OraE118602} package allows to get several versions of the data in the same database. It is also possible to version only a table. The main benefits of this are two:
+%
+%\begin{itemize}
+%\item
+%Organization and optimization of data in a hierarchical frames: It is possible to create a frame of time (a workspace) and work only with that partial version of the data. It is provided a mechanism to merge data among different workspaces and to solve conflicts. The organization of data in these workspaces for very large tables result in smaller time access.
+%\item
+%Valid time as well as transaction time are managed by the system. Each update sentence makes a change in the versioning of a row.
+%\end{itemize}
+%
+%When a table is versioned, the system creates a few tables and views as well as auxiliary structures to allow keep several version of the data, while keeping the primary key defined by the user.
+%
+%A workspace is a logical group of a set of changes (versions of tuples) and allows consistent access, thus the user always obtain the correct data version. Workspaces are ordered in a hierarchy. The top level is called LIVE workspace (see figure \ref{fig:workspace-topology}).  \\
+%
+%The system only makes a copy of a tuple if it is changed. In order to access different versions of the tuple, the context must be changed. Also, it is not necessarily to modify the SQL code to access to versioned tables.\\
+%%When a table is versioned, it is renamed as table\_LT. Here is stored all the data for the information together metadata for the versioning. An auxiliary table is created with the workspace metadata with the name table\_AUX. A view is created with the name of the original table to allow querying without versioning.
 
