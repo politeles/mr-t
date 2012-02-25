@@ -1,31 +1,96 @@
 %
 % Temporal databases
 %
-A \emph{temporal database}~\cite{etzion1998} is a database that manages some aspects of time in its schema~\cite{Dyreson1994}. The reality a temporal database tries to model, contains some temporal notions which have to be handled specifically in order to maintain a consistent modelling behavior. A very extensive list with the most well-known models in temporal databases can be found in ~\cite{Yu1998}. Nevertheless, it is necessary to define some consistent way to query the temporal data. There are several languages for querying temporal databases like TSQL~\cite{TSQL}. In~\cite{Snodgrass98} a proposal to add temporal support to the standard SQL is given.
+A temporal database can generally be seen as a database that manages some temporal aspects in its schema \cite{etzion1998}. In subsection \ref{subsec:td-general-concepts}, some main concepts and properties concerning temporal databases and their definitions are presented and explained. In subsections \ref{subsubsec:primary-key} and \ref{subsubsec:consistency}, some main issues of relational temporal databases are presented and discussed. Finally, subsection \ref{Comm-temp} presents an overview of some commercial temporal database systems.
 
+\subsection{\label{subsec:td-general-concepts}Basic Concepts and Properties}
+A database models some part of reality. As mentioned in the introduction, the part of reality a temporal database tries to model, contains some temporal aspects. For example, in this part of reality, some concepts or objects could have time-related or time-variant properties. The modelling of these temporal aspects has to be handled specifically in order for the database to maintain a consistent model of reality.
+
+Thus, a temporal database will contain temporal values, i.e. values representing (indications of) time. Temporal values in a temporal database can be classified into the following types based on their interpretation and modelling purpose. The definitions and explanations of these types can be found in \cite{Dyreson1994} and \cite{Nascimento95decisiontime} and more information can be found in \cite{Jensen:1991:IIM:627283.627484}, \cite{Snodgrass:1984:TQL:588011.588041} and \cite{Nascimento95decisiontime}.
 
 \begin{svgraybox}
-The temporal notions in temporal databases can be classified into the following types based on their interpretation and modelling purpose. User-defined time has no interpretation, but the other types do:\\
+\vspace{-10pt}
+\begin{definition}\textbf{Valid Time}\\
+The \emph{\textbf{valid time}} (VT) of a fact is the time when the fact is true in the modeled reality.
+\end{definition}
 
-	\textbf{Transaction time} \emph{TT}~\cite{Jensen:1991:IIM:627283.627484}: The time when the fact is stored in the database.\\
-	
-	\textbf{Valid time} \emph{VT}~\cite{Snodgrass:1984:TQL:588011.588041}: The time when the fact is true in the modelled reality.\\
-	
-	\textbf{Decision time} \emph{DT}~\cite{Nascimento95}: The time when an event was decided to happen. \\
+\begin{definition}\textbf{Transaction Time}\\
+A database fact is stored in a database at some point in time, and after it is stored, it is current until logically deleted. The \emph{\textbf{transaction time}} (TT) of a database fact is the time when the fact is current in the database and may be retrieved.
+\end{definition}
+
+\begin{definition}\textbf{Decision Time}\\
+\emph{\textbf{Decision time}} (DT) denotes the time when an event was decided to happen.
+\end{definition}
+
+\begin{definition}\textbf{User-defined Time}\\
+\emph{\textbf{User-defined time}} (UDT) is an uninterpreted attribute domain of date and time.
+\end{definition}
+\vspace{-10pt}
 \end{svgraybox}
+
+\emph{Valid times} are usually supplied by the user, whereas \emph{transaction times} are usually system-generated and -supplied \cite{Dyreson1994}. Temporal values of type UDT are not given any special interpretation and have thus no special query language support \cite{Dyreson1994}.
+
+A \emph{temporal database} can now formally be defined as follows \cite{Dyreson1994}.
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{Temporal Database}\\
+A \emph{\textbf{temporal database}} supports some aspect of time, not counting user-defined time.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+In a relational temporal database, temporal values will of course be in the tuples of the extentions of temporal relations:
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}\textbf{Valid-time Relation}\\
+A \emph{\textbf{valid-time relation}} is a relation with exactly one system supported valid time \cite{Dyreson1994}.
+\end{definition}
+
+\begin{definition}\textbf{Transaction-time Relation}\\
+A \emph{\textbf{transaction-time relation}} is a relation with exactly one system supported transaction time \cite{Dyreson1994}.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+A \emph{valid-time}, respectively \emph{transaction-time} \emph{relational database} is now defined as containing one or more valid-time, respectively transaction-time relations \cite{Dyreson1994}. Next to this, \emph{bitemporal} relational databases contain both valid time and transaction time and tritemporal databases contain valid time, transaction time and decision time.
+
+
+%Database models can also be classified into \emph{bi-temporal} (both valid and transaction-time) or \emph{tri-temporal}  (bi-temporal and decision time) models.
+
+
+A very extensive list of the most well-known temporal database models can be found in ~\cite{Yu1998}. As it is of course necessary to define a consistent way to query the temporal data, there are several proposals concerned with query languages and query language adaptations for temporal databases like ~\cite{TSQL} and ~\cite{Snodgrass98}.
+
+
+
+
+%A \emph{temporal database}~\cite{etzion1998} is a database that manages some aspects of time in its schema~\cite{Dyreson1994}. The reality a temporal database tries to model, contains some temporal notions which have to be handled specifically in order to maintain a consistent modelling behavior. A very extensive list with the most well-known models in temporal databases can be found in ~\cite{Yu1998}. Nevertheless, it is necessary to define some consistent way to query the temporal data. There are several languages for querying temporal databases like TSQL~\cite{TSQL}. In~\cite{Snodgrass98} a proposal to add temporal support to the standard SQL is given.
+
+
+%\begin{svgraybox}
+%The temporal notions in temporal databases can be classified into the following types based on their interpretation and modelling purpose. User-defined time has no interpretation, but the other types do:\\
+
+%	\textbf{Transaction time} \emph{TT}~\cite{Jensen:1991:IIM:627283.627484}: The time when the fact is stored in the database.\\
 	
-Database models can also be classified into \emph{bi-temporal} (both valid and transaction-time) or \emph{tri-temporal}  (bi-temporal and decision time) models.
+%	\textbf{Valid time} \emph{VT}~\cite{Snodgrass:1984:TQL:588011.588041}: The time when the fact is true in the modelled reality.\\
+	
+%	\textbf{Decision time} \emph{DT}~\cite{Nascimento95}: The time when an event was decided to happen. \\
+%\end{svgraybox}
+	
 
 
+In the following sections, one of the main points of attention concerning relational temporal databases is explained and discussed.
 
-\subsection{\label{subsubsec:primary-key}Primary key on temporal databases}
-One of the first tasks in the design of a database is the choice for the primary key. In a temporal database, the most common solution for the choice of the primary key is to extend the primary key with the temporal value. Nevertheless, when dealing with uncertainty in the temporal values, the solution is usually to create a version identifier otherwise the primary key have uncertainty which should be avoided.
+\subsection{\label{subsubsec:primary-key}Primary Keys in Temporal Relations}
+When designing a relation, a subset of the relation's attribute set is ususally chosen as primary key. The values of a record for these attributes will then uniquely determine this record and no two records may have the same values for every attribute in this primary key. In temporal relations, different records can exist with the same values for every attribute except the attributes describing the temporal aspects of the objects or concepts represented by the records (the temporal attributes). These different records represent different temporal versions of the same real objects or concepts. To allow the existence of such records, the most common solution is to extend the original primary key with the temporal attributes.
+%One of the first tasks in the design of a database is the choice for the primary key. In a temporal database, the most common solution for the choice of the primary key is to extend the primary key with the temporal value. Nevertheless, when dealing with uncertainty in the temporal values, the solution is usually to create a version identifier otherwise the primary key have uncertainty which should be avoided.
 
-The following example illustrates the case of a table from a valid time database.
+The following example illustrates this primary key issue in a valid-time relation.
 
 \begin{example}
 \label{ex:pk}
-Consider the following example database in \ref{table:example-database}. It contains regular data from employees in a company like the name, the birth date. Also two temporal values which represent a valid-time interval. Consider now that we want to hire Sarah again. That is not possible because of the primary key (ID) does not allow to insert again the row Sarah but with a different start and end time. In some models this is resolved by adding to the primary key both values Start and End years. The resulting database allows to insert a new row where Sarah the year 2010. But this modification also allows to insert spurious values e.g. inconsistent time periods (see last row in table \ref{table:example-database-with-new-pk}).
+Consider the example database visualized in table \ref{table:example-database}. It contains data representing employees in a company, and two temporal values which represent a valid-time interval. Consider now that we want to hire Sarah again. That is not possible because of the primary key (ID) does not allow to insert again the row Sarah but with a different start and end time. In some models this is resolved by adding to the primary key both values Start and End years. The resulting database allows to insert a new row where Sarah the year 2010. But this modification also allows to insert spurious values e.g. inconsistent time periods (see last row in table \ref{table:example-database-with-new-pk}).
 
 
 %\vspace{-10pt}
@@ -125,7 +190,7 @@ Table \ref{table:example-database-update} shows the resulting database after the
 \end{example}
 
 
-\subsection{Commercial Temporal database systems}
+\subsection{\label{Comm-temp}Commercial Temporal database systems}
 There are several commercial temporal DBMS. Table \ref{table:commercial-temporal-db} is a comparative among the most well-known systems. It is also provided a reference for more information. 
 
 Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in an OracleDB. Nevertheless TimeDB and Postgree Temporal~\cite{posgree2009} are similar. Both are simple implementations that implement a subset of the Allen's operators and some operations for the creation and manipulation of a temporal attribute (valid, transaction or both times) in a table. Nevertheless, Teradata~\cite{teradata2011} is mainly a business intelligence database designed for data-mining. 
