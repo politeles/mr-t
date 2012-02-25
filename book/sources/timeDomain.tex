@@ -188,43 +188,52 @@ f & : G \rightarrow \Pow(\bot)\nonumber\\
 
 Note that a mapping function $f$ always maps from a given granularity $G$ to the set of chronons $\bot$. Therefore, the output for a mapping function is a subset of $\Pow(\bot)$. \\
  A mapping function $f$ requires that the following properties hold~\cite{Lin97}:
+ 
+ \begin{itemize}
+ \item
+ $G$ \emph{is an ordered set}.
+ \item
+ $G$ \emph{is a set of continuous granules}.
+ \item
+ \emph{The granules in} $G$ \emph{do not overlap}.
+ \end{itemize}
 
+%%
+%%
+%%For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that 
+%\begin{property}
+%%\item
+%$G$ \emph{is an ordered set}: for a given $i_{G} \in G$ holds: if $c_\bot \in f(i_G)$ and $c^{'}_\bot \in f(j_G)$, then $c_\bot < c^{'}_\bot$ implies that $i_G < j_G$. This is illustrated in figure \ref{fig:granularity-prop1}.
+%\begin{figure}
+%\centering
+%\input{graphs/granularity-prop1.tex}
+%\caption{$G$ is an ordered set}
+%\label{fig:granularity-prop1}
+%\end{figure}
+%\end{property}
 %
+%%\item
+%\begin{property}
+%$G$ \emph{is a set of continuous granules}: for a given $i_{G} \in G$ and given chronons $c_\bot$, $c^{'}_\bot$ and $c^{''}_\bot$ holds: if $c_\bot < c^{'}_\bot < c^{''}_\bot$, then $c_\bot \in f(i_G)$ and $c^{''}_\bot \in f(i_G)$ implies that $c^{'}_\bot \in f(i_G)$. This is illustrated in figure \ref{fig:granularity-prop2}.
+%\begin{figure}
+%\centering
+%\input{graphs/granularity-prop2.tex}
+%\caption{$G$ is a set of continuous granules}
+%\label{fig:granularity-prop2}
+%\end{figure}
+%\end{property}
 %
-%For a given granularity $G$ and a given mapping function $f$ from $G$ to $\bot$, it is required that 
-\begin{property}
-%\item
-$G$ \emph{is an ordered set}: for a given $i_{G} \in G$ holds: if $c_\bot \in f(i_G)$ and $c^{'}_\bot \in f(j_G)$, then $c_\bot < c^{'}_\bot$ implies that $i_G < j_G$. This is illustrated in figure \ref{fig:granularity-prop1}.
-\begin{figure}
-\centering
-\input{graphs/granularity-prop1.tex}
-\caption{$G$ is an ordered set}
-\label{fig:granularity-prop1}
-\end{figure}
-\end{property}
-
-%\item
-\begin{property}
-$G$ \emph{is a set of continuous granules}: for a given $i_{G} \in G$ and given chronons $c_\bot$, $c^{'}_\bot$ and $c^{''}_\bot$ holds: if $c_\bot < c^{'}_\bot < c^{''}_\bot$, then $c_\bot \in f(i_G)$ and $c^{''}_\bot \in f(i_G)$ implies that $c^{'}_\bot \in f(i_G)$. This is illustrated in figure \ref{fig:granularity-prop2}.
-\begin{figure}
-\centering
-\input{graphs/granularity-prop2.tex}
-\caption{$G$ is a set of continuous granules}
-\label{fig:granularity-prop2}
-\end{figure}
-\end{property}
-
-%\item
-\begin{property}
-\emph{The granules in} $G$ \emph{do not overlap}: for given $i_{G}\text{ and } j_{G} \in G$ holds: if $i_G \neq j_G$, then $f(i_G) \cap f(j_G) = \emptyset$. This is illustrated in figure \ref{fig:granularity-prop3}.
-\begin{figure}
-\centering
-\input{graphs/granularity-prop3.tex}
-\caption{The granules in $G$ do not overlap}
-\label{fig:granularity-prop3}
-\end{figure}
-\end{property}
-%\end{itemize}
+%%\item
+%\begin{property}
+%\emph{The granules in} $G$ \emph{do not overlap}: for given $i_{G}\text{ and } j_{G} \in G$ holds: if $i_G \neq j_G$, then $f(i_G) \cap f(j_G) = \emptyset$. This is illustrated in figure \ref{fig:granularity-prop3}.
+%\begin{figure}
+%\centering
+%\input{graphs/granularity-prop3.tex}
+%\caption{The granules in $G$ do not overlap}
+%\label{fig:granularity-prop3}
+%\end{figure}
+%\end{property}
+%%\end{itemize}
 
 Mapping functions between granularities and the chronons granularity also allow comparing granularities with respect to the length of their granules. In this context, two important concepts can be discerned.
 %A granularity $G$ is said to be \emph{\textbf{finner than}} a granularity $H$ when the set of chronons on which a given granule $i_G$ is mapped by a mapping function $f$ has less elements than the set of chronons on which a given granule $j_H$ is mapped by $f$.
@@ -336,55 +345,55 @@ An example of a linear calendar could be the linear hierarchy $\left\{ \text{day
 
 %The linear hierarchy days $\sqsubset$ months $\sqsubset$ years represents a linear calendar. It is necessary to define the validity predicates because 17 January 2012 is a valid element of the calendar whereas 30 February 2012 is not.
  
-\textcolor{red}{CHECK}
-\subsubsection{\label{subsubsubsec:julian-day-number}An example of temporal domain: Julian Day Number}
-% proposal for the underlying Julian Day Number domain.
-
-The Julian Day number \emph{JDN} \cite{Dir96} is a counter. Its value is incremented in one unit every day from 1 January 4713 B.C. at 12:00 noon. The particularity of starting at noon was useful for astronomers: the observations they took one night belonged to the same Julian Day.\\
-Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicit after the Julian Day number. There are several conversion formulas~\cite{Usn}\cite{Wik}\cite{Lea} between a date in Gregorian calendar  format and a date in  JDN format. The inverse conversion formula is proposed in~\cite{Fliegel:1968:LEM:364096.364097}\\
-
-There are many alternatives to optimize the representation of Julian Day numbers because of its extremely far origin (4713 B.C. year). Table \ref{table:juliandayrepresentations} shows several time domains that can be calculated from the Julian Date, some of them are proposed just for optimization purposes.
-
-
-\begin{table}
-\caption{Julian Day representations}
-\label{table:juliandayrepresentations}
-
-\begin{tabular}{p{2cm}p{4cm}p{4cm}p{2cm}}
-%header ------------------------------------------------------
-\hline\noalign{\smallskip}
-Name & From & Formula & Current Value  \\ 
-\noalign{\smallskip}\svhline\noalign{\smallskip}
-%header ------------------------------------------------------
-Julian Date (JD)$^a$ & 12:00 noon Monday 1 January 4713 B.C & & 2455278. 85488  \\ 
-Julian Day Number (JDN)$^b$ & 12:00 noon  Monday 1 January 4713 B.C. & JND = floor(JD) & 2455278 \\ 
-Reduced Julian Day (RJD)$^c$ & 12:00 noon Tuesday 16 November 1858 A.C. & RJD = JD - 2400000 & 55278.85488  \\ 
-Modified Julian Day (MJD)$^d$ & 00:00 Wednesday 17 November 1858 A.C. & MJD = JD - 2400000,5 & 55278.35488 \\ 
-Truncated Julian Day (TJD)$^e$ & 00:00 Friday 24 May 1968 A.C. & TJD = JD - 2440000,5 & 15278.35488  \\ 
-Truncated Julian Day (TJD)$^f$ & 00:00 Thursday 10 November 1995 A.C. & TJD = (JD- 0,5) mod 10000 & 5278. 35488   \\ 
-Dublin Julian Day (DJD))$^g$ & 12:00 noon Sunday 31 December 1899 A.C. & DJD = JD - 2415020 & 40258. 85488 \\ 
-Chronological Julian Day (CJD)$^h$  & 00:00 Monday 1 January 4713 B.C. & CJD = JD + 0,5 + timezone adjust. & 2455279. 3548843 (UT)  \\ 
-Lilian Day Number$^i$ & Friday 15 October 1582 & floor(JD-2299160,5) & 156118 \\ 
-ANSI Date$^j$  & Monday 1 January 1601 & floor(JD-2305812,5) & 149466  \\ 
-Rata die$^k$  & Monday 1 January 1 A.C & floor(JD - 1721424.5) & 733854 \\ 
-Unix time$^l$  & Thursday 1 January 1970 A.C. & (JD – 2440587.5) × 86400 & 1269333062 \\ 
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\end{tabular}
-$^a$ This is an extension of the Julian Day that allows time representation. \\
-$^b$  Each day changes at noon. \\
-$^c$  Used by astronomers. \\
-$^d$ It starts at midnight. \\
-$^e$ Definition from NASA. \cite{Sch}. \\
-$^f$ Definition from NIST. \cite{Nis}. \\
-$g$ Introduced by the IAU in 1995. \\
-$^h$ The timezone must be explicited. Each day changes at midnight. \\
-$^i$ The number of days since Gregorian calendar in Universal Time. \\
-$^j$ The origin for COBOL integer dates. \\
-$^k$  The number of days since actual era. \\
-$^l$  It counts the seconds not the day. \\
-\end{table}
-
-\textcolor{red}{END CHECK}
+%\textcolor{red}{CHECK}
+%\subsubsection{\label{subsubsubsec:julian-day-number}An example of temporal domain: Julian Day Number}
+%% proposal for the underlying Julian Day Number domain.
+%
+%The Julian Day number \emph{JDN} \cite{Dir96} is a counter. Its value is incremented in one unit every day from 1 January 4713 B.C. at 12:00 noon. The particularity of starting at noon was useful for astronomers: the observations they took one night belonged to the same Julian Day.\\
+%Note that the Julian Day represents whole days. There is an extension that allows to represent any precision needed (it is called Julian Date). By default, a Julian Day is expressed in Universal Time. (U.T, also known as Solar Time). However, there are representations in Terrestrial Time (T.T), Epheris Time (J.E.D. or J.D.E.). Any time scale different from Universal Time must be explicit after the Julian Day number. There are several conversion formulas~\cite{Usn}\cite{Wik}\cite{Lea} between a date in Gregorian calendar  format and a date in  JDN format. The inverse conversion formula is proposed in~\cite{Fliegel:1968:LEM:364096.364097}\\
+%
+%There are many alternatives to optimize the representation of Julian Day numbers because of its extremely far origin (4713 B.C. year). Table \ref{table:juliandayrepresentations} shows several time domains that can be calculated from the Julian Date, some of them are proposed just for optimization purposes.
+%
+%
+%\begin{table}
+%\caption{Julian Day representations}
+%\label{table:juliandayrepresentations}
+%
+%\begin{tabular}{p{2cm}p{4cm}p{4cm}p{2cm}}
+%%header ------------------------------------------------------
+%\hline\noalign{\smallskip}
+%Name & From & Formula & Current Value  \\ 
+%\noalign{\smallskip}\svhline\noalign{\smallskip}
+%%header ------------------------------------------------------
+%Julian Date (JD)$^a$ & 12:00 noon Monday 1 January 4713 B.C & & 2455278. 85488  \\ 
+%Julian Day Number (JDN)$^b$ & 12:00 noon  Monday 1 January 4713 B.C. & JND = floor(JD) & 2455278 \\ 
+%Reduced Julian Day (RJD)$^c$ & 12:00 noon Tuesday 16 November 1858 A.C. & RJD = JD - 2400000 & 55278.85488  \\ 
+%Modified Julian Day (MJD)$^d$ & 00:00 Wednesday 17 November 1858 A.C. & MJD = JD - 2400000,5 & 55278.35488 \\ 
+%Truncated Julian Day (TJD)$^e$ & 00:00 Friday 24 May 1968 A.C. & TJD = JD - 2440000,5 & 15278.35488  \\ 
+%Truncated Julian Day (TJD)$^f$ & 00:00 Thursday 10 November 1995 A.C. & TJD = (JD- 0,5) mod 10000 & 5278. 35488   \\ 
+%Dublin Julian Day (DJD))$^g$ & 12:00 noon Sunday 31 December 1899 A.C. & DJD = JD - 2415020 & 40258. 85488 \\ 
+%Chronological Julian Day (CJD)$^h$  & 00:00 Monday 1 January 4713 B.C. & CJD = JD + 0,5 + timezone adjust. & 2455279. 3548843 (UT)  \\ 
+%Lilian Day Number$^i$ & Friday 15 October 1582 & floor(JD-2299160,5) & 156118 \\ 
+%ANSI Date$^j$  & Monday 1 January 1601 & floor(JD-2305812,5) & 149466  \\ 
+%Rata die$^k$  & Monday 1 January 1 A.C & floor(JD - 1721424.5) & 733854 \\ 
+%Unix time$^l$  & Thursday 1 January 1970 A.C. & (JD – 2440587.5) × 86400 & 1269333062 \\ 
+%\noalign{\smallskip}\hline\noalign{\smallskip}
+%\end{tabular}
+%$^a$ This is an extension of the Julian Day that allows time representation. \\
+%$^b$  Each day changes at noon. \\
+%$^c$  Used by astronomers. \\
+%$^d$ It starts at midnight. \\
+%$^e$ Definition from NASA. \cite{Sch}. \\
+%$^f$ Definition from NIST. \cite{Nis}. \\
+%$g$ Introduced by the IAU in 1995. \\
+%$^h$ The timezone must be explicited. Each day changes at midnight. \\
+%$^i$ The number of days since Gregorian calendar in Universal Time. \\
+%$^j$ The origin for COBOL integer dates. \\
+%$^k$  The number of days since actual era. \\
+%$^l$  It counts the seconds not the day. \\
+%\end{table}
+%
+%\textcolor{red}{END CHECK}
 
 The next section briefly introduces temporal relationships.
 
