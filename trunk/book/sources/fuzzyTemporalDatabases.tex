@@ -148,8 +148,10 @@ In the presented approach, for every record $r$, each part of $\tilde{Q}$ is eva
 \item
 The user preferences expressed in the non-temporal part, $Q$, are evaluated, resulting in a satisfaction degree denoted as $e_Q(r)$. The presented approach accepts any valid, sound method of calculating this evaluation, as long as the method is well-founded and $e_Q(r) \in \left[0,1\right]$.
 \item
-The evaluation of the temporal demand expressed in the temporal part, $Q^{time}$, depends on $AR$. A specific set of ill-known constraints is considered depending on the Allen relation denoted by $AR$. The exact set chosen can be found in table \ref{tab:fuzzy-allen-relations}, for every possible value of $AR$. Then both possibility and necessity measures are computed and aggregated.
+The evaluation of the temporal demand expressed in the temporal part, $Q^{time}$, depends on $AR$. A specific set of ill-known constraints\cite{Pon11} is considered depending on the Allen relation denoted by $AR$. The exact set chosen can be found in table \ref{tab:fuzzy-allen-relations}, for every possible value of $AR$. Then, using these formulas given in table \ref{tab:fuzzy-allen-relations}, both the possibility degree $\Pos_{Q^{time}}(r)$ and the necessity degree $\Nec_{Q^{time}}(r)$ are computed.
 \end{itemize}
+
+\textcolor{red}{TODO: maybe part on what these and mean? Maybe part on where the formulas in table \ref{tab:fuzzy-allen-relations} come from?}
 
 \begin{table}[h]
 
@@ -205,69 +207,84 @@ I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ & $\min (\inf_{a<w} 1 - \pi_X(w),$
 \label{tab:fuzzy-allen-relations}
 \end{table}
 
-\subsubsection{Ranking and aggregation}
-For each temporal attribute $r_{time}$ for the record $r$, both possibility $\Pos \left( Q_{time}\right)$ and necessity $\Nec \left( Q_{time} \right)$ measures are obtained. Then, the measures are combined in order to obtain an evaluation score $e_{Q_{time} \left( r \right)}$. The evaluation function is computed by:
+\subsubsection{Aggregation and Ranking}
+To be able to present the most appropriate results to the user, for every record $r$, an aggregation method is used to aggregate $\Pos_{Q^{time}}(r)$ and $\Nec_{Q^{time}}(r)$ into a temporal record rank $e_{Q^{time}}(r)$ and after this, a convex combination combining $e_{Q^{time}}(r)$ and $e_{Q}(r)$ will provide the final record rank $e_{final}(r)$.
+
+%For each temporal attribute $r_{time}$ for the record $r$, both possibility $\Pos \left( Q_{time}\right)$ and necessity $\Nec \left( Q_{time} \right)$ measures are obtained. Then, the measures are combined in order to obtain an evaluation score $e_{Q_{time} \left( r \right)}$. The evaluation function is computed by:
+
+To calculate $e_{Q^{time}}(r)$, an a simple and crude method is used:
 
 \begin{equation}
 \label{eq:temporal-eval}
-e_{Q_{time} \left( r \right)} = \left \lbrace t \mid t = \left( \frac{\Pos \left( Q_{time}\right) + \Nec \left( Q_{time} \right)}{2} \right)   \in \left[ 0,1\right] \right \rbrace
+e_{Q^{time}}(r) = \left(\frac{\Pos_{Q^{time}}(r)+\Nec_{Q^{time}}(r)}{2}\right)
+%e_{Q_{time} \left( r \right)} = \left \lbrace t \mid t = \left( \frac{\Pos \left( Q_{time}\right) + \Nec \left( Q_{time} \right)}{2} \right)   \in \left[ 0,1\right] \right \rbrace
 \end{equation}
 
-This measure provides a natural score because of the following property of the necessity measure: 
-\begin{equation}
-\label{eq:necessity} %iff or iif?
-\Nec \left( Q_{time} \right) > 0  \Longleftrightarrow  \Pos \left( Q_{time}\right) = 1
-\end{equation}
+This method aims to provide the result records with a natural ranking based on the users temporal constraint. $e_{Q^{time}}(r)$ will of course be a value in $\left[0,1\right]$, as both $\Pos_{Q^{time}}(r) \in \left[0,1\right]$ and $\Nec_{Q^{time}}(r) \in \left[0,1\right]$. The purpose is that records which fit the users temporal demand better get a higher score than records fitting the temporal demand worse. Here, this aim is reached because the necessity degree $\Nec_{Q^{time}}(r)$ cannot exceed $0$ unless the possibility degree $\Pos_{Q^{time}}(r)$ equals $1$.
 
-The final ranking is given by a convex combination of both temporal and non-temporal evaluations:
+%This measure provides a natural score because of the following property of the necessity measure: 
+%\begin{equation}
+%\label{eq:necessity} %iff or iif?
+%\Nec \left( Q_{time} \right) > 0  \Longleftrightarrow  \Pos \left( Q_{time}\right) = 1
+%\end{equation}
+
+The final ranking $e_{final}(r)$ for a record $r$ is now given by a convex combination of both temporal and non-temporal evaluation scores.
 
 \begin{equation}
 \label{eq:convex-combination}
-e_{final} \left( r \right) = \left \lbrace t \mid t = \omega \ast e_{Q} \left( r \right) + \left( 1- \omega \right) \ast e_{Q^{time}}, t,\omega \in \left[0,1\right] \right \rbrace
+e_{final} \left( r \right) = \omega \ast e_{Q} \left( r \right) + \left( 1- \omega \right) \ast e_{Q^{time}}
 \end{equation}
 
-
-
+A convex combination is used mainly for 2 reasons:
+\begin{itemize}
+	\item The use of this convex combination allows a record to make up for a low temporal evaluation score with a high non-temporal evaluation score and vice versa.
+	\item The exact value of $\omega$ can now be modified to ascribe more value to either the fulfillment of the user's temporal demands or the fulfillment of the user's non-temporal constraints.
+\end{itemize}
 
 \subsection{Bipolarity in temporal databases}
 \label{subsubsec:bipolarity}
-Humans express their preferences in both positive and negative statements. This property is interesting in querying of databases, because sometimes, the user does not know exactly his / her preferences but what he / she does not want. \emph{Bipolarity} is therefore a technique to model both positive and negative preferences. Sometimes positive and negative information are clearly symmetric and therefore, it is possible to derive one information from another e.g. a person may define the concept of tall as 1.80 meters or higher. The negative would be the opposite, not tall is therefore, being less than 1.80 meters.  But in some cases, positive information can not be obtained directly from the negative information and vice-verse. E.g. a person wants to buy a blue motorbike, this does not mean that the person would reject a black motorbike. This heterogeneous semantics are given by the \emph{heterogeneous bipolarity}~\cite{Dubois2006},~\cite{Dubois2008}.\\
+Humans express their preferences using both positive and negative statements, where positive statements express what is desired or acceptable and negative statements express what is undesired or unacceptable \cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. This realization is interesting with regard to database querying, because sometimes a user does not exactly know his or her preferences or can't express them in only positive statements, but prefers to use negative statements to express what he or she dislikes or doesn't need. This introduces the need for \emph{bipolar querying}, a technique to model both positive and negative user preferences in a database query. Sometimes positive and negative preferences are clearly symmetric, making it possible to derive one from the other. For example, a person may define the concept of `tall' as `1.80 meters or higher'. The negative would then be the opposite: not tall would be `anyhing less than 1.80 meters'. However, in some cases, positive preferences can not be directly obtained from negative preferences or vice versa. E.g. when a person prefers to buy a black motorbike, this does not necessarily mean the person would totally reject a very dark blue motorbike. This phenomenon is called \emph{heterogeneous bipolarity}~\cite{Dubois2006},~\cite{Dubois2008}.
 
-Some previous work have been done in ~\cite{Lacroix87}. There, instead of positive and negative criteria, desired and mandatory query conditions are explained. This can be seen as a way to specify positive and negative information: the inverse of a mandatory condition is what should be rejected (negative information), whereas desired conditions can be seen as positive information.\\
+The use of imprecise query preference formulation in bipolar querying is well discussed in existing literature \cite{DeTre2009}, \cite{Dubois2008}, \cite{Lacroix87}. In \cite{Lacroix87}, desired and mandatory query conditions are used, instead of positive and negative preferences. However, the inverse of a mandatory preference expresses what should be rejected and this could be seen as negative information, whereas desired query conditions can be seen as positive preferences. However, the combination of bipolar querying and the use of imprecise query preferences in the context of temporal databases is not so well discussed in existing literature. A proposal for the bipolar querying of valid-time databases has been made by Billiet et al.~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. The model presented there deals with a fuzzy valid-time specification based on~\cite{garrido2009}.
+
+%Some previous work have been done in ~\cite{Lacroix87}. There, instead of positive and negative criteria, desired and mandatory query conditions are explained. This can be seen as a way to specify positive and negative information: the inverse of a mandatory condition is what should be rejected (negative information), whereas desired conditions can be seen as positive information.\\
 
 
-This introduces the necessity of a bipolar way of querying databases. Therefore, the bipolar querying of databases~\cite{DeTre2009} is a querying technique which allows the user to express both positive and negative criteria in the database query.\\
+%This introduces the necessity of a bipolar way of querying databases. Therefore, the bipolar querying of databases~\cite{DeTre2009} is a querying technique which allows the user to express both positive and negative criteria in the database query.\\
 
-Bipolarity is handled by means of different tools:
+Bipolarity can be handled using different concepts, such as intuitionistic fuzzy sets~\cite{Atanassov1986}, interval valued fuzzy sets~\cite{Zadeh75a} Grattan-Guiness~\cite{Grattan76}, Janh~\cite{Jahn75}, Sambuc~\cite{Sambuc75},~\cite{Dubois05} or two fold fuzzy sets \cite{Dubois02}.
 
+%\begin{itemize}
+%\item
+%Intuitionistic Fuzzy Sets~\cite{Atanassov1986} are sometimes used. The approach re-define the concept of inverse. Instead of considering the inverse of a set just the complementary, a AFS is defined by means of a membership function and a non-membership function.
+%\item
+%The interval valued fuzzy sets \emph{IVFS} were introduced independently by Zadeh~\cite{Zadeh75a}, Grattan-Guiness~\cite{Grattan76}, Janh~\cite{Jahn75}, Sambuc~\cite{Sambuc75} in the seventies~\cite{Dubois05}. %look for the reference!
+%\item
+%The two fold fuzzy sets \emph{(TFS)} by Dubois and Prade~\cite{Dubois02}. This approach defines desired and mandatory query conditions.
+%\end{itemize}
+
+From a theoretical point of view, bipolarity might be found either in the queries presented to a database system or in a database managed by a database system.
+
+When bipolarity is found in queries, it is possible to distinguish between:
 \begin{itemize}
-\item
-The intuitionistic fuzzy sets  \emph{AFS} by Atannasov ~\cite{Atanassov1986}. The approach re-define the concept of inverse. Instead of considering the inverse of a set just the complementary, a AFS is defined by means of a membership function and a non-membership function.
-\item
-The interval valued fuzzy sets \emph{IVFS} were introduced independently by Zadeh~\cite{Zadeh75a}, Grattan-Guiness~\cite{Grattan76}, Janh~\cite{Jahn75}, Sambuc~\cite{Sambuc75} in the seventies~\cite{Dubois05}. %look for the reference!
-\item
-The two fold fuzzy sets \emph{(TFS)} by Dubois and Prade~\cite{Dubois02}. This approach defines desired and mandatory query conditions.
-\end{itemize}
-
-From a theoretical point of view, in a database, bipolarity may be found at:
-\begin{description}
-\item[\textbf{The query}] It is possible to distinguish between:
-	\begin{itemize}
 	\item
-	Inside criterion bipolarity: Each individual criteria may be specified with both positive and negative conditions. E.g. the user wants a black car, but definitively not a red neither a blue one.
+	Bipolarity inside query criteria: each individual query criterion may be specified using both positive and negative preferences. For example when querying a car database, the user can express that he or she wants a black car, but definitely not a red neither a blue one. Bipolarity resides here within the car color criterion.
 	\item
-	Outside criterion bipolarity: The query is specified with a global positive and negative conditions. E.g. The user wants a black car with a fuel consumption of 5 liters or less but definitively not a white car with a fuel consumption of 6 liters or more. 
+	Bipolarity outside query criteria: the query is specified using a global positive and a global negative preference part. For example when querying a car database, the user can express that he or she wants a black car, but definitely not a car with a fuel consumption of 6 liters or more.
 	\end{itemize}
-\item[\textbf{The data storage}] In the database some attributes or even at tuple level it should be possible to specify them with bipolarity. Nevertheless, there is not so many research on this topic.
+
+Concerning bipolarity inside a database, it should be possible to specify both positive and negative real world object or concept aspects, even at record level. Nevertheless, not so much research exists concerning bipolarity in databases.
+
+%some attributes or even at tuple level it should be possible to specify them with bipolarity. Nevertheless, there is not so many research on this topic.
 %	\begin{itemize}
 %	\item
 %	Attribute bipolarity: Each attribute may be specified  
 %	\item
 %	Tuple bipolarity:
 %	\end{itemize}
-\end{description}
 
-A proposal for the bipolar querying of temporal databases has been made by Billiet~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. First of all, the query structure is shown. Then, both evaluation and ranking methods are defined. The model deals with a fuzzy valid-time specification in~\cite{garrido2009}.
+
+
 
 %\paragraph{Query structure}
 %The approach in this work follows the query specification given in \eqref{eq:query-specification}. The query has a global time demand, $Q^{time}$ and here, the regular query constraints specified by $Q$ are splitted into possitive and negative preferences:

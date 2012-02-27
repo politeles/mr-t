@@ -149,10 +149,10 @@ Extending a primary key to include temporal attributes allows for the insertion 
 \end{table}
 
 %\vspace{-25pt}
-This latter issue is the concern of the next subsection.
+The next subsection is concerned with another interresting issue.
 
 \subsection{\label{subsubsec:consistency}Consistency in Temporal Relations}
-As stated in subsection \ref{subsubsec:primary-key}, one of the main issues concerns the insertion of spurious values in a relation. The most usual approach to deal with this is to change the database DML to enforce the consistency with which the temporal relation models the temporal properties of the part of reality the relation models. An example of such DML adaptation is given below.
+As stated in subsection \ref{subsubsec:primary-key}, one of the main issues concerns the insertion of spurious values in a relation. Another issue concerns the possible breach of consistency when updating records. The most usual approach to deal with this is to change the database DML to enforce the consistency with which the temporal relation models the temporal properties of the part of reality the relation models. An example of such DML adaptation is given below.
 
 %The consistence mechanism in a temporal database is usually re-defined. The main problem is the insertion of spurious values in the database, as shown in example \ref{ex:pk}, in table \ref{table:example-database-with-new-pk}. The most usual solution is to re-define the DML (\emph{Data Manipulation Language}). e.g. the \emph{update} sentence is redefined as two sentences an update and a create sentence as illustrated in the following example.
 
