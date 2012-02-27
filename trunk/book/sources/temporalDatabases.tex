@@ -80,27 +80,31 @@ A very extensive list of the most well-known temporal database models can be fou
 	
 
 
-In the following sections, one of the main points of attention concerning relational temporal databases is explained and discussed.
+In the following sections, some of the main points of attention concerning relational temporal databases are explained and discussed.
 
 \subsection{\label{subsubsec:primary-key}Primary Keys in Temporal Relations}
-When designing a relation, a subset of the relation's attribute set is ususally chosen as primary key. The values of a record for these attributes will then uniquely determine this record and no two records may have the same values for every attribute in this primary key. In temporal relations, different records can exist with the same values for every attribute except the attributes describing the temporal aspects of the objects or concepts represented by the records (the temporal attributes). These different records represent different temporal versions of the same real objects or concepts. To allow the existence of such records, the most common solution is to extend the original primary key with the temporal attributes.
+When designing a relation, a subset of the relation's attribute set is ususally chosen as primary key. The values of a record for these attributes will then uniquely determine this record and no two records may have the same values for every attribute in this primary key. In temporal relations, different records can exist with the same values for every attribute except the attributes describing the temporal aspects of the objects or concepts represented by the records (the temporal attributes). These different records represent different temporal versions of the same real object or concept. To allow the existence of such records, the most common solution is to extend the original primary key with the temporal attributes.
 %One of the first tasks in the design of a database is the choice for the primary key. In a temporal database, the most common solution for the choice of the primary key is to extend the primary key with the temporal value. Nevertheless, when dealing with uncertainty in the temporal values, the solution is usually to create a version identifier otherwise the primary key have uncertainty which should be avoided.
 
 The following example illustrates this primary key issue in a valid-time relation.
 
 \begin{example}
 \label{ex:pk}
-Consider the example database visualized in table \ref{table:example-database}. It contains data representing employees in a company, and two temporal values which represent a valid-time interval. Consider now that we want to hire Sarah again. That is not possible because of the primary key (ID) does not allow to insert again the row Sarah but with a different start and end time. In some models this is resolved by adding to the primary key both values Start and End years. The resulting database allows to insert a new row where Sarah the year 2010. But this modification also allows to insert spurious values e.g. inconsistent time periods (see last row in table \ref{table:example-database-with-new-pk}).
+Consider the example valid-time relation visualized in table \ref{table:example-database}, which contains data representing employees in a company. The attributes `Name', `Age' and `Supervisor' describe the name, age and supervisor of an employee, respectively.  The attributes `Start' and `End' describe the year when an employee started, respectively finished working for the company. For example, employee Sarah started working for the company in 2005 and finished in 2009. The attribute `ID' uniquely identifies an employee. Consider `ID' being the primary key and consider the company wanting to hire Sarah again. Another tuple should thus be inserted into the relation, containing value 4 as `ID'. This will of course not be allowed by the primary key. This problem is solved by defining a new primary key: `ID', `Start', `End'. Now, the resulting relation allows inserting a new tuple representing that Sarah was rehired in 2010, as shown in table \ref{table:example-database-with-new-pk}.
+%Consider the example database visualized in table \ref{table:example-database}. It contains data representing employees in a company, and two temporal values which represent a valid-time interval. Consider now that we want to hire Sarah again. That is not possible because of the primary key (ID) does not allow to insert again the row Sarah but with a different start and end time. In some models this is resolved by adding to the primary key both values Start and End years. The resulting database allows to insert a new row where Sarah the year 2010. But this modification also allows to insert spurious values e.g. inconsistent time periods (see last row in table \ref{table:example-database-with-new-pk}).
 
+\end{example}
+
+Extending a primary key to include temporal attributes allows for the insertion of spurious values, for example representing temporal inconsistencies. This is shown in table \ref{table:example-database-with-new-pk}, where it seems Sarah was rehired in 2007 and fired in 2008.
 
 %\vspace{-10pt}
 
 \begin{table}
 \centering
-\caption{Example database}
+\caption{Example relation modelling the employees of a company.}
 \begin{tabular}{c c c c c c }
 \hline
-\textbf{ID} & \textbf{Name} & \textbf{Age} & \textbf{Works for} & \textbf{Start year} & \textbf{End year} \\ \hline
+\textbf{ID} & \textbf{Name} & \textbf{Age} & \textbf{Supervisor} & \textbf{Start} & \textbf{End} \\ \hline
 1 & Peter & 24 & John &  2010 & - \\
 2 & Maria & 34 & John & 2001 & - \\
 3 & John & 52 & - &  1999 & - \\
@@ -121,10 +125,10 @@ Consider the example database visualized in table \ref{table:example-database}. 
 
 \begin{table}
 \centering
-\caption{Example database with new primary key and some spurious values}
+\caption{Example relation from example \ref{ex:pk} with new primary key and some spurious values.}
 \begin{tabular}{c c c c c c }
 \hline
-\textbf{ID} & \textbf{Name} & \textbf{Age} & \textbf{Works for} & \textbf{Start year} & \textbf{End year} \\ \hline
+\textbf{ID} & \textbf{Name} & \textbf{Age} & \textbf{Supervisor} & \textbf{Start year} & \textbf{End year} \\ \hline
 1 & Peter & 24 & John &  2010 & - \\
 2 & Maria & 34 & John & 2001 & - \\
 3 & John & 52 & - &  1999 & - \\
@@ -141,14 +145,18 @@ Consider the example database visualized in table \ref{table:example-database}. 
 \end{table}
 
 %\vspace{-25pt}
+This latter issue is the concern of the next subsection.
 
-\end{example}
+\subsection{\label{subsubsec:consistency}Consistency in Temporal Relations}
+As stated in subsection \ref{subsubsec:primary-key}, one of the main issues concerns the insertion of spurious values in a relation. The most usual approach to deal with this is to change the database DML to enforce the consistency with which the temporal relation models the temporal properties of the part of reality the relation models. An example of such DML adaptation is given below.
 
-\subsection{\label{subsubsec:consistency}Consistency on temporal databases}
-The consistence mechanism in a temporal database is usually re-defined. The main problem is the insertion of spurious values in the database, as shown in example \ref{ex:pk}, in table \ref{table:example-database-with-new-pk}. The most usual solution is to re-define the DML (\emph{Data Manipulation Language}). e.g. the \emph{update} sentence is redefined as two sentences an update and a create sentence as illustrated in the following example.
+%The consistence mechanism in a temporal database is usually re-defined. The main problem is the insertion of spurious values in the database, as shown in example \ref{ex:pk}, in table \ref{table:example-database-with-new-pk}. The most usual solution is to re-define the DML (\emph{Data Manipulation Language}). e.g. the \emph{update} sentence is redefined as two sentences an update and a create sentence as illustrated in the following example.
 
 \begin{example}
-Consider the database in table \ref{table:example-database}. The following \emph{update} sentence:
+\textcolor{red}{PROBLEM}
+Consider again the example relation visualized in table \ref{table:example-database}. Imagine John left the company, but nobody updated the relation, so it is not known when 
+
+The following \emph{update} sentence:
 
 \begin{verbatim}
 Update Employees set StartYear = 2010 where ID=3;
@@ -165,7 +173,7 @@ Insert into Employees values (3,John,52,-,2010,-);
 
 \begin{table}
 \centering
-\caption{Example database after update sentence}
+\caption{Example relation from example \ref{ex:pk} updated maintaining consistency.}
 \begin{tabular}{c c c c c c }
 \hline
 \textbf{ID} & \textbf{Name} & \textbf{Age} & \textbf{Works for} & \textbf{Start year} & \textbf{End year} \\ \hline
@@ -190,19 +198,19 @@ Table \ref{table:example-database-update} shows the resulting database after the
 \end{example}
 
 
-\subsection{\label{Comm-temp}Commercial Temporal database systems}
-There are several commercial temporal DBMS. Table \ref{table:commercial-temporal-db} is a comparative among the most well-known systems. It is also provided a reference for more information. 
+\subsection{\label{Comm-temp}Commercial Temporal Database Systems}
+There are several commercial temporal DBMS. Table \ref{table:commercial-temporal-db} describes the most well-knownand provides references for more information. 
 
-Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in an OracleDB. Nevertheless TimeDB and Postgree Temporal~\cite{posgree2009} are similar. Both are simple implementations that implement a subset of the Allen's operators and some operations for the creation and manipulation of a temporal attribute (valid, transaction or both times) in a table. Nevertheless, Teradata~\cite{teradata2011} is mainly a business intelligence database designed for data-mining. 
+Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in OracleDB. Nevertheless, TimeDB and Postgree Temporal~\cite{posgree2009} are similar: both are simple implementations that implement a subset of the Allen operators and some operations for the creation and manipulation of temporal attributes (valid time, transaction time or both times are supported). Teradata~\cite{teradata2011} is mainly a business intelligence system designed for data mining. The most complete implementation is Workspace Manager.
 
-The most complete implementation is the Workspace Manager. Unfortunately, none of these systems work with uncertainty or imprecision neither in the data storage nor in the query.
+Unfortunately, none of these systems take imperfect information into account, neither in data storage nor in querying.
 
 \begin{table}
 \centering
-\caption{Commercial implementations for temporal database systems. }
+\caption{Commercial Temporal Database Systems. }
 \begin{tabular}{c c c c c c }
 \hline
-\textbf{Name} & \textbf{Time managed} & \textbf{Comments} & \textbf{References}  \\ \hline
+\textbf{Name} & \textbf{Time Supported} & \textbf{Comments} & \textbf{Reference}  \\ \hline
 Oracle Workspace Manager & VT and TT. & Package for Oracle DB. & \cite{oracle2009}\\
 TimeDB & VT and TT. & Interface for Oracle DB. & \cite{timedb2005}\\
 Postgree Temporal & VT. & Package for Postgree SQL. & \cite{posgree2009}\\

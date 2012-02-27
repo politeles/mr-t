@@ -1,28 +1,49 @@
 %
 % Fuzzy temporal databases
 %
-Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be estimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
+Consider a logistics company which transports packages. The time when a package would arrive at its destination may be estimated and can eventually be researched, but it is typically not always precisely known. For such companies and in many other situations, information systems able to handle imperfection corresponding to certain temporal aspects of the objects modelled by the system are necessary. The transition between granularities~\cite{Lin97} is also sometimes considered as a source of imprecision. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
+%Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be estimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
 
-There are several approaches to manage uncertainty in the temporal information stored in a database. Valid-time is usually represented as an interval, and therefore it is suitable for the representation of uncertainty in the valid-time interval. Nevertheless, the values for transaction and decision time are usually precisely known.
-Some models deal with probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions at the endpoints of the time interval. In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
+Data imperfection is usually the focus of research in fuzzy databases. In fuzzy databases~\cite{Galindo2006}, uncertainty is usually expected to appear at storage level whereas imprecision is usually expected to appear in querying. Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database.
 
-In fuzzy databases~\cite{Galindo2006}, uncertainty is managed at storage level whereas imprecision is managed at querying level. In subsection \ref{subsec:representation-time-intervals} we will explain the main approach for the storage of uncertainty in the valid-time interval. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying in a flexible way valid-time intervals are analyzed.
+Valid-time notions usually take the form of an interval. Some models consider probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions to describe the endpoints of a time interval. In this section, we will present a novel and currently researched technique to describe valid-time interval start- and endpoints using possibility distributions. In subsection \ref{subsec:representation-time-intervals} we will present an approach to modelling uncertainty in valid-time intervals. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying valid-time intervals in a flexible way are presented and discussed.%In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
 
-\subsection{Representation of ill-known temporal intervals}
+%In fuzzy databases~\cite{Galindo2006}, uncertainty is managed at storage level whereas imprecision is managed at querying level. In subsection \ref{subsec:representation-time-intervals} we will explain the main approach for the storage of uncertainty in the valid-time interval. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying in a flexible way valid-time intervals are analyzed.
+
+\subsection{Ill-known Time Intervals}
 \label{subsec:representation-time-intervals}
-The uncertainty in a valid-time interval may be represented with uncertainty at one or both starting and ending points. The uncertainty is usually represented by means of a possibility distribution in one or both points. It is also possible to represent with rough sets~\cite{Pawlak1995} time intervals~\cite{Qia09}.
+Uncertainty in a valid-time interval may be modelled by modelling the uncertainty concerning the exact start, respectively end point of the valid-time interval. The uncertainty concerning these points can by modelled by means of possibility distributions. It is of course also possible to use rough sets~\cite{Pawlak1995} for this modelling~\cite{Qia09}. The work presented in this section relies on possibilistic variables, which rely on possibility theory \cite{Dubois:Prade:1988:PossibilityTheory}.
 
-Several authors ~\cite{garrido2009} propose some transformations in order to optimize the storage of the valid-time interval. Further research has shown how these transformations drive to a possibilistic information lost~\cite{Pon11}. A comparison between the transformations in ~\cite{garrido2009}  and the framework in~\cite{Pon11} is done in~\cite{pon12}. 
+A \emph{possibilistic variable} is defined as follows \cite{Pon11}.
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}
+A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. Its possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$. In this work, this possibility is interpreted as a measure of how plausible it is that $X$ takes the value $u$, given (partial) knowledge about the value $X$ takes.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+The exact value a possibilistic variable takes, which is (partially) unknown, is called an \emph{ill-known value} in this work \cite{Dubois88b}.
+
+When a possibilistic variable is defined on the powerset $\Pow(R)$ of some universe $R$, the unique value the variable takes will be a crisp set and its possibility distribution on the powerset $\Pow(R)$ will describe the possibility of each crisp subset of $R$ to be the value the variable takes. This exact value (a crisp set) the variable takes, is now called an \emph{ill-known set} \cite{Dubois88b}.
+
+This work will deal with ill-known time intervals. These are ill-known intervals in time. Ill-known intervals are ill-known sets, defined and represented via a start and end point, which will be ill-known values. The elements of the set are the values between the start and end point. A closed ill-known interval with start point defined by possibilistic variable $X$ and end point by possibilistic variable $Y$ is noted here $\left[X, Y\right]$. The correspondences and transitions between the representations of ill-known sets, between the representations of ill-known intervals and between the representations of an ill-known set and an ill-known interval are part of the authors current research. Figure \ref{fig:interval} illustrates this.
+
+%Uncertainty in a valid-time interval may be modelled with uncertainty at one or both starting and ending points. The uncertainty is usually represented by means of a possibility distribution in one or both points. It is also possible to represent with rough sets~\cite{Pawlak1995} time intervals~\cite{Qia09}.
+
+Several authors ~\cite{garrido2009} propose transformations in order to optimize the storage of such ill-known valid-time intervals, though recent research might seem to indicate some minor issues with respect to some of these transformations ~\cite{Pon11}. A comparison between the transformations in ~\cite{garrido2009} and the framework in~\cite{Pon11} is presented in~\cite{pon12}. Figure \ref{fig:convexhull} illustrates a transformation based on the `convex hull' approach REF.
+
+
+
+%An ill-known time interval is usually represented by means of two possibility distributions one in each starting and ending points. Figure \ref{fig:interval} shows an ill-known valid-time interval. The starting and ending points are denoted by two fuzzy numbers, $X$ and $Y$, represented by means of two triangular possibility distributions (see the Appendix). For illustration, figure \ref{fig:convexhull} shows one of the transformations based in the convex hull and proposed in~\cite{garrido2009}.
 
 \begin{figure}
 \centering
 \input{graphs/interval.tex}
-\caption{Two ill-known values $X$ and $Y$, represented by means of triangular possibility distributions denoting the starting and ending points of an ill-known interval. }
+\caption{A closed ill-known time interval $\left[X, Y\right]$, where triangular possibility distributions describe the ill-known values defining the start and end points.}
 \label{fig:interval}
 \end{figure}
-
-
-An ill-known temporal interval is usually represented by means of two possibility distributions one in each starting and ending points. Figure \ref{fig:interval} shows an ill-known valid-time interval. The starting and ending points are denoted by two fuzzy numbers, $X$ and $Y$, represented by means of two triangular possibility distributions (see the Appendix). For illustration, figure \ref{fig:convexhull} shows one of the transformations based in the convex hull and proposed in~\cite{garrido2009}.
 
 \begin{figure}
 \centering
@@ -31,9 +52,104 @@ An ill-known temporal interval is usually represented by means of two possibilit
 \label{fig:convexhull}
 \end{figure}
 
-\subsection{Querying fuzzy temporal databases}
+In section \ref{subsec:querying-time-intervals}, a technique allowing the querying of fuzzy valid-time databases which contain ill-known valid-time intervals is presented and briefly explained. The technique relies on the framework for set evaluation presented in \cite{Pon11}.
+
+
+
+\subsection{Querying Fuzzy Valid-Time Databases with Ill-Known Valid-Time Intervals}
 \label{subsec:querying-time-intervals}
 
+One of the main purposes of the existence of databases is to allow information retrieval. The standard query language for databases is SQL ~\cite{Mel93}. Several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bitemporal databases ~\cite{TSQL} exist and some authors have studied how to support temporal querying in standard SQL~\cite{Snodgrass98}.
+
+In the following subsections, the query structure, the query evaluation method and the technique to meaningfully rank and aggregate the query results, proposed in this work, are presented. 
+
+%In the querying of a fuzzy temporal database it is possible to distinguish among the following cases:
+
+%\begin{itemize}
+%\item
+%Fuzzy data stored in the database and crisp specification in the query.
+%\item
+%Crisp data stored in the database and fuzzy data in the query specification.
+%\item
+%Both data stored in the database and the query specification are fuzzy.
+%\end{itemize}
+%In this subsection we will explain the query specification for a database that stores ill-known time intervals and crisp values in the query. Afterwards, the aggregation and ranking of the temporal results is explained.
+
+
+
+
+\subsubsection{Query Structure}
+In this work, a query $\tilde{Q}$ is made up of two separate constructs of user query demands.
+
+%Consider that in a regular or fuzzy relational database, the query specification for the non-temporal attributes is given by $Q$. Therefore, the query specification in a temporal or fuzzy temporal database is given by $\tilde{Q}$:
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}
+\textbf{Query}
+A query $\tilde{Q}$ in this work is given by:
+\begin{equation}
+\label{eq:query-specification}
+\tilde{Q} = \left( Q^{time}, Q \right)
+\end{equation}
+Here $Q = \left \lbrace q_1,\ \cdots,\ q_n \right \rbrace$ contains all (possibly fuzzy) non-temporal user-defined query demands. These comprise all constraints unrelated to the valid-time indications in the queried relations. $Q^{time}$ denotes the temporal constraint specified by the user.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+%%specify better this:
+%\begin{svgraybox}
+%\begin{definition}
+%\label{def:query-constraint}
+%\textbf{(query constraint)}
+%$Q$ is the 
+%A query constraint $q_a$ for an attribute $a$ with attribute domain $\mathcal{D}$, is a restriction in the subset of the values in the attribute domain:
+%\begin{equation}
+%\label{eq:query-constraint}
+%q_a = \left \lbrace d \mid d \subseteq \mathcal{D} \right \rbrace
+%\end{equation}
+%\end{definition}
+
+In this work, the query structure allows the user to specify a single temporal constraint.
+
+\begin{svgraybox}
+\vspace{-10pt}
+\begin{definition}
+\textbf{Temporal Constraint $Q^{time}$}
+In this work, $Q^{time}$ is defined by:
+\begin{equation}
+Q^{time} = \left( I,AR \right)
+\end{equation}
+where $I$ denotes a crisp time interval and $AR$ is one of the Allen relations.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+The interpretation is that, for a record with an ill-known valid-time interval $J$, the user demands that $I$ AR $J$ hold.
+
+\subsubsection{Query evaluation}
+\label{subsubsec:query-evaluation}
+Query satisfaction in a fuzzy relational database is a matter of degree. Typically, the query evaluation results in a \emph{satisfaction degree} $s$, which is typically in the unit interval. $s \in \left[ 0,1,\right]$. Here, a satisfaction degree of $0$ denotes a total dissatisfaction while a degree of $1$ denotes a total satisfaction.
+
+%\begin{svgraybox}
+%\begin{definition}
+%\label{def:evaluation-function}
+%\textbf{Evaluation function}
+%An evaluation function $e_{Q} \left( r \right)$ is a mapping from the attribute value from the row $r$ in the database with respect to the constraints $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ to the unit interval $\left[ 0,1 \right]$. 
+%\begin{equation}
+%\label{eq:evaluation-function} 
+%e_{Q} = t \mid t \in \left[ 0,1 \right]
+%\end{equation}
+%\end{definition}
+%\end{svgraybox}
+
+
+In the presented approach, for every record $r$, each part of $\tilde{Q}$ is evaluated independently:
+\begin{itemize}
+\item
+The user preferences expressed in the non-temporal part, $Q$, are evaluated, resulting in a satisfaction degree denoted as $e_Q(r)$. The presented approach accepts any valid, sound method of calculating this evaluation, as long as the method is well-founded and $e_Q(r) \in \left[0,1\right]$.
+\item
+The evaluation of the temporal demand expressed in the temporal part, $Q^{time}$, depends on $AR$. A specific set of ill-known constraints is considered depending on the Allen relation denoted by $AR$. The exact set chosen can be found in table \ref{tab:fuzzy-allen-relations}, for every possible value of $AR$. Then both possibility and necessity measures are computed and aggregated.
+\end{itemize}
 
 \begin{table}[h]
 
@@ -79,84 +195,6 @@ I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ $\pi_X(w))$ \\
 %\vspace{-25pt}
 \label{tab:fuzzy-allen-relations}
 \end{table}
-
-
-One of the main purposes of a database is to allow the information retrieval. The standard query language for databases is SQL ~\cite{Mel93}, however, there are several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bi-temporal ~\cite{TSQL}. Some authors have studied how to support temporal querying in SQL~\cite{Snodgrass98}.
-
-In the querying of a fuzzy temporal database it is possible to distinguish among the following cases:
-
-\begin{itemize}
-\item
-Fuzzy data stored in the database and crisp specification in the query.
-\item
-Crisp data stored in the database and fuzzy data in the query specification.
-\item
-Both data stored in the database and the query specification are fuzzy.
-\end{itemize}
-In this subsection we will explain the query specification for a database that stores ill-known time intervals and crisp values in the query. Afterwards, the aggregation and ranking of the temporal results is explained.
-
-\subsubsection{Query structure}
-Consider that in a regular or fuzzy relational database, the query specification for the non-temporal attributes is given by $Q$. Therefore, the query specification in a temporal or fuzzy temporal database is given by $\tilde{Q}$:
-
-\begin{svgraybox}
-\begin{definition}
-\textbf{Query specification}
-A query $\tilde{Q}$ is given by:
-\begin{equation}
-\label{eq:query-specification}
-\tilde{Q} = \left( Q^{time}, Q \right)
-\end{equation}
-Here $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ are the possibly fuzzy non-temporal constraints and $Q^{time}$ are the temporal constraints specified in the query:
-\end{definition}
-\end{svgraybox}
-%%specify better this:
-%\begin{svgraybox}
-%\begin{definition}
-%\label{def:query-constraint}
-%\textbf{(query constraint)}
-%$Q$ is the 
-%A query constraint $q_a$ for an attribute $a$ with attribute domain $\mathcal{D}$, is a restriction in the subset of the values in the attribute domain:
-%\begin{equation}
-%\label{eq:query-constraint}
-%q_a = \left \lbrace d \mid d \subseteq \mathcal{D} \right \rbrace
-%\end{equation}
-%\end{definition}
-
-\begin{svgraybox}
-\begin{definition}
-\textbf{Temporal query specification}
-$Q^{time}$ is defined by:
-\begin{equation}
-Q^{time} = \left( I,AR \right)
-\end{equation}
-Where $I$ is a crisp time interval and $AR$ is one of the Allen's relations, see table \ref{tab:fuzzy-allen-relations}. The interpretation is that given an ill-known time interval $J$, the user request the set of records in which $I$ AR $J$ hold.
-\end{definition}
-\end{svgraybox}
-
-\subsubsection{Query evaluation}
-\label{subsubsec:query-evaluation}
-Query satisfaction in a (fuzzy) relational database is a matter of degree. Typically, each constraint provided by the user is evaluated and results in a \emph{satisfaction degree} $s \in \left[ 0,1,\right]$. The value 0 denotes a total dissatisfaction while the value 1 denotes a total satisfaction.
-
-\begin{svgraybox}
-\begin{definition}
-\label{def:evaluation-function}
-\textbf{Evaluation function}
-An evaluation function $e_{Q} \left( r \right)$ is a mapping from the attribute value from the row $r$ in the database with respect to the constraints $Q = \left \lbrace q_1, \cdots, q_n \right \rbrace$ to the unit interval $\left[ 0,1 \right]$. 
-\begin{equation}
-\label{eq:evaluation-function} 
-e_{Q} = t \mid t \in \left[ 0,1 \right]
-\end{equation}
-\end{definition}
-\end{svgraybox}
-
-
-Each element in $\tilde{Q}$ is evaluated independently:
-\begin{itemize}
-\item
-The non-temporal part, $Q$ is evaluated resulting in a satisfaction degree noted as $e_Q(r)$ for each record $r$.
-\item
-The temporal part, $Q^{time}$ is evaluated depending on $AR$. A specific set of ill-known constraints is considered depending on the Allen relation in $AR$. Then both possibility and necessity measures are computed and aggregated.
-\end{itemize}
 
 \subsubsection{Ranking and aggregation}
 For each temporal attribute $r_{time}$ for the record $r$, both possibility $\Pos \left( Q_{time}\right)$ and necessity $\Nec \left( Q_{time} \right)$ measures are obtained. Then, the measures are combined in order to obtain an evaluation score $e_{Q_{time} \left( r \right)}$. The evaluation function is computed by:
