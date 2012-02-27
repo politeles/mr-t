@@ -156,35 +156,44 @@ The evaluation of the temporal demand expressed in the temporal part, $Q^{time}$
 \caption{Allen's relations used in the framework. Here, $I = \left[a, b\right]$ denotes a crisp time interval, $J = \left[X, Y\right]$ denotes an ill-known time interval, with $\pi_{X}$ and $\pi_{Y}$ the possibility distributions of $X$ and $Y$ respectively. The second column contains the corresponding formula to calculate the possibility that $I$ satisfies all constraints given by the Allen's relation.}
 
 \centering
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-Allen Relation &  $\Pos\left(\text{I satisfies all constraints }C_{i}, i = 1,2,...\right)$ \\
+Allen Relation &  $\Pos\left(\text{I satisfies all constraints }C_{i}, i = 1,2,...\right)$ & $\Nec\left(C_{i}, i = 1,2,... \right)$ \\
 \hline
-I before J & $\sup_{a>w}\pi_x(w)$\\
+I before J & $\sup_{a>w}\pi_X(w)$ & $\inf_{a \leq w} 1- \pi_X(w)$\\
+\hline
+
+\multirow{4}{*}
+{I equal J} &  $\min ( \sup_{a \leq w}\pi_X(w),$  & $\min ( \inf_{a>w} 1-\pi_X(w),$\\
+& $\pi_X(w),$ & $\inf_{w \in \left[a,b\right]} \pi_X(w), $ \\
+ &  $\sup_{b \geq w}\pi_Y(w),$ & $\inf_{b>w} 1-\pi_Y(w),$\\
+ & $\pi_Y(w))$ & $\inf_{w \in \left[a,b\right]} \pi_Y(w) )$ \\
 \hline
 
 \multirow{2}{*}
-{I equal J} &  $\min ( \sup_{a \leq w}\pi_x(w),\pi_x(w),$ \\
- &  $\sup_{b \geq w}\pi_Y(w),\pi_Y(w))$\\
+I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ & $\min (\inf_{a<w} 1 - \pi_X(w),$\\
+& $\pi_X(w))$  & $ \inf_{w \in \left[a,b\right]} \pi_X(w) )$ \\
 \hline
 
-I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ $\pi_X(w))$ \\
+\multirow{3}{*}
+{I overlaps J}  & $\min ( \sup_{b>w}\pi_Y(w), $ & $\min ( \inf_{b \geq w} 1 - \pi_Y(w),$\\
+ & $\sup_{a \geq w}\pi_X(w),$& $1- \inf_{a>w}1-\pi_X(w),$\\
+ & $\sup_{a \leq w}\pi_X(w))$ & $1- \inf_{a<w}1-\pi_X(w) )$ \\
 \hline
 
+\multirow{4}{*}
+{I during J}  & $\max ( \min ( \sup_{a<w}\pi_X(w),,$ & $\max (\min (\inf_{a \leq w}1-\pi_X(w), $\\
+ & $\sup_{b \geq w}\pi_Y(w)) $ & $ \inf_{b>w} 1- \pi_Y(w)),$ \\
+ & $\min ( \sup_{a \leq w }\pi_X(w),$ & $\min ( \inf_{a<w}1-\pi_X(w),$\\
+ & $\sup_{b>w}\pi_Y(w))$ & $\inf_{b\geq w}1-\pi_Y(w)))$ \\
+\hline
 \multirow{2}{*}
-{I overlaps J}  & $\min ( \sup_{b>w}\pi_Y(w), $ \\
- & $\sup_{a \geq w}\pi_X(w),\sup_{a \leq w}\pi_X(w))$ \\
+{I starts J} &  $\min( \sup_{a \leq w}\pi_X(w),$  & $\min (\inf_{a<w}1-\pi_X(w),$\\
+& $\pi_X(w))$ & $inf_{w \in \left[a,b\right]} 1- \pi_X(w))$ \\
 \hline
-
 \multirow{2}{*}
-{I during J}  & $\max ( \min ( \sup_{a<w}\pi_X(w),\sup_{b \geq w}\pi_Y(w)),$ \\
- & $\min ( \sup_{a \leq w }\pi_X(w),\sup_{b>w}\pi_Y(w)$\\
-\hline
-
-{I starts J} &  $\min( \sup_{a \leq w}\pi_X(w),$ $\pi_X(w))$\\
-\hline
-
-{I finishes J} &  $\min ( \sup_{b \geq w} \pi_Y(w),$ $\pi_Y(w))$ \\
+{I finishes J} &  $\min ( \sup_{b \geq w} \pi_Y(w),$  & $\min(\inf_{b>w}1-\pi_Y(w),$\\
+& $\pi_Y(w))$ & $\inf_{w \in [a,b]} 1- \pi_Y(w))$ \\
 \hline 
 
 \end{tabular}
