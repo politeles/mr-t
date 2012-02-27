@@ -95,6 +95,10 @@ Consider the example valid-time relation visualized in table \ref{table:example-
 
 \end{example}
 
+\begin{note}
+In the following tables (\ref{table:example-database},\ref{table:example-database-with-new-pk},\ref{table:example-database-update}) the relation `Supervisor' stores the ID of the employee. To improve the readability of the example, the tables show the name of the employee. Note also that the field for the age is expressed as the age in years whereas the value stored in the database is the birthday.
+\end{note}
+
 Extending a primary key to include temporal attributes allows for the insertion of spurious values, for example representing temporal inconsistencies. This is shown in table \ref{table:example-database-with-new-pk}, where it seems Sarah was rehired in 2007 and fired in 2008.
 
 %\vspace{-10pt}
@@ -153,20 +157,19 @@ As stated in subsection \ref{subsubsec:primary-key}, one of the main issues conc
 %The consistence mechanism in a temporal database is usually re-defined. The main problem is the insertion of spurious values in the database, as shown in example \ref{ex:pk}, in table \ref{table:example-database-with-new-pk}. The most usual solution is to re-define the DML (\emph{Data Manipulation Language}). e.g. the \emph{update} sentence is redefined as two sentences an update and a create sentence as illustrated in the following example.
 
 \begin{example}
-\textcolor{red}{PROBLEM}
-Consider again the example relation visualized in table \ref{table:example-database}. Imagine John left the company, but nobody updated the relation, so it is not known when 
+Consider the database in table \ref{table:example-database}. The employee with ID=3 (John) works now for the employee with ID= 4 (Sarah). The update is made in the following sentence:
 
 The following \emph{update} sentence:
 
 \begin{verbatim}
-Update Employees set StartYear = 2010 where ID=3;
+Update Employees set 'Works for' = 4 where ID=3;
 \end{verbatim}
 
-Is translated into the following two sentences: an update for the last version of the row and an insert sentence for the new version. The update sentence showed above is translated into:
+Is translated into the following two sentences: an update for the last version of the row and an insert sentence for the new version. Consider that the time in the  system is the year 2010. Then, the update sentence showed above is translated into:
 
 \begin{verbatim}
 Update Employees set EndYear = 2010 where ID=3;
-Insert into Employees values (3,John,52,-,2010,-);
+Insert into Employees values (3,John,52,Sarah,2010,-);
 \end{verbatim}
 
 %\vspace{-10pt}
@@ -180,7 +183,7 @@ Insert into Employees values (3,John,52,-,2010,-);
 1 & Peter & 24 & John &  2010 & - \\
 2 & Maria & 34 & John & 2001 & - \\
 3 & John & 52 & - &  1999 & 2010 \\
-3 & John & 52 & - &  2010 & - \\
+3 & John & 52 & Sarah &  2010 & - \\
 4 & Sarah & 29 & Maria &  2005 & 2009 \\
 \hline 
 \end{tabular}
