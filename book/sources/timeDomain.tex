@@ -264,6 +264,7 @@ Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granulari
 
 It is also possible to describe the relation between different granularities. This is called a casting function:
 \begin{svgraybox}
+\vspace{-10pt}
 \begin{definition}
 \textbf{Casting function}~\cite{Lin97}\\
 \label{def:casting-fucntion}
@@ -276,11 +277,10 @@ cast & : G \times \mathbb{G} \times \mathbb{G} \rightarrow H \nonumber\\
 \end{align}
 where $i_{G} \in G$ and $j_{H} \in H$ and where $\mathbb{G}$ denotes the set of all granularities.
 \end{definition}
+\vspace{-10pt}
 \end{svgraybox}
 
-Thus, the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions.
-
-Mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}~\cite{Lin97},~\cite{DyresonSnodgrass1994}.
+Thus, the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Orthogonal to this classification, mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}~\cite{Lin97},~\cite{DyresonSnodgrass1994}.
 \begin{itemize}
 \item
 \emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function value is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g. the mapping value of the mapping between hours and minutes is calculated using a multiplication by $60$. 
@@ -290,10 +290,10 @@ Mappings between two granularities may be classified as \emph{regular mappings},
 \emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities involved in the mapping have the same granules but a different anchor. E.g. the mapping between the days (Gregorian calendar days) and the academic days is a congruent mapping.
 \end{itemize}
 
-The above is illustrated in the following example.
+Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions. The above is illustrated in the following example.
 
 \begin{example}
-Consider a system that models both Gregorian Calendar dates as well as Academic dates. The chronons granularity in this system contains milliseconds. Figure \ref{fig:granularity-graph-example} shows the complete granularity graph corresponding with this example. The transitions between Chronons and Seconds and between Seconds and Minutes and so on is called a \emph{regular mapping}. The transition between Days and Months is not defined by a multiplication or division, this is called a \emph{irregular mapping}. In the graph, these \emph{irregular mappings} are noted with a bold arrow. Finally, the transition between a Gregorian Calendar Day and an Academic Day is called a \emph{Congruent mapping}: two granularities with the same granules but with different anchors. Both concern the same days, but the academic year starts on October 1st, whereas the Gregorian calendar year starts on January 1st. Congruent mappings are visualised as straight lines without arrow heads.
+Consider a system that models both Gregorian calendar dates as well as academic calendar dates. In this system, the chronons granularity is a set of milliseconds. Figure \ref{fig:granularity-graph-example} shows the complete granularity graph corresponding to this example. The transitions between the chronons granularity and the seconds granularity and between the seconds granularity and the minutes granularity are examples of regular mappings. They are represented by normal arrows in the visualisation of the graph. The transition between the days granularity and the months granularity is an example of an irregular mapping. In the graph visualisation, irregular mappings are represented by a bold arrow. Finally, the transition between the Gregorian calendar day granularity and the academic day granularity is an example of a congruent mapping. Both concern the same days, but the academic year starts on October 1st, whereas the Gregorian calendar year starts on January 1st. In the graph visualisation, congruent mappings are visualised as straight lines without arrow heads.
 
 \end{example}
 
@@ -312,13 +312,13 @@ Consider a system that models both Gregorian Calendar dates as well as Academic 
 \end{figure}
 
 
-Next, in subsection \ref{subsec:timedomain-calendar}, some basic concepts and issues concerning calendars are explained.
+%Next, in subsection \ref{subsec:timedomain-calendar}, some basic concepts and issues concerning calendars are explained.
 
-\subsection{Calendars}
-\label{subsec:timedomain-calendar}
+%\subsection{Calendars}
+%\label{subsec:timedomain-calendar}
 %maybe introduce previously the concept of time units, linear hierarchy and time point.
 
-This subsection will concern \emph{calendars}. A calendar provides some sort of human interpretation of time. As such, calendars provide meaning or interpretation to temporal values where this meaning or interpretation is relevant or useful to the user. More precisely, calendars determine the mapping between human-meaningful time values and an underlying time model~\cite{Dyreson1994}. More formally, a calendar is an organization of different granularities (e.g. granularities day, month and year) in a hierarchy. In order to formally define what a calendar is, some other concepts should first be introduced~\cite{Kraus1997}:
+%This subsection will concern \emph{calendars}. A calendar provides some sort of human interpretation of time. As such, calendars provide meaning or interpretation to temporal values where this meaning or interpretation is relevant or useful to the user. More precisely, calendars determine the mapping between human-meaningful time values and an underlying time model~\cite{Dyreson1994}. More formally, a calendar is an organization of different granularities (e.g. granularities day, month and year) in a hierarchy. In order to formally define what a calendar is, some other concepts should first be introduced~\cite{Kraus1997}:
 
 
 %\begin{svgraybox}
@@ -330,25 +330,25 @@ This subsection will concern \emph{calendars}. A calendar provides some sort of 
 %\end{svgraybox}
 
 
-\begin{svgraybox}
-\vspace{-10pt}
-\begin{definition}\textbf{Linear Hierarchy of Granularities}\\
-A \emph{\textbf{linear hierarchy of granularities}} is a finite set of granularities with a linear order (denoted $\sqsubset$). The most coarse granularity is called \emph{the top of the hierarchy} and must be an infinite set while all other granularities must be finite sets.
-\end{definition}
-\vspace{-10pt}
-\end{svgraybox}
+%\begin{svgraybox}
+%\vspace{-10pt}
+%\begin{definition}\textbf{Linear Hierarchy of Granularities}\\
+%A \emph{\textbf{linear hierarchy of granularities}} is a finite set of granularities with a linear order (denoted $\sqsubset$). The most coarse granularity is called \emph{the top of the hierarchy} and must be an infinite set while all other granularities must be finite sets.
+%\end{definition}
+%\vspace{-10pt}
+%\end{svgraybox}
 
-An example of a linear hierarchy is the set $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years. With this, a \emph{linear calendar} can be defined.
+%An example of a linear hierarchy is the set $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years. With this, a \emph{linear calendar} can be defined.
 
-\begin{svgraybox}
-\vspace{-10pt}
-\begin{definition}\textbf{Linear Calendar}\\
-A \emph{\textbf{linear calendar}} consist of a linear hierarchy of granularities and a validity predicate which specifies if a granule is valid in the calendar.
-\end{definition}
-\vspace{-10pt}
-\end{svgraybox}
+%\begin{svgraybox}
+%\vspace{-10pt}
+%\begin{definition}\textbf{Linear Calendar}\\
+%A \emph{\textbf{linear calendar}} consist of a linear hierarchy of granularities and a validity predicate which specifies if a granule is valid in the calendar.
+%\end{definition}
+%\vspace{-10pt}
+%\end{svgraybox}
 
-An example of a linear calendar could be the linear hierarchy $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years, together with a validity predicate that excludes time indications like `32 April 2012' or `30 February 2012'.
+%An example of a linear calendar could be the linear hierarchy $\left\{ \text{days, months, years} \right\}$, where days $\sqsubset$ months and months $\sqsubset$ years, together with a validity predicate that excludes time indications like `32 April 2012' or `30 February 2012'.
 
 %The linear hierarchy days $\sqsubset$ months $\sqsubset$ years represents a linear calendar. It is necessary to define the validity predicates because 17 January 2012 is a valid element of the calendar whereas 30 February 2012 is not.
  
@@ -402,7 +402,7 @@ An example of a linear calendar could be the linear hierarchy $\left\{ \text{day
 %
 %\textcolor{red}{END CHECK}
 
-The next section briefly introduces temporal relationships.
+%The next section briefly introduces temporal relationships.
 
 \subsection{Temporal Relationships}
 %an explanation on allen's temporal relations.
