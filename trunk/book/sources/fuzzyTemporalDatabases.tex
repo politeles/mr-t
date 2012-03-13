@@ -1,16 +1,21 @@
 %
 % Fuzzy temporal databases
 %
-Consider a logistics company which transports packages. The time when a package would arrive at its destination may be estimated and can eventually be researched, but it is typically not always precisely known. For such companies and in many other situations, information systems able to handle imperfection corresponding to certain temporal aspects of the objects modelled by the system are necessary. The transition between granularities~\cite{Lin97} is also sometimes considered as a source of imprecision. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
+Consider a logistics company which transports packages. At the moment a package leaves, the time when it will arrive at its destination may be estimated, but will typically not be known precisely. For such companies and in many other situations, information systems able to handle imperfection with respect to certain temporal aspects of the objects modelled by the system are necessary.
+
+\subsection{Handling Data Imperfections in Temporal Databases}
+
+%The time when a package would arrive at its destination may be estimated and can eventually be researched, but it is typically not always precisely known. For such companies and in many other situations, information systems able to handle imperfection corresponding to certain temporal aspects of the objects modelled by the system are necessary. The transition between granularities~\cite{Lin97} is also sometimes considered as a source of imprecision. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
 %Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be estimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
 
-Data imperfection is usually the focus of research in fuzzy databases. In fuzzy databases~\cite{Galindo2006}, uncertainty is usually expected to appear at storage level whereas imprecision is usually expected to appear in querying. Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database.
+Data imperfections and techniques to represent them correctly in databases and queries are usually the focus of research in fuzzy databases. In fuzzy databases~\cite{Galindo2006}, uncertainty is usually expected to appear at storage level whereas imprecision is usually expected to appear in querying. Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database.
 
 Valid-time notions usually take the form of an interval. Some models consider probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions to describe the endpoints of a time interval. In this section, we will present a novel and currently researched technique to describe valid-time interval start- and endpoints using possibility distributions. In subsection \ref{subsec:representation-time-intervals} we will present an approach to modelling uncertainty in valid-time intervals. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying valid-time intervals in a flexible way are presented and discussed.%In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
 
 %In fuzzy databases~\cite{Galindo2006}, uncertainty is managed at storage level whereas imprecision is managed at querying level. In subsection \ref{subsec:representation-time-intervals} we will explain the main approach for the storage of uncertainty in the valid-time interval. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying in a flexible way valid-time intervals are analyzed.
+\subsection{Handling Uncertainty in a Valid-time Relation}
 
-\subsection{Ill-known Time Intervals}
+\subsubsection{Ill-known Time Intervals}
 \label{subsec:representation-time-intervals}
 Uncertainty in a valid-time interval may be modelled by modelling the uncertainty concerning the exact start, respectively end point of the valid-time interval. The uncertainty concerning these points can by modelled by means of possibility distributions. It is of course also possible to use rough sets~\cite{Pawlak1995} for this modelling~\cite{Qia09}. The work presented in this section relies on possibilistic variables, which rely on possibility theory \cite{Dubois:Prade:1988:PossibilityTheory}.
 
@@ -56,7 +61,7 @@ In section \ref{subsec:querying-time-intervals}, a technique allowing the queryi
 
 
 
-\subsection{Querying Fuzzy Valid-Time Databases with Ill-Known Valid-Time Intervals}
+\subsubsection{Querying Fuzzy Valid-Time Databases with Ill-Known Valid-Time Intervals}
 \label{subsec:querying-time-intervals}
 
 One of the main purposes of the existence of databases is to allow information retrieval. The standard query language for databases is SQL ~\cite{Mel93}. Several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bitemporal databases ~\cite{TSQL} exist and some authors have studied how to support temporal querying in standard SQL~\cite{Snodgrass98}.
@@ -78,7 +83,7 @@ In the following subsections, the query structure, the query evaluation method a
 
 
 
-\subsubsection{Query Structure}
+\subsubsection{Query Structure} TO BE ANOTHER PART
 In this work, a query $\tilde{Q}$ is made up of two separate constructs of user query demands.
 
 %Consider that in a regular or fuzzy relational database, the query specification for the non-temporal attributes is given by $Q$. Therefore, the query specification in a temporal or fuzzy temporal database is given by $\tilde{Q}$:
@@ -126,7 +131,7 @@ where $I$ denotes a crisp time interval and $AR$ is one of the Allen relations.
 
 The interpretation is that, for a record with an ill-known valid-time interval $J$, the user demands that $I$ AR $J$ hold.
 
-\subsubsection{Query evaluation}
+\subsubsection{Query evaluation} TO BE ANOTHER PART
 \label{subsubsec:query-evaluation}
 Query satisfaction in a fuzzy relational database is a matter of degree. Typically, the query evaluation results in a \emph{satisfaction degree} $s$, which is typically in the unit interval. $s \in \left[ 0,1,\right]$. Here, a satisfaction degree of $0$ denotes a total dissatisfaction while a degree of $1$ denotes a total satisfaction.
 
@@ -207,7 +212,7 @@ I meets J  & $\min (\sup_{a\geq w} \pi_X(w),$ & $\min (\inf_{a<w} 1 - \pi_X(w),$
 \label{tab:fuzzy-allen-relations}
 \end{table}
 
-\subsubsection{Aggregation and Ranking}
+\subsubsection{Aggregation and Ranking} TO BE ANOTHER PART
 To be able to present the most appropriate results to the user, for every record $r$, an aggregation method is used to aggregate $\Pos_{Q^{time}}(r)$ and $\Nec_{Q^{time}}(r)$ into a temporal record rank $e_{Q^{time}}(r)$ and after this, a convex combination combining $e_{Q^{time}}(r)$ and $e_{Q}(r)$ will provide the final record rank $e_{final}(r)$.
 
 %For each temporal attribute $r_{time}$ for the record $r$, both possibility $\Pos \left( Q_{time}\right)$ and necessity $\Nec \left( Q_{time} \right)$ measures are obtained. Then, the measures are combined in order to obtain an evaluation score $e_{Q_{time} \left( r \right)}$. The evaluation function is computed by:
@@ -241,7 +246,7 @@ A convex combination is used mainly for 2 reasons:
 	\item The exact value of $\omega$ can now be modified to ascribe more value to either the fulfillment of the user's temporal demands or the fulfillment of the user's non-temporal constraints.
 \end{itemize}
 
-\subsection{Bipolarity in temporal databases}
+\subsection{Bipolarity in Temporal Databases}
 \label{subsubsec:bipolarity}
 Humans express their preferences using both positive and negative statements, where positive statements express what is desired or acceptable and negative statements express what is undesired or unacceptable \cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. This realization is interesting with regard to database querying, because sometimes a user does not exactly know his or her preferences or can't express them in only positive statements, but prefers to use negative statements to express what he or she dislikes or doesn't need. This introduces the need for \emph{bipolar querying}, a technique to model both positive and negative user preferences in a database query. Sometimes positive and negative preferences are clearly symmetric, making it possible to derive one from the other. For example, a person may define the concept of `tall' as `1.80 meters or higher'. The negative would then be the opposite: not tall would be `anyhing less than 1.80 meters'. However, in some cases, positive preferences can not be directly obtained from negative preferences or vice versa. E.g. when a person prefers to buy a black motorbike, this does not necessarily mean the person would totally reject a very dark blue motorbike. This phenomenon is called \emph{heterogeneous bipolarity}~\cite{Dubois2006},~\cite{Dubois2008}.
 
