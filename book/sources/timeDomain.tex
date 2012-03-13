@@ -13,7 +13,7 @@ Before considering the introduction of temporal modelling to information systems
 \label{subsec:basic-concepts}
 In information systems, time itself is usually perceived as a linear or cyclic concept~\cite{Jensen94thetsql2}. Therefore, a time domain modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model~\cite{benthem82} and a \emph{cyclic} model~\cite{lorentzos88}. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
 
-Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
+Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}, which can informally be discribed as the smallest distinguishable time units that can be used in the system. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -35,16 +35,22 @@ Some other necessary concepts are ~\cite{Dyreson1994}:
 A \emph{\textbf{time interval}} is the time between two instants.
 \end{definition}
 
+\begin{definition}\textbf{Duration}\\
+A \emph{\textbf{duration}} is an amount of time with known length, but no specific starting or ending instants.
+\end{definition}
+\vspace{-10pt}
+\end{svgraybox}
+
+A time interval as such is bounded by two instants, whereas a duration is not. Also, it should be noted that an instant is in fact a singular case of a time interval. 
+
+\begin{svgraybox}
+\vspace{-10pt}
 \begin{definition}\textbf{Temporal Element}\\
 A \emph{\textbf{temporal element}} is a finite union of time intervals.
 \end{definition}
 
 \begin{definition}\textbf{Event}\\
 An \emph{\textbf{event}} is an instantaneous fact, i.e. something occurring at an instant.
-\end{definition}
-
-\begin{definition}\textbf{Duration}\\
-A \emph{\textbf{duration}} is an amount of time with known length, but no specific starting or ending instants.
 \end{definition}
 
 \begin{definition}\textbf{`Temporal' as Modifier}\\
@@ -55,7 +61,7 @@ The modifier \emph{\textbf{`temporal'}} is used to indicate that the modified co
 
 %In the linear model, time advances from the past to the future in a totally ordered fashion (a relationship of total order is imposed to the set). A cyclic model of time is used for recurrent processes. The majority of the proposals work with a linear model of time.
 
-Data models might now represent an underlying time domain using chronons:
+Data models for time modelling might now represent an underlying time domain using chronons:
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -168,7 +174,7 @@ G = \left\{i_{G}\ |\ i \in \Z \right\}
 %\alpha = \left \lbrace \ldots, 0_\alpha, 1_\alpha, \ldots \right \rbrace
 %\end{equation}
 
-In a system, the granularity with the shortest granules is the \emph{chronons granularity}, which is denoted as `$\bot$'. It is the granularity of which the granules are chronons. 
+In a system, the granularity with the shortest granules is the \emph{chronons granularity}, which is denoted by `$\bot$'. It is the granularity of which the granules are chronons. 
 %It is now possible to define a function $f$, called a \emph{mapping function}, that maps a given granule $i_G$, $i \in \Z$, from a given granularity $G$ to a set of corresponding chronons. The function definition should look like this:
 
 \begin{svgraybox}
@@ -182,7 +188,7 @@ A mapping function $f$ is a function that maps a given granule $i_G$, $i \in \Z$
 
 \begin{align}
 f & : G \rightarrow \Pow(\bot)\nonumber\\
-  & : i_{G} \rightarrow \lbrace c_\bot\ |\ (c_\bot\text{ is contained in }i_{G}) \wedge (c_\bot \in \bot)\rbrace\nonumber
+  &  i_{G} \mapsto \lbrace c_\bot\ |\ (c_\bot\text{ is contained in }i_{G}) \wedge (c_\bot \in \bot)\rbrace\nonumber
 \end{align}
 \end{definition}
 \vspace{-10pt}
@@ -283,17 +289,18 @@ where $i_{G} \in G$ and $j_{H} \in H$ and where $\mathbb{G}$ denotes the set of 
 Thus, the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Orthogonal to this classification, mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}~\cite{Lin97},~\cite{DyresonSnodgrass1994}.
 \begin{itemize}
 \item
-\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function value is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g. the mapping value of the mapping between hours and minutes is calculated using a multiplication by $60$. 
+\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function value is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g., the mapping value of the mapping between hours and minutes is calculated using a multiplication by $60$. 
 \item
-\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function value can not be calculated by means of multiplications and/or divisions. E.g. the mapping value of the mapping between months and days is dependent on the exact month or day. 
+\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function value can not be calculated by means of multiplications and/or divisions. E.g., the mapping value of the mapping between months and days is dependent on the exact month or day. 
 \item
-\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities involved in the mapping have the same granules but a different anchor. E.g. the mapping between the days (Gregorian calendar days) and the academic days is a congruent mapping.
+\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities involved in the mapping have the same granules but a different anchor. E.g., the mapping between the days (Gregorian calendar days) and the academic days is a congruent mapping.
 \end{itemize}
 
 Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions. The above is illustrated in the following example.
 
 \begin{example}
-Consider a system that models both Gregorian calendar dates as well as academic calendar dates. In this system, the chronons granularity is a set of milliseconds. Figure \ref{fig:granularity-graph-example} shows the complete granularity graph corresponding to this example. The transitions between the chronons granularity and the seconds granularity and between the seconds granularity and the minutes granularity are examples of regular mappings. They are represented by normal arrows in the visualisation of the graph. The transition between the days granularity and the months granularity is an example of an irregular mapping. In the graph visualisation, irregular mappings are represented by a bold arrow. Finally, the transition between the Gregorian calendar day granularity and the academic day granularity is an example of a congruent mapping. Both concern the same days, but the academic year starts on October 1st, whereas the Gregorian calendar year starts on January 1st. In the graph visualisation, congruent mappings are visualised as straight lines without arrow heads.
+\label{examplegrangraph}
+Consider a system that models both Gregorian calendar dates as well as academic calendar dates. In this system, the chronons granularity is a set of milliseconds. Figure \ref{fig:granularity-graph-example} shows the complete granularity graph corresponding to this example. The transition between the chronons granularity and the seconds granularity is an example of a regular mapping. Regular mappings are represented by thin arrows in the visualisation of the graph. The transition between the days granularity and the months granularity is an example of an irregular mapping. In the graph visualisation, irregular mappings are represented by a bold arrow. Finally, the transition between the Gregorian calendar day granularity and the academic day granularity is an example of a congruent mapping. Both concern the same days, but the academic year starts on October 1st, whereas the Gregorian calendar year starts on January 1st. In the graph visualisation, congruent mappings are visualised as straight lines without arrow heads.
 
 \end{example}
 
@@ -307,10 +314,11 @@ Consider a system that models both Gregorian calendar dates as well as academic 
 \begin{figure}
 \centering
 \includegraphics[scale=0.5]{graphs/granularityGraph.eps}
-\caption{A granularity graph example}
+\caption{The granularity graph corresponding to example \ref{examplegrangraph}}
 \label{fig:granularity-graph-example}
 \end{figure}
 
+\vspace{-25pt}
 
 %Next, in subsection \ref{subsec:timedomain-calendar}, some basic concepts and issues concerning calendars are explained.
 
@@ -407,16 +415,16 @@ Consider a system that models both Gregorian calendar dates as well as academic 
 \subsection{Temporal Relationships}
 %an explanation on allen's temporal relations.
 %definition of fuzzy temporal interval
-In this section, a brief introduction can be found, concerning \emph{temporal relationships}, sometimes also called `temporal relations'\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. Temporal relationships can be seen as relationships between temporal elements or instants.
+In this section, a brief introduction can be found, concerning \emph{temporal relationships}, sometimes also called `temporal relations'\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. Temporal relationships can be seen as relationships between temporal elements belonging to the same time domain. These relationships express how the temporal elements are related to one another, with respect to temporal precedence and overlap.
 
 \def\JPicScale{0.5}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{graphs/allen.eps}
-\caption{Allen relations between two time intervals.}
+\caption{Allen relations between two time intervals I and J.}
 \label{fig:allen}
 \end{figure}
 
-Several operators are defined in order to compare temporal elements or time points. Allen~\cite{Allen83} first described the relationships between time intervals and as a special case, between time points. Figure \ref{fig:allen} shows the temporal relationships Allen discerned. Some proposals can be applied to both crisp and fuzzy temporal intervals~\cite{ohlbach2004},~\cite{nagypal2003},~\cite{schockaert08},~\cite{garrido2009}.
+Several (groups of) operators have been proposed in order to compare temporal elements and model the temporal relationships between them. Allen~\cite{Allen83} most notably described such relationships between time intervals and as a special case, between instants. Figure \ref{fig:allen} shows the temporal relationships Allen discerned. Some proposals can be applied to both crisp and other time intervals~\cite{ohlbach2004},~\cite{nagypal2003},~\cite{schockaert08},~\cite{garrido2009}.
 
-In the next section, some basic concepts and terminology about temporal databases are presented, followed by an overview of some interesting issues concerning temporal databases and a survey of some commercial temporal database systems.
+%In the next section, some basic concepts and terminology about temporal databases are presented, followed by an overview of some interesting issues concerning temporal databases and a survey of some commercial temporal database systems.

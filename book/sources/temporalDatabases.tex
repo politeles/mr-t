@@ -1,7 +1,7 @@
 %
 % Temporal databases
 %
-A temporal database can generally be seen as a database that manages some temporal aspects in its schema \cite{etzion1998}~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. In subsection \ref{subsec:td-general-concepts}, some main concepts and properties concerning temporal databases and their definitions are presented and explained. In subsections \ref{subsubsec:primary-key} and \ref{subsubsec:consistency}, some main issues of relational temporal databases are presented and discussed. Finally, subsection \ref{Comm-temp} presents an overview of some commercial temporal database systems.
+A temporal database can generally be seen as a database that manages some temporal aspects in its schema \cite{etzion1998},~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy}. In subsection \ref{subsec:td-general-concepts}, some main concepts and properties concerning temporal databases and their definitions are presented and explained. In subsections \ref{subsubsec:primary-key} and \ref{subsubsec:consistency}, some main issues of relational temporal databases are presented and discussed. Finally, subsection \ref{Comm-temp} presents an overview of some commercial temporal database systems.
 
 \subsection{\label{subsec:td-general-concepts}Basic Concepts and Properties}
 A database schema models some part of reality. As mentioned in the introduction, the part of reality a temporal database schema tries to model, contains some temporal aspects. For example, in this part of reality, some concepts or objects could have time-related or time-variant properties. The modelling of these temporal aspects has to be handled specifically in order for the database to maintain a consistent model of reality.
@@ -28,7 +28,7 @@ A database fact is stored in a database at some point in time, and after it is s
 \vspace{-10pt}
 \end{svgraybox}
 
-\emph{Valid times} are usually supplied by the user, whereas \emph{transaction times} are usually system-generated and -supplied \cite{Dyreson1994}. Temporal values of type UDT are not given any extraordinary interpretation and have thus no extraordinary query language support \cite{Dyreson1994}.
+\emph{Valid times} are usually provided by the user, whereas \emph{transaction times} are usually system-generated and -supplied \cite{Dyreson1994}. Temporal values of type UDT are not given any extraordinary interpretation and have thus no extraordinary query language support \cite{Dyreson1994}.
 
 A \emph{temporal database} can now formally be defined as follows \cite{Dyreson1994}.
 
@@ -85,7 +85,7 @@ A very extensive list of the most well-known temporal database models can be fou
 In the rest of the chapter, the focus will be on concepts and issues concerning valid-time relations and aspects of valid-time relations. For this reason, the next two sections will present and discuss some main issues concerning temporal databases, specifically applied to or presented in the context of valid-time relations.
 
 \subsection{\label{subsubsec:primary-key}Primary Keys in Valid-time Relation Design}
-Generally, when designing a relation based on a relational database model, a subset of the relation's attribute set is ususally chosen as primary key. The values of a tuple for these attributes will then uniquely determine this tuple and no two distinct tuples may have the exact same values for every attribute in this primary key. Next to attributes unrelated to time, a valid-time relation schema will typically contain one or more attributes which model the valid-time aspects and behavior of the real objects and concepts modelled by the relation schema. In this work, these attributes are called \emph{valid-time attributes}. In valid-time relation extentions, distinct tuples can exist containing the exact same values for every attribute except the valid-time attributes. These distinct tuples represent distinct versions of the same real object or concept, valid during different time periods. To allow the existence of such tuples when designing a valid-time relation using a relational database model, the most common solution is to include the valid-time attributes in the primary key.
+Generally, when designing a relation based on a relational database model, a subset of the relation's attribute set is ususally chosen as primary key. The values of a tuple for these attributes will then uniquely determine this tuple, hence no two distinct tuples may have the exact same values for every attribute in this primary key. Next to attributes unrelated to time, a valid-time relation schema will typically contain one or more attributes which model the valid-time aspects and behavior of the real objects and concepts modelled by the relation schema. In this work, these attributes are called \emph{valid-time attributes}. In valid-time relation extentions, distinct tuples can exist containing the exact same values for every attribute except the valid-time attributes. These distinct tuples represent distinct versions of the same real object or concept, valid during different time periods. To allow the existence of such tuples when designing a valid-time relation using a relational database model, the most common solution is to include the valid-time attributes in the primary key.
 %One of the first tasks in the design of a database is the choice for the primary key. In a temporal database, the most common solution for the choice of the primary key is to extend the primary key with the temporal value. Nevertheless, when dealing with uncertainty in the temporal values, the solution is usually to create a version identifier otherwise the primary key have uncertainty which should be avoided.
 
 The following example illustrates this primary key issue.
@@ -152,11 +152,7 @@ Now consider $\{$ID$\}$ being the primary key and consider the company wanting t
 
 %The next subsection is concerned with another interresting issue.
 
-\subsection{\label{subsubsec:consistency}Consistency in Valid-time Relation Querying}
-TODO\\
-TODO\\
-TODO\\
-
+\subsection{\label{subsubsec:consistency}Consistency in Valid-time Relation Content Modification}
 The solution presented in subsection~\ref{subsubsec:primary-key} concerns relation design and consists of including the valid-time attributes in the primary key. Unfortunately, implementing this solution as such allows for the existence of records whose values imply inconsistencies with respect to the modelling of reality.
 
 Consider a valid-time relation of which the primary key can be partitioned into two sets of attributes. One set contains attributes totally unrelated to time, for which the values of a record allow to uniquely identify the object or concept represented by the record. The other set contains the valid-time attribute(s). Because the valid-time attribute(s) is(are) included in the primary key, the existence of distinct records with exactly the same values for all time-unrelated attributes and distinct values for at least one valid-time attribute is not prohibited. Thus, inserting such records into the relation is not prohibited either, even if the information represented by the values for the valid-time attributes shows clear inconsistencies. An example.
@@ -193,7 +189,8 @@ INSERT INTO Employees VALUES
  (4, `Sarah', `29/11/1985', 3, 2007, 2008);
 \end{verbatim}
 
-The inconsistency problem can now be solved by replacing this statement with the next:
+\noindent
+The inconsistency problem can now be solved by replacing this statement with:
 
 \begin{verbatim}
 UPDATE Employees SET `End' = `2007' WHERE
@@ -204,6 +201,7 @@ INSERT INTO Employees VALUES
  (4, `Sarah', `29/11/1985', 2, 2008, 2009);
 \end{verbatim}
 
+\noindent
 The resulting relation is visualized in table~\ref{table:example-database-update}.
 
 \end{example}
@@ -258,7 +256,7 @@ The resulting relation is visualized in table~\ref{table:example-database-update
 
 
 \subsection{\label{Comm-temp}Commercial Temporal Database Systems}
-Several commercial temporal DBMS exist. Table \ref{table:commercial-temporal-db} presents some information on some of the more well-known temporal DBMS and provides references for more information. 
+Several commercial temporal DBMS exist. Table \ref{table:commercial-temporal-db} gives an overview of some of the more well-known temporal DBMS and provides references for more information. 
 
 Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in OracleDB. On another note, TimeDB and Postgree Temporal~\cite{posgree2009} are similar: both are simple implementations that implement a subset of the Allen operators and some operations for the creation and manipulation of temporal attributes (valid time, transaction time or both times are supported). Teradata~\cite{teradata2011} is mainly a business intelligence system designed for data mining. The most complete implementation is Workspace Manager.
 
