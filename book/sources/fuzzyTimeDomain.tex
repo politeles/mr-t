@@ -73,10 +73,24 @@ An infinite number of times are associated with a fact. This is usually found in
 
 
 \subsection{Imperfections in Temporal Relationships}
-As the existence of temporal relationships allows to compare temporal notions, many approaches have been concerned with finding similar temporal relationships, able to support imperfections in the temporal information which is described by temporal notions or even by the temporal relationships themselves~\cite{ohlbach2004},~\cite{nagypal2003},~\cite{schockaert08},~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in}. These approaches are often based on Allen's operators~\cite{Allen83}.
+As the existence of temporal relationships allows to compare temporal notions, many approaches have been concerned with finding similar temporal relationships, able to support imperfections in the temporal information which is described by temporal notions or even by the temporal relationships themselves~\cite{ohlbach2004},~\cite{nagypal2003},~\cite{schockaert08},~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in}. These approaches are often based on Allen's operators~\cite{Allen83}. Example \ref{ex:fuzzy-allen-relation} is a case of use for one of the Allen's relations.
 
 
-\subsection{\label{subsec:temporal-granularities}Imperfections on temporal granularities}
+\begin{example}
+\label{ex:fuzzy-allen-relation}
+Consider an event which is bounded at $[A,B]$ both the starting and ending points respectively (see (1) in figure \ref{fig:fuzzy-allen-relationship} ). The classical Allen's after relation returns an interval from $]B,\infty[$ as shown in (2) in figure \ref{fig:fuzzy-allen-relationship}. A fuzzified version of the Allen's operators is illustrated in (3), figure \ref{fig:fuzzy-allen-relationship}. The comparison between two time intervals results in a possibility degree in the unit interval. The shape for the membership function is shown in (3), figure \ref{fig:fuzzy-allen-relationship}. Note that all the points strictly after the point $B$ results in a possibility degree of 1 whereas there is an area near the point $B$ in which the possibility degree runs smoothly between 0 and 1. 
+
+Consider now the interval given by $[C,D]$, illustrated in (4), figure \ref{fig:fuzzy-allen-relationship}. The user wants to know if $[C,D]$ is after $[A,B]$. The crisp version of the \emph{`after'} operator would return \emph{`no'} as an answer. The fuzzy version for the same operator would return \emph{`yes, with a possibility of 0.5'}.
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{graphs/fuzzyAllen.eps}
+\caption{Example for the Allen's relation, \emph{`after'}. (1) The event bounded within the time points $A$ and $B$. (2) The crisp version for the \emph{`after'} operator. (3) A fuzzy version for the after operator. (4) Another event bounded within the time points $[C,D]$.}
+\label{fig:fuzzy-allen-relationship}
+\end{figure}
+\end{example}
+
 
 
 
