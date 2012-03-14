@@ -3,12 +3,50 @@
 % Fuzzy time domain
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %INTRO
 As explained in the introduction, humans handle temporal information using temporal notions like time intervals or time points \cite{Dyreson1994}. While the used temporal notions may contain imperfections~\cite{Dev98},~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in},~\cite{nagypal2003},~\cite{Dubois89}, humans often gracefully deal with these, as their inherent interpretation capability accounts for a lot of them. This phenomenon has been studied a.o. in the field of artificial intelligence~\cite{Tre97},~\cite{5151} and language understanding~\cite{DeCaluwe:1997:FTI:285506.285516},~\cite{nagypal2003},~\cite{Dev98}. An information system, however, cannot appeal to a similar interpretation functionality. Thus, many proposals have been concerned with the combination of time and imperfections in the context of information systems~\cite{nagypal2003}. In this section, some main concepts and issues concerning this combination are presented.
 
+
+\subsection{\label{subsec:representation}Representation}
+
+As mentioned before, humans deals with time with vagueness. Even for some specific events or facts, the temporal specification becomes imprecise. Therefore, as a result of the imprecise managment of the time that humans do, a time point is specified or managed by means of a time interval which boundaries may not be precissely known.
+
+\begin{example}
+Consider a speaker and a hearer. The speaker wants to make an appointment with the hearer. Consider now that the speaker says:\\
+\begin{center}
+\emph{`We will meet each other tomorow around 10'}\\
+\end{center}
+The hearer usually agree that the appointment will be in the time interval 9.55 to 10.05.
+\end{example}
+
+The study of the semantics of `around' in temporal~\cite{Dev98} indications has shown that also the size of the temporal interval associated with the imprecise specification of the time depends on the distance with respect to the current time. E.g. Consider now that the speaker is talking about something that happened \emph{`during last week'} then the hearer would consider a time interval of more or less 10 days. 
+
+
+Some proposals ~\cite{knight1993},~\cite{Cru97},~\cite{nagypal2003},~\cite{Chountas2000} conclude that the best representation for incomplete temporal knowledge are therefore time intervals even if they refer to a fact that happen in a time point. This means that, as Allen proprosed in \cite{Allen83} the primitive units (the chronons) in the temporal system are intervals.
+
+In order to manage uncertain temporal information properly, several theoretical frameworks have been proposed:
+
+\begin{description}
+\item[\emph{Probability theory}]
+The probability theory~\cite{Dey1996},~\cite{Lakshmanan1997},~\cite{Haddawy1996} is employed when a probability is associated to the time interval. It is very usual in logistics information systems. e.g. \emph{`The package will arrive at its destination on monday morning with a probability of 0.8'}.
+
+
+
+\item[\emph{Possibility theory}]
+The possibility theory~\cite{Zadeh65} associates a possibility degree to the temporal fact or event. This theoretical framework is widely used to model uncertainty and vaguenes in time~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in},\cite{Dubois89},\cite{devos94},\cite{nagypal2003}. Several works~\cite{schockaert08},~\cite{ohlbach2004} presents a fuzzy version of the temporal relations given by Allen~\cite{Allen83}. The aim of these works is to obtain a flexible way to compare uncertain, ill-known temporal intervals by means of the temporal relationships.
+
+
+\item[\emph{Rough sets}]
+Rough set theory~\cite{Pawlak1995} has been used to represent uncertainty in time intervals. The two dimensional representation of time intervals and the temporal relationships between them has been studied in~\cite{Qia09}.
+\end{description}
+
+
+%\subsection{\label{subsec:classification}Classification of imperfect temporal information}
+
+
 \subsection{Types of Imperfections in Temporal Modelling}
 Generally, in temporal modelling, a distinction is made between the following types of imperfections~\cite{nagypal2003}.
+
 
 \begin{itemize}
 	\item \emph{Uncertainty}: Temporal information or data may contain uncertainty. This means that the exact temporal value is (partially) unknown, however, generally some knowledge is present anyhow, possibly describing the value~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in},~\cite{nagypal2003},~\cite{Dubois89},~\cite{343607}. E.g., the temporal notion described in a sentence like `The Belfry of Bruges was finished on a day somewhere between 01/01/1201 A.D. and 31/12/1300 A.D.' contains uncertainty: it is known that the belfry of Bruges was finished on a single day and that this day lays somewhere between 01/01/1201 A.D. and 31/12/1300 A.D., but it is not known exactly which day it is.
@@ -19,46 +57,26 @@ Generally, in temporal modelling, a distinction is made between the following ty
 As to the sources of the imperfections in temporal information, most proposals consider no specific source~\cite{5151},~\cite{schockaert08},~\cite{nagypal2003},~\cite{Dubois89},~\cite{343607},~\cite{ohlbach2004},~\cite{Virant199639}. Some proposals, however, deal with the imperfections specifically resulting from aspects of language~\cite{Dev98} and other proposals consider transitions between different granularities to be the source of imperfection in temporal information~\cite{Lin97}. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
 
 
+
+Temporal information is usually related to facts or events~\cite{Chountas2000}. Therefore, the following types of temporal information may be found:
+
+\begin{description}
+\item[\emph{Definite temporal information}]
+It is found when all times associated with the fact are absolute times. The temporal information is precisely known.
+
+\item[\emph{Indefinite temporal information}]~\cite{Dey1996}
+The time associated with the fact has not been fully defined. Consider an event that in fact occur but it is not known exactly when.
+
+\item[\emph{Infinite temporal uncertain information}]~\cite{Kabanza1990}
+An infinite number of times are associated with a fact. This is usually found in recurrent events like meetings. (e.g. \emph{The meetings are every Wednesday at noon.}). Some systems (usually with different information providers) may dispute the occurence of a fact and / or the duration of a fact. 
+\end{description}
+
+
 \subsection{Imperfections in Temporal Relationships}
 As the existence of temporal relationships allows to compare temporal notions, many approaches have been concerned with finding similar temporal relationships, able to support imperfections in the temporal information which is described by temporal notions or even by the temporal relationships themselves~\cite{ohlbach2004},~\cite{nagypal2003},~\cite{schockaert08},~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in}. These approaches are often based on Allen's operators~\cite{Allen83}.
 
-%%%TODO
 
-%Humans usually deals with time in a imprecise way. e.g. `A few days ago we received this package'. This issue has been studied in the field of Artificial Intelligence ~\cite{Tre97} and language understanding~\cite{DeCaluwe:1997:FTI:285506.285516}. Some proposals ~\cite{knight1993},~\cite{Cru97},~\cite{nagypal2003} conclude that the best representation for incomplete temporal knowledge are time intervals instead of time points. This means that, as Allen proprosed in \cite{Allen83} the primitive units (the chronons) in the temporal system are intervals.
-
-%When modelling temporal knowledge, the following types of information might be found~\cite{nagypal2003}:
-
-%\begin{description}
-%\item[\emph{Uncertainty.}] The temporal specification of the event is uncertain. This is usually found in historical documents when some documents state contradictory facts about some event.
-
-
-%\item[\emph{Vagueness.}] Some of the temporal specifications are defined in a vague way. e.g. `during summer', `late night'. Note also that temporal specifications become vague when the granularity is changed ~\cite{Cru97},~\cite{nagypal2003} . e.g. `The book was written by July 2012' is usefull if we are interested in the month and the year but it turns into a incomplete expression when we try to obtain the exact day. It is possible to set the following classification~\cite{Dev98}:
-
-%\begin{itemize}
-%\item
-%Non-numerical indications. e.g. \emph{often, usually}.
-%\item
-%Approximative time indications. e.g. \emph{around 10 a.m.}
-%\item
-%Indications on temporal relations. e.g. \emph{after 12, during summer}.
-%\end{itemize}
-
-
-%\item[\emph{Subjectivity} or \emph{Ambiguity}.] The specification of a temporal fact may be affected by subjectivity.  It is possible to distinguish between:
-%\begin{itemize}
-%\item Historical periods~\cite{nagypal2003} like `late romanticism' or `early middle ages'. 
-%\item The interpretation of the temporal event~\cite{Dev98} depends on the side of the hearer. e.g. A speaker says `We will meet each other at six', the hearer has to choose between 6 p.m. or 6 a.m. The speaker, however knows exactly which one is meant. 
-%\end{itemize}
-%\end{description}
-
-
-
-
-%Another important task in the modelling of incomplete knowledge is when dealing with transitions among the different granularities.
-
-
-
-
+\subsection{\label{subsec:temporal-granularities}Imperfections on temporal granularities}
 
 
 
