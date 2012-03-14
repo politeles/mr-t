@@ -258,7 +258,9 @@ The resulting relation is visualized in table~\ref{table:example-database-update
 \subsection{\label{Comm-temp}Commercial Temporal Database Systems}
 Several commercial temporal DBMS exist. Table \ref{table:commercial-temporal-db} gives an overview of some of the more well-known temporal DBMS and provides references for more information. 
 
-Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in OracleDB. On another note, TimeDB and Postgree Temporal~\cite{posgree2009} are similar: both are simple implementations that implement a subset of the Allen operators and some operations for the creation and manipulation of temporal attributes (valid time, transaction time or both times are supported). Teradata~\cite{teradata2011} is mainly a business intelligence system designed for data mining. The most complete implementation is Workspace Manager.
+Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in OracleDB. On another note, TimeDB and Postgree Temporal~\cite{posgree2009} are similar: both are simple implementations that implement a subset of the Allen operators and some operations for the creation and manipulation of temporal attributes (valid time, transaction time or both times are supported). Teradata~\cite{teradata2011} is mainly a business intelligence system designed for data mining. Secondo~\cite{Dieker2000} is an extensible database system in which the core of the database may be replaced by a customized algebras. It is designed for non-standard applications and it support both valid and transaction times. 
+
+ The most complete implementation is Workspace Manager.
 
 Unfortunately, none of these systems take data imperfections into account, neither in data storage nor in querying.
 
@@ -272,6 +274,7 @@ Oracle Workspace Manager & VT and TT. & Package for Oracle DB. & \cite{oracle200
 TimeDB & VT and TT. & Interface for Oracle DB. & \cite{timedb2005}\\
 Postgree Temporal & VT. & Package for Postgree SQL. & \cite{posgree2009}\\
 Teradata & VT and TT. & Used for data-mining. & \cite{teradata2011}\\
+Secondo & VT and TT. & Spatio-temporal database. & \cite{Guting} \\
 \hline 
 \end{tabular}
 \label{table:commercial-temporal-db}
