@@ -3,33 +3,49 @@
 %
 Consider a logistics company which transports packages. At the moment a package leaves, the time when it will arrive at its destination may be estimated, but will typically not be known precisely. For such companies and in many other situations, information systems able to handle imperfection with respect to certain temporal aspects of the objects modelled by the system are necessary.
 
-\subsection{Handling Data Imperfections in Temporal Databases}
+\subsection{Data Imperfections in Temporal Databases}
 
 %The time when a package would arrive at its destination may be estimated and can eventually be researched, but it is typically not always precisely known. For such companies and in many other situations, information systems able to handle imperfection corresponding to certain temporal aspects of the objects modelled by the system are necessary. The transition between granularities~\cite{Lin97} is also sometimes considered as a source of imprecision. Therefore, some proposals consider granularity as the base of the temporal model~\cite{Cru97}.
 %Some software applications deal with uncertainty related to time. e.g. a logistics company which transports packages from one destination to another. The time when the package would be at the end point may be estimated but not precisely known. These applications need to manage the uncertainty with respect to the temporal attributes of the objects stored in the database.
 
-Data imperfections and techniques to represent them correctly in databases and queries are usually the focus of research in fuzzy databases. In fuzzy databases~\cite{Galindo2006}, uncertainty is usually expected to appear at storage level whereas imprecision is usually expected to appear in querying. Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database.
+Data and information imperfections and techniques to represent them correctly in databases and queries are usually the focus of research in fuzzy databases. Proposals from this field may present an approach based somehow on fuzzy set theory~\cite{Zadeh65} or possibility theory~\cite{Dubois:Prade:1988:PossibilityTheory}, although other theories support information imperfections too. Comparably, many proposals concerning the introduction of data imperfections or information imperfections in temporal databases present approaches based somehow on fuzzy set theory~\cite{garrido2009},~\cite{gal01},~\cite{nagypal2003},~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy} or possibility theory~\cite{Dubois89},~\cite{Pon11},~\cite{129895}, although proposals based on other theories exist~\cite{Dyreson1998},~\cite{Dekhtyar2001},~\cite{Qia09}. As possibility theory is usually seen as a theory of confidence, aimed at dealing with uncertainty, in some proposals, possibility theory is used specifically to handle uncertainty in temporal information. In fuzzy databases~\cite{Galindo2006}, uncertainty is usually expected to appear at storage level (in the database), whereas other types of imperfection, notably imprecision, are usually expected to appear in querying. 
 
-Valid-time notions usually take the form of an interval. Some models consider probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions to describe the endpoints of a time interval. In this section, we will present a novel and currently researched technique to describe valid-time interval start- and endpoints using possibility distributions. In subsection \ref{subsec:representation-time-intervals} we will present an approach to modelling uncertainty in valid-time intervals. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying valid-time intervals in a flexible way are presented and discussed.%In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
+Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database. Many of these approaches concern several different types of time notions (VT, TT or DT), but most of these approaches focus somehow on valid time~\cite{garrido2009},~\cite{gal01}.
+
+In the following subsection, a novel approach to representing uncertainty concerning valid time notions and a corresponding technique to query similar valid time indications in a valid-time relation are proposed. The presented proposal is based on concepts introduced in~\cite{Dubois88b} and on the framework proposed in~\cite{Pon11}.
+
+\subsection{Handling Uncertainty in a Valid-time Relation}
+A valid time indication usually takes the form of a time interval. Such a valid time interval can be described (and stored in a valid time relation record) using its boundaries (endpoints) or using one endpoint and the interval length. Usually, a valid-time interval is represented using its endpoints, which is also the approach adopted by the presented proposal. 
+
+Generally, the uncertainty concerning a set of values might be described by a possibility distribution on the powerset of which one of the elements can be the intended set~\cite{Dubois88b}. This representation, however, introduces some issues in practice or in practical applications. Therefore, in the presented proposal, possibility theory is used to model uncertainty, but only uncertainty concerning the exact values of the start and end point of a valid-time interval is considered and the uncertainty in both the start point and the end point are modelled using possibility distributions.
+
+In fact, to model the uncertainty related to a valid-time interval using possibility theory, the presented proposal relies on the concept of ill-known sets~\cite{Dubois88b}.
+
+%Some models consider probability~\cite{Dekhtyar2001} or possibility~\cite{Dubois89} distributions to describe the endpoints of a time interval. In this section, we will present a novel and currently researched technique to describe valid-time interval start- and endpoints using possibility distributions. In subsection \ref{subsec:representation-time-intervals} we will present an approach to modelling uncertainty in valid-time intervals. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying valid-time intervals in a flexible way are presented and discussed.%In this section we will explain the most interesting proposals that deal with possibility distributions in the valid-time interval. %Two are the main points developed within this section: the representation of uncertainty in the time interval and the flexible querying of ill-known time periods.
 
 %In fuzzy databases~\cite{Galindo2006}, uncertainty is managed at storage level whereas imprecision is managed at querying level. In subsection \ref{subsec:representation-time-intervals} we will explain the main approach for the storage of uncertainty in the valid-time interval. Finally, in subsection \ref{subsec:querying-time-intervals} the proposals for querying in a flexible way valid-time intervals are analyzed.
-\subsection{Handling Uncertainty in a Valid-time Relation}
+
 
 \subsubsection{Ill-known Time Intervals}
 \label{subsec:representation-time-intervals}
-Uncertainty in a valid-time interval may be modelled by modelling the uncertainty concerning the exact start, respectively end point of the valid-time interval. The uncertainty concerning these points can by modelled by means of possibility distributions. It is of course also possible to use rough sets~\cite{Pawlak1995} for this modelling~\cite{Qia09}. The work presented in this section relies on possibilistic variables, which rely on possibility theory \cite{Dubois:Prade:1988:PossibilityTheory}.
+%Uncertainty in a valid-time interval may be modelled by modelling the uncertainty concerning the exact start, respectively end point of the valid-time interval. The uncertainty concerning these points can by modelled by means of possibility distributions. It is of course also possible to use rough sets~\cite{Pawlak1995} for this modelling~\cite{Qia09}. The work presented in this section relies on possibilistic variables, which rely on possibility theory \cite{Dubois:Prade:1988:PossibilityTheory}.
 
-A \emph{possibilistic variable} is defined as follows \cite{Pon11}.
+The presented proposal relies on the concept of ill-known sets~\cite{Dubois88b}. To correctly explain the concept of ill-known sets, the concept of possibilistic variables should be introduced first. In the presented proposal, the definition of possibilistic variables of~\cite{Pon11} is followed. A \emph{possibilistic variable} is defined as follows~\cite{Pon11}.
 
 \begin{svgraybox}
 \vspace{-10pt}
 \begin{definition}
-A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. Its possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$. In this work, this possibility is interpreted as a measure of how plausible it is that $X$ takes the value $u$, given (partial) knowledge about the value $X$ takes.
+A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. Its possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$. In the presented work, this possibility is interpreted as a measure of how plausible it is that $X$ takes the value $u$, given (partial) knowledge about the value $X$ takes.
 \end{definition}
 \vspace{-10pt}
 \end{svgraybox}
 
-The exact value a possibilistic variable takes, which is (partially) unknown, is called an \emph{ill-known value} in this work \cite{Dubois88b}.
+BASE ON IPMU 2
+
+Consider a set $R$, which contains single values (and not collections of values). When a possibilistic variable $X_{v}$ is defined on such a set $R$, the unique value $X_{v}$ takes, which is (partially) unknown, is called an \emph{ill-known value} in this work \cite{Dubois88b}.
+
+
+%The exact value a possibilistic variable takes, which is (partially) unknown, is called an \emph{ill-known value} in this work \cite{Dubois88b}.
 
 When a possibilistic variable is defined on the powerset $\Pow(R)$ of some universe $R$, the unique value the variable takes will be a crisp set and its possibility distribution on the powerset $\Pow(R)$ will describe the possibility of each crisp subset of $R$ to be the value the variable takes. This exact value (a crisp set) the variable takes, is now called an \emph{ill-known set} \cite{Dubois88b}.
 
@@ -59,7 +75,7 @@ Several authors ~\cite{garrido2009} propose transformations in order to optimize
 
 In section \ref{subsec:querying-time-intervals}, a technique allowing the querying of fuzzy valid-time databases which contain ill-known valid-time intervals is presented and briefly explained. The technique relies on the framework for set evaluation presented in \cite{Pon11}.
 
-
+\subsubsection{Ill-known Time Constraints}
 
 \subsubsection{Querying Fuzzy Valid-Time Databases with Ill-Known Valid-Time Intervals}
 \label{subsec:querying-time-intervals}
@@ -83,7 +99,7 @@ In the following subsections, the query structure, the query evaluation method a
 
 
 
-\subsubsection{Query Structure} TO BE ANOTHER PART
+\paragraph{\textbf{Query Structure}}
 In this work, a query $\tilde{Q}$ is made up of two separate constructs of user query demands.
 
 %Consider that in a regular or fuzzy relational database, the query specification for the non-temporal attributes is given by $Q$. Therefore, the query specification in a temporal or fuzzy temporal database is given by $\tilde{Q}$:
@@ -131,7 +147,7 @@ where $I$ denotes a crisp time interval and $AR$ is one of the Allen relations.
 
 The interpretation is that, for a record with an ill-known valid-time interval $J$, the user demands that $I$ AR $J$ hold.
 
-\subsubsection{Query evaluation} TO BE ANOTHER PART
+\paragraph{\textbf{Query evaluation}}
 \label{subsubsec:query-evaluation}
 Query satisfaction in a fuzzy relational database is a matter of degree. Typically, the query evaluation results in a \emph{satisfaction degree} $s$, which is typically in the unit interval. $s \in \left[ 0,1,\right]$. Here, a satisfaction degree of $0$ denotes a total dissatisfaction while a degree of $1$ denotes a total satisfaction.
 
