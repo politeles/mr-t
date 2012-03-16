@@ -10,12 +10,12 @@ Consider a logistics company which transports packages. At the moment a package 
 
 Data and information imperfections and techniques to represent them correctly in databases and queries are usually the focus of research in fuzzy databases. Proposals from this field may present an approach based somehow on fuzzy set theory~\cite{Zadeh65} or possibility theory~\cite{Dubois:Prade:1988:PossibilityTheory}, although other theories support information imperfections too. Comparably, many proposals concerning the introduction of data imperfections or information imperfections in temporal databases present approaches based somehow on fuzzy set theory~\cite{garrido2009},~\cite{gal01},~\cite{nagypal2003},~\cite{Billiet:Pons:Matthe:DeTre:Pons:2011:BipolarFuzzy} or possibility theory~\cite{Dubois89},~\cite{Pon11},~\cite{129895}, although proposals based on other theories exist~\cite{Dyreson1998},~\cite{Dekhtyar2001},~\cite{Qia09}. As possibility theory is usually seen as a theory of confidence, aimed at dealing with uncertainty, in some proposals, possibility theory is used specifically to handle uncertainty in temporal information. In fuzzy databases~\cite{Galindo2006}, uncertainty is usually expected to appear in the database content, whereas other types of imperfection, notably imprecision, are usually expected to appear in querying. 
 
-Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database. Many of these approaches concern several different types of time notions (VT, TT or DT), but most of these approaches focus somehow on valid time~\cite{garrido2009},~\cite{gal01}.
+Concerning temporal databases, there are several approaches to handle uncertainty in temporal data stored in a database. Many of these approaches concern several different types of time notions (VT, TT or DT), but most of these approaches focus somehow on valid-time~\cite{garrido2009},~\cite{gal01}.
 
-In the following subsection, a novel approach to representing uncertainty concerning valid time notions and a corresponding technique to query similar valid time indications in a valid-time relation are proposed. The presented proposal is based on concepts introduced in~\cite{Dubois88b} and on the framework proposed in~\cite{Pon11}.
+In the following subsection, a novel approach to representing uncertainty concerning valid-time notions and a corresponding technique to query similar valid-time indications in a valid-time relation are proposed. The presented proposal is based on concepts introduced in~\cite{Dubois88b} and on the framework proposed in~\cite{Pon11}.
 
 \subsection{Handling Uncertainty in a Valid-time Relation}
-A valid time indication usually takes the form of a time interval. Such a valid time interval can be described (and stored in a valid time relation record) using its boundaries (endpoints) or using one endpoint and the interval length. Usually, a valid-time interval is represented using its endpoints, which is also the approach adopted by the presented proposal. 
+A valid-time indication usually takes the form of a time interval. Such a valid-time interval can be described (and stored in a valid-time relation record) using its boundaries (endpoints) or using one endpoint and the interval length. Usually, a valid-time interval is represented using its endpoints, which is also the approach adopted by the presented proposal. 
 
 Generally, the uncertainty concerning a set of values might be described by a possibility distribution on the powerset of which one of the elements can be the intended set~\cite{Dubois88b}. This representation, however, introduces some issues in practice or in practical applications. Therefore, in the presented proposal, possibility theory is used to model uncertainty, but only uncertainty concerning the exact values of the start and end point of a valid-time interval is considered and the uncertainty in both the start point and the end point are modelled using possibility distributions.
 
@@ -31,7 +31,7 @@ In fact, to model the uncertainty related to a valid-time interval using possibi
 %Uncertainty in a valid-time interval may be modelled by modelling the uncertainty concerning the exact start, respectively end point of the valid-time interval. The uncertainty concerning these points can by modelled by means of possibility distributions. It is of course also possible to use rough sets~\cite{Pawlak1995} for this modelling~\cite{Qia09}. The work presented in this section relies on possibilistic variables, which rely on possibility theory \cite{Dubois:Prade:1988:PossibilityTheory}.
 
 
-To represent valid time indications which might contain uncertainty, the presented proposal introduces the concept of ill-known valid time intervals, which relies on the concept of ill-known sets~\cite{Dubois88b}. To correctly explain the concept of ill-known sets, the concept of possibilistic variables should be introduced first. In the presented proposal, the definition of possibilistic variables of~\cite{Pon11} is followed. In~\cite{Pon11}, a \emph{possibilistic variable} is defined as follows.
+To represent valid-time indications which might contain uncertainty, the presented proposal introduces the concept of ill-known valid-time intervals, which relies on the concept of ill-known sets~\cite{Dubois88b}. To correctly explain the concept of ill-known sets, the concept of possibilistic variables should be introduced first. In the presented proposal, the definition of possibilistic variables of~\cite{Pon11} is followed. In~\cite{Pon11}, a \emph{possibilistic variable} is defined as follows.
 
 
 \begin{svgraybox}
@@ -64,7 +64,7 @@ In the presented proposal, a closed ill-known time interval with start point def
 
 %Uncertainty in a valid-time interval may be modelled with uncertainty at one or both starting and ending points. The uncertainty is usually represented by means of a possibility distribution in one or both points. It is also possible to represent with rough sets~\cite{Pawlak1995} time intervals~\cite{Qia09}.
 
-Several authors work with concepts very similar to these ill-known time intervals and some of them~\cite{garrido2009} propose transformations of the describing functions in order to optimize the storage of such ill-known valid time intervals, though recent research might seem to indicate some minor issues with respect to some of these transformations~\cite{Pon11}. A comparison between the transformations in~\cite{garrido2009} and the framework in~\cite{Pon11} is presented in~\cite{pon12}. Figure \ref{fig:convexhull} illustrates a transformation based on the `convex hull' approach~\cite{garrido2009}.
+Several authors work with concepts very similar to these ill-known time intervals and some of them~\cite{garrido2009} propose transformations of the describing functions in order to optimize the storage of such ill-known valid-time intervals, though recent research might seem to indicate some minor issues with respect to some of these transformations~\cite{Pon11}. A comparison between the transformations in~\cite{garrido2009} and the framework in~\cite{Pon11} is presented in~\cite{pon12}. Figure \ref{fig:convexhull} illustrates a transformation based on the `convex hull' approach~\cite{garrido2009}.
 
 
 
@@ -78,9 +78,9 @@ Several authors work with concepts very similar to these ill-known time interval
 
 %In section \ref{subsec:querying-time-intervals}, a technique allowing the querying of fuzzy valid-time databases which contain ill-known valid-time intervals is presented and briefly explained. The technique relies on the framework for set evaluation presented in \cite{Pon11}.
 
-In the presented proposal, ill-known valid time intervals will be used to represent valid time indications in a valid-time relation and to model the uncertainty these may contain.
+In the presented proposal, ill-known valid-time intervals will be used to represent valid-time indications in a valid-time relation and to model the uncertainty these may contain.
 
-To evaluate the temporal demands in queries issued by users to query a valid-time relation containing ill-known valid time intervals, the presented proposal introduces a technique based on the concept of ill-known time constraints, which is based on the concept of ill-known constraints as presented in~\cite{Pon11}. Both concepts are treated in subsection \ref{iktc}.
+To evaluate the temporal demands in queries issued by users to query a valid-time relation containing ill-known valid-time intervals, the presented proposal introduces a technique based on the concept of ill-known time constraints, which is based on the concept of ill-known constraints as presented in~\cite{Pon11}. Both concepts are treated in subsection \ref{iktc}.
 
 Before ill-known time constraints can be introduced, another notion related to possibilistic variables shoud be paid attention to. In fact, a specific application of possibilistic variables is obtained when the set under consideration is the set of boolean values, denoted $\mathbb{B}$ = $\{T,F\}$, where $T$ denotes `true' and $F$ denotes `false' \cite{Pon11}. Indeed, any boolean proposition $p$ takes exactly one value in $\mathbb{B}$. If the knowledge about which value this proposition $p$ takes, is given by a possibility distribution $\pi_p$, then proposition $p$ can be seen as a possibilistic variable. In the presented proposal, the interest lies with the case where the proposition holds (denoted $p$ = $T$) and the possibility and necessity that $p$ = $T$ demand most attention. In the following sections, the following notations are used, based on previous notations:
 
@@ -91,7 +91,7 @@ Before ill-known time constraints can be introduced, another notion related to p
 
 
 \subsubsection{\label{iktc}Ill-known Time Constraints}
-The presented proposal contains a technique for evaluating user queries used to query a valid time relation in which the valid time indications are represented by ill-known time intervals. Part of this query evaluation technique relies on the concept of ill-known time constraints, which is based on the concept of ill-known constraints as presented in~\cite{Pon11}. These concepts are presented below. Following~\cite{Pon11}, an \emph{ill-known constraint} is defined as follows.
+The presented proposal contains a technique for evaluating user queries used to query a valid-time relation in which the valid-time indications are represented by ill-known time intervals. Part of this query evaluation technique relies on the concept of ill-known time constraints, which is based on the concept of ill-known constraints as presented in~\cite{Pon11}. These concepts are presented below. Following~\cite{Pon11}, an \emph{ill-known constraint} is defined as follows.
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -153,7 +153,7 @@ In the next subsection, the core of the presented proposal is described.
 
 One of the main purposes of the existence of (relational) databases is to allow information retrieval. The standard query language for (relational) databases is SQL~\cite{Mel93}, but several proposals to extend the SQL language for transaction-time databases~\cite{Sarda90}, valid-time databases~\cite{gad92} and bitemporal databases~\cite{TSQL} exist and some authors have studied how to support temporal querying in standard SQL~\cite{Snodgrass98}.
 
-As mentioned before, the presented proposal deals with querying a valid time relation. In this subsection, the core of the presented proposal is described. First the particular structure of the relation is described, along with the nature and structure of its supposed contents. Next, the particular query structure is presented. Finally, the particular method for evaluating queries and for ranking the result records are presented.
+As mentioned before, the presented proposal deals with querying a valid-time relation. In this subsection, the core of the presented proposal is described. First the particular structure of the relation is described, along with the nature and structure of its supposed contents. Next, the particular query structure is presented. Finally, the particular method for evaluating queries and for ranking the result records are presented.
 
 
 %In the following subsections, the nature and structure of the relation content, the query structure, the query evaluation method and the technique to meaningfully rank and aggregate the query results, proposed in this work, are presented. 
