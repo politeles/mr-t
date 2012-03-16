@@ -185,9 +185,9 @@ Both $T^p$ and $T^i$ are time domains over $T$.
 
 A timestamp over $T^p$ is either a time point or a time interval of $T^p$. Time intervals can be represented as sets of time points which may, in turn, be represented by a time interval with the same values at both of its ends. Sometimes a coalesce operator is defined so as to switch between a set of time points and a time interval. Logically, defining a un-coalescing operator is quite complex. 
 \subsubsection{\label{subsubsec:timeDb}Time in databases}
-We can classify the time recorded in the database through its semantics. As a result, two kinds of time derive from two orthogonal time domains: valid time and transaction time. Valid-time captures the time-varying nature of the reality model. Transaction time structures the update activity associated with the object. The resulting temporal relations are those emerging from the bitemporal conceptual data model BCDM, on which TSQL2 is based.
+We can classify the time recorded in the database through its semantics. As a result, two kinds of time derive from two orthogonal time domains: valid-time and transaction-time. Valid-time captures the time-varying nature of the reality model. Transaction time structures the update activity associated with the object. The resulting temporal relations are those emerging from the bitemporal conceptual data model BCDM, on which TSQL2 is based.
 
-The domain of valid time is given as $D_{VT}=\lbrace{c_1^v,c_2^v,...,c_k^v}\rbrace$, whereas the domain of transaction time may be given by $D_{TT}=\lbrace{c_1^t,c_2^t,...,c_k^t}\rbrace$. Thus, a valid-time chronon $c^v$  is a member of $D_{VT}$, a transaction-time chronon $c^t$ is a member of $D_{TT}$ and a bitemporal chronon $c^b=(c^t,c^v)$ is an ordered pair of a transaction-time chronon and valid-time chronon.
+The domain of valid-time is given as $D_{VT}=\lbrace{c_1^v,c_2^v,...,c_k^v}\rbrace$, whereas the domain of transaction-time may be given by $D_{TT}=\lbrace{c_1^t,c_2^t,...,c_k^t}\rbrace$. Thus, a valid-time chronon $c^v$  is a member of $D_{VT}$, a transaction-time chronon $c^t$ is a member of $D_{TT}$ and a bitemporal chronon $c^b=(c^t,c^v)$ is an ordered pair of a transaction-time chronon and valid-time chronon.
 
 We can define the set of names $D_A=\lbrace{A_1,A_2,...,A_n}\rbrace$as attributes and the following set of domains for the said attributes:$D_D=\lbrace{D_1,D_2,...,D_n}\rbrace$. We may also define $\bot_i$ as inapplicable,$\bot_u$ as unknown, and $\bot$ as inapplicable or unknown null values. 
 
@@ -197,50 +197,50 @@ A 'fact' is the information stored in a tuple. We define a tuple as $x=(a_1,a_2,
 
 We say that a fact is true in the reality model during each valid-time chronon when a subset of the valid-time domain is associated with that fact.
 
-We say that a fact is current in the relation during each transaction-time chronon when a subset of the transaction-time chronon domain is associated with the valid-time chronon. Only the subset of transaction times less than UC may be associated with a valid time.
+We say that a fact is current in the relation during each transaction-time chronon when a subset of the transaction-time chronon domain is associated with the valid-time chronon. Only the subset of transaction-times less than UC may be associated with a valid-time.
 
-While the definition of a bitemporal chronon is symmetric, the relation between valid time and transaction time is asymmetric. It should also be noted that since no two tuples with identical attribute values are allowed in a bitemporal relation instance, the full history of a fact is contained in a single tuple. In graphical representations of bitemporal space, the x-axis represents the transaction-time dimension and the y-axis denotes the valid-time dimension.
+While the definition of a bitemporal chronon is symmetric, the relation between valid-time and transaction-time is asymmetric. It should also be noted that since no two tuples with identical attribute values are allowed in a bitemporal relation instance, the full history of a fact is contained in a single tuple. In graphical representations of bitemporal space, the x-axis represents the transaction-time dimension and the y-axis denotes the valid-time dimension.
 
 There are two special cases of bitemporal relations:
 \begin{itemize}
 \item
-Valid-time relations, which support only valid time.
+Valid-time relations, which support only valid-time.
 \item
-Transaction-time relations,which support only transaction time.
+Transaction-time relations,which support only transaction-time.
 \end{itemize}
-We use the term 'snapshot relation' for a conventional relation. This relation supports neither transaction nor valid time.
+We use the term 'snapshot relation' for a conventional relation. This relation supports neither transaction nor valid-time.
 \subsubsection{Implicit versus explicit timestamps}
 \label{sec:implicitversusexplicittimestamps}
 The association between time and facts may be carried out in two ways: explicitly, where the relation is represented by fully explicit timestamps, and implicitly. This distinction is relevant to three aspects of the data model: the update language, the display of data and the query language.
 
-	If the time model works with transaction time, it means that the update language contains implicit timestamps. The transaction-time chronons of the facts are supplied by the system; in the valid-time model, these chronons are supplied by the user. Thus, in a bitemporal data model, the chronons are also supplied by the user.
+	If the time model works with transaction-time, it means that the update language contains implicit timestamps. The transaction-time chronons of the facts are supplied by the system; in the valid-time model, these chronons are supplied by the user. Thus, in a bitemporal data model, the chronons are also supplied by the user.
 
 	If the time model allows displaying temporal facts, it must represent such data explicitly. It is possible that the model allows the user to choose between several representations of time. In some simple transaction-time models it is common that the temporal facts cannot be displayed. 
 
 	The main difficulty about differentiating between implicit and explicit timestamps is the query language. By means of the query language, we may directly access temporal attributes: the temporal attributes are as explicit as the other attributes in the database. If the query language does not allow direct access to temporal attributes, the association schema between timestamps and facts is considered implicit.
 	
 \subsubsection{\label{subsubsec:models}Temporal data models}
-There are several extensions to the relational model that include the temporal element. In the current section, we briefly describe the model and some of its most interesting features. A more detailed summary can be found in \ref{sec:timeindatabasedesign}. Some models work only with valid or transaction time, whereas a few models can handle both. The current study starts with the models supporting valid time only, continues through the models which support transaction time and finally deals with the bitemporal models.
+There are several extensions to the relational model that include the temporal element. In the current section, we briefly describe the model and some of its most interesting features. A more detailed summary can be found in \ref{sec:timeindatabasedesign}. Some models work only with valid or transaction-time, whereas a few models can handle both. The current study starts with the models supporting valid-time only, continues through the models which support transaction-time and finally deals with the bitemporal models.
 
 \paragraph{Valid-time models}
-Most models support valid time only.
+Most models support valid-time only.
 
 Brooks:  \cite{brooks56} Proposes a tridimensional view of valid-time database.
 
 Wiederhold: \cite{Blum:1981:DCD:1672611.1672632} Time-oriented database, developed to work with medical applications. This model depicts relations as sets of entity-attribute-time-value quadruples. Time is associated with the visit number of the patient. 
 
-Jones LEGOL 2.0: \cite{legol20} A language used in legislative writing. The temporal order of elements and the valid times for objects are important. It was the first time-oriented algebra to be defined, and some of its features are found in subsequent algebras.
+Jones LEGOL 2.0: \cite{legol20} A language used in legislative writing. The temporal order of elements and the valid-times for objects are important. It was the first time-oriented algebra to be defined, and some of its features are found in subsequent algebras.
 Tuples in this model have two time attributes: Start and Stop. Each one indicates the start point and the end point of the interval where the tuple is valid.
 
 Clifford-1: \cite{Clifford82},\cite{Clifford:1983:FST:319983.319986} Each relation schema has an additional time value called 'State'. Also, a boolean attribute is added to indicate if this tuple exists for that state.
 
-Ariav: \cite{Ariav:1986:TOD:7239.7350} Temporally-oriented data model: a valid-time relation is a set of snapshot relation states indexed by valid time. A calculus-based query language is associated with the model: TOSQL.
+Ariav: \cite{Ariav:1986:TOD:7239.7350} Temporally-oriented data model: a valid-time relation is a set of snapshot relation states indexed by valid-time. A calculus-based query language is associated with the model: TOSQL.
 
 Navathe: \cite{TSQL} Proposes a temporal extension to SQL called TSQL, the temporal algebra associated to the temporal relational model. This model allows a relationship to handle time-varying attributes, and also relationships without time-varying attributes. The only restriction is that all attributes in the relation must be of the same type. Objects are classified in snapshot relations and valid-time relations. In the latter, each tuple has associated to it an interval of validity with two points: time-start and time-end, like in the LEGOL 2.0 model.
 
 Sadeghi: \cite{913787} Proposes a calculus-based valid-time language, HQL, where all objects represent valid-.time relations. As in Navathe and LEGOL 2.0, two time points are required for the ends of the interval. The model requires coalescing.
 
-Sarda: \cite{Sarda:1990:ESH:627277.627409} This model was designed to support the calculus-based model HSQL. The model associates valid-time with tuples. Objects can either be snapshot or valid-time relations. In this model, valid time is considered to be closed on the left part of the interval and open on the right. Time is represented by an implicit attribute called 'Period' as a single non-atomic value.
+Sarda: \cite{Sarda:1990:ESH:627277.627409} This model was designed to support the calculus-based model HSQL. The model associates valid-time with tuples. Objects can either be snapshot or valid-time relations. In this model, valid-time is considered to be closed on the left part of the interval and open on the right. Time is represented by an implicit attribute called 'Period' as a single non-atomic value.
 
 The following time data models are not in first normal form (1NF), which means they might have multiple values per attribute. Even though these models are an extension of the 1NF, the representation is not in 1NF, but the operators work on valid-time relations, which are extensions of conventional relations.
 
@@ -252,9 +252,9 @@ Clifford-2: \cite{Clifford:1987:HRD:645472.653241},\cite{Clifford:1985:AHR:97169
 Tansel: \cite{Tansel:1986:ATD:23125.23132},\cite{Clifford:1985:AHR:971699.318922} Designed to support the calculus-based query language (Hquel) and the time by example language. The model supports only one type of object: the valid-time relation. Four types of attributes are supported. If we take the time into account, attributes can be time-varying or non-time-varying. Then, attributes can be atomic-valued or set-valued. There is no need for attributes in the relation to be of the same type, and attribute values in a given tuple do not need to be homogeneous. A triplet containing an element from the attribute's value domain and the boundary points of the time interval represents the value of a time-varying atomic-valued attribute. A set-valued attribute is represented by a set of these triplets.
 
 Gadia-1:  \cite{Gadia:1988:HRM:49346.50065},\cite{Gadia:1985:QLH:325405.325412} This homogeneous model allows two types of objects: valid-time elements and valid-time relations. The model requires that all attribute values in a given tuple be functions on the same valid-time element. Unlike intervals, valid-time elements are closed under union, difference, and complementation.
-Bhargava presents an extension of this model to both valid and transaction time. 
+Bhargava presents an extension of this model to both valid and transaction-time. 
 
-Gadia-2: \cite{Gadia:1986:TMM:645471.655410},\cite{Chuen},\cite{Gadia:1988:GMR:971701.50233} Is an extension of the homogeneous model known as multihomogeneous model. Temporal elements may be multi-dimensional to model both valid and transaction time. Attribute values are functions from temporal elements onto attribute value domains, but attribute values do not need to be on the same temporal element. The key attributes in the relations must be single-valued in respect to the interval of validity. 
+Gadia-2: \cite{Gadia:1986:TMM:645471.655410},\cite{Chuen},\cite{Gadia:1988:GMR:971701.50233} Is an extension of the homogeneous model known as multihomogeneous model. Temporal elements may be multi-dimensional to model both valid and transaction-time. Attribute values are functions from temporal elements onto attribute value domains, but attribute values do not need to be on the same temporal element. The key attributes in the relations must be single-valued in respect to the interval of validity. 
 
 Lorentzos: \cite{springerlink:10.1007/3-540-19074-0_71},\cite{Lorentzos:1989:HDT:70777.70787} The temporal relational model allows to specify different granularities and the support of periodic events. This model associates timestamps with individual attribute values rather than with tuples. Timestamps are explicit values updated directly by the user. The said timestamps represent either the chronon during which attribute(s) were valid or a boundary point of the interval of validity. In the model, several timestamps of different granularities can be used together in the specification of a chronon.
 This model has the particularity that some columns have a different meaning depending on the context.
@@ -270,26 +270,26 @@ In this model, two timestamps are used when specifying the time for a given tupl
 Jensen: \cite{Jensen:1991:IIM:627283.627484} In the DM/T model, the association of facts and times is also implicit. DM/T contains a backlog for each user-defined transaction-time relation. This backlog contains the full history of the associated user-defined transaction-time relation. When an insert, delete or update operation is performed, the backlog for this relation is updated.
 
 \paragraph{Bitemporal data models}
-The bitemporal data models support both valid and transaction time. This section deals with the following seven models of a bitemporal data model.
+The bitemporal data models support both valid and transaction-time. This section deals with the following seven models of a bitemporal data model.
 
 Ben-Zvi: \cite{910377} Proposed the time relational model,, which defines two types of objects: snapshot relations and bitemporal relations. Each tuple in a bitemporal relation has five additional implicit attributes:
 The two interval ends of the valid-time chronon, called 'Effective-time-start' and 'Effective-time-stop'.
 The two interval ends of the transaction-time chronon. 'Registration-time-start' is the transaction-time chronon associated with the 'Effective-time-start', 'Registration-time-stop' is the transaction-time chronon associated with the 'Effective-time-stop'.
 Deletion-time. It registers when a tuple which was mistakenly entered is logically deleted.
 
-Ahn: \cite{Snodgrass:1985:TTD:318898.318921},\cite{sno86} This model follows a four-dimensional data model. Each instance is represented as a sequence where each value is composed by a timestamp with a transaction-time chronon and a three dimensional volumes -one of these dimensions being the valid time.
+Ahn: \cite{Snodgrass:1985:TTD:318898.318921},\cite{sno86} This model follows a four-dimensional data model. Each instance is represented as a sequence where each value is composed by a timestamp with a transaction-time chronon and a three dimensional volumes -one of these dimensions being the valid-time.
 
 Snodgrass:  \cite{sno86},\cite{Snodgrass:1984:TQL:588011.588041} The data model has four implicit attributes: 
-The transaction time when the tuple was inserted.
-The transaction time when the tuple was deleted.
+The transaction-time when the tuple was inserted.
+The transaction-time when the tuple was deleted.
 The starting point of the valid-time interval.
-The end point of the valid time-interval.
+The end point of the valid-time-interval.
 	
 	The data query language associated with the model is called TQuel.
 
-McKenzie: \cite{Snodgrass:1993:ATQ:642875.642890},\cite{Mckenzie:1988:ALQ:915060}, \cite{mck81} In this model, the attribute's values are timestamped, but it is required that attributes be single-valued. This makes it possible to perform a Cartesian product. There are two types of objects in the model: the snapshot relations and the valid-time relations. Thus, transaction-time relations are modeled as sequences of snapshot relations. Bitemporal relations are sequences of valid-time relations indexed by transaction time. An attribute's value in a valid-time relation is an ordered pair: a value from the attribute's domain and a set of chronons. Relations are not allowed to have value-equivalent tuples. The model also allows the schema and even the class of the relation (snapshot, transaction-time, valid-time and bitemporal) to change.
+McKenzie: \cite{Snodgrass:1993:ATQ:642875.642890},\cite{Mckenzie:1988:ALQ:915060}, \cite{mck81} In this model, the attribute's values are timestamped, but it is required that attributes be single-valued. This makes it possible to perform a Cartesian product. There are two types of objects in the model: the snapshot relations and the valid-time relations. Thus, transaction-time relations are modeled as sequences of snapshot relations. Bitemporal relations are sequences of valid-time relations indexed by transaction-time. An attribute's value in a valid-time relation is an ordered pair: a value from the attribute's domain and a set of chronons. Relations are not allowed to have value-equivalent tuples. The model also allows the schema and even the class of the relation (snapshot, transaction-time, valid-time and bitemporal) to change.
 
 Gadia-3: \cite{Bhargava:1993:RDS:642811.642819},\cite{gad92} This data model is associated with the calculus-based query language TempSQL. Attributes are timestamped with finite unions of rectangles in the valid-time x transaction-time space.
 
-Thompson: \cite{171833} This model, based on an accounting system, is called Accounting Data Model. It has four timestamp attributes: two for transaction time, called 'engineering time', and two for valid time, called 'accounting time'. Also, a boolean value called 'timewarp' enables the attribute to change historically. 
+Thompson: \cite{171833} This model, based on an accounting system, is called Accounting Data Model. It has four timestamp attributes: two for transaction-time, called 'engineering time', and two for valid-time, called 'accounting time'. Also, a boolean value called 'timewarp' enables the attribute to change historically. 
 

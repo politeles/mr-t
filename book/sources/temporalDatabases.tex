@@ -11,11 +11,11 @@ Thus, a temporal database will contain \emph{temporal values}, i.e. values repre
 \begin{svgraybox}
 \vspace{-10pt}
 \begin{definition}\textbf{Valid Time}~\cite{Dyreson1994}\\
-The \emph{\textbf{valid time}} (VT) of a fact is the time when the fact is true in the modeled reality.
+The \emph{\textbf{valid-time}} (VT) of a fact is the time when the fact is true in the modeled reality.
 \end{definition}
 
 \begin{definition}\textbf{Transaction Time}~\cite{Dyreson1994}\\
-A database fact is stored in a database at some point in time, and after it is stored, it is current until logically deleted. The \emph{\textbf{transaction time}} (TT) of a database fact is the time when the fact is current in the database and may be retrieved.
+A database fact is stored in a database at some point in time, and after it is stored, it is current until logically deleted. The \emph{\textbf{transaction-time}} (TT) of a database fact is the time when the fact is current in the database and may be retrieved.
 \end{definition}
 
 \begin{definition}\textbf{Decision Time}~\cite{Nascimento95decisiontime}\\
@@ -28,7 +28,7 @@ A database fact is stored in a database at some point in time, and after it is s
 \vspace{-10pt}
 \end{svgraybox}
 
-\emph{Valid times} are usually provided by the user, whereas \emph{transaction times} are usually system-generated and -supplied \cite{Dyreson1994}. Temporal values of type UDT are not given any extraordinary interpretation and have thus no extraordinary query language support \cite{Dyreson1994}.
+\emph{Valid times} are usually provided by the user, whereas \emph{transaction-times} are usually system-generated and -supplied \cite{Dyreson1994}. Temporal values of type UDT are not given any extraordinary interpretation and have thus no extraordinary query language support \cite{Dyreson1994}.
 
 A \emph{temporal database} can now formally be defined as follows:
 
@@ -45,19 +45,19 @@ In a relational temporal database, temporal values will of course be in the tupl
 \begin{svgraybox}
 \vspace{-10pt}
 \begin{definition}\textbf{Valid-time Relation}~\cite{Dyreson1994}\\
-A \emph{\textbf{valid-time relation}} is a relation with exactly one system supported valid time.
+A \emph{\textbf{valid-time relation}} is a relation with exactly one system supported valid-time.
 \end{definition}
 
 \begin{definition}\textbf{Transaction-time Relation}~\cite{Dyreson1994}\\
-A \emph{\textbf{transaction-time relation}} is a relation with exactly one system supported transaction time.
+A \emph{\textbf{transaction-time relation}} is a relation with exactly one system supported transaction-time.
 \end{definition}
 \vspace{-10pt}
 \end{svgraybox}
 
-A \emph{valid-time}, respectively \emph{transaction-time} \emph{relational database} is now defined as containing one or more valid-time, respectively transaction-time relations \cite{Dyreson1994}. Next to this, \emph{bitemporal} relational databases contain both valid time and transaction time~\cite{Dyreson1994} and tritemporal databases contain valid time, transaction time and decision time~\cite{Nascimento95decisiontime}.
+A \emph{valid-time}, respectively \emph{transaction-time} \emph{relational database} is now defined as containing one or more valid-time, respectively transaction-time relations \cite{Dyreson1994}. Next to this, \emph{bitemporal} relational databases contain both valid-time and transaction-time~\cite{Dyreson1994} and tritemporal databases contain valid-time, transaction-time and decision-time~\cite{Nascimento95decisiontime}.
 
 
-%Database models can also be classified into \emph{bi-temporal} (both valid and transaction-time) or \emph{tri-temporal}  (bi-temporal and decision time) models.
+%Database models can also be classified into \emph{bi-temporal} (both valid and transaction-time) or \emph{tri-temporal}  (bi-temporal and decision-time) models.
 
 
 A very extensive list of the most well-known temporal database models can be found in ~\cite{Yu1998}. As it is of course necessary to define a consistent way to query the temporal data, there are several proposals concerned with query languages and query language adaptations for temporal databases like ~\cite{TSQL} and ~\cite{Snodgrass98}.
@@ -258,7 +258,7 @@ The resulting relation is visualized in table~\ref{table:example-database-update
 \subsection{\label{Comm-temp}Commercial Temporal Database Systems}
 Several commercial temporal DBMS exist. Table \ref{table:commercial-temporal-db} gives an overview of some of the more well-known temporal DBMS and provides references for more information. 
 
-Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in OracleDB. On another note, TimeDB and Postgree Temporal~\cite{posgree2009} are similar: both are simple implementations that implement a subset of the Allen operators and some operations for the creation and manipulation of temporal attributes (valid time, transaction time or both times are supported). Teradata~\cite{teradata2011} is mainly a business intelligence system designed for data mining. Secondo~\cite{Dieker2000} is an extensible database system in which the core of the database may be replaced by a customized algebra. It is designed for non-standard applications and it supports both valid and transaction times. 
+Oracle workspace manager~\cite{oracle2009} and TimeDB~\cite{timedb2005} are libraries for dealing with time in OracleDB. On another note, TimeDB and Postgree Temporal~\cite{posgree2009} are similar: both are simple implementations that implement a subset of the Allen operators and some operations for the creation and manipulation of temporal attributes (valid-time, transaction-time or both times are supported). Teradata~\cite{teradata2011} is mainly a business intelligence system designed for data mining. Secondo~\cite{Dieker2000} is an extensible database system in which the core of the database may be replaced by a customized algebra. It is designed for non-standard applications and it supports both valid and transaction-times. 
 
  The most complete implementation is Workspace Manager.
 
@@ -299,7 +299,7 @@ Secondo & VT and TT. & Spatio-temporal database. & \cite{Guting} \\
 %\item
 %Organization and optimization of data in a hierarchical frames: It is possible to create a frame of time (a workspace) and work only with that partial version of the data. It is provided a mechanism to merge data among different workspaces and to solve conflicts. The organization of data in these workspaces for very large tables result in smaller time access.
 %\item
-%Valid time as well as transaction time are managed by the system. Each update sentence makes a change in the versioning of a row.
+%Valid time as well as transaction-time are managed by the system. Each update sentence makes a change in the versioning of a row.
 %\end{itemize}
 %
 %When a table is versioned, the system creates a few tables and views as well as auxiliary structures to allow keep several version of the data, while keeping the primary key defined by the user.
