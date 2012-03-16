@@ -13,7 +13,7 @@ Before considering the introduction of temporal modelling to information systems
 \label{subsec:basic-concepts}
 In information systems, time itself is usually perceived as a linear or cyclic concept~\cite{Jensen94thetsql2}. Therefore, a time domain modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model~\cite{benthem82} and a \emph{cyclic} model~\cite{lorentzos88}. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
 
-Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}, which can informally be discribed as the smallest distinguishable time units that can be used in the system. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
+Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}, which can informally be described as the smallest distinguishable time units that can be used in the system. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -25,17 +25,17 @@ An \emph{\textbf{instant}} is a time point on an underlying time axis.
 
 Thus, an instant is basically an instantaneous time point in a time model.
 
-Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models\cite{Dyreson1994}. In a discrete model~\cite{Clifford:1985:AHR:971699.318922}, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another. Here, intuitively, the set of instants can be seen as isomporphic to the set of rational numbers $\Q$ (when the set of instants is a discrete one) or the set of real numbers $\R$ (when the set of instants is a continuous one). In a continuous model, the notion also exists that between any two instants always lies another one, but the set of instants is always seen as continuous and there are no ``gaps'' between successive instants.
+Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models\cite{Dyreson1994}. In a discrete model~\cite{Clifford:1985:AHR:971699.318922}, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another. Here, intuitively, the set of instants can be seen as isomorphic to the set of rational numbers $\Q$ (when the set of instants is a discrete one) or the set of real numbers $\R$ (when the set of instants is a continuous one). In a continuous model, the notion also exists that between any two instants always lies another one, but the set of instants is always seen as continuous and there are no ``gaps'' between successive instants.
 
-Some other necessary concepts are ~\cite{Dyreson1994}:
+Some other necessary concepts are: 
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{Time Interval}\\
+\begin{definition}\textbf{Time Interval}~\cite{Dyreson1994}\\
 A \emph{\textbf{time interval}} is the time between two instants.
 \end{definition}
 
-\begin{definition}\textbf{Duration}\\
+\begin{definition}\textbf{Duration}~\cite{Dyreson1994}\\
 A \emph{\textbf{duration}} is an amount of time with known length, but no specific starting or ending instants.
 \end{definition}
 \vspace{-10pt}
@@ -45,15 +45,15 @@ A time interval as such is bounded by two instants, whereas a duration is not. A
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{Temporal Element}\\
+\begin{definition}\textbf{Temporal Element}~\cite{Dyreson1994}\\
 A \emph{\textbf{temporal element}} is a finite union of time intervals.
 \end{definition}
 
-\begin{definition}\textbf{Event}\\
+\begin{definition}\textbf{Event}~\cite{Dyreson1994}\\
 An \emph{\textbf{event}} is an instantaneous fact, i.e. something occurring at an instant.
 \end{definition}
 
-\begin{definition}\textbf{`Temporal' as Modifier}\\
+\begin{definition}\textbf{`Temporal' as Modifier}~\cite{Dyreson1994}\\
 The modifier \emph{\textbf{`temporal'}} is used to indicate that the modified concept concerns some aspect of time.
 \end{definition}
 \vspace{-10pt}
@@ -65,7 +65,7 @@ Data models for time modelling might now represent an underlying time domain usi
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{Chronon}\\
+\begin{definition}\textbf{Chronon}~\cite{Dyreson1994}\\
 In a data model, a \emph{\textbf{chronon}} is a non-decomposable time interval of some fixed, minimal duration.
 \end{definition}
 \vspace{-10pt}
@@ -97,7 +97,7 @@ The fact that chronons are actually time intervals has a particular effect on th
 %\end{equation}
 %\end{definition}
 
-Another classification of time models concerns the use of points or intervals to model time. The equivalence between interval-based and point-based time models is demonstrated in \cite{Böhlen_point-versus}.
+Another classification of time models concerns the use of points or intervals to model time. The equivalence between interval-based and point-based time models is demonstrated in \cite{Bohlen1998}.
 
 %Attending to the density in the set $\C$ of the chronons, a model can be classified into the following three types:
 
@@ -131,7 +131,7 @@ Restrictions on time range may exist, as time may be bounded orthogonally in the
 %\textcolor{red}{END CHECK}
 
 %\textcolor{red}{MOVE TO TEMPORAL DATABASE PART}
-%On the other hand, time may be~\cite{Jensen94thetsql2} \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers \emph{absolute time} is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g. -3 days = three days ago).
+%On the other hand, time may be~\cite{Jensen94thetsql2} \textbf{relative} or \textbf{absolute} (in other words, \textbf{anchored} or \textbf{unanchored}). Sometimes, what one considers \emph{absolute time} is not as definite as one would hope since our concept of absolute time is based on another time reference (for example, January 1st of year one). Relative time has a direction, differently from distance. It is also possible to use negative references so as to represent relative time (e.g., -3 days = three days ago).
 %\textcolor{red}{END MOVE}
 
 %Subsection \ref{subsec:granularity} gives a short survey on the concept of temporal granularities.
@@ -146,7 +146,7 @@ An important issue in time modelling concerns the concept of \emph{temporal gran
 A \emph{\textbf{granularity}} is an ordered set of non-overlapping and continuous temporal elements called \emph{granules}.
 \end{definition}
 
-\begin{definition}\textbf{Granule}\\
+\begin{definition}\textbf{Granule}~\cite{wang93}\\
 A \textbf{\emph{granule}} is the basic time unit in a granularity.
 \end{definition}
 \vspace{-10pt}
@@ -249,7 +249,7 @@ The existence of mapping functions between granularities and the chronons granul
 
 \begin{svgraybox}
 \vspace{-10pt}
-\begin{definition}\textbf{Finner Than}\\
+\begin{definition}\textbf{Finner Than}~\cite{Lin97}\\
 Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ respectively. Granularity $G$ is now said to be \emph{\textbf{finner than}} granularity $H$ if:
 \begin{equation}
 \label{eq:finner-than}
@@ -258,7 +258,7 @@ Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granulari
 \end{definition}
 
 \begin{definition}
-\label{def:coarser-than}\textbf{Coarser Than}
+\label{def:coarser-than}\textbf{Coarser Than}~\cite{Lin97}\\
 Consider a mapping function $f$ and let $i_G$ and $j_H$ be elements of granularities $G$ and $H$ respectively. Granularity $G$ is now said to be \emph{\textbf{coarser than}} granularity $H$ if:
 \begin{equation}
 \label{eq:coarser-than}
@@ -289,11 +289,11 @@ where $i_{G} \in G$ and $j_{H} \in H$ and where $\mathbb{G}$ denotes the set of 
 Thus, the function $cast$ associates a granule $i_G$ in $G$ to a corresponding granule $j_H$ in $H$. Two kinds of granularity-to-granularity mappings can now be discerned: an \emph{upwards mapping} is a mapping from a granularity $G$ to a coarser granularity $H$, whereas a downwards mapping is a mapping from a granularity $K$ to a finner granularity $L$. Orthogonal to this classification, mappings between two granularities may be classified as \emph{regular mappings}, \emph{irregular mappings} or \emph{congruent mappings}~\cite{Lin97},~\cite{DyresonSnodgrass1994}.
 \begin{itemize}
 \item
-\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function value is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. E.g., the mapping value of the mapping between hours and minutes is calculated using a multiplication by $60$. 
+\emph{Regular mapping}: A regular mapping is a granularity-to-granularity mapping where the mapping function value is calculated by means of multiplications and/or divisions and (maybe) an anchor adjustment. e.g., the mapping value of the mapping between hours and minutes is calculated using a multiplication by $60$. 
 \item
-\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function value can not be calculated by means of multiplications and/or divisions. E.g., the mapping value of the mapping between months and days is dependent on the exact month or day. 
+\emph{Irregular mapping}: An irregular mapping is a granularity-to-granularity mapping where the mapping function value can not be calculated by means of multiplications and/or divisions. e.g., the mapping value of the mapping between months and days is dependent on the exact month or day. 
 \item
-\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities involved in the mapping have the same granules but a different anchor. E.g., the mapping between the days (Gregorian calendar days) and the academic days is a congruent mapping.
+\emph{Congruent mapping}: A congruent mapping is a granularity-to-granularity mapping where the two granularities involved in the mapping have the same granules but a different anchor. e.g., the mapping between the days (Gregorian calendar days) and the academic days is a congruent mapping.
 \end{itemize}
 
 Different granularity-to-granularity mappings between several granularities can be represented using a granularity graph, which is a directed graph indicating the mapping conversions. The above is illustrated in the following example.
@@ -326,7 +326,7 @@ Consider a system that models both Gregorian calendar dates as well as academic 
 %\label{subsec:timedomain-calendar}
 %maybe introduce previously the concept of time units, linear hierarchy and time point.
 
-%This subsection will concern \emph{calendars}. A calendar provides some sort of human interpretation of time. As such, calendars provide meaning or interpretation to temporal values where this meaning or interpretation is relevant or useful to the user. More precisely, calendars determine the mapping between human-meaningful time values and an underlying time model~\cite{Dyreson1994}. More formally, a calendar is an organization of different granularities (e.g. granularities day, month and year) in a hierarchy. In order to formally define what a calendar is, some other concepts should first be introduced~\cite{Kraus1997}:
+%This subsection will concern \emph{calendars}. A calendar provides some sort of human interpretation of time. As such, calendars provide meaning or interpretation to temporal values where this meaning or interpretation is relevant or useful to the user. More precisely, calendars determine the mapping between human-meaningful time values and an underlying time model~\cite{Dyreson1994}. More formally, a calendar is an organization of different granularities (e.g., granularities day, month and year) in a hierarchy. In order to formally define what a calendar is, some other concepts should first be introduced~\cite{Kraus1997}:
 
 
 %\begin{svgraybox}
