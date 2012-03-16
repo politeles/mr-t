@@ -1,9 +1,9 @@
 %Possibility theory, like probability theory, deals with uncertainty about the outcome of an experiment. In probability theory, this uncertainty is caused by the \emph{variability} in the outcomes, while in possibility theory, the uncertainty is caused by \emph{incomplete knowledge} about the experiment. The quantification of confidence in a theory of uncertainty is achieved using a confidence measure\cite{Pon11}. In probability theory this is a measure of chance, in possibility theory, possibility and necessity measures are used.
 
 %\begin{definition}
-%Consider a set of outcomes $\Omega$. Let $\wp(\Omega)$ denote the powerset of $\Omega$ and let $A$ and $B$ be elements of $\wp(\Omega)$. A \emph{confidence measure on $\Omega$} is defined by a function
+%Consider a set of outcomes $\Omega$. Let $\Pow(\Omega)$ denote the powerset of $\Omega$ and let $A$ and $B$ be elements of $\Pow(\Omega)$. A \emph{confidence measure on $\Omega$} is defined by a function
 %	\begin{align}
-%	g : \wp(\Omega) & \rightarrow \left[0,1\right]
+%	g : \Pow(\Omega) & \rightarrow \left[0,1\right]
 %	\end{align}
 %that satisfies
 %	\begin{align}
@@ -16,7 +16,7 @@
 %Both possibility measures and necessity measures are special cases of confidence measures.
 
 %\begin{definition}
-%Consider a confidence measure $\Pi$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $\Pi$ is now a \emph{possibility measure on $\Omega$} if it satisfies:
+%Consider a confidence measure $\Pi$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\Pow(\Omega)$. $\Pi$ is now a \emph{possibility measure on $\Omega$} if it satisfies:
 %	\begin{align}
 %	\Pi\left(\bigcup_{j \in J} A_{j} \right) = \sup_{j \in J} \Pi(A_{j})
 %	\end{align}
@@ -34,7 +34,7 @@
 %\end{definition}
 
 %\begin{definition}
-%Consider a confidence measure $N$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $N$ is now a \emph{necessity measure} on $\Omega$ if it satisfies:
+%Consider a confidence measure $N$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\Pow(\Omega)$. $N$ is now a \emph{necessity measure} on $\Omega$ if it satisfies:
 %	\begin{align}
 %	N\left(\bigcap_{j \in J} A_{j} \right) = \inf_{j \in J} N(A_{j})
 %	\end{align}
@@ -80,7 +80,7 @@ $D+b$ is the upper value in the support of $\mu_M(x)$.
 \label{fig:triangular}
 \end{figure}
 
-Note that the values $a$ and $b$ are values in the underlying ordered domain. E.g. $(a,b) \in \mathbb{R}^2$. The notation for a triangular function adopted here is $[D,a,b]$.
+Note that the values $a$ and $b$ are values in the underlying ordered domain. e.g., $(a,b) \in \mathbb{R}^2$. The notation for a triangular function adopted here is $[D,a,b]$.
 
 The most simple representation for the membership function of a fuzzy interval is a trapezoidal function. This membership function $\mu_T$ for the fuzzy interval $T$ is convex and normalized. Four values represent a trapezoidal membership function (figure  \ref{fig:trapezoidal}):
  $\left[\alpha,\ \beta,\ \gamma,\ \delta\right]$. The membership function is:
