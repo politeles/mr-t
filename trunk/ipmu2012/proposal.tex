@@ -37,7 +37,7 @@ As mentioned in \cite{Pon11}, this approach differs from the one where a valid-t
 
 \subsubsection{Storage}
 \label{subsec:storage}
-To store a PVP, the possibility distributions defining the ill-known start and end point are stored. To store such a possibility distribution, the representation as used in the fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a}, \cite{Gal98} is used. Using this representation, it is possible to represent not only fuzzy numbers, but also (fuzzy) constants. To store an ill-known value, four values (FT, F1, F2 and F3) are stored. They are explained in table \ref{table:relational-representation-pvp}. Note that while NULL denotes the fuzzy constant NULL, N denotes a null value in the database \cite{Medina94gefred.a}.
+To store a PVP, the possibility distributions defining the ill-known start and end point are stored. To store such a possibility distribution, the representation as used in the fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a}, \cite{Gal98} is used. Using this representation, it is possible to represent not only fuzzy numbers, but also (fuzzy) constants. To store an ill-known value, four values (FT, F1, F2 and F3) are stored. They are explained in Table \ref{table:relational-representation-pvp}. Note that while NULL denotes the fuzzy constant NULL, N denotes a null value in the database \cite{Medina94gefred.a}.
 
 %\begin{itemize}
 %\item
@@ -74,7 +74,7 @@ $M$ & 3 & $D$ & $a$ & $b$ & $\mu_{M}$ & Ill-known value \\
 \vspace{-25pt}
 
 \subsection{Querying Ill-known Valid-time Intervals}
-This subsection discusses a tool for querying. The focus will evidently lie on the querying of valid-time periods. First, the query structure will be defined, followed by the evaluation and ranking methods.
+This subsection discusses a tool for querying. Although TSQL~\cite{Jensen1995} is the temporal extension to SQL, the query language proposed is an extension to FSQL~\cite{Gal98} with temporal operators~\cite{Garrido2009}. The focus will evidently lie on the querying of valid-time periods. First, the query structure will be defined, followed by the evaluation and ranking methods.
 
 %In this subsection we will define the query specification, then the evaluation of the query and finally the ranking for the query.
 
@@ -123,7 +123,7 @@ The evaluation of a query $\tilde{Q} = \left( Q^{time}, Q \right)$, where $Q^{ti
 \item
 The preferences expressed in $Q$ are evaluated, resulting in a satisfaction degree denoted here $e_{Q}(r)$. The presented model accepts any sound way of calculating this evaluation, as long as $e_{Q}(r) \in \left[0,1\right]$. 
 \item
-Depending on AR, a specific set of ill-known constraints is considered, which can be found in table 2. The possibility $\Pos_{Q^{time}}(r)$ and necessity $\Nec_{Q^{time}}(r)$ that $r$ fulfills all these constraints are calculated using formulas based on equations \eqref{ill-known-pos} respectively \eqref{ill-known-nec} and aggregated using the $\min$ operator. 
+Depending on AR, a specific set of ill-known constraints is considered, which can be found in Table 2. The possibility $\Pos_{Q^{time}}(r)$ and necessity $\Nec_{Q^{time}}(r)$ that $r$ fulfills all these constraints are calculated using formulas based on equations \eqref{ill-known-pos} respectively \eqref{ill-known-nec} and aggregated using the $\min$ operator. 
 
 
 %The sum of the possibility score and the necessity score gives an evaluation score $e_{Q^{time}}(r)$ in interval $\left[0,2\right]$. Because necessity cannot exceed $0$ unless possibility is $1$, this gives a natural ranking score.
@@ -179,7 +179,7 @@ I meets J & $C_1\triangleq \left(\leq,X\right)$ ,$C_2\triangleq \left(\neq,X\rig
 \vspace{-5pt}
 
 \subsubsection{Ranking and aggregation}
-In order to present the results to the user, a crude ranking method is used: for every record $r$, the sum of $\Pos_{Q^{time}}(r)$ and $\Nec_{Q^{time}}(r)$ gives an evaluation score $e'_{Q^{time}}(r)$ in interval $\left[0,2\right]$. Because necessity cannot exceed $0$ unless possibility is $1$, this gives a natural ranking score. This $e'_{Q^{time}}(r)$ is then rescaled to the unit interval, resulting in $e_{Q^{time}}(r)$. The final ranking $e_{final}(r)$ is now given by a convex combination:
+In order to present the results to the user, a crude ranking method is used: for every record $r$, the sum of $\Pos_{Q^{time}}(r)$ and $\Nec_{Q^{time}}(r)$ gives an evaluation score $e'_{Q^{time}}(r)$ in interval $\left[0,2\right]$. Because necessity cannot exceed $0$ unless possibility is $1$, this gives a natural ranking score. Some authors ~\cite{Bosc2010a} mentioned before that the possibility and necessity measures result in a total order in the set of events.  This $e'_{Q^{time}}(r)$ is then rescaled to the unit interval, resulting in $e_{Q^{time}}(r)$. The final ranking $e_{final}(r)$ is now given by a convex combination:
 
 %the possibility and the necessity are ranked with the convex combination in \eqref{eq:convex-comb} with $\omega=0.5$. Finally this value is aggregated with the rest of the criteria with the same combination. %In this case the value for the aggregation is also $\omega = 0.5$
 
@@ -193,11 +193,13 @@ The use of this convex combination allows a record to make up for a low score fo
 %By increasing the value for the parameter $\omega$, the preferences expressed in the query $Q$ can be given more importance. By lowering the value for $\omega$, the temporal criteria is emphasized.
 %The following example illustrates the querying process.
 
-\subsection{Example}
+%\subsection{Example}
 
-%\begin{example} 
-\subsubsection{The database}
-Consider the example relation given in table \ref{tb:car-models} describing car models, containing general attributes (model name, manufacturer, car segment) and one temporal attribute (stored as explained in subsection \ref{subsec:storage}) describing the approximate period of time during which the car model was sold. The value for $D$ is stored in \emph{yyyy} format and $a$ and $b$ are represented by an integer. The ID field identifies a car model while the field Instance ID (IID) identifies the instance for a car model, thus a car model in a certain state.
+\begin{example} 
+
+%\subsubsection{The database}
+\paragraph{The database}
+Consider the example relation given in Table \ref{tb:car-models} describing car models, containing general attributes (model name, manufacturer, car segment) and one temporal attribute (stored as explained in subsection \ref{subsec:storage}) describing the approximate period of time during which the car model was sold. The value for $D$ is stored in \emph{yyyy} format and $a$ and $b$ are represented by an integer. The ID field identifies a car model while the field Instance ID (IID) identifies the instance for a car model, thus a car model in a certain state.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample table for the car models. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -223,7 +225,8 @@ ID & IID & Segment & Manufacturer & Name & Start & End  \\ [0.5ex]
 
 \end{table}
 
-\subsubsection{The query}
+%\subsubsection{The query}
+%\paragraph{The database}
 Consider the following query:
 \begin{center}
 \emph{The user wants to obtain a list of models from segment B, made by manufacturer Peugeot before the year interval 2001-2005}
@@ -272,8 +275,8 @@ ID & IID &  $\Pos_{Q^{time}}$ & $\Nec_{Q^{time}}$ & $e_{Q^{time}} (rescaled)$ & 
 \end{tabular}
 \label{tb:results}
 \end{table}
-%\end{example}
+
 
 Table \ref{tb:results} shows a natural and gradual ranking for the results. The last record, (ID 001, IID 3) shows also that with $\omega$ = 0.5 both temporal and regular criteria have the same importance.% By lowering the value for omega the temporal criteria would have more impact on the final ranking.
 
-
+\end{example}

@@ -75,7 +75,7 @@ When a possibilistic variable is defined on the powerset $\Pow(R)$ of some unive
 
 %Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
 
-A specific application of possibilistic variables is obtained when the universe under consideration is the set of boolean values $\mathbb{B}$ = $\{T,F\}$. Indeed, any boolean proposition $p$ takes just one value in $\mathbb{B}$. If the knowledge about which value this proposition $p$ will take is given by a possibility distribution $\pi_p$, the proposition can be seen as a possibilistic variable. As the interest lies with the case where the proposition holds, the possibility and necessity that $p$ = $T$ (the proposition holds) demand most attention. This possibility and necessity is noted here as:
+A specific application of possibilistic variables is obtained when the universe under consideration is the set of Boolean values $\mathbb{B}$ = $\{T,F\}$. Indeed, any Boolean proposition $p$ takes just one value in $\mathbb{B}$. If the knowledge about which value this proposition $p$ will take is given by a possibility distribution $\pi_p$, the proposition can be seen as a possibilistic variable. As the interest lies with the case where the proposition holds, the possibility and necessity that $p$ = $T$ (the proposition holds) demand most attention. This possibility and necessity is noted here as:
 \begin{align}
 \text{Possibility that $p$ = $T$ (p holds):} \hspace{50pt} & Pos(p) = \pi_p(T) \label{propholdsposs} \\
 \text{Necessity that $p$ = $T$ (p holds):} \hspace{50pt} & Nec(p) = 1-\pi_p(F) \label{propholdsnecc}
@@ -117,7 +117,7 @@ If this modal value $m$ is unique, then $M$ is referred to as a \emph{fuzzy numb
 %  \label{fig:trapezoidal}
 %\end{figure}
 
-The most convenient form of the membership function of a fuzzy number is a triangular form. It can be shown that such a membership function $\mu_M$ for a fuzzy number $M$ is convex and normalized. Three real values, denoted $a$, $b$ and $D$, suffice to represent a triangular membership function of a fuzzy number and in this work, a fuzzy number defined as such will be noted as $\left[D, a, b \right]$. Here:
+The most convenient form of the membership function of a fuzzy number is a triangular form. It can be shown that such a membership function $\mu_M$ for a fuzzy number $M$ is convex and normalized. Three real values, denoted by $a$, $b$ and $D$, suffice to represent a triangular membership function of a fuzzy number and in this work, a fuzzy number defined as such will be noted as $\left[D, a, b \right]$. Here:
 \begin{itemize}
 \item
 $D$ denotes the single value in the core of $M$
@@ -127,19 +127,19 @@ $D-a$ is then $\inf \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
 $D+b$ is then $\sup \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
 \end{itemize}
 
-The membership function of such a fuzzy number is then given by:
-
-\vspace{-10pt}
-
-\begin{align}
-\mu_M : & \quad \mathbb{R} \rightarrow \left[0,1\right] \nonumber\\
- : & \quad x \rightarrow
-\begin{cases}
-0 & \mbox{ if } \left(x < D-a\right) \vee \left(x > D+b\right) \\
-\frac{1}{a}\left[x-\left(D-a\right)\right] & \mbox{ if } \left(x \geq D-a\right) \wedge (x \leq D)  \\
--\frac{1}{b}\left[x-\left(D+b\right)\right] & \mbox{ if } \left(x \geq D\right) \wedge (x \leq D+b)
-\end{cases}
-\end{align}
+%The membership function of such a fuzzy number is then given by:
+%
+%\vspace{-10pt}
+%
+%\begin{align}
+%\mu_M : & \quad \mathbb{R} \rightarrow \left[0,1\right] \nonumber\\
+% : & \quad x \rightarrow
+%\begin{cases}
+%0 & \mbox{ if } \left(x < D-a\right) \vee \left(x > D+b\right) \\
+%\frac{1}{a}\left[x-\left(D-a\right)\right] & \mbox{ if } \left(x \geq D-a\right) \wedge (x \leq D)  \\
+%-\frac{1}{b}\left[x-\left(D+b\right)\right] & \mbox{ if } \left(x \geq D\right) \wedge (x \leq D+b)
+%\end{cases}
+%\end{align}
 
 %\begin{figure}[h!]
 %  \centering
