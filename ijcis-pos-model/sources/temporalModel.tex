@@ -4,35 +4,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{\label{subsec:time-interval-constraint}The time interval}
-The representation of a temporal interval is given by two points: S the starting and E the ending points respectively. 
 
-\vglue13pt
-%\begin{table}[htbp]
-\tcap{Data types for a time point}
-\centerline{\small DATA TYPES}
-\vglue-6pt
-\centerline{\small\baselineskip=13pt
-\begin{tabular}{c p{2cm} p{2cm}}\\
-\hline
-1 & A single time point &  $1/x, x \in \T$\\
-2 & A possibility distribution in the numeric domain & A fuzzy number or a fuzzy interval.\\
-3 & An unknown value & \textbf{UNKNOWN}$= \lbrace1/t, t \in \T \rbrace$\\
-4 & An undefined value & \textbf{UNDEFINED}$= \lbrace 0/t, t \in \T \rbrace$\\
-5 & A null value & \textbf{NULL} $=\lbrace 1/$Unknown, 1/Undefined $\rbrace$\\
-\hline\\
-\end{tabular}
-\label{tbl:time-point-types}
-}
-%\end{table}
-
-
-\textcolor{red}{MAYBE COMPATIBILITY WITH GEFRED TYPES??}
-
-A valid temporal interval $\left[S,E\right]$ in the system is a combination for the values of $S$,$E$ as shown in table \ref{tbl:valid-time-interval}.
-
-
-\textcolor{red}{HAS IT ANY SENSE TO ALLOW THE COMBINATION [UNKNOWN, UNDEFINED] AND SO ON??}
 
 
 \vglue13pt
@@ -46,8 +18,6 @@ A valid temporal interval $\left[S,E\right]$ in the system is a combination for 
 Type for S & Type for E & Semantics \\
 \hline
 Unknown & Unkown & Unknown interval. \\
-Undefined & Undefined & Undefined interval. \\
-Null & Null & Null interval. \\
 \hline
 1,2 & 1,2 & A possibilistic time interval. \\
 \hline\\
