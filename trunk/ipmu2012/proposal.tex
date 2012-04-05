@@ -198,8 +198,10 @@ The use of this convex combination allows a record to make up for a low score fo
 \begin{example} 
 
 %\subsubsection{The database}
-\paragraph{The database}
+%\paragraph{The database}
 Consider the example relation given in Table \ref{tb:car-models} describing car models, containing general attributes (model name, manufacturer, car segment) and one temporal attribute (stored as explained in subsection \ref{subsec:storage}) describing the approximate period of time during which the car model was sold. The value for $D$ is stored in \emph{yyyy} format and $a$ and $b$ are represented by an integer. The ID field identifies a car model while the field Instance ID (IID) identifies the instance for a car model, thus a car model in a certain state.
+
+\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sample table for the car models. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -218,18 +220,15 @@ ID & IID & Segment & Manufacturer & Name & Start & End  \\ [0.5ex]
 \hline
 \end{tabular}
 \vspace{10pt}
-
 \label{tb:car-models}
-
 \vspace{-30pt}
-
 \end{table}
 
 %\subsubsection{The query}
-%\paragraph{The database}
-Consider the following query:
+%\paragraph{The query}
+Consider the following query:\\
 \begin{center}
-\emph{The user wants to obtain a list of models from segment B, made by manufacturer Peugeot before the year interval 2001-2005}
+\emph{The user wants to obtain a list of models from segment B, made by manufacturer Peugeot before the year interval 2001-2005}\\
 \end{center}
 
 Using the introduced notations in \eqref{eq:query-definition}, the query is translated to: %the following expression:
@@ -279,4 +278,4 @@ ID & IID &  $\Pos_{Q^{time}}$ & $\Nec_{Q^{time}}$ & $e_{Q^{time}} (rescaled)$ & 
 
 Table \ref{tb:results} shows a natural and gradual ranking for the results. The last record, (ID 001, IID 3) shows also that with $\omega$ = 0.5 both temporal and regular criteria have the same importance.% By lowering the value for omega the temporal criteria would have more impact on the final ranking.
 
-\end{example}
+
