@@ -123,7 +123,7 @@ The evaluation of a query $\tilde{Q} = \left( Q^{time}, Q \right)$, where $Q^{ti
 \item
 The preferences expressed in $Q$ are evaluated, resulting in a satisfaction degree denoted here $e_{Q}(r)$. The presented model accepts any sound way of calculating this evaluation, as long as $e_{Q}(r) \in \left[0,1\right]$. 
 \item
-Depending on AR, a specific set of ill-known constraints is considered, which can be found in Table 2. The possibility $\Pos_{Q^{time}}(r)$ and necessity $\Nec_{Q^{time}}(r)$ that $r$ fulfills all these constraints are calculated using formulas based on equations \eqref{ill-known-pos} respectively \eqref{ill-known-nec} and aggregated using the $\min$ operator. 
+Depending on AR, a specific set of ill-known constraints is considered, which can be found in Table 2. The possibility and necessity that $r$ fulfills all these constraints are calculated using formulas based on equations \eqref{ill-known-pos} respectively \eqref{ill-known-nec} and aggregated using the $\min$ operator. 
 
 
 %The sum of the possibility score and the necessity score gives an evaluation score $e_{Q^{time}}(r)$ in interval $\left[0,2\right]$. Because necessity cannot exceed $0$ unless possibility is $1$, this gives a natural ranking score.
@@ -135,9 +135,11 @@ Depending on AR, a specific set of ill-known constraints is considered, which ca
 \caption{Allen's relations used in the framework. Here, $I = \left[a, b\right]$ denotes the PVP in the query, $J = \left[X, Y\right]$ denotes the PVP of the record, with $\pi_{X}$ and $\pi_{Y}$ the possibility distributions of $X$ and $Y$ respectively. For each of Allen's relations $AR$, the corresponding value in column `Constraints' gives the constraints corresponding to $AR$. The last column contains the corresponding formula to calculate the possibility that $I$ satisfies all constraints given in column `Constraints', which are based on equation \eqref{ill-known-pos}.}
 
 \centering
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|l|l|}
 \hline
-Allen Relation & Constraints & $\Pos\left(\text{I satisfies all constraints }C_{i}, i = 1,2,...\right)$ \\
+\multirow{2}{*}
+{Allen Relation}  & {Constraints} & $\Pos($ I satisfies all constraints  \\
+ & & $C_{i}, i = 1,2,\ldots)$ \\
 \hline
 I before J & $C_1 \triangleq \left(<,X\right)$ & $\sup_{a>w}\pi_x(w)$\\
 \hline
@@ -226,7 +228,7 @@ ID & IID & Segment & Manufacturer & Name & Start & End  \\ [0.5ex]
 
 %\subsubsection{The query}
 %\paragraph{The query}
-Consider the following query:\\
+Consider the following query:
 \begin{center}
 \emph{The user wants to obtain a list of models from segment B, made by manufacturer Peugeot before the year interval 2001-2005}\\
 \end{center}
