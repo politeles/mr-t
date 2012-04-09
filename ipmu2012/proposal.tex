@@ -1,5 +1,4 @@
 In this section, a valid-time model, able to handle imperfect valid-time notions, will be presented. First, the representation and storage of valid-time will be presented. Next, an approach to query the model is proposed. Finally, an example is given.
-%The proposal consist on a possibilistic valid-time model. The representation and the querying are explained in the following subsections.
 
 \subsection{Valid-time Intervals}
 \subsubsection{Representation}
@@ -12,54 +11,24 @@ A \emph{Possibilistic Valid-time Period} is an ill-known interval in time, which
 
 Because a PVP is an ill-known interval, it allows modelling the uncertainty about the start and/or end point of a time interval (and thus about the time interval itself) if such uncertainty exists. The interpretation is \emph{disjunctive}: the PVP represents exactly one valid-time interval, but precisely \emph{which} interval is represented, is (partially) unknown. In the presented model, only PVPs are considered of which the possibility distributions of the possibilistic variables defining the start and end point of the ill-known interval have exactly the same characteristics as the membership functions of fuzzy numbers. A perfectly known start or end point can then be modelled by such an ill-known value defined by a possibilistic variable $P$ for which $\exists ! x : \mu_{P}(x) > 0$.
 
-As mentioned in \cite{Pon11}, this approach differs from the one where a valid-time period is represented by one fuzzy set. Such a fuzzy set is seen as a possibility distribution on $\mathbb{R}$ and thus defines just one ill-known value. However, in the presented approach, a time period is modelled using an ill-known set, which is defined by a possibility distribution on $\Pow(\mathbb{R})$.
-
-
-%The interval has a starting and an ending points. An ill-known valid-time interval is an interval in witch one or both points are ill-known. 
-
-%\begin{definition}
-%A Possibilistic Valid-Time Period \textbf{PVP} is a possibilistic interval defined by means of two ill-known points, namely $\left[ X,\ Y \right]$
-%\begin{equation}
-%PVP = \left[X,\ Y \right] 
-%\end{equation}
-%$X$ and $Y$ are ill-known values in the set of the real numbers $\mathbb{R}$. The uncertainty about the values taken by $X$ and $Y$ are given by the possibility distributions $\pi_X$ and $\pi_Y$.
-%\end{definition}
-
-%For convenience, the possibility distributions $\pi_X$ and $\pi_Y$ are given in the way of a triangular distribution, as explained in subsection \ref{subsec:fuzzy-numbers}. This representation allows overlapping (Fig. \ref{fig:pvp}). Note that while the two ill-known values $X,Y \in \mathbb{R}$, the fuzzy interval  $[X,Y] \in \mathbb{R}^2$.
-
-
-%\begin{figure}[h!]
-%  \centering
-%  \input{./graphs/2_triangular.tex}
-%  \caption{Two fuzzy numbers $X$ and $Y$ denoting a Possibilistic Valid-Time Period \emph{PVP}.}
-%  \label{fig:pvp}
-%\end{figure}
+As mentioned in \cite{Pons2011}, this approach differs from the one where a valid-time period is represented by one fuzzy set. Such a fuzzy set is seen as a possibility distribution on $\mathbb{R}$ and thus defines just one ill-known value. However, in the presented approach, a time period is modelled using an ill-known set, which is defined by a possibility distribution on $\Pow(\mathbb{R})$.
 
 \subsubsection{Storage}
 \label{subsec:storage}
-To store a PVP, the possibility distributions defining the ill-known start and end point are stored. To store such a possibility distribution, the representation as used in the fuzzy interface for relational databases \emph{FIRST}~\cite{Medina94gefred.a}, \cite{Gal98} is used. Using this representation, it is possible to represent not only fuzzy numbers, but also (fuzzy) constants. To store an ill-known value, four values (FT, F1, F2 and F3) are stored. They are explained in Table \ref{table:relational-representation-pvp}. Note that while NULL denotes the fuzzy constant NULL, N denotes a null value in the database \cite{Medina94gefred.a}.
+To store a PVP, the possibility distributions defining the ill-known start and end point are stored. To store such a possibility distribution, the representation as used in the fuzzy interface for relational databases \emph{FIRST}~\cite{Medina1994}, \cite{Galindo1998} is used. Using this representation, it is possible to represent not only fuzzy numbers, but also (fuzzy) constants. To store an ill-known value, four values (FT, F1, F2 and F3) are stored. They are explained in Table \ref{table:relational-representation-pvp}. Note that while NULL denotes the fuzzy constant NULL, N denotes a null value in the database \cite{Medina1994}.
 
-%\begin{itemize}
-%\item
-%\emph{NULL}: This constant refers to a completely ignorance about the value. The possibility distribution for a given fuzzy number $X$ is not defined, therefore, any comparison between a fuzzy number and the \emph{NULL} constant always returns $0$.
-%\item
-%\emph{UNKNOWN}: % The possibility distribution for a given fuzzy number $X$ is $\pi_X=1$
-%\item
-%\emph{UNDEFINED}: The point does not have a value. %The possibility distribution for a given fuzzy number $X$ is $\pi_X=0$
-%\end{itemize}
-%
 
 \vspace{-10pt}
 
 \begin{table}
 \centering
-\caption{Relational representation for an ill-known time point. FT denotes Fuzzy Type. Field FT indicates that the values stored in F1, F2 and F3 denote either NULL, UNKNOWN, UNDEFINED or a triangular possibility distribution $M$ = $\left[D,\ a,\ b \right]$. Fields F1, F2 and F3 contain the actual values.}%  A \emph{PVP} is represented by two ill-known points.}
+\caption{Relational representation for an ill-known time point. FT denotes Fuzzy Type. Field FT indicates that the values stored in F1, F2 and F3 denote either NULL, UNKNOWN, UNDEFINED or a triangular possibility distribution $M$ = $\left[D,\ a,\ b \right]$. Fields F1, F2 and F3 contain the actual values.}
+
 \begin{tabular}{c c c c c c l p{2cm}}
 \hline
 Value & FT & F1 & F2 & F3 & $\mu(x)$ & Description \\ \hline
 UNKNOWN & 0 & N & N & N  & $1$ & Any value is equally possible\\ 
-UNDEFINED & 1 & N & N & N & $0$ & The value is not defined \\%in the \\
-    %      &   &   &   &   &     & attribute domain\\ 
+UNDEFINED & 1 & N & N & N & $0$ & The value is not defined \\
 NULL & 2 & N & N & N &not defined & Nothing is known about the value \\ 
 $M$ & 3 & $D$ & $a$ & $b$ & $\mu_{M}$ & Ill-known value \\ 
 \hline 
@@ -76,20 +45,8 @@ $M$ & 3 & $D$ & $a$ & $b$ & $\mu_{M}$ & Ill-known value \\
 \subsection{Querying Ill-known Valid-time Intervals}
 This subsection discusses a tool for querying. The focus will evidently lie on the querying of valid-time periods. First, the query structure will be defined, followed by the evaluation and ranking methods.
 
-%In this subsection we will define the query specification, then the evaluation of the query and finally the ranking for the query.
-
-%It is important to notice that every Valid-time notion in the database is represented using a PVP. Thus, Valid-time intervals in the database can be partially unknown.
-
-%In the query, the user is allowed to specify both non-temporal preferences and a temporal constraint.
-
-%This allows the user to specify both the preferences and an ill-known valid-time interval in the query. It is important to notice that the possibilistic / fuzzy data stored in the database has a \emph{disjunctive interpretation} (it is said that we have \emph{uncertainty}: the valid-time interval has only one value but, for some reason the value is ill-known). In the query specification, the user is allowed to express a crisp time interval. 
-
 \subsubsection{Query Structure}
 It is important to notice that every valid-time notion in the database is represented using a PVP. In the presented framework, a query has two separate parts:
-
-% one is a temporal constraint and the other is the collection of query specifications for regular attributes:
-
-%the first one is the temporal specification. The second part is the query specification for regular attributes.
 
 \begin{definition}
 A query $\tilde Q$ is specified by:
@@ -105,28 +62,20 @@ Here, $Q$ denotes the collection of (possibly fuzzy) non-temporal preferences of
 Q^{time} = \left( I , AR \right)
 \end{equation}
 \end{definition}
-Here, $I$ is a crisp time interval and $AR$ is one of Allen's relations \cite{Allen83}. The interpretation is that for a record with valid-time period given by a PVP $J$, the user requires that $I$ $AR$ $J$ holds.
+Here, $I$ is a crisp time interval and $AR$ is one of Allen's relations \cite{Allen1983}. The interpretation is that for a record with valid-time period given by a PVP $J$, the user requires that $I$ $AR$ $J$ holds.
 
-%In table \ref{tab:allen-relations}, .
 
-%\vspace{-35pt}
-
-\subsubsection{Query evaluation}
+\subsubsection{Query Evaluation}
 In fuzzy querying of regular (relational) databases, the modelling of query satisfaction is a matter of degree. Usually, the evaluation of the query requirements for a record results in a satisfaction degree $s$, where $s$ lies in $\left[0,1\right]$, where 0 denotes total dissatisfaction and 1 denotes complete satisfaction. In crisp querying, the evaluation of query requirements for a record results in the accepting or rejecting of the record as a part of the result set. This can be modelled using satisfaction degrees, by assigning rejection a degree of $0$ and acceptance a degree of $1$ and not using any other value in $\left[0,1\right]$.
 
 The evaluation of a query $\tilde{Q} = \left( Q^{time}, Q \right)$, where $Q^{time} = \left( I, AR \right)$ is now handled as follows. For each record $r$ in the database, with the valid-time notion of $r$ being specified by a PVP $J$, two things happen independently:
 
 
-
-% by a combination of non-temporal query requirements $Q$ is noted $e_{Q}(r) \in \left[0,1\right]$ in this work. The total query evaluation method is now the following.  and Allen relation $AR$
 \begin{itemize}
 \item
 The preferences expressed in $Q$ are evaluated, resulting in a satisfaction degree denoted here $e_{Q}(r)$. The presented model accepts any sound way of calculating this evaluation, as long as $e_{Q}(r) \in \left[0,1\right]$. 
 \item
 Depending on AR, a specific set of ill-known constraints is considered, which can be found in Table 2. The possibility and necessity that $r$ fulfills all these constraints are calculated using formulas based on equations \eqref{ill-known-pos} respectively \eqref{ill-known-nec} and aggregated using the $\min$ operator. 
-
-
-%The sum of the possibility score and the necessity score gives an evaluation score $e_{Q^{time}}(r)$ in interval $\left[0,2\right]$. Because necessity cannot exceed $0$ unless possibility is $1$, this gives a natural ranking score.
 \end{itemize}
 
 
@@ -180,10 +129,9 @@ I meets J & $C_1\triangleq \left(\leq,X\right)$ ,$C_2\triangleq \left(\neq,X\rig
 
 \vspace{-5pt}
 
-\subsubsection{Ranking and aggregation}
+\subsubsection{Ranking and Aggregation}
 In order to present the results to the user, a crude ranking method is used: for every record $r$, the sum of $\Pos_{Q^{time}}(r)$ and $\Nec_{Q^{time}}(r)$ gives an evaluation score $e'_{Q^{time}}(r)$ in interval $\left[0,2\right]$. Because necessity cannot exceed $0$ unless possibility is $1$, this gives a natural ranking score. Some authors ~\cite{Bosc2010a} mentioned before that the possibility and necessity measures result in a total order in the set of events.  This $e'_{Q^{time}}(r)$ is then rescaled to the unit interval, resulting in $e_{Q^{time}}(r)$. The final ranking $e_{final}(r)$ is now given by a convex combination:
 
-%the possibility and the necessity are ranked with the convex combination in \eqref{eq:convex-comb} with $\omega=0.5$. Finally this value is aggregated with the rest of the criteria with the same combination. %In this case the value for the aggregation is also $\omega = 0.5$
 
 \begin{equation}
 \label{eq:convex-comb}
@@ -192,21 +140,11 @@ e_{final}(r)\ =\ \omega*e_{Q}(r)\ +\ (1-\omega)*e_{Q^{time}}(r), \omega \in \lef
 
 The use of this convex combination allows a record to make up for a low score for the temporal constraint by a good score for the non-temporal constraint (or vice versa). Changing $\omega$ also allows granting the temporal constraint more weight with respect to the non-temporal constraint (or vice versa).
 
-%By increasing the value for the parameter $\omega$, the preferences expressed in the query $Q$ can be given more importance. By lowering the value for $\omega$, the temporal criteria is emphasized.
-%The following example illustrates the querying process.
-
-%\subsection{Example}
-
 \begin{example} 
-
-%\subsubsection{The database}
-%\paragraph{The database}
 Consider the example relation given in Table \ref{tb:car-models} describing car models, containing general attributes (model name, manufacturer, car segment) and one temporal attribute (stored as explained in subsection \ref{subsec:storage}) describing the approximate period of time during which the car model was sold. The value for $D$ is stored in \emph{yyyy} format and $a$ and $b$ are represented by an integer. The ID field identifies a car model while the field Instance ID (IID) identifies the instance for a car model, thus a car model in a certain state.
-
 \end{example}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Sample table for the car models. 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \begin{table}[h]
 \centering
 \caption{Example database}
@@ -226,39 +164,18 @@ ID & IID & Segment & Manufacturer & Name & Start & End  \\ [0.5ex]
 \vspace{-30pt}
 \end{table}
 
-%\subsubsection{The query}
-%\paragraph{The query}
 Consider the following query:
 \begin{center}
 \emph{The user wants to obtain a list of models from segment B, made by manufacturer Peugeot before the year interval 2001-2005}\\
 \end{center}
 
-Using the introduced notations in \eqref{eq:query-definition}, the query is translated to: %the following expression:
-
-%\vspace{-10pt}
-%
-%\begin{align}
-%$\tilde{Q} = \left(Q^{time}, Q\right)$
-%\end{center}
-%
-%\vspace{-10pt}
-%
-%In this expression:
-%\begin{itemize}
-%\item
-%$Q^{time}\ = \ ( \left[ 2001,\ 2005 \right],\ $  before $)$.
-%\item
-%$c_{segment}\ = \ $ Peugeot.
-%\end{itemize}
-
-%\vspace{-15pt}
+Using the introduced notations in \eqref{eq:query-definition}, the query is translated to: 
 
 \begin{align}
 Q^{time} & = \left(\left[ 2001, 2005 \right], before\right) \\
 Q & = \left(Segment =  B\right) \wedge \left(Manufacturer = Peugeot\right)
 \end{align}
 
-%The evaluation for the criteria are presented in the result table \ref{tb:results}.
 
 \begin{table}[ht]
 \caption{Result table and ranking}
@@ -277,7 +194,4 @@ ID & IID &  $\Pos_{Q^{time}}$ & $\Nec_{Q^{time}}$ & $e_{Q^{time}} (rescaled)$ & 
 \label{tb:results}
 \end{table}
 
-
-Table \ref{tb:results} shows a natural and gradual ranking for the results. The last record, (ID 001, IID 3) shows also that with $\omega$ = 0.5 both temporal and regular criteria have the same importance.% By lowering the value for omega the temporal criteria would have more impact on the final ranking.
-
-
+Table \ref{tb:results} shows a natural and gradual ranking for the results. The last record, (ID 001, IID 3) shows also that with $\omega$ = 0.5 both temporal and regular criteria have the same importance.
