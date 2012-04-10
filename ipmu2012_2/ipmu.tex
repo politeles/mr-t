@@ -1,0 +1,103 @@
+
+\documentclass{llncs}
+%
+%
+
+\usepackage[dvips]{graphicx}
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{color}
+\hyphenation{pro-per-ties}
+\hyphenation{ge-ne-ral-ly}
+\hyphenation{pre-fe-ren-ces}
+\hyphenation{u-sing}
+\hyphenation{pu-nish-ment}
+
+%\newcommand{\Pow}{\mathcal{P}}
+%\newcommand{\N}{\operatorname{N}}
+%\newcommand{\bool}{\operatorname*{\mathcal{B}}}
+%\newcommand{\Pos}{\operatorname{Pos}}
+%\newcommand{\Nec}{\operatorname{Nec}}
+%\newcommand{\T}{\mathcal{T}}
+
+\newenvironment{keywords}{
+       \list{}{\advance\topsep by0.35cm\relax\small
+       \leftmargin=1cm
+       \labelwidth=0.35cm
+       \listparindent=0.35cm
+       \itemindent\listparindent
+       \rightmargin\leftmargin}\item[\hskip\labelsep
+                                     \bfseries Keywords:]}
+{\endlist}
+
+\begin{document}
+
+\mainmatter              % start of the contributions
+%
+\title{Evaluating Possibilistic Valid-Time Queries}
+%
+\author{Christophe Billiet\inst{1} \and Jos\'e Enrique Pons\inst{2} \and Olga Pons Capote\inst{2} \and Guy De Tr\'e\inst{1}}
+
+
+%
+\authorrunning{Christophe Billiet et al.} % abbreviated author list (for running head)
+%
+\institute{Department of Telecommunications and Information Processing, Ghent University \\
+Sint Pietersnieuwstraat 41, B-9000 Ghent, Belgium \\
+\email{Christophe.Billiet,Guy.DeTre@ugent.be}
+\and
+Department of Computer Science and Artificial Intelligence, 
+Escuela T\'ecnica Superior de Ingenier\'ia Inform\'atica, Universidad de Granada \\
+C/Periodista Daniel Saucedo Aranda s/n, E-18071 Granada, Spain \\
+\email{jpons,opc@decsai.ugr.es}  
+}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+A temporal database schema models objects or concepts with time-related or time-variant properties and a derived database contains measurements or descriptions concerning these temporal properties. The modelling of temporal information in a temporal database has an impact on the consistency of the database. Of course, this temporal information can be queried. In some cases, information in the query's temporal demand is (partially) unknown. This paper presents a technique for querying a valid-time relation using, among others, a temporal constraint in which the time indication in the temporal expression contains uncertainty and a method for evaluating such queries. This should allow querying using a (partially) unknown temporal demand.
+\end{abstract}
+
+\begin{keywords}
+valid-time database, uncertainty, ill-known intervals, uncertain temporal querying
+\end{keywords}
+
+\section{Introduction}
+\label{sec:Introduction}
+\input{introduction}
+%
+\vspace{-10pt}
+\section{Preliminaries}
+\label{sec:preliminaries}
+
+%\vspace{-5pt}
+\input{preliminaries}
+
+\section{Possibilistic Valid-Time Query Evaluation}
+\label{sec:proposal}
+\input{proposal}
+
+\section{Conclusions}
+\label{sec:futher-research}
+\input{conclusions}
+%
+
+
+
+
+%
+\subsubsection*{Acknowledgements.}
+%
+Part of the research is supported by grant BES-2009-013805 within research project TIN2008-02066: \emph{Fuzzy Temporal Information Treatment in Relational DBMS}.
+
+
+\bibliographystyle{spmpsci}
+\bibliography{ipmu}
+
+
+
+
+\end{document}
