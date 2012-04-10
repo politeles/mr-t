@@ -1,0 +1,262 @@
+%Introductory text:
+This section starts with a brief introduction to temporal databases. Next, some basic concepts are introduced, concerning possibilistic variables and ill-known values, sets and intervals. Last, the framework of set evaluation using ill-known constraints \cite{Pon11} is explained.
+
+\subsection{Temporal Databases}
+%In this section, the proposed reasoning is applied to the specific context of intervals on the real line. This setting is of specific interest in the context of fuzzy temporal databases.
+As explained in the introduction, a \emph{temporal database schema} models objects or concepts with time-related or -variant properties and a \emph{temporal database} contains measurements or descriptions of temporal properties of these objects or concepts. Also, the modelling of temporal aspects has a direct impact on the consistency of the temporal database.
+
+In \cite{Dyreson1994}, a consensus glossary on temporal terminology has been presented. Next, some of the important concepts from this glossary are described. 
+
+A \emph{chronon} is a non-decomposable time interval with minimal duration and the database is thus unable to distinguish time intervals shorter than a chronon. 
+
+Based on their interpretation and modelling purpose, temporal data in a temporal database can be classified into four types. Of these types, \emph{user-defined time} contains temporal data without impact on the consistency of the temporal database. These data are not handled specifically. The other types are:
+
+
+%A \emph{chronon} is the shortest duration of time supported by the TDB and thus the database is unable to distinguish time periods shorter than a chronon. 
+
+%Time in a TDB can be represented either as points or intervals \cite{655777}.
+%There are proposals for the fuzzyfication of the time point and the fuzzyfication of the time interval.
+
+
+%Time granularity is also associated with the representation of the time. A granularity is the result of partitioning on the set of chronons. The conversion among granularities is a common issue within temporal databases \cite{Lin97efficientconversion}. Granularity is the basis of some systems \cite{Cru97},\cite{624013}.
+
+\vspace{-5pt}
+\begin{itemize}
+	\item \emph{transaction time} \cite{Dyreson1994} contains temporal data describing when a fact is stored in the database and not yet logically deleted
+	\item	\emph{valid time} \cite{Dyreson1994} contains temporal data describing when a fact is true in the modelled reality
+	\item	\emph{decision time} \cite{Nascimento95} contains temporal data describing when an event was decided to happen
+\end{itemize}
+\vspace{-5pt}
+
+Other possible types of database models are \emph{bi-temporal} (both valid and transaction time) \cite{Dyreson1994} or \emph{tri-temporal} (valid, transaction and decision time) \cite{Nascimento95} models. To deal with descriptions of time points \cite{Dubois89} or intervals \cite{Garrido2009} that are subject to imperfection, fuzzy temporal models \cite{schockaert08} exist. %Some fuzzy temporal models assume that the time stored in the database is an interval. The temporal interval is represented by two ill-known time points: $X$  an ill-known starting point and $Y$ an ill-known ending point. The interval $\left[X,Y\right]$ is not a fuzzy interval but an ill-known interval: it is a crisp interval but it is partially unknown which values are in this interval.
+
+	
+%Database models can then be classified into transaction time \cite{Jensen91}, decision time, valid time, bi-temporal (both valid and transaction time) \cite{Snodgrass84} or tri-temporal (valid, transaction and decision time) \cite{Nascimento95} models.
+
+
+%\subsection{\label{subsec:possibility-theory}Possibility Theory}
+%Possibility theory, like probability theory, deals with uncertainty about the outcome of an experiment. In probability theory, this uncertainty is caused by the \emph{variability} in the outcomes, while in possibility theory, the uncertainty is caused by \emph{incomplete knowledge} about the experiment. The quantification of confidence in a theory of uncertainty is achieved using a confidence measure\cite{Shafer:1976:AMathematical}. In probability theory this is a measure of chance, in possibility theory, possibility and necessity measures are used.
+
+%\begin{definition}
+%Consider a set of outcomes $\Omega$. Let $\wp(\Omega)$ denote the powerset of $\Omega$ and let $A$ and $B$ be elements of $\wp(\Omega)$. A \emph{confidence measure on $\Omega$} is defined by a function
+%	\begin{align}
+%	g : \wp(\Omega) & \rightarrow \left[0,1\right]
+%	\end{align}
+%that satisfies
+%	\begin{align}
+%	g(\emptyset) &= 0 \\
+%	g(\Omega) &= 1 	\label{NormalizationProperty} \\
+%	A \subseteq B &\Rightarrow g(A) \leq g(B) \label{MonotonicityProperty}
+%	\end{align}
+%\end{definition}
+
+%Both possibility measures and necessity measures are special cases of confidence measures.
+
+%\begin{definition}
+%Consider a confidence measure $\Pi$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $\Pi$ is now a \emph{possibility measure on $\Omega$} if it satisfies:
+%	\begin{align}
+%	\Pi\left(\bigcup_{j \in J} A_{j} \right) = \sup_{j \in J} \Pi(A_{j})
+%	\end{align}
+%\end{definition}
+
+%In this work, the interpretation is as follows. The possibility of an event expresses how plausible the occurrence of the event seems to an observer of the experiment, given the (partial) knowledge of the observer about the experiment.
+
+%Information on the possibility of distinct elements of the universe of discourse $\Omega$ can now be given by a \emph{possibility distribution} $\pi$ on $\Omega$, defined by:
+
+%\begin{definition}
+%Consider a possibility measure $\Pi$ on $\Omega$. A \emph{possibility distribution} $\pi$ on $\Omega$ underlying the possibility measure $\Pi$ is then a function defined by:
+%	\begin{align}
+%	\pi : \Omega \rightarrow \left[0, 1\right] : \pi(u) = \Pi(\{u\})
+%	\end{align}
+%\end{definition}
+
+%\begin{definition}
+%Consider a confidence measure $N$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $N$ is now a \emph{necessity measure} on $\Omega$ if it satisfies:
+%	\begin{align}
+%	N\left(\bigcap_{j \in J} A_{j} \right) = \inf_{j \in J} N(A_{j})
+%	\end{align}
+%\end{definition}
+
+%In this work, the interpretation is as follows. The necessity of an event expresses how necessary the occurrence of the event seems to an observer of the experiment, given the (partial) knowledge of the observer about the experiment.
+
+%Possibility and necessity measures are dual in the sense that:
+
+%\begin{align}
+%\forall A \subseteq \Omega : N(A) = 1 - \Pi(\bar{A})
+%\end{align}
+
+%Regarding interpretation, the above can be seen as: the degree to which an event is necessary is the degree to which every other possible event is not plausible.
+
+\subsection{\label{subsec:possibilistic-variables}Possibilistic Variables and Ill-known Values, Sets and Intervals}
+In this section, possibilistic variables and the concepts of ill-known values, ill-known sets and ill-known intervals are introduced, based on \cite{Pon11}. These concepts rely heavily on possibility theory \cite{Dubois:Prade:1988:PossibilityTheory} and its concepts like `possibility' and `possibility distribution'. In this work, `possibility' is always interpreted as a measure of plausibility. A \emph{possibilistic variable} is defined as follows \cite{Pon11}.
+
+%It is assumed that the reader is familiar with possibility theory. For more information on possibility theory, the reader is referred to \cite{Dubois:Prade:1988:PossibilityTheory}. 
+
+\begin{definition}
+A \emph{possibilistic variable} $X$ on a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The variable's possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u \in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$. This possibility is interpreted as a measure of plausibility and thus as a measure of how plausible it is that $X$ takes the value $u$, given (partial) knowledge about the value $X$ takes.
+\end{definition}
+Consider a set $R$ containing single values (and not collections of values). When a possibilistic variable $X_{v}$ is defined on such a set $R$, the unique value $X_{v}$ takes, which is (partially) unknown, is called an \emph{ill-known value} in this work \cite{Dubois88b}.
+
+Now, consider a set $R$ containing single values and its powerset $\wp(R)$. When a possibilistic variable $X_{s}$ is defined on the powerset $\wp(R)$ of such a set $R$, the unique value $X_{s}$ takes will be a crisp set and the possibility distribution $\pi_{X_{s}}$ of $X_{s}$ will be a possibility distribution on $\wp(R)$. This $\pi_{X_{s}}$ will define the possibility of each value of $\wp(R)$ (a value of $\wp(R)$ is a crisp subset of $R$) being the value $X_{s}$ takes. This exact value $X_{s}$ takes, is called an \emph{ill-known set} \cite{Dubois88b}.
+
+Consider a set $R$ containing single values and its powerset $\wp(R)$. Now consider a subset $\wp_{I}(R)$ of $\wp(R)$ and let this subset contain every element of $\wp(R)$ that is an interval, but no other elements. When a possibilistic variable $X_{i}$ is defined on the subset $\wp_{I}(R)$ of the powerset $\wp(R)$ of some set $R$, the unique value $X_{i}$ takes will be a crisp interval and the possibility distribution $\pi_{X_{i}}$ of $X_{i}$ will be a possibility distribution on $\wp_{I}(R)$. This $\pi_{X_{i}}$ will define the possibility of each value of $\wp_{I}(R)$ (a value of $\wp_{I}(R)$ is a crisp interval in $R$) being the value $X_{i}$ takes. This exact value the variable takes, is called an \emph{ill-known interval} here.
+
+In this work, another approach to defining and describing an ill-known interval is used. Here, an ill-known interval $I$ is defined and described by its start and end point, which are ill-known values. Thus, an ill-known interval is seen as an interval of which the exact start and end point are (partially) unknown, which implies that the interval itself is (partially) unknown. Thus, the start and end point of an ill-known interval are mutually independent ill-known values, which are defined by mutually independent possibilistic variables.
+
+In intentions, both approaches are the same: they attempt to model a single interval for which some uncertainty exists about which values are in the interval and which are not. The approach mentioned first does this by defining the possibility that an interval is the meant interval, for every interval in the considered interval set, whereas the second approach describes the possibility of a single point being the start point of the meant interval and the possibility of a single point being the end point of the meant interval, for every point imaginable. The actual ill-known interval is then inferred from these start and end points.
+
+Whatsoever, the interactions and behaviors of these representations and the correspondences, interactions and transformations between them are part of the current research of the authors.
+
+%describes a set of values that is certainly in the interval and uncertainty about a set of others (near the start and end point). Thus, this last approach contains more information: it gives a set of values that are certainly in the interval...}
+
+%It is important to understand the difference between the following two concepts:
+%\begin{itemize}
+%\item
+%A \emph{possibilistic variable} $X$ is bounded to take only one value , but this value is not known due to incomplete knowledge. 
+%\item
+%An \emph{ill-known set}~\cite{Dubois88b}: a possibilistic variable defined over the universe $\Pow(U)$.
+%\end{itemize}
+
+%Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
+A specific application of possibilistic variables is obtained when the universe under consideration is the set of boolean values, denoted $\mathbb{B}$ = $\{T,F\}$, where $T$ denotes `true' and $F$ denotes `false' \cite{Pon11}. Indeed, any boolean proposition $p$ takes exactly one value in $\mathbb{B}$. If the knowledge about which value this proposition $p$ takes is given by a possibility distribution $\pi_p$, proposition $p$ can be seen as a possibilistic variable. As the interest lies with the case where the proposition holds (denoted $p$ = $T$), the possibility and necessity that $p$ = $T$ demand most attention. In this work, the following notations are used:
+
+\vspace{-15pt}
+\begin{align}
+\text{Possibility that $p$ = $T$:} \hspace{50pt} & Pos(p) = \pi_p(T) \label{propholdsposs} \\
+\text{Necessity that $p$ = $T$:} \hspace{50pt} & Nec(p) = 1-\pi_p(F) \label{propholdsnecc}
+\end{align}
+
+%Here, notation \ref{propholdsposs} denotes the possibility that $p$ = $T$ and the proposition holds, notation \ref{propholdsnecc} denotes the necessity that $p$ = $T$ and the proposition holds.
+
+%This work will deal with ill-known intervals. These are ill-known sets, defined and represented via a start and end point, which will be ill-known values. The elements of the set are the values between the start and end point. An closed ill-known interval with start point $X$ and end point $Y$ is noted here $\left[X, Y\right]$. The correspondences and transitions between the representations of ill-known sets and between the representation of an ill-known set and an ill-known interval are part of the authors current research.
+
+%\subsection{\label{subsec:fuzzy-numbers}Fuzzy Numbers and Fuzzy Intervals}
+%Among others, Dubois and Prade~\cite{Dubois1983} use the following definition of a \emph{fuzzy interval}.
+%\begin{definition}
+%A fuzzy interval is a fuzzy set $M$, defined by a membership function $\mu_{M}$, on the set of real numbers $\mathbb{R}$ such that:
+%\begin{eqnarray}
+%\mu_{M} : & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\! \mathbb{R} \rightarrow \left[0,1\right] \nonumber \\ 
+%\forall (u,v)\in\mathbb{R}^2: \forall w \in [u,v]:&\mu_M(w) \geq\min(\mu_M(u),\mu_M(v))  \\
+%\exists m \in \mathbb{R} : & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\! \mu_M(m)=1 
+%\end{eqnarray}
+%\end{definition}
+%If this modal value $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}. In other words, if the core of a fuzzy interval is a singleton, it is referred to as a fuzzy number.
+
+%A simple form of the membership function of a fuzzy interval is a trapezoidal function. It can be shown that such a membership function $\mu_T$ for a fuzzy interval $T$ is convex and normalized. A visualization is given in figure \ref{fig:trapezoidal}. Four reel values, denoted $\alpha$, $\beta$, $\gamma$ and $\delta$ and chosen as in figure \ref{fig:trapezoidal}, suffice to represent a trapezoidal membership function of a fuzzy interval. In this work, a fuzzy interval defined as such will be noted as $\left[\alpha, \beta, \gamma, \delta\right]$. %The corresponding membership function definition for this $\mu_T$ is then given by:
+
+%\begin{align}
+%\mu_T : & \quad \mathbb{R} \rightarrow \left[0,1\right] \\
+% : & \quad x \rightarrow
+%\begin{cases}
+%1 & \mbox{ if } x \in [\beta,\gamma] \\
+%0 & \mbox{ if } x > \delta \vee x < \alpha \\
+%\frac{x-\alpha}{\beta - \alpha} & \mbox{ if } x \in [\alpha,\beta[ \\
+%\frac{\delta -x}{\delta - \gamma} & \mbox{ if } x \in ]\gamma,\delta] \\
+%\end{cases}
+%\end{align}
+
+%\def\JPicScale{0.5}
+%\begin{figure}[h!]
+%  \centering
+%  \input{./graphs/trapezoidal.tex}
+%  \caption{Trapezoidal membership function}
+%  \label{fig:trapezoidal}
+%\end{figure}
+
+%The most convenient form of the membership function of a fuzzy number is a triangular function. It can be shown that such a membership function $\mu_M$ for a fuzzy number $M$ is convex and normalized. A visualization is given in figure \ref{fig:triangular}. Three reel values, denoted $a$, $b$ and $D$, suffice to represent a triangular membership function of a fuzzy number and in this work, a fuzzy number defined as such will be noted as $\left[D, a, b \right]$. Here:
+%\begin{itemize}
+%\item
+%$D$ denotes the single value in the core of $M$
+%\item
+%$D-a$ is then $\inf \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
+%\item
+%$D+b$ is then $\sup \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
+%\end{itemize}
+%\begin{figure}[h!]
+%  \centering
+%  \input{./graphs/triangular.tex}
+%  \caption{Triangular membership function.}
+%  \label{fig:triangular}
+%\end{figure}
+
+
+%\subsubsection{Set evaluation by ill-known constraints}
+
+\subsection{Interval Evaluation by Ill-known Constraints}
+The problem of interval evaluation is more generally explained in \cite{Pon11}: basically, the need exists to check how all points in a crisp set are positioned with respect to one or more ill-known values.
+
+In \cite{Pon11}, the notion of an ill-known constraint is introduced:
+
+\begin{definition}
+Given a universe $U$, an \emph{ill-known constraint} $C$ is specified by means of a binary relation $R \subseteq U^{2}$ and a fixed, ill-known value defined by its possibilistic variable $V$ on $U$, i.e.:
+\begin{align}
+C \triangleq (V,R)
+\end{align}
+Some set $A \subseteq U$ now satisfies this constraint $C$ if and only if:
+\begin{align}
+\forall a \in A : (V,a) \in R
+\end{align}
+\end{definition}
+
+An example of an ill-known constraint is $C_{<} \triangleq (X, <)$. Some set $A$ then satisfies $C_{<}$ if $\forall a \in A : X <a$.
+
+The satisfaction of a constraint $C \triangleq (V,R)$ by a set $A$ is basically a Boolean matter and can thus be seen as a boolean proposition, but due to the uncertainty inherent to the ill-known value $V$, it can be uncertain whether $C$ is satisfied by $A$ or not \cite{Pon11}. Based on the possibility distribution $\pi_{V}$ of $V$, the possibility and necessity that $A$ satisfies $C$ can be found. This proposition can thus be seen as a possibilistic variable on $\mathbb{B}$. The required possibility and necessity are:
+
+\vspace{-10pt}
+
+\begin{align}
+Pos(A\text{ satisfies }C) & = \min_{a \in A}\left(\sup_{(w,a) \in R}\pi_{V}(w))\right) \label{eq:pos}\\
+Nec(A\text{ satisfies }C) & = \min_{a \in A}\left(\inf_{(w,a) \notin R} 1-\pi_{V}(w)\right) \label{eq:nec}
+\end{align}
+
+
+
+Now, to calculate the possibility or necessity of a set $A$ satisfying multiple constraints, the $\min$ t-norm operator is used. For example:
+
+\vspace{-10pt}
+
+\begin{align}
+Pos((A\text{ satisfies }C_{1}) \text{ and } (A\text{ satisfies }C_{2})) & = \nonumber\\
+ \min_{a \in A}(Pos(A\text{ satisfies }C_{1}), Pos(A\text{ satisfies }C_{2})) \nonumber \\
+Nec((A\text{ satisfies }C_{1}) \text{ and } (A\text{ satisfies }C_{2})) & = \nonumber\\
+ \min_{a \in A}(Nec(A\text{ satisfies }C_{1}), Nec(A\text{ satisfies }C_{2})) \nonumber
+\end{align}
+
+%\vspace{-10pt}
+
+%Now, to check if crisp interval $I = \left[j, k\right]$ is included in $\left[X, Y\right]$, 2 ill-known constraints are constructed:
+
+%We assume that $X$ specifies the lower bound and $Y$ the upper bound for a given interval, we want to known whether all points in the interval are larger than or equal to $X$ and smaller than or equal to $Y$. Therefore, we consider two ill-known constraints:
+
+%\begin{eqnarray}
+%C_1\triangleq\left(\geq,X\right)\\
+%C_2\triangleq\left(\leq,Y\right).
+%\end{eqnarray}
+
+%The possibility and necessity of the set satisfying both constraints is then:
+
+%\begin{align}
+%\label{eq:interval-pos}
+%Pos(A\text{ satisfies }C_1\ AND\ C_2) & = \min_{a \in A}\left(\sup_{a \geq w}\pi_{X}(w),\sup_{a \leq v}\pi_{Y}(v)\right)\\
+%\label{eq:interval-nec}
+%Nec(A\text{ satisfies }C_1\ AND\ C_2) & = \min_{a \in A}\left(\inf_{a < w} 1-\pi_{X}(w),\inf_{a > v} 1-\pi_{Y}(v)\right).
+%\end{align}
+
+%\paragraph{Example} Consider the ill-known values $X = \left[5, 2, 8\right]$ and $Y = \left[9, 7, 10 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$  is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure~\ref{fig:3d-possibility} shows a 3D plot of the possibility that an interval $[a,b]$ passes the evaluations specified by the ill-known constraints. Note the triangular form for the resulting possibility distribution since the condition $a \leq b$ holds.
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{graphs/3D_possibility.eps}
+%\caption{Possibility of evaluation for the interval $[a,b]$.}
+%\label{fig:3d-possibility}
+%\end{figure}
+%The necessity plot is obtained in a similar way and is shown in Figure~\ref{fig:3d-necessity}. Notice that the necessity measure is not normalized because the supports of $X$ and $Y$ overlap.
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{graphs/3D_necessity.eps}
+%\caption{Necessity of evaluation for the interval $[a,b]$.}
+%\label{fig:3d-necessity}
+%\end{figure}
+
+
+
