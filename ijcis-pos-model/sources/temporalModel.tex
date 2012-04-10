@@ -6,234 +6,234 @@
 
 
 
-
-\vglue13pt
-%\begin{table}[htbp]
-\tcap{Valid-Time interval data types}
-\centerline{\small VALID TIME DATA TYPES}
-\vglue-6pt
-\centerline{\small\baselineskip=13pt
-\begin{tabular}{c p{2cm} p{2cm}}\\
-\hline
-Type for S & Type for E & Semantics \\
-\hline
-Unknown & Unkown & Unknown interval. \\
-\hline
-1,2 & 1,2 & A possibilistic time interval. \\
-\hline\\
-\end{tabular}
-\label{tbl:valid-time-interval}}
-%\end{table}
-
-The following is a study of the constraints in the range of values for both starting and ending times to represent a valid time interval.
-
-The time period inside a valid time interval is denoted by two constraints:
-\begin{eqnarray}
-C_1\stackrel{\triangle}{=}\left(\geq,X\right)\\
-C_2\stackrel{\triangle}{=}\left(\leq,Y\right).
-\end{eqnarray}
-Applying the inference of uncertainty as proposed in our general reasoning, we find for the first constraint that:
-\begin{eqnarray}
-\Pos\left(C_1([a,b])\right) &=& \min_{r\in[a,b]}\Big(\sup_{r\leq w}\pi_{X}(w)\Big)\\
-\Nec\left(C_1([a,b])\right) &=& \min_{r\in[a,b]}\Big(\inf_{r>w}1-\pi_{X}(w)\Big)
-\end{eqnarray}
-which can be simplified to:
-\begin{eqnarray}
-\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{X}(w)\\
-\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{X}(w).
-\end{eqnarray}
-For the second constraint, we find that:
-\begin{eqnarray}
-\Pos\left(C_2([a,b])\right) &=& \min_{r\in[a,b]}\Big(\sup_{r\geq w}\pi_{Y}(w)\Big)\\
-\Nec\left(C_2([a,b])\right) &=& \min_{r\in[a,b]}\Big(\inf_{r<w}1-\pi_{Y}(w)\Big)
-\end{eqnarray}
-which can be simplified to:
-\begin{eqnarray}
-\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{Y}(w)\\
-\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{Y}(w).
-\end{eqnarray}
-The uncertainty about the inclusion of an interval $I=[a,b]$ in the interval with ill-known boundaries can now be found by evaluating $[a,b]$ against the evaluation function $\lambda$ with $\bool=\wedge$. Application of \eqref{eq:conjunctive1} and \eqref{eq:conjunctive2} leads to:
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\Pos(C_1([a,b])),\Pos(C_2([a,b]))\bigg)\\
-\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\Nec(C_1([a,b])),\Nec(C_2([a,b]))\bigg).
-\end{eqnarray}
-These last expressions can also be expanded as:
-\begin{eqnarray}
-\label{eq:interval-pos}
-\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{X}(w),\sup_{b\geq w}\pi_{Y}(w)\bigg)\\
-\label{eq:interval-nec}
-\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{X}(w),\inf_{b<w}1-\pi_{Y}(w)\bigg).
-\end{eqnarray}
-Note that the interval $[X,Y]$ used here, is certainly not a fuzzy interval. Instead, we are dealing with an ill-known interval, i.e. it is a crisp interval, but it is partially unknown which values are in this interval. The uncertainty stems from the fact that the interval boundaries are ill-known.
-
-Within this framework for the reasoning of the knowledge about the interval, we are going to study the semantics from the point of view of the valid time as well as from the point of view of the temporal database.
-
-\subsubsection{S = Unknown, E = Unknown}
-Consider that the possibility distribution for S is Unknown and for E is also Unknown. The possibility distributions are $\pi_S$ and $\pi_E$ respectively:
-
-\begin{eqnarray}
-\pi_{S}(t \in \T) = 1\\
-\pi_{E}(t \in \T) = 1
-\end{eqnarray}
-
-Therefore the constraints $C_1$ and $C_2$ are:
-
-\begin{eqnarray}
-\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{S}(w) = 1\\
-\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{S}(w) = 0\\
-\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{E}(w)=1\\
-\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{E}(w)=0
-\end{eqnarray}
-
-
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{S}(w),\sup_{b\geq w}\pi_{E}(w)\bigg) \\
-&=& \min(1,1)  = 1\\
-\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{S}(w),\inf_{b<w}1-\pi_{E}(w)\bigg)\\
-&=& \min(0,0) = 0
-\end{eqnarray}
-
-\begin{example}
-A constant object in the database. It is an object that is always valid in the database.
-The main issue in a valid time database is that the update sentence have to modify the starting or ending point distribution. The most natural way to convert a snapshot database to a temporal database is to consider the objects belonging to the interval [Unknown, Unknown].
-\end{example}
-
-\subsubsection{[Unknown,value] or [value,Unknown]}
-These two cases are managed in this section. Here we will note $\pi_{S}(t)$ or $\pi_{E}(t)$ as the possibility distribution for 'value' in the starting or ending points.
-
-First of all the case [Unknown,value] in \eqref{eq:interval-pos} and in \eqref{eq:interval-nec}:
-
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min (1,\sup_{b\geq w}\pi_{E}(w))\\
- &=& \sup_{b\geq w}\pi_{E}(w)\\
-\Nec\left(\lambda([a,b])\right)&=&\min (0,\inf_{b<w}1-\pi_{E}(w))\\
-&=& 0
-\end{eqnarray}
-
-Similarily for [value,Unknown] the possibility and neccesity are:
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min (\sup_{a\leq w}\pi_{S}(w),1)\\
- &=& \sup_{a\leq w}\pi_{S}(w)\\
-\Nec\left(\lambda([a,b])\right)&=&\min (\inf_{a>w}1-\pi_{S}(w),0)\\
-&=& 0
-\end{eqnarray}
-
-The semantics for an object with valid time given by [Unknown,value] is an object that has been valid from the beggining to an ending time. Analogously, the semantics for an object with a valid time given by the interval [value,Unknown] is an object that it is still valid in the database. 
-
-
-\subsubsection{[Undefined,Undefined]}
-Maybe this combination has no sense for a valid time object. The possibility distributions for both starting and ending points are:
-
-\begin{eqnarray}
-\pi_{S}(t \in \T) = 0\\
-\pi_{E}(t \in \T) = 0
-\end{eqnarray}
-
-Therefore the constraints $C_1$ and $C_2$ are:
-
-\begin{eqnarray}
-\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{S}(w) = 0\\
-\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{S}(w) = 1\\
-\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{E}(w)=0\\
-\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{E}(w)=1
-\end{eqnarray}
-
-Taking these values into  \eqref{eq:interval-pos} and in \eqref{eq:interval-nec}:
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min (0,0)\\
- &=& 0\\
-\Nec\left(\lambda([a,b])\right)&=&\min (1,1)\\
-&=& 1
-\end{eqnarray}
-
-\textcolor{red}{TAKE A LOOK INTO THIS}
-
-Which is an inconsistency.
-
-\subsection{[Undefined,value] or [value,Undefined]}
-
-The possibility and neccesity measures for [Undefined,value] are :
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min (0,\sup_{b\geq w}\pi_{E}(w))\\
- &=& 0\\
-\Nec\left(\lambda([a,b])\right)&=&\min (1,\inf_{b<w}1-\pi_{E}(w))\\
-&=& \inf_{b<w}1-\pi_{E}(w)
-\end{eqnarray}
-
-The other way around, [value,Undefined]:
-\begin{eqnarray}
-\Pos\left(\lambda([a,b])\right)&=&\min (\sup_{a\leq w}\pi_{S}(w),0)\\
- &=& 0\\
-\Nec\left(\lambda([a,b])\right)&=&\min (\inf_{a>w}1-\pi_{S}(w),1)\\
-&=& \inf_{a>w}1-\pi_{S}(w)
-\end{eqnarray}
-
-\textcolor{red}{TAKE A LOOK INTO THIS}
-This is also an inconsistency.
-
-\subsubsection{[NULL,NULL] and maybe any combination with NULL}
-I think the framework we have can not deal with NULL computations. Maybe just for non-specified time or something like that.
-
-\subsubsection{[Undefined,Unknown] or [Unknown,Undefined]}
-The semantic for this could be also unconsistent.
-
-
-\begin{example}
-Consider a snapshot database (table \ref{tbl:snapshot-car-models}) that stores information about car models. The primary key is given by the set $\lbrace$ Brand, Model $\rbrace$.
-
-\vglue13pt
-%\begin{table}[htbp]
-\tcap{Car model snapshot database}
-\centerline{\small CAR MODELS}
-\vglue-6pt
-\centerline{\small\baselineskip=13pt
-\begin{tabular}{c c c}\\
-\hline
-\textbf{Brand} & \textbf{Model} & Segment \\
-\hline
-Peugeot & 205 & B \\
-Peugeot & 206 & B \\
-Peugeot & 207 & B \\
-Peugeto & 208 & B \\
-Citroen & C2 & B \\
-\hline\\
-\end{tabular}
-\label{tbl:snapshot-car-models}
-}
-
-Consider now that the user wants to make that table a valid-time table, then, from the point of view of the storage, the following changes should be done:
-
-\begin{itemize}
-\item
-A new definition for the primary key, including a version field.
-\item
-The addition of two new columns to store the valid-time interval. By default the initial values are Unknown for both starting and ending points of the interval.
-\end{itemize}
-Therefore, the table \ref{tbl:snapshot-car-models} is transformed into table \ref{tbl:initial-valid-time-car-models}:
-
- \vglue13pt
-%\begin{table}[htbp]
-\tcap{Car model valid-time database. Note that U is the abbreviation for the Unknown constant.}
-\centerline{\small VALID TIME CAR MODELS}
-\vglue-6pt
-\centerline{\small\baselineskip=13pt
-\begin{tabular}{c c c c c c}\\
-\hline
-\textbf{Brand} & \textbf{Model} & \textbf{VersionID} & Segment & S & E \\
-\hline
-Peugeot & 205 & 001 & B & U & U \\
-Peugeot & 206 & 001 & B & U & U \\
-Peugeot & 207 & 001 & B & U & U \\
-Peugeto & 208 & 001 & B & U & U \\
-Citroen & C2 & 001 & B & U & U \\
-\hline\\
-\end{tabular}
-\label{tbl:initial-valid-time-car-models}
-}
-
-
-
-\end{example}
+%
+%\vglue13pt
+%%\begin{table}[htbp]
+%\tcap{Valid-Time interval data types}
+%\centerline{\small VALID TIME DATA TYPES}
+%\vglue-6pt
+%\centerline{\small\baselineskip=13pt
+%\begin{tabular}{c p{2cm} p{2cm}}\\
+%\hline
+%Type for S & Type for E & Semantics \\
+%\hline
+%Unknown & Unkown & Unknown interval. \\
+%\hline
+%1,2 & 1,2 & A possibilistic time interval. \\
+%\hline\\
+%\end{tabular}
+%\label{tbl:valid-time-interval}}
+%%\end{table}
+%
+%The following is a study of the constraints in the range of values for both starting and ending times to represent a valid time interval.
+%
+%The time period inside a valid time interval is denoted by two constraints:
+%\begin{eqnarray}
+%C_1\stackrel{\triangle}{=}\left(\geq,X\right)\\
+%C_2\stackrel{\triangle}{=}\left(\leq,Y\right).
+%\end{eqnarray}
+%Applying the inference of uncertainty as proposed in our general reasoning, we find for the first constraint that:
+%\begin{eqnarray}
+%\Pos\left(C_1([a,b])\right) &=& \min_{r\in[a,b]}\Big(\sup_{r\leq w}\pi_{X}(w)\Big)\\
+%\Nec\left(C_1([a,b])\right) &=& \min_{r\in[a,b]}\Big(\inf_{r>w}1-\pi_{X}(w)\Big)
+%\end{eqnarray}
+%which can be simplified to:
+%\begin{eqnarray}
+%\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{X}(w)\\
+%\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{X}(w).
+%\end{eqnarray}
+%For the second constraint, we find that:
+%\begin{eqnarray}
+%\Pos\left(C_2([a,b])\right) &=& \min_{r\in[a,b]}\Big(\sup_{r\geq w}\pi_{Y}(w)\Big)\\
+%\Nec\left(C_2([a,b])\right) &=& \min_{r\in[a,b]}\Big(\inf_{r<w}1-\pi_{Y}(w)\Big)
+%\end{eqnarray}
+%which can be simplified to:
+%\begin{eqnarray}
+%\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{Y}(w)\\
+%\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{Y}(w).
+%\end{eqnarray}
+%The uncertainty about the inclusion of an interval $I=[a,b]$ in the interval with ill-known boundaries can now be found by evaluating $[a,b]$ against the evaluation function $\lambda$ with $\bool=\wedge$. Application of \eqref{eq:conjunctive1} and \eqref{eq:conjunctive2} leads to:
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\Pos(C_1([a,b])),\Pos(C_2([a,b]))\bigg)\\
+%\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\Nec(C_1([a,b])),\Nec(C_2([a,b]))\bigg).
+%\end{eqnarray}
+%These last expressions can also be expanded as:
+%\begin{eqnarray}
+%\label{eq:interval-pos}
+%\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{X}(w),\sup_{b\geq w}\pi_{Y}(w)\bigg)\\
+%\label{eq:interval-nec}
+%\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{X}(w),\inf_{b<w}1-\pi_{Y}(w)\bigg).
+%\end{eqnarray}
+%Note that the interval $[X,Y]$ used here, is certainly not a fuzzy interval. Instead, we are dealing with an ill-known interval, i.e. it is a crisp interval, but it is partially unknown which values are in this interval. The uncertainty stems from the fact that the interval boundaries are ill-known.
+%
+%Within this framework for the reasoning of the knowledge about the interval, we are going to study the semantics from the point of view of the valid time as well as from the point of view of the temporal database.
+%
+%\subsubsection{S = Unknown, E = Unknown}
+%Consider that the possibility distribution for S is Unknown and for E is also Unknown. The possibility distributions are $\pi_S$ and $\pi_E$ respectively:
+%
+%\begin{eqnarray}
+%\pi_{S}(t \in \T) = 1\\
+%\pi_{E}(t \in \T) = 1
+%\end{eqnarray}
+%
+%Therefore the constraints $C_1$ and $C_2$ are:
+%
+%\begin{eqnarray}
+%\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{S}(w) = 1\\
+%\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{S}(w) = 0\\
+%\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{E}(w)=1\\
+%\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{E}(w)=0
+%\end{eqnarray}
+%
+%
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{S}(w),\sup_{b\geq w}\pi_{E}(w)\bigg) \\
+%&=& \min(1,1)  = 1\\
+%\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{S}(w),\inf_{b<w}1-\pi_{E}(w)\bigg)\\
+%&=& \min(0,0) = 0
+%\end{eqnarray}
+%
+%\begin{example}
+%A constant object in the database. It is an object that is always valid in the database.
+%The main issue in a valid time database is that the update sentence have to modify the starting or ending point distribution. The most natural way to convert a snapshot database to a temporal database is to consider the objects belonging to the interval [Unknown, Unknown].
+%\end{example}
+%
+%\subsubsection{[Unknown,value] or [value,Unknown]}
+%These two cases are managed in this section. Here we will note $\pi_{S}(t)$ or $\pi_{E}(t)$ as the possibility distribution for 'value' in the starting or ending points.
+%
+%First of all the case [Unknown,value] in \eqref{eq:interval-pos} and in \eqref{eq:interval-nec}:
+%
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min (1,\sup_{b\geq w}\pi_{E}(w))\\
+% &=& \sup_{b\geq w}\pi_{E}(w)\\
+%\Nec\left(\lambda([a,b])\right)&=&\min (0,\inf_{b<w}1-\pi_{E}(w))\\
+%&=& 0
+%\end{eqnarray}
+%
+%Similarily for [value,Unknown] the possibility and neccesity are:
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min (\sup_{a\leq w}\pi_{S}(w),1)\\
+% &=& \sup_{a\leq w}\pi_{S}(w)\\
+%\Nec\left(\lambda([a,b])\right)&=&\min (\inf_{a>w}1-\pi_{S}(w),0)\\
+%&=& 0
+%\end{eqnarray}
+%
+%The semantics for an object with valid time given by [Unknown,value] is an object that has been valid from the beggining to an ending time. Analogously, the semantics for an object with a valid time given by the interval [value,Unknown] is an object that it is still valid in the database. 
+%
+%
+%\subsubsection{[Undefined,Undefined]}
+%Maybe this combination has no sense for a valid time object. The possibility distributions for both starting and ending points are:
+%
+%\begin{eqnarray}
+%\pi_{S}(t \in \T) = 0\\
+%\pi_{E}(t \in \T) = 0
+%\end{eqnarray}
+%
+%Therefore the constraints $C_1$ and $C_2$ are:
+%
+%\begin{eqnarray}
+%\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{S}(w) = 0\\
+%\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{S}(w) = 1\\
+%\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{E}(w)=0\\
+%\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{E}(w)=1
+%\end{eqnarray}
+%
+%Taking these values into  \eqref{eq:interval-pos} and in \eqref{eq:interval-nec}:
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min (0,0)\\
+% &=& 0\\
+%\Nec\left(\lambda([a,b])\right)&=&\min (1,1)\\
+%&=& 1
+%\end{eqnarray}
+%
+%\textcolor{red}{TAKE A LOOK INTO THIS}
+%
+%Which is an inconsistency.
+%
+%\subsection{[Undefined,value] or [value,Undefined]}
+%
+%The possibility and neccesity measures for [Undefined,value] are :
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min (0,\sup_{b\geq w}\pi_{E}(w))\\
+% &=& 0\\
+%\Nec\left(\lambda([a,b])\right)&=&\min (1,\inf_{b<w}1-\pi_{E}(w))\\
+%&=& \inf_{b<w}1-\pi_{E}(w)
+%\end{eqnarray}
+%
+%The other way around, [value,Undefined]:
+%\begin{eqnarray}
+%\Pos\left(\lambda([a,b])\right)&=&\min (\sup_{a\leq w}\pi_{S}(w),0)\\
+% &=& 0\\
+%\Nec\left(\lambda([a,b])\right)&=&\min (\inf_{a>w}1-\pi_{S}(w),1)\\
+%&=& \inf_{a>w}1-\pi_{S}(w)
+%\end{eqnarray}
+%
+%\textcolor{red}{TAKE A LOOK INTO THIS}
+%This is also an inconsistency.
+%
+%\subsubsection{[NULL,NULL] and maybe any combination with NULL}
+%I think the framework we have can not deal with NULL computations. Maybe just for non-specified time or something like that.
+%
+%\subsubsection{[Undefined,Unknown] or [Unknown,Undefined]}
+%The semantic for this could be also unconsistent.
+%
+%
+%\begin{example}
+%Consider a snapshot database (table \ref{tbl:snapshot-car-models}) that stores information about car models. The primary key is given by the set $\lbrace$ Brand, Model $\rbrace$.
+%
+%\vglue13pt
+%%\begin{table}[htbp]
+%\tcap{Car model snapshot database}
+%\centerline{\small CAR MODELS}
+%\vglue-6pt
+%\centerline{\small\baselineskip=13pt
+%\begin{tabular}{c c c}\\
+%\hline
+%\textbf{Brand} & \textbf{Model} & Segment \\
+%\hline
+%Peugeot & 205 & B \\
+%Peugeot & 206 & B \\
+%Peugeot & 207 & B \\
+%Peugeto & 208 & B \\
+%Citroen & C2 & B \\
+%\hline\\
+%\end{tabular}
+%\label{tbl:snapshot-car-models}
+%}
+%
+%Consider now that the user wants to make that table a valid-time table, then, from the point of view of the storage, the following changes should be done:
+%
+%\begin{itemize}
+%\item
+%A new definition for the primary key, including a version field.
+%\item
+%The addition of two new columns to store the valid-time interval. By default the initial values are Unknown for both starting and ending points of the interval.
+%\end{itemize}
+%Therefore, the table \ref{tbl:snapshot-car-models} is transformed into table \ref{tbl:initial-valid-time-car-models}:
+%
+% \vglue13pt
+%%\begin{table}[htbp]
+%\tcap{Car model valid-time database. Note that U is the abbreviation for the Unknown constant.}
+%\centerline{\small VALID TIME CAR MODELS}
+%\vglue-6pt
+%\centerline{\small\baselineskip=13pt
+%\begin{tabular}{c c c c c c}\\
+%\hline
+%\textbf{Brand} & \textbf{Model} & \textbf{VersionID} & Segment & S & E \\
+%\hline
+%Peugeot & 205 & 001 & B & U & U \\
+%Peugeot & 206 & 001 & B & U & U \\
+%Peugeot & 207 & 001 & B & U & U \\
+%Peugeto & 208 & 001 & B & U & U \\
+%Citroen & C2 & 001 & B & U & U \\
+%\hline\\
+%\end{tabular}
+%\label{tbl:initial-valid-time-car-models}
+%}
+%
+%
+%
+%\end{example}
 
 
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
