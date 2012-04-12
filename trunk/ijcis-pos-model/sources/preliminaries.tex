@@ -101,9 +101,23 @@ A fuzzy interval is a fuzzy set $M$, defined by a membership function $\mu_{M}$,
 \exists m \in \mathbb{R} :  \mu_M(m)=1 
 \end{eqnarray}
 \end{definition}
-If this modal value $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}. In other words, if the core of a fuzzy interval is a singleton, it is referred to as a fuzzy number.
 
-A simple form of the membership function of a fuzzy interval is a trapezoidal function. It can be shown that such a membership function $\mu_T$ for a fuzzy interval $T$ is convex and normalized. Four reel values, denoted $\alpha$, $\beta$, $\gamma$ and $\delta$ suffice to represent a trapezoidal membership function of a fuzzy interval. In this work, a fuzzy interval defined as such will be noted as $\left[\alpha, \beta, \gamma, \delta\right]$. The corresponding membership function definition for this $\mu_T$ is then given by:
+\vspace*{13pt}
+\begin{center}
+{
+\includegraphics[scale=0.25]{./graphs/triangular.pdf}
+
+}
+\end{center}
+%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
+\vspace*{10pt}
+\fcaption{\label{fig:triangular-dist}Trapezoidal membership function.}
+%  \label{fig:fuzzy-validity-period}
+\vspace*{13pt}
+
+If this modal value $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}. In other words, if the core of a fuzzy interval is a singleton, it is referred to as a fuzzy number (Figure \ref{fig:triangular-dist}).
+
+A simple form of the membership function of a fuzzy interval is a trapezoidal function (Figure \ref{fig:trapezoidal-dist}. It can be shown that such a membership function $\mu_T$ for a fuzzy interval $T$ is convex and normalized. Four reel values, denoted $\alpha$, $\beta$, $\gamma$ and $\delta$ suffice to represent a trapezoidal membership function of a fuzzy interval. In this work, a fuzzy interval defined as such will be noted as $\left[\alpha, \beta, \gamma, \delta\right]$. The corresponding membership function definition for this $\mu_T$ is then given by:
 
 \begin{align}
 \mu_T : & \quad \mathbb{R} \rightarrow \left[0,1\right] \\
@@ -116,6 +130,19 @@ A simple form of the membership function of a fuzzy interval is a trapezoidal fu
 \end{cases}
 \end{align}
 
+
+\vspace*{13pt}
+\begin{center}
+{
+\includegraphics[scale=0.25]{./graphs/trapezoidalDistribution.pdf}
+
+}
+\end{center}
+%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
+\vspace*{10pt}
+\fcaption{\label{fig:trapezoidal-dist}Trapezoidal membership function.}
+%  \label{fig:fuzzy-validity-period}
+\vspace*{13pt}
 %\def\JPicScale{0.5}
 %\begin{figure}[h!]
 %  \centering
@@ -235,8 +262,8 @@ Note that by using the functions $\min$ and $\max$ here, there is an implicit as
 1-\Pos(\lambda(A)).
 \end{eqnarray}
 
-
-Now, e.g., to check if crisp interval $I = \left[j, k\right]$ is included in $\left[X, Y\right]$, 2 ill-known constraints are constructed:
+\begin{example}
+Consider that we want to check if crisp interval $I = \left[j, k\right]$ is included in $\left[X, Y\right]$, 2 ill-known constraints are constructed:
 
 %We assume that $X$ specifies the lower bound and $Y$ the upper bound for a given interval, we want to known whether all points in the interval are larger than or equal to $X$ and smaller than or equal to $Y$. Therefore, we consider two ill-known constraints:
 
@@ -261,9 +288,76 @@ To calculate the possibility and necessity concerning a conjunction of constrain
 \nonumber
 \min_{a \in I}\left(\inf_{a < w} 1-\pi_{X}(w),\inf_{a > v} 1-\pi_{Y}(v)\right).
 \end{align}
+\end{example}
 
+There is a special boolean combination of constraints that is of particular interest:
+\begin{definition}
+\emph{Convex combination of ill-known constraints}. Consider the $C_1$ and $C_2$ two ill-known constraints. A convex combination of the constraints is given by:
+\begin{align}
+\label{eq:convex-combination}
+CC \triangleq \left \lbrace C_1 \wedge C_2 \right \rbrace
+\end{align}
+In a more general way, it is possible to define the convex combination of an n-ary vector  $\mathbf{C}$ of constraints:
+\begin{align}
+\label{eq:nary-convex-combination}
+CC \triangleq \left \lbrace C_1 \wedge \ldots \wedge C_n \right \rbrace
+\end{align}
+\end{definition}
 
-Sometimes, an ill-known value might be specified by some boolean combination of ill-known constraints. This allow to define ill-known values by means of relationships with respect to other ill-known points.
+\begin{theorem}
+\label{th:convex-combination-ill-known-constraints}
+Consider the convex combination $CC$ of any n-ary vector $\mathbf{C} = \left \lbrace C_{1_{Z_1}}, \ldots, C_{n_{Z_n}} \right \rbrace$ of constraints over the ill-known variables $Z_1, \ldots, Z_n$. Then, if $\pi_{C_1(Z_1)}, \ldots, \pi_{C_n(Z_n)}$ are convex, then  $\pi_{CC}$ is also convex.
+\end{theorem}
+
+\begin{proof}
+Let $CC \triangleq \left \lbrace C_{1_{Z_1}}, \ldots, C_{n_{Z_n}}  \right \rbrace$. Then:
+\begin{align}
+\label{eq:proof-convex1}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) = \\
+\min  \big( \pi_{C_1(Z_1)}\left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right), \ldots,\\
+   \pi_{C_n(Z_n)}\left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right)  \big)
+\end{align}
+Since $\pi_{C_1(Z_1)}, \ldots, \pi_{C_n(Z_n)}$ are convex:
+\begin{align}
+\label{eq:proof-convex2}
+\pi_{C_1(Z_1)} \left(\lambda x_1 + \left( 1 - \lambda \right)x_2  \right) \geqq \\
+\nonumber
+\min \big(\pi_{C_1(Z_1)} \left( x_1 \right),\pi_{C_1(Z_1)} \left( x_2 \right)  \big)\\
+\nonumber
+\vdots \\
+\nonumber
+\pi_{C_n(Z_n)} \left(\lambda x_1 + \left( 1 - \lambda \right)x_2  \right) \geqq \\
+\nonumber
+\min \big(\pi_{C_n(Z_n)} \left( x_1 \right),\pi_{C_n(Z_n)} \left( x_2 \right) \big) 
+\end{align}
+Then, by using equation \eqref{eq:proof-convex1}:
+\begin{align}
+\label{eq:proof-convex3}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) \geqq  \\
+\nonumber
+\min \big( \min \left(\pi_{C_1(Z_1)} \left( x_1 \right),\pi_{C_1(Z_1)} \left( x_2 \right) \right),\\
+\nonumber
+\ldots, \min \left(\pi_{C_n(Z_n)} \left( x_1 \right),\pi_{C_n(Z_n)} \left( x_2 \right) \right) \big)
+\end{align}
+Which is equivalent to the following:
+\begin{align}
+\label{eq:proof-convex4}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) \geqq  \\
+\nonumber
+\min \big( \min \left(\pi_{C_1(Z_1)} \left( x_1 \right), \ldots, \pi_{C_n(Z_n)} \left( x_1 \right) \right),\\
+\nonumber
+\ldots, \min \left(\pi_{C_1(Z_1)} \left( x_2 \right), \ldots, \pi_{C_n(Z_n)} \left( x_2 \right) \right) \big)
+\end{align}
+Finally we obtain:
+\begin{align}
+\label{eq:proof-convex5}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) \geqq  \\
+\nonumber
+\min \big(\pi_{CC} \left( x_1 \right), \pi_{CC} \left( x_2 \right) \big)
+\end{align}
+\end{proof}
+
+Sometimes, an ill-known value might be specified by a convex combination of ill-known constraints. This allow to define ill-known values by means of relationships with respect to other ill-known points.
 
 %\begin{definition}
 %\emph{Ill-known point defined by ill-known constraints}
@@ -275,19 +369,28 @@ Sometimes, an ill-known value might be specified by some boolean combination of 
 %\end{definition}
 
 \begin{definition}
-Consider a universe $U$, an n-ary vector $\mathbf{C}$ of ill-known constraints over the variables $Z_1, \ldots, Z_n$ and a Boolean function $\bool:\mathbb{B}^{n}\rightarrow\mathbb{B}$. The uncertainty about the evaluation of an ill-known value $X$ is given by:
+Consider a universe $U$, $X$ an ill-known value and $CC \triangleq \left \lbrace C_{1_{Z_1}}, \ldots, C_{n_{Z_n}}  \right \rbrace$ a convex combination of ill-known constraints over the variables $Z_1, \ldots, Z_n$. The value $X$ is defined by means of the convex combination:
+\begin{align}
+\label{eq:ill-known-value-by-convex-constraints}
+X \triangleq CC 
+\end{align}
+
+The uncertainty about the evaluation of an ill-known value $X$ is given by:
 \begin{align}
 \label{eq:ill-known-value-def-by-const-unc}
-X \in \Pow(U):\pi_{X}=\widetilde{\bool}\Big(\pi_{C_1(Z_1)},\ldots,\pi_{C_n(Z_n)}\Big)
+X \in \Pow(U):\pi_{X}=\pi_{CC}
 \end{align} 
+Note that $\pi_{X}$ is convex since $\pi_{CC}$ is convex as demostrated in theorem \ref{th:convex-combination-ill-known-constraints}.
 \end{definition}
 
 
 \begin{example}
-Consider the ill-known values $X = \left[12, 2, 2\right]$ and $Y = \left[18, 2, 1 \right]$. The ill-known value $Z$ is defined using ill-known constraints w.r.t. the ill-known values $X$ and $Y$:
+Consider the ill-known values $X = \left[12, 2, 2\right]$ and $Y = \left[18, 2, 1 \right]$. The ill-known value $Z$ is defined using the convex combination $CC$ of constraints $C_1$ and $C_2$:
 \begin{align}
 \nonumber
-Z \triangleq \left \lbrace C_1\left(>,X\right) \wedge C_2(\leq,Y) \right \rbrace
+CC \triangleq \left \lbrace C_1\left(>,X\right) \wedge C_2(\leq,Y) \right \rbrace \\
+\nonumber
+Z \triangleq CC
 \end{align}
 $Z$ is a fuzzy interval defined by a trapezoidal shape given by $\left[12,\ 14,\ 18,\ 19 \right]$
 Figure \ref{fig:example-ill-known-by-const} illustrates the relations among the variables $X$, $Y$ and $Z$.
@@ -302,7 +405,7 @@ Figure \ref{fig:example-ill-known-by-const} illustrates the relations among the 
 \end{center}
 %\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
 \vspace*{10pt}
-\fcaption{Ill-known values $X$ and $Y$. The grey area represents the ill-known value $Z$ defined by two ill-known constraints.}
+\fcaption{Ill-known values $X$ and $Y$. The grey area represents the ill-known value $Z$ defined by the convex combination of the two ill-known constraints $C_1$ and $C_2$.}
 \vspace*{13pt}
 
 %\paragraph{Example} Consider the ill-known values $X = \left[5, 2, 8\right]$ and $Y = \left[9, 7, 10 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$  is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure~\ref{fig:3d-possibility} shows a 3D plot of the possibility that an interval $[a,b]$ passes the evaluations specified by the ill-known constraints. Note the triangular form for the resulting possibility distribution since the condition $a \leq b$ holds.
