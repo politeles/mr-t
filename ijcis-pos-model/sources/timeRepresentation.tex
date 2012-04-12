@@ -199,6 +199,27 @@ Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider al
 \fcaption{Possibility distribution for $Y$, and possibility and necessity measures for the open ill-known point, $X$}
 \vspace*{13pt}
 
+
+\vglue13pt
+%\begin{table}[htbp]
+\tcap{Relations for the $\Open(C)$ function.}
+\centerline{\small Relations}
+\vglue-6pt
+\centerline{\small\baselineskip=13pt
+\begin{tabular}{c c c}\\
+\hline
+$R$ & $\Rp$ & $\Rn$\\ \hline
+$<$ & $>$ & $\leq$ \\
+$\leq$ & $\geq$ & $<$ \\
+$>$ & $<$ & $\geq$ \\
+$\geq$ & $\leq$ & $>$ \\
+\hline\\
+\end{tabular}
+\label{tbl:open-pos-nec-rels}
+}
+
+
+
 \subsubsection{\label{subsubsec:ill-known-time-interval-datatypes}Datatypes}
 In order to represent properly an ill-known time interval in a database, some datatypes are needed. Because of the ill-known constraints, not all the combinations of datatypes for each ill-known time point (see Table \ref{tbl:time-point-types}) are allowed. Table \ref{tbl:time-interval-types} shows all the possible combinations for the datatypes for an ill-known time interval denoted by $\left[X, Y\right]$.
 
@@ -221,7 +242,34 @@ $\lbrace1,2 \rbrace$ & $\UC$ & a right-open time interval.\\
 \label{tbl:time-interval-types}
 }
 
+\subsection{\label{subsec:fuzzy-allen-relations}Allen's relations}
 
+\vglue13pt
+%\begin{table}[htbp]
+\tcap{\label{tbl:fuzzy-allen-relations}Constructs of constraints related to their respective Allen relations, as used in the presented work. In this table, the ill-known time interval $J = \left[X, Y\right]$ in a record $r$ has a start point described by possibilistic variable $X$ and an end point described by possibilistic variable $Y$. The crisp time interval in the user's temporal demand is denoted $I$.}
+\centerline{\small Relations}
+\vglue-6pt
+\centerline{\small\baselineskip=13pt
+\begin{tabular}{c p{4cm} }\\
+\hline
+Allen Relation & Construct of constraints\\
+\hline
+I before J & $C_1 \triangleq \left(<,X\right)$ \\
+\hline
+I equal J & $\left(C_1 \triangleq \left(\geq,X\right)\right) \wedge \neg \left(C_2 \triangleq \left(\neq,X\right) \right) \wedge \left(C_3 \triangleq \left(\leq,Y\right) \right) \wedge \neg \left(C_4 \triangleq \left(\neq,Y\right)\right)$ \\
+\hline
+I meets J & $\left(C_1 \triangleq \left(\leq,X\right)\right) \wedge \neg \left(C_2 \triangleq \left(\neq,X\right) \right)$ \\
+\hline
+I overlaps J & $\left(C_1 \triangleq \left(<,Y\right)\right) \wedge \neg \left(C_2 \triangleq \left(\leq,X\right) \right) \wedge \neg \left(C_3 \triangleq \left(\geq,X\right) \right)$ \\
+\hline
+I during J & $\left( \left (C_1 \triangleq \left(>,X\right) \right) \wedge \left(C_2 \triangleq \left(\leq,Y\right) \right) \right) \vee \left( \left(C_3 \triangleq \left(\geq,X\right) \right) \wedge  \left(C_4 \triangleq \left(<,Y\right) \right) \right)$ \\
+\hline
+I starts J & $\left(C_1 \triangleq \left(\geq,X\right) \right) \wedge \neg \left(C_2\triangleq \left(\neq,X\right)\right)$ \\
+\hline
+I finishes J & $\left(C_1 \triangleq \left(\leq,Y\right) \right) \wedge \neg \left(C_2\triangleq \left(\neq,Y\right)\right)$ \\
+\hline\\
+\end{tabular}
+}
 
 %\subsection{\label{subsec:time-interval-constraint}Ill-known valid time-interval}
 %The representation of a possibilistic valid-time interval is given by two ill-known points: $\left[S,E \right]$ the starting and ending points respectively.  
