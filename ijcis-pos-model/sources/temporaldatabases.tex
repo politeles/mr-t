@@ -15,7 +15,7 @@ In a temporal DBMS, a \textbf{chronon} is the shortest duration of time supporte
 %	\item
 %	User defined time: It is an uninterpreted attribute. The domain is date/time. The query language has no special support for it.
 	\item
-	\textbf{Decision time} (\emph{DT}, proposed in \cite{Nascimento1995}) denotes the time when an event was decided to happen. 
+	\textbf{Decision time} (\emph{DT}) \cite{Nascimento1995},\cite{Chakravarthy1994},\cite{Etzion1992},\cite{Ozsoyoglu1995} denotes the time when an event was decided to happen. 
 	\end{itemize}
 	
 	E.g., consider a database containing employee contract descriptions. The time when the employee's contract is valid, represented by an interval, is VT. The time when the employee's contract is stored in the database is the TT. The time when the decision for hiring this employee was made is the DT.
@@ -166,10 +166,10 @@ Consider a relation $R$ in a temporal database, an object $A$ given by the attri
 In order to simplify the algorithms for the manipulation of data, some auxiliary functions are defined:
 
 \begin{definition}
-\label{def:close-a-crisp-interval}
-Consider two crisp intervals $I= \left[a ,b \right]$ and $J= \left[c ,d \right]$, $c > a$. The CloseL$\left(I, J\right)$ function allows to close the left-open interval $I$ with respect to the first value $d$ in $J$:
+\label{def:close-a-crisp-interval-r}
+Consider two crisp intervals $I= \left[a ,b \right]$ and $J= \left[c ,d \right]$, $c > a$. The CloseR$\left(I, J\right)$ function allows to close the right-open interval $I$ with respect to the first value $d$ in $J$:
 \begin{align}
-\mbox{CloseL} \left( I, J \right) &=& \\ 
+\mbox{CloseR} \left( I, J \right) &=& \\ 
 \begin{cases}
 \nonumber
 I & \mbox{ if } b \neq +\infty \\
@@ -178,23 +178,23 @@ I=\left[a, c \right[ & \mbox{ if } b = +\infty \wedge J > I
 \end{align}
 \end{definition}
 
-Analogously, it is defined the function to close an right open interval: 
+Analogously, it is defined the function to close a left-open interval: 
 \begin{definition}
-\label{def:close-a-crisp-interval-r}
-CloseR$\left(I, J\right)$ 
+\label{def:close-a-crisp-interval-l}
+CloseL$\left(I, J\right)$ 
 \begin{align}
 \mbox{CloseR} \left( I, J \right) &=& \\ 
 \begin{cases}
 \nonumber
 I & \mbox{ if } a \neq -\infty \\
-I=\left]d, b \right[ & \mbox{ if } a = -\infty \wedge J < I
+I=\left]d, b \right] & \mbox{ if } a = -\infty \wedge J < I
 \end{cases}
 \end{align}
 \end{definition}
 
 \begin{definition}
 \label{def:current-in-relation}
-Consider an object $A$ and a relation $R$ in a temporal database. The fucntion Current$\left(R, A \right)$ obtains the tuple $\left(A, I \right)$ that is current in the relation $R$, that is it, $I = \left[a, +\infty \right]$.
+Consider an object $A$ and a relation $R$ in a temporal database. The function Current$\left(R, A \right)$ obtains the tuple $\left(A, I \right)$ that is current in the relation $R$, that is it, $I = \left[a, +\infty \right]$.
 
 \begin{align}
 \label{eq:current-in-relation}
@@ -207,7 +207,25 @@ I & \mbox{ if } \exists b \in I : (A,I) \in R \wedge b = +\infty \\
 \end{align}
 \end{definition}
 
-Now it is possible to close the current version of an object by combining the two previously defined functions.
+
+\begin{definition}
+\label{def:first-in-relation}
+Analogously, the function First$\left(R, A \right)$ obtains the tuple $\left(A, I \right)$ where $I$ is a right-open interval and which is the first version in the relation $R$, that is it, $I = \left[-\infty, b \right]$.
+\begin{align}
+\label{eq:first-in-relation}
+\mbox{First} \left(R, A \right) &=& \\ 
+\begin{cases}
+\nonumber
+I & \mbox{ if } \exists b \in I : (A,I) \in R \wedge a = -\infty \\
+\emptyset & \mbox{ in any other case }
+\end{cases}
+\end{align}
+
+\end{definition}
+
+
+
+Now it is possible to close the current version of an object by using \eqref{def:close-a-crisp-interval-r} and \eqref{eq:current-in-relation}
 
 \begin{definition}
 \label{def:close-current-version}
@@ -215,31 +233,50 @@ Consider an object $A$, the relation $R$ and a time interval $J$. Then, the func
 
 \begin{eqnarray}
 %\label{eq:close-current}
-\text{Close-current} \left(R, A \right) =\\
+\text{Close-current} \left(R, A, J \right) =\\
 \begin{cases}
 \nonumber
-\big \lbrace R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ Close } \left(I, J\right) \right) \cup \left(A, J\right)\right \rbrace  \big \rbrace \\
+\big \lbrace R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right) \cup \left(A, J\right)\right \rbrace  \big \rbrace \\
 \nonumber
-\mbox{ if } I = \mbox{ Current } \left(R, A \right) \wedge J > \mbox{ Close } \left(I, J \right)   \\
+\mbox{ if } I = \mbox{ Current } \left(R, A \right) \wedge J > \mbox{ CloseR } \left(I, J \right)   \\
 \nonumber R , \text{ in any other case}
 \end{cases}
 \end{eqnarray}
 \end{definition}
 
+It is also possible to append at the beggining by using \eqref{def:close-a-crisp-interval-l} and \eqref{def:first-in-relation}.
+\begin{definition}
+\label{def:append-first-version}
+Consider an object $A$, the relation $R$ and a time interval $J$. Then, the function append-first$\left(R,A,J \right)$ closes any right open version of the object $A$ if it exists and add the new version $\left(A, J \right)$.
 
+\begin{eqnarray}
+%\label{eq:close-current}
+\text{Append-first} \left(R, A, J \right) =\\
+\begin{cases}
+\nonumber
+\big \lbrace R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseL } \left(I, J\right) \right) \cup \left(A, J\right)\right \rbrace  \big \rbrace \\
+\nonumber
+\mbox{ if } I = \mbox{ First } \left(R, A \right) \wedge J < \mbox{ CloseL } \left(I, J \right)   \\
+\nonumber R , \text{ in any other case}
+\end{cases}
+\end{eqnarray}
+\end{definition}
 
 \subsubsection{Insert}
 The user wants to store an object $A$ which is valid in the relation $R$ during the time interval specified by $I = \left(a, b \right)$.
 %
 %
 %The interpretation of the insert operation is the following: The user wants to store in the database that an object $A$  is true for some period(s) of time $I$ in the given relation $R$. To indicate that the object $A$ is current in the relation, the special value Until Current, $\UC$  is used. 
-There are three main cases when performing a create operation:
+There are two main cases when performing a create operation:
 \begin{enumerate}
 \item The object $A$ was never in the relation $R$: The object is added with the valid-time indicated by the crisp interval $I$.
 
-\item The object $A$ is in the relation $R$, but it is not current 
+\item The object $A$ is in the relation $R$. Depending on the value of the time interval $I$, there are two possibilities:
+	\begin{enumerate}
+	\item Insert $\left(A, I\right)$ in the relation $R$. If the time interval $I$ does not overlap any other valid-time interval in the relation $R$.
+	\item Reject the insertion, if the time interval $I$ do overlap any existing valid-time interval for the object $A$ in the relation $R$.
+	\end{enumerate}
 
-\item The object $A$ is current in the relation $R$: The insert operation is rejected, a modify operation should be used.
 \end{enumerate}
 
 The algorithm for the implementation of the insert operation is the following:
@@ -250,7 +287,10 @@ The algorithm for the implementation of the insert operation is the following:
 \begin{cases}
 \nonumber
 R \cup \left(A, I \right), & \mbox{ if }  A \not \in R\\
-R \cup  \left(A, I \right) & \mbox{ if }  A \in R \wedge \\
+R \cup   \left(A, I \right) & \mbox{ if }  A \in R \wedge \\
+& \big \lbrace \left( \exists J: \left(A, J \right) \in R \wedge J<I  \right) \vee \\
+& \left( \exists K: \left(A, K \right) \in R \wedge K>I \vee \right) \wedge\\
+&  J<I<K  \big \rbrace\\
 R, & \mbox{ otherwise }  
 \end{cases} 	
 \end{align}

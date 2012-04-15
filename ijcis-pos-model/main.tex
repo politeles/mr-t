@@ -92,7 +92,8 @@ E-mail: Christophe.Billiet,Guy.De.Tre@ugent.be
 
 \maketitle
 %-------------------------- ABSTRACT ---------------------------------------
-\abstracts{%
+\abstracts{
+\input{./sources/abstract.tex}%
 %The abstract should summarize the context, content and conclusions of the
 %paper in less than 80 words. It should not contain any references or
 %displayed equations. Typeset the abstract in 9~pt Times Roman with
@@ -101,13 +102,14 @@ E-mail: Christophe.Billiet,Guy.De.Tre@ugent.be
 }
 \par\bigskip\par
 %-------------------------- KEYWORDS ---------------------------------------
-\keywords{Possibilistic fuzzy temporal database valid time}
+\keywords{possibilistic, fuzzy temporal, database, valid time}
 
 \vspace*{10pt}\textlineskip
 %-------------------------- BEGIN BODY OF TEXT -----------------------------
 \begin{multicols}{2}
 
 \section{\label{sec:intro}Introduction}
+\input{./sources/intro.tex}
 
 
 \section{\label{sec:prelim}Preliminaries}
@@ -118,10 +120,11 @@ E-mail: Christophe.Billiet,Guy.De.Tre@ugent.be
 \section{\label{sec:time-rep}Time representation}
 \input{./sources/timeRepresentation.tex}
 
-\section{Possibilistic Valid-Time Model for Relational DB}
+\section{\label{sec:temporal-model}Possibilistic Valid-Time Model for Relational DB}
 \input{./sources/temporalModel.tex}
 
-
+\section{\label{sec:conclusions}Conclusions}
+\input{./sources/conclusions.tex}
 
 %\subsection{Sub-headings}
 %%\vspace*{-4pt}  %only when needed
