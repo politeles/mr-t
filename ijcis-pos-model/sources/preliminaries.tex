@@ -184,12 +184,13 @@ The membership function of such a fuzzy number is then given by:
 
 
 
-\subsection{Interval Evaluation by Ill-known Constraints}
+\subsection{\label{subsec:interval-evaluation-by-ill-known-constraints}Interval Evaluation by Ill-known Constraints}
 The problem of interval evaluation is more generally explained in \cite{Pons2011}: the need exists to know if all points in a crisp interval $I$ reside between the boundaries of an ill-known interval $\left[ X , Y \right]$. In \cite{Pons2011}, the notion of an \emph{ill-known constraint} is introduced:
 
 \begin{definition}
 Given a universe $U$, an ill-known constraint $C$ on a set $A \subseteq U$ is specified by means of a binary relation $R \subseteq U^{2}$ and a fixed, ill-known value denoted by its possibilistic variable $V$ over $U$, i.e.:
 \begin{align}
+\label{eq:ill-known-constraint}
 C \triangleq (R,V)
 \end{align}
 Set $A$ now satisfies the constraint if and only if:
@@ -380,7 +381,7 @@ The uncertainty about the evaluation of an ill-known value $X$ is given by:
 \label{eq:ill-known-value-def-by-const-unc}
 X \in \Pow(U):\pi_{X}=\pi_{CC}
 \end{align} 
-Note that $\pi_{X}$ is convex since $\pi_{CC}$ is convex as demostrated in theorem \ref{th:convex-combination-ill-known-constraints}.
+Note that $\pi_{X}$ is convex since $\pi_{CC}$ is convex as demonstrated in theorem \ref{th:convex-combination-ill-known-constraints}.
 \end{definition}
 
 
