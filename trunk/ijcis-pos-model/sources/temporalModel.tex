@@ -237,12 +237,27 @@
 
 
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
+The model is based on the GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support. The information in the system is defined by the following elements:
 
-\begin{definition}
-Generalized fuzzy temporal domain.\\
-If $\T$ is the temporal domain, $\tilde \Pow\left( \T\right)$ is the set of all possibility distributions defined on $\T$.
-The \textbf{Generalized Fuzzy Temporal Domain}, $\T_G$ is
+\begin{definiton}
+\label{def:generalized-fuzzy-domain}
+$D$ is the discourse domain, $\tilde \Pow\left(D \right)$ is the set of all possibility distributions defined on $\D$, plus the NULL constant. The generalized fuzzy domain $D_G$ is defined as:
 \begin{equation}
-\T_G \subseteq \left \lbrace \tilde \Pow\left( \T\right) \cup NULL \right \rbrace
+\label{eq:generalized-fuzzy-domain}
+D_G \subseteq \tilde \Pow\left(D \right)\cup \text{NULL}
 \end{equation}
 \end{definition}
+
+It is possible to define a more specific generalized temporal domain, $\T_G$:
+
+\begin{definition}
+\label{def:generalized-fuzzy-temporal-domain}
+Generalized fuzzy temporal domain.\\
+If $\T$ is the temporal domain, $\tilde \Pow\left( \T\right)$ is the set of all \emph{normalized} possibility distributions (see Section \ref{subsec:possibility-theory}, equation \eqref{NormalizationProperty}) defined on $\T$.
+The \textbf{Generalized Fuzzy Temporal Domain}, $\T_G$ is
+\begin{equation}
+\T_G \subseteq \left \lbrace \tilde \Pow\left( \T\right) \cup \text{NULL} \right \rbrace
+\end{equation}
+\end{definition}
+
+Note that $\T_G \subseteq D_G$. 
