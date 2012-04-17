@@ -239,14 +239,16 @@
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
 The model is based on the GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support. The information in the system is defined by the following elements:
 
-\begin{definiton}
+\begin{definition}
 \label{def:generalized-fuzzy-domain}
-$D$ is the discourse domain, $\tilde \Pow\left(D \right)$ is the set of all possibility distributions defined on $\D$, plus the NULL constant. The generalized fuzzy domain $D_G$ is defined as:
+$D$ is the discourse domain, $\tilde \Pow\left(D \right)$ is the set of all possibility distributions defined on $D$, plus the NULL constant. The generalized fuzzy domain $D_G$ is defined as:
 \begin{equation}
 \label{eq:generalized-fuzzy-domain}
 D_G \subseteq \tilde \Pow\left(D \right)\cup \text{NULL}
 \end{equation}
 \end{definition}
+The datatypes for $D_G$ are shown in table \ref{tablaaaaaaaaa}
+\textcolor{red}{poner tabla}
 
 It is possible to define a more specific generalized temporal domain, $\T_G$:
 
@@ -260,4 +262,117 @@ The \textbf{Generalized Fuzzy Temporal Domain}, $\T_G$ is
 \end{equation}
 \end{definition}
 
-Note that $\T_G \subseteq D_G$. 
+Note that $\T_G \subseteq D_G$. The datatypes for this domain have been studied previously in section \ref{sec:time-rep} and are shown in tables \ref{tbl:time-point-types},\ref{tbl:time-interval-types}.
+
+
+
+\begin{definition}
+A generalized fuzzy temporal relation $R_{FTG}$ is given by:
+\label{def:generalized-fuzzy-temporal-relation}
+\begin{equation}
+\label{eq:generalized-fuzzy-temporal-relation}
+R_{FTG} = \left(\Head, \Body \right)
+\end{equation}
+Where $\Head$ is the Head of the relation and consist on a fixed set of triplets attribute- domain - compatibility with an optional the valid-time attribute:
+
+\begin{align}
+\label{eq:head-valid-time}
+\Head = \big \lbrace \left(A_{G1}:D_{G1}\left[,C_{A_{G1}} \right] \right),\\
+\nonumber
+ \ldots,\\
+ \nonumber
+  \left(A_{Gn}:D_{Gn}\left[,C_{A_{Gn}} \right] \right),\\
+  \nonumber
+  \Big[  \left( \text{PVP}, D_{\text{PVP}}\left[,C_{A_{\text{PVP}}} \right] \right) \Big] \big \rbrace
+\end{align}
+Note that $D_{Gj}$ ($j = 1, \ldots, n$) is the domain for the attribute $A_{Gj}$. $C_{A_{Gj}}$ is the compatibility attribute in the unit interval $\left[0, 1 \right]$.
+
+$\Body$ is the body of the relation and it consists on a set of tuples. Each tuple is a triplet attribute- value- degree with an optional valid-time attribute:
+
+\begin{align}
+\label{eq:body-valid-time}
+\Body = \big \lbrace \left(A_{G1}:\tilde{d}_{i1}\left[,c_{i1} \right] \right),\\
+\nonumber
+ \ldots,\\
+ \nonumber
+  \left(A_{Gn}:\tilde{d}_{in}\left[,c_{in} \right] \right),\\
+  \nonumber
+   \Big[  \left( \text{PVP}, \tilde{d}_{\text{PVP}} \left[,C_{A_{\text{PVP}}} \right] \right)  \Big] \big \rbrace
+\end{align}
+
+\end{definition}
+
+
+The definition in \cite{Medina1994} for $R_{FTG}$ shows that classical relations are a particular case of this model. 
+
+\begin{definition}
+\label{def:value-component}
+The value component $R^{v}_{FTG}$ of a fuzzy temporal relation $R_{FTG}$ is a set with the value components for both the head and the body of the relation:
+\begin{align}
+\label{eq:value-component}
+R^{v}_{FTG} = \left \lbrace \Head^{v},\Body^{v} \right \rbrace \\
+\nonumber
+\text{Where: } \\
+\nonumber
+\Head^{v} = \left \lbrace A_{G1}:D_{G1}, \ldots,  A_{Gn}:D_{Gn} \right \rbrace \\
+\nonumber
+\Body^ {v} = \left \lbrace A_{G1}:\tilde{d}_{i1}, \ldots,  A_{Gn}:\tilde{d}_{in}\ \right \rbrace \\
+\end{align}
+\end{definition}
+
+\begin{definition}
+\label{def:compatibility-component}
+The compatibility component $R^{c}_{FTG}$ of a fuzzy temporal relation $R_{FTG}$ is a set with the compatibility components for both the head and the body of the relation:
+\begin{align}
+\label{eq:compatibility-component}
+R^{c}_{FTG} = \left \lbrace \Head^{c},\Body^{c} \right \rbrace \\
+\nonumber
+\text{Where: } \\
+\nonumber
+\Head^{c} = \left \lbrace \left[C_{A_{G1}} \right], \ldots,  \left[C_{A_{Gn}} \right] \right \rbrace \\
+\nonumber
+\Body^ {c} = \left \lbrace \left[ c_{i1} \right], \ldots, \left[ c_{in} \right] \right \rbrace \\
+\end{align}
+\end{definition}
+
+
+\begin{definition}
+\label{def:temporal-component}
+The temporal component $R^{t}_{FTG}$ of a fuzzy temporal relation $R_{FTG}$ is a set with the temporal components for both the head and the body of the relation:
+\begin{align}
+\label{eq:temporal-component}
+R^{t}_{FTG} = \left \lbrace \Head^{t},\Body^{t} \right \rbrace \\
+\nonumber
+\text{Where: } \\
+\nonumber
+\Head^{t} = \left \lbrace \left( \text{PVP}, D_{\text{PVP}}\left[,C_{A_{\text{PVP}}} \right] \right) \right \rbrace \\
+\nonumber
+\Body^ {t} = \left \lbrace  \left[ \text{PVP}, \tilde{d}_{\text{PVP}} \left[,C_{A_{\text{PVP}}} \right] \right]  \right \rbrace \\
+\end{align}
+\end{definition}
+
+Analogously, it is possible to define the the value component for the temporal part and the compatibility component for the temporal part. 
+
+\begin{definition}
+\label{def:generalized-primary-key}
+A generalized primary key, $K_G$ is a subset of the head:
+\begin{align}
+\label{eq:generalized-primary-key}
+K_G \subseteq \Head, K_G = \left \lbrace  \left(A_{Gs}:D_{Gs} \right) \right \rbrace \\
+\nonumber
+s\in S \subseteq \left(1, \ldots, n \right) \\
+\nonumber
+\forall s \in S, \text{Typeof } \left(D_{Gs} \right) \in \left \lbrace 1, 2 \right \rbrace \\
+\nonumber
+\forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \left(A_{Gs}:d_{is} \right) \neq \left(A_{Gs}:d_{i's} \right)
+\end{align}
+\end{definition}
+
+\texcolor{red}{primary temporal key}
+
+\begin{definiton}
+\label{def:generalized-fuzzy-temporal-key}
+A generalized fuzzy temporal key, $K_{GT}$ is a subset od the head:
+
+\end{definition}
+
