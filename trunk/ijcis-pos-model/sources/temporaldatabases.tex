@@ -152,7 +152,7 @@ Item & PVP & FVP\\
 In the rest of the paper we will work only with PVP to represent valid-time intervals.
 
 
-\subsection{Understanding Valid-time Databases}
+\subsection{\label{subsubsec:Understanding-valid-time-databases}Understanding Valid-time Databases}
 This subsection is devoted to describe the behaviour of a crisp valid-time database. For the shake of simplicity, only the three main operations in the Data Manipulation Language \emph{DML} a.k.a \emph{CRUD} (CReate Update, Delete) operations are shown. Usually the DML operations in a temporal database are re-defined e.g. a typical update sentence in SQL could be re-defined by means of several insert and update sentences. Therefore, in order to be clear, these high level primitives in the DML for a valid-time database are usually noted as Insert, Modify and Delete. In the following subsections each primitive is defined and explained. Finally a illustrative example is given. For a more complete information on the behaviour of a bitemporal database, please refer to ~\cite{Jensen1994}.
 
 \begin{definition}
@@ -169,6 +169,7 @@ In order to simplify the algorithms for the manipulation of data, some auxiliary
 \label{def:close-a-crisp-interval-r}
 Consider two crisp intervals $I= \left[a ,b \right]$ and $J= \left[c ,d \right]$, $c > a$. The CloseR$\left(I, J\right)$ function allows to close the right-open interval $I$ with respect to the first value $d$ in $J$:
 \begin{align}
+\label{eq:close-a-crisp-interval}
 \mbox{CloseR} \left( I, J \right) &=& \\ 
 \begin{cases}
 \nonumber
@@ -232,7 +233,7 @@ Now it is possible to close the current version of an object by using \eqref{def
 Consider an object $A$, the relation $R$ and a time interval $J$. Then, the function close-current$\left(R,A,J \right)$ closes any current version of the object $A$ if it exists and add the new version $\left(A, J \right)$.
 
 \begin{eqnarray}
-%\label{eq:close-current}
+\label{eq:close-current}
 \text{Close-current} \left(R, A, J \right) =\\
 \begin{cases}
 \nonumber
