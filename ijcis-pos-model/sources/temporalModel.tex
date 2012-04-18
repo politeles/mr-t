@@ -4,238 +4,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-%
-%\vglue13pt
-%%\begin{table}[htbp]
-%\tcap{Valid-Time interval data types}
-%\centerline{\small VALID TIME DATA TYPES}
-%\vglue-6pt
-%\centerline{\small\baselineskip=13pt
-%\begin{tabular}{c p{2cm} p{2cm}}\\
-%\hline
-%Type for S & Type for E & Semantics \\
-%\hline
-%Unknown & Unkown & Unknown interval. \\
-%\hline
-%1,2 & 1,2 & A possibilistic time interval. \\
-%\hline\\
-%\end{tabular}
-%\label{tbl:valid-time-interval}}
-%%\end{table}
-%
-%The following is a study of the constraints in the range of values for both starting and ending times to represent a valid time interval.
-%
-%The time period inside a valid time interval is denoted by two constraints:
-%\begin{eqnarray}
-%C_1\stackrel{\triangle}{=}\left(\geq,X\right)\\
-%C_2\stackrel{\triangle}{=}\left(\leq,Y\right).
-%\end{eqnarray}
-%Applying the inference of uncertainty as proposed in our general reasoning, we find for the first constraint that:
-%\begin{eqnarray}
-%\Pos\left(C_1([a,b])\right) &=& \min_{r\in[a,b]}\Big(\sup_{r\leq w}\pi_{X}(w)\Big)\\
-%\Nec\left(C_1([a,b])\right) &=& \min_{r\in[a,b]}\Big(\inf_{r>w}1-\pi_{X}(w)\Big)
-%\end{eqnarray}
-%which can be simplified to:
-%\begin{eqnarray}
-%\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{X}(w)\\
-%\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{X}(w).
-%\end{eqnarray}
-%For the second constraint, we find that:
-%\begin{eqnarray}
-%\Pos\left(C_2([a,b])\right) &=& \min_{r\in[a,b]}\Big(\sup_{r\geq w}\pi_{Y}(w)\Big)\\
-%\Nec\left(C_2([a,b])\right) &=& \min_{r\in[a,b]}\Big(\inf_{r<w}1-\pi_{Y}(w)\Big)
-%\end{eqnarray}
-%which can be simplified to:
-%\begin{eqnarray}
-%\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{Y}(w)\\
-%\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{Y}(w).
-%\end{eqnarray}
-%The uncertainty about the inclusion of an interval $I=[a,b]$ in the interval with ill-known boundaries can now be found by evaluating $[a,b]$ against the evaluation function $\lambda$ with $\bool=\wedge$. Application of \eqref{eq:conjunctive1} and \eqref{eq:conjunctive2} leads to:
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\Pos(C_1([a,b])),\Pos(C_2([a,b]))\bigg)\\
-%\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\Nec(C_1([a,b])),\Nec(C_2([a,b]))\bigg).
-%\end{eqnarray}
-%These last expressions can also be expanded as:
-%\begin{eqnarray}
-%\label{eq:interval-pos}
-%\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{X}(w),\sup_{b\geq w}\pi_{Y}(w)\bigg)\\
-%\label{eq:interval-nec}
-%\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{X}(w),\inf_{b<w}1-\pi_{Y}(w)\bigg).
-%\end{eqnarray}
-%Note that the interval $[X,Y]$ used here, is certainly not a fuzzy interval. Instead, we are dealing with an ill-known interval, i.e. it is a crisp interval, but it is partially unknown which values are in this interval. The uncertainty stems from the fact that the interval boundaries are ill-known.
-%
-%Within this framework for the reasoning of the knowledge about the interval, we are going to study the semantics from the point of view of the valid time as well as from the point of view of the temporal database.
-%
-%\subsubsection{S = Unknown, E = Unknown}
-%Consider that the possibility distribution for S is Unknown and for E is also Unknown. The possibility distributions are $\pi_S$ and $\pi_E$ respectively:
-%
-%\begin{eqnarray}
-%\pi_{S}(t \in \T) = 1\\
-%\pi_{E}(t \in \T) = 1
-%\end{eqnarray}
-%
-%Therefore the constraints $C_1$ and $C_2$ are:
-%
-%\begin{eqnarray}
-%\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{S}(w) = 1\\
-%\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{S}(w) = 0\\
-%\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{E}(w)=1\\
-%\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{E}(w)=0
-%\end{eqnarray}
-%
-%
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{S}(w),\sup_{b\geq w}\pi_{E}(w)\bigg) \\
-%&=& \min(1,1)  = 1\\
-%\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{S}(w),\inf_{b<w}1-\pi_{E}(w)\bigg)\\
-%&=& \min(0,0) = 0
-%\end{eqnarray}
-%
-%\begin{example}
-%A constant object in the database. It is an object that is always valid in the database.
-%The main issue in a valid time database is that the update sentence have to modify the starting or ending point distribution. The most natural way to convert a snapshot database to a temporal database is to consider the objects belonging to the interval [Unknown, Unknown].
-%\end{example}
-%
-%\subsubsection{[Unknown,value] or [value,Unknown]}
-%These two cases are managed in this section. Here we will note $\pi_{S}(t)$ or $\pi_{E}(t)$ as the possibility distribution for 'value' in the starting or ending points.
-%
-%First of all the case [Unknown,value] in \eqref{eq:interval-pos} and in \eqref{eq:interval-nec}:
-%
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min (1,\sup_{b\geq w}\pi_{E}(w))\\
-% &=& \sup_{b\geq w}\pi_{E}(w)\\
-%\Nec\left(\lambda([a,b])\right)&=&\min (0,\inf_{b<w}1-\pi_{E}(w))\\
-%&=& 0
-%\end{eqnarray}
-%
-%Similarily for [value,Unknown] the possibility and neccesity are:
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min (\sup_{a\leq w}\pi_{S}(w),1)\\
-% &=& \sup_{a\leq w}\pi_{S}(w)\\
-%\Nec\left(\lambda([a,b])\right)&=&\min (\inf_{a>w}1-\pi_{S}(w),0)\\
-%&=& 0
-%\end{eqnarray}
-%
-%The semantics for an object with valid time given by [Unknown,value] is an object that has been valid from the beggining to an ending time. Analogously, the semantics for an object with a valid time given by the interval [value,Unknown] is an object that it is still valid in the database. 
-%
-%
-%\subsubsection{[Undefined,Undefined]}
-%Maybe this combination has no sense for a valid time object. The possibility distributions for both starting and ending points are:
-%
-%\begin{eqnarray}
-%\pi_{S}(t \in \T) = 0\\
-%\pi_{E}(t \in \T) = 0
-%\end{eqnarray}
-%
-%Therefore the constraints $C_1$ and $C_2$ are:
-%
-%\begin{eqnarray}
-%\Pos\left(C_1([a,b])\right) &=& \sup_{a\leq w}\pi_{S}(w) = 0\\
-%\Nec\left(C_1([a,b])\right) &=& \inf_{a>w}1-\pi_{S}(w) = 1\\
-%\Pos\left(C_2([a,b])\right) &=& \sup_{b\geq w}\pi_{E}(w)=0\\
-%\Nec\left(C_2([a,b])\right) &=& \inf_{b<w}1-\pi_{E}(w)=1
-%\end{eqnarray}
-%
-%Taking these values into  \eqref{eq:interval-pos} and in \eqref{eq:interval-nec}:
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min (0,0)\\
-% &=& 0\\
-%\Nec\left(\lambda([a,b])\right)&=&\min (1,1)\\
-%&=& 1
-%\end{eqnarray}
-%
-%\textcolor{red}{TAKE A LOOK INTO THIS}
-%
-%Which is an inconsistency.
-%
-%\subsection{[Undefined,value] or [value,Undefined]}
-%
-%The possibility and neccesity measures for [Undefined,value] are :
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min (0,\sup_{b\geq w}\pi_{E}(w))\\
-% &=& 0\\
-%\Nec\left(\lambda([a,b])\right)&=&\min (1,\inf_{b<w}1-\pi_{E}(w))\\
-%&=& \inf_{b<w}1-\pi_{E}(w)
-%\end{eqnarray}
-%
-%The other way around, [value,Undefined]:
-%\begin{eqnarray}
-%\Pos\left(\lambda([a,b])\right)&=&\min (\sup_{a\leq w}\pi_{S}(w),0)\\
-% &=& 0\\
-%\Nec\left(\lambda([a,b])\right)&=&\min (\inf_{a>w}1-\pi_{S}(w),1)\\
-%&=& \inf_{a>w}1-\pi_{S}(w)
-%\end{eqnarray}
-%
-%\textcolor{red}{TAKE A LOOK INTO THIS}
-%This is also an inconsistency.
-%
-%\subsubsection{[NULL,NULL] and maybe any combination with NULL}
-%I think the framework we have can not deal with NULL computations. Maybe just for non-specified time or something like that.
-%
-%\subsubsection{[Undefined,Unknown] or [Unknown,Undefined]}
-%The semantic for this could be also unconsistent.
-%
-%
-%\begin{example}
-%Consider a snapshot database (table \ref{tbl:snapshot-car-models}) that stores information about car models. The primary key is given by the set $\lbrace$ Brand, Model $\rbrace$.
-%
-%\vglue13pt
-%%\begin{table}[htbp]
-%\tcap{Car model snapshot database}
-%\centerline{\small CAR MODELS}
-%\vglue-6pt
-%\centerline{\small\baselineskip=13pt
-%\begin{tabular}{c c c}\\
-%\hline
-%\textbf{Brand} & \textbf{Model} & Segment \\
-%\hline
-%Peugeot & 205 & B \\
-%Peugeot & 206 & B \\
-%Peugeot & 207 & B \\
-%Peugeto & 208 & B \\
-%Citroen & C2 & B \\
-%\hline\\
-%\end{tabular}
-%\label{tbl:snapshot-car-models}
-%}
-%
-%Consider now that the user wants to make that table a valid-time table, then, from the point of view of the storage, the following changes should be done:
-%
-%\begin{itemize}
-%\item
-%A new definition for the primary key, including a version field.
-%\item
-%The addition of two new columns to store the valid-time interval. By default the initial values are Unknown for both starting and ending points of the interval.
-%\end{itemize}
-%Therefore, the table \ref{tbl:snapshot-car-models} is transformed into table \ref{tbl:initial-valid-time-car-models}:
-%
-% \vglue13pt
-%%\begin{table}[htbp]
-%\tcap{Car model valid-time database. Note that U is the abbreviation for the Unknown constant.}
-%\centerline{\small VALID TIME CAR MODELS}
-%\vglue-6pt
-%\centerline{\small\baselineskip=13pt
-%\begin{tabular}{c c c c c c}\\
-%\hline
-%\textbf{Brand} & \textbf{Model} & \textbf{VersionID} & Segment & S & E \\
-%\hline
-%Peugeot & 205 & 001 & B & U & U \\
-%Peugeot & 206 & 001 & B & U & U \\
-%Peugeot & 207 & 001 & B & U & U \\
-%Peugeto & 208 & 001 & B & U & U \\
-%Citroen & C2 & 001 & B & U & U \\
-%\hline\\
-%\end{tabular}
-%\label{tbl:initial-valid-time-car-models}
-%}
-%
-%
-%
-%\end{example}
-
-
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
 The model is based on the GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support. The information in the system is defined by the following elements:
 
@@ -247,8 +15,40 @@ $D$ is the discourse domain, $\tilde \Pow\left(D \right)$ is the set of all poss
 D_G \subseteq \tilde \Pow\left(D \right)\cup \text{NULL}
 \end{equation}
 \end{definition}
-The datatypes for $D_G$ are shown in table \ref{tablaaaaaaaaa}
-\textcolor{red}{poner tabla}
+The datatypes for $D_G$ are shown in table \ref{tbl:gefred-data-types}. 
+
+\begin{definition}
+\label{def:typeof-domain}
+The function typeof$\left(D \right)$ returns the datatype associated with the domain $D$. 
+
+\end{definition}
+
+
+
+\vglue13pt
+%\begin{table}[htbp]
+\tcap{\label{tbl:gefred-data-types}Data types}
+%\centerline{\small TITLE}
+\vglue-6pt
+\centerline{\small\baselineskip=13pt
+\begin{tabular}{c p{4cm} }\\
+No. & Datatype \\ \hline
+1 & A single scalar. \\
+2 & A single number. \\
+3 & A set of mutually exclusive possible scalar assignations. \\
+4 & A set of mutually exclusive possible numeric assignations. \\
+5 & A possibility distribution in a scalar domain. \\
+6 & A possibility distribution in a numeric domain. \\
+7 & A real number in $\left[0, 1 \right]$ referring to degree of matching. \\
+8 & An \emph{UNKNOWN} value. \\
+9 &  An \emph{UNDEFINED} value. \\
+10 & A \emph{NULL} value. \\
+\hline\\
+\end{tabular}
+} 
+ 
+
+
 
 It is possible to define a more specific generalized temporal domain, $\T_G$:
 
@@ -364,15 +164,137 @@ s\in S \subseteq \left(1, \ldots, n \right) \\
 \nonumber
 \forall s \in S, \text{Typeof } \left(D_{Gs} \right) \in \left \lbrace 1, 2 \right \rbrace \\
 \nonumber
-\forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \left(A_{Gs}:d_{is} \right) \neq \left(A_{Gs}:d_{i's} \right)
+\forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \\
+\nonumber
+\left(A_{Gs}:d_{is} \right) \neq \left(A_{Gs}:d_{i's} \right)
 \end{align}
 \end{definition}
 
-\texcolor{red}{primary temporal key}
 
-\begin{definiton}
+\begin{definition}
 \label{def:generalized-fuzzy-temporal-key}
-A generalized fuzzy temporal key, $K_{GT}$ is a subset od the head:
+A generalized fuzzy temporal key, $K_{GT}$ is a subset of the head. An attribute, namely \emph{version} $V$ is added when dealing with valid-time.
+\begin{align}
+\label{eq:generalized-fuzzy-temporal-key}
+K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(A_{Gs}:D_{Gs} \right) \right.  \\
+\nonumber
+ \left. \cup  \left(V_{ID}:D_{ID} \right)	\right \rbrace \\
+\nonumber
+\text{Typeof }\left(D_{ID} \right) = \\
+\nonumber
+s\in S \subseteq \left(1, \ldots, n \right) \\
+\nonumber
+\forall s \in S, \text{Typeof } \left(D_{Gs} \right) \in \left \lbrace 1, 2 \right \rbrace \\
+\nonumber
+\forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \\
+\nonumber
+\left(A_{Gs}:d_{is} \right) \neq \left(A_{Gs}:d_{i's} \right)
+\end{align}
 
 \end{definition}
+
+
+\begin{example}
+
+
+\end{example}
+
+
+\subsection{\label{subsec:data-manipulation}Data manipulation language}
+
+The algebra for the data manipulation is defined in \cite{Medina1994}. The Generalized Fuzzy Relational Algebra manipulates relations like $R_{FG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify, Delete, } and \emph{Revise}. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}.
+
+It is important to nottice that whereas the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is in the unit interval.  Therefore, for a valid-time object, say $A \in R$, in a crisp temporal database it is not possible an overlaping among any valid-time interval ($\forall I, \not \exists J: \left(A, I \right) \in R \wedge \left(A, J \right) \in R \wedge \not \Overlap\left(I, J \right)$). Thus, from the point of view of a fuzzy temporal database, there are the following options:
+
+\begin{itemize}
+\item [\textbf{Strictly consistent}] It is not possible for two PVPs of the same object to be valid at the same time. In other words, if $A$ is an object, $R$ is a relation and $\pi_{I}\left(t \right)$ and $\pi_{J}\left(t \right)$ are the possibilities for a time point $t \in \T$ to be in the PVPs $I$ and $J$ respectively,
+\begin{align}
+\label{eq:stricly-consistent}
+\forall I,J, \forall t \in \T :\\
+%\nonumber
+%\left(A, I \right) \in R \wedge \\
+%\nonumber
+%\left(A, J \right) \in R : \\
+\nonumber
+\pi_{I}(t) + \pi_{J}(t) \leq 1
+\end{align}
+
+\item [\textbf{Ill-consistent}] The overlapping of two PVPs of the same object do overlap. It can be distinghised among the following sub-types:
+	\begin{itemize}
+	\item [\emph{Co-existence}] Two versions of the same object $A$ may exist at the same time.
+	\begin{align}
+	\label{eq:co-existence}
+	\forall I, \exists ! J, \exists t \in \T : \\
+	\nonumber
+	\pi_{I}(t) + \pi_{J}(t) \geq 1
+	\end{align}
+	\item [\emph{Weak-consistence}] Several versions of the same object $A$ may exist at the same time.
+	\begin{align}
+	\label{eq:weak-consistence}
+	\forall I, \exists J, \exists t \in \T : \\
+	\nonumber
+	\pi_{I}(t) + \pi_{J}(t) \geq 1
+	\end{align}
+	\end{itemize}
+\end{itemize}
+
+In the implementation of the DML operations we will consider a strictly consistent temporal database. Since the time intervals are now possibilistic valid-time periods, PVPs, the auxiliary functions defined in equations \eqref{eq:close-a-crisp-interval} to \eqref{eq:close-current} should be re-defined.
+
+\begin{definition}
+\label{def:close-r-a-pvp}
+Consider two PVPs given by $I = \left(X, Y \right)$ and $J = \left(X', Y' \right)$. The CloseR function closes the PVP given by $I$ with a convex combination of ill-known constraints (see section \ref{subsec:interval-evaluation-by-ill-known-constraints}):
+\begin{align}
+\label{eq:close-r-a-pvp}
+\text{CloseR}\left(I, J\right) = \\
+\begin{cases}
+\nonumber
+I   & \mbox{ if } Y \not \in \text{UNKNOWN}  \\
+I = \left[X, Z \right] & \mbox{ if } Y \in \text{UNKNOWN}, \\
+& Z \triangleq \left \lbrace C_1\left(>, X \right), C_2\left(<, X' \right) \right \rbrace
+\end{cases}
+\end{align}
+\end{definition}
+
+\begin{definition}
+\label{def:pvp-current-in-relation}
+Consider an object $A$ and a relation $R$ in a fuzzy temporal database. The function Current$\left(R, A \right)$ obtains the tuple $\left(A, I \right), I = \left(X, Y \right)$ that is current in the relation $R$, that is it, $I = \left[X , \text{UNKNOWN} \right]$.
+
+\begin{align}
+\label{eq:pvp-current-in-relation}
+\mbox{Current} \left(R, A \right) &=& \\ 
+\begin{cases}
+\nonumber
+I & \mbox{ if } \exists  \in I : \\
+&  (A,I) \in R \wedge Y \in \text{UNKNOWN}\\
+\emptyset & \mbox{ in any other case }
+\end{cases}
+\end{align}
+\end{definition}
+
+Now it is possible to close the current version of an object by using \eqref{eq:close-r-a-pvp} and \eqref{eq:pvp-current-in-relation}.
+
+\begin{definition}
+\label{def:pvp-close-current-version}
+Consider an object $A$, the relation $R$ and a pvp, $J$. Then, the function close - current$\left(R, A, J \right)$ closes any current version of the object $A$ if it exists and add the new version $\left(A, J \right)$.
+
+\begin{eqnarray}
+\label{eq:pvp-close-current}
+\text{Close-current} \left(R, A, J \right) =\\
+\begin{cases}
+\nonumber
+\big \lbrace R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right) \cup \left(A, J\right)\right \rbrace  \big \rbrace \\
+\nonumber
+\mbox{ if } I = \mbox{ Current } \left(R, A \right) \wedge J > \mbox{ CloseR } \left(I, J \right)   \\
+\nonumber R , \text{ in any other case}
+\end{cases}
+\end{eqnarray}
+\end{definition}
+
+\subsubsection{\label{subsubsec:insert-fuzzy-temporal}Insert}
+
+\subsubsection{\label{subsubsec:modify-fuzzy-temporal}Modify}
+
+\subsubsection{\label{subsubsec:delete-fuzzy-temporal}Delete}
+
+\subsubsection{\label{subsubsec:revise-fuzzy-temporal}Revise}
 
