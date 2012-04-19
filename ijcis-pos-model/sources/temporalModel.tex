@@ -291,10 +291,76 @@ Consider an object $A$, the relation $R$ and a pvp, $J$. Then, the function clos
 \end{definition}
 
 \subsubsection{\label{subsubsec:insert-fuzzy-temporal}Insert}
+The user wants to store an object $A$ which is valid in the relation $R$ during the time interval specified by the PVP, $I = \left(X, Y \right)$.
+%
+%
+%The interpretation of the insert operation is the following: The user wants to store in the database that an object $A$  is true for some period(s) of time $I$ in the given relation $R$. To indicate that the object $A$ is current in the relation, the special value Until Current, $\UC$  is used. 
+There are two main cases when performing an insert operation:
+\begin{enumerate}
+\item The object $A$ was never in the relation $R$: The object is added with the valid-time indicated by the PVP $I$.
 
+\item The object $A$ is in the relation $R$. Depending on the value of the time interval $I$, there are two possibilities:
+	\begin{enumerate}
+	\item Insert $\left(A, I\right)$ in the relation $R$. If the time interval $I$ does not overlap any other valid-time interval in the relation $R$.
+	\item Reject the insertion, if the time interval $I$ do overlap any existing valid-time interval for the object $A$ in the relation $R$.
+	\end{enumerate}
+
+\end{enumerate}
+
+The algorithm for the implementation of the insert operation is the following:
+
+\begin{align}
+\label{eq:insert-fuzzy-temporal}
+\INS \left(R ,A, I\right) =\\
+\begin{cases}
+\nonumber
+R \cup \left(A, I \right), & \mbox{ if }  A \not \in R\\
+R \cup   \left(A, I \right) & \mbox{ if }  A \in R \wedge \\
+\big \lbrace \left( \exists J= \left(X', Y' \right): \left(A, J \right) \in R \wedge \right. \\
+\left. Y' \in \left \lbrace \left(<, X \right)\right \rbrace  \right) \vee \\
+\left( \exists K= \left(X'', Y'' \right): \left(A, K \right) \in R \wedge \right. \\
+\left. X'' \in \left \lbrace \left(>, Y \right)\right \rbrace \vee \right) \big \rbrace\\
+%&  J<I<K  \big \rbrace\\
+R, & \mbox{ otherwise }  
+\end{cases} 	
+\end{align}
 \subsubsection{\label{subsubsec:modify-fuzzy-temporal}Modify}
+The delete operation logically removes a current object $A$ which is valid in the relation $R$:
+\begin{align}
+\label{eq:delete-fuzzy-temporal}
+\DEL \left(R ,A \right) =\\
+\begin{cases}
+\nonumber
+R - \left(A, I \right), & \mbox{ if } \left( A, I \right) \in R\\
+R, & \mbox{ otherwise }  
+\end{cases} 	
+\end{align}
 
 \subsubsection{\label{subsubsec:delete-fuzzy-temporal}Delete}
+This operation adds new information about an existing object $A$ in the relation $R$. The modify operation does not remove any previous value of the object $A$.
+Note that the modify operation is only applicable when the object $A$ is current in the relation $R$; $ \left(A, I \right) \in R, I = \left[X, \UC \right]$.
+
+\begin{align}
+\label{eq:modify-fuzzy-temporal}
+\MOD \left( R, A, I \right) =\\
+\begin{cases}
+\nonumber
+\mbox{ Close-current }\left(R, A, \mbox{Current}\left(R, A \right) \right) \\
+ \mbox{ if Current}\left(R ,A \right) \neq \emptyset \\
+ R,  \mbox{ otherwise }
+\end{cases}
+\end{align}
 
 \subsubsection{\label{subsubsec:revise-fuzzy-temporal}Revise}
-
+This operation changes the value of the object $A$ in the relation $R$, at a given time interval $I$. This operation is defined when a correction on the values for the object $A$ should be done.
+\begin{align}
+\label{eq:revise-fuzzy-temporal}
+\mbox{ Revise}\left(R, A, I \right)=\\
+\begin{cases}
+\nonumber
+ R - \left(A', I \right) \cup \left(A, I \right)  \\
+  \mbox{ if } \left(A', I \right) \in R: A = \left(a_1, \ldots, a_n \right),\\
+A'= \left(a_1', \ldots, a_n' \right)   \\   
+R,  \mbox{ otherwise }
+\end{cases}
+\end{align} 
