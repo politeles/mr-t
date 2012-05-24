@@ -9,13 +9,13 @@ In a temporal DBMS, a \textbf{chronon} is the shortest duration of time supporte
 
 \begin{itemize}
 	\item
-	\textbf{Transaction time} (\emph{TT}) \cite{Rowe1987},\cite{Jensen1991} denotes the time when the fact (object) is stored in the database. It is usually append-only: as the past can not be changed, TT can not be changed neither. Furthermore, at the moment of insertion, a TT can be neither in the past nor in the future.
+	\textbf{Transaction time} (\emph{TT}) \cite{Rowe1987,Jensen1991} denotes the time when the fact (object) is stored in the database. It is usually append-only: as the past cannot be changed, TT cannot be changed either. Furthermore, at the moment of insertion, a TT can be neither in the past nor in the future.
 	\item
-	\textbf{Valid time} (\emph{VT}) \cite{Jensen1994},\cite{Sarda1990},\cite{McKenzie1981} denotes the time when the fact (object) is true in the modelled reality. A fuzzy extension has been proposed by \cite{Garrido2009}. 
+	\textbf{Valid time} (\emph{VT}) \cite{Jensen1994,Sarda1990,McKenzie1981} denotes the time when the fact (object) is true in the modelled reality. A fuzzy extension has been proposed by \cite{Garrido2009}. 
 %	\item
 %	User defined time: It is an uninterpreted attribute. The domain is date/time. The query language has no special support for it.
 	\item
-	\textbf{Decision time} (\emph{DT}) \cite{Nascimento1995},\cite{Chakravarthy1994},\cite{Etzion1992},\cite{Ozsoyoglu1995} denotes the time when an event was decided to happen. 
+	\textbf{Decision time} (\emph{DT}) \cite{Nascimento1995,Chakravarthy1994,Etzion1992,Ozsoyoglu1995} denotes the time when an event was decided to happen. 
 	\end{itemize}
 	
 	E.g., consider a database containing employee contract descriptions. The time when the employee's contract is valid, represented by an interval, is VT. The time when the employee's contract is stored in the database is the TT. The time when the decision for hiring this employee was made is the DT.
@@ -65,16 +65,16 @@ Depending on the time managed, a database is classified as either a \textbf{Vali
 %	\end{itemize}
 %Guy's suggestion: instead of imprecision, use imperfection which is more general.
 \subsubsection{Imperfection and time}
-Representing imprecision and its semantics when dealing with time has been studied for a long time. Several proposals for representing and computing imprecise time indications can be found in \cite{DeCaluwe1997} and \cite{DeTre1997}. Also, the changes between several granularities can be seen as a source of imprecision \cite{Devos1998}.
+Representing imprecision and its semantics when dealing with time has been studied for a long time. Several proposals for representing and computing imprecise time indications can be found in \cite{DeCaluwe1997,DeTre1997}. Also, the changes between several granularities can be seen as a source of imprecision \cite{Devos1998}.
 
 In the proposal section we will consider two kinds of imprecision:
 \begin{itemize}
-\item \textbf{Uncertainty in the database} denotes the uncertainty that arises when the knowledge about the temporal data in the database is uncertain. E.g., a database record shows that \emph{`The car is in the garage around April.'}
+\item \textbf{Imperfection in the database} denotes the uncertainty that arises when the knowledge about the temporal data in the database is uncertain. E.g., a database record shows that \emph{`The car is in the garage around April.'}
  \item \textbf{Imprecision in the query specification} denotes the imprecision in the specification of temporal criteria by the user, when querying. E.g., \emph{`The user wants to obtain a car which is red and which is in the garage around April.'}
 \end{itemize}
 
 \subsubsection{Representation}
-Several proposals for managing uncertain time in a database exist. Some proposals work with rough sets \cite{Qiang2009}, other proposals rely on possibility distributions for representing uncertainty in time \cite{Dyreson1998},\cite{Garrido2009}, \cite{Galindo2001}. In order to compare temporal possibility distributions, extensions of the classical Allen's operators \cite{Allen1983} are defined in \cite{Ohlbach2004}, \cite{Nagypal2003},\cite{Dubois2003a} and \cite{Schockaert2008}
+Several proposals for managing uncertain time in a database exist. Some proposals work with rough sets \cite{Qiang2009}, other proposals rely on possibility distributions for representing uncertainty in time \cite{Dyreson1998,Garrido2009,Galindo2001}. In order to compare temporal possibility distributions, extensions of the classical Allen's operators \cite{Allen1983} are defined in \cite{Ohlbach2004,Nagypal2003,Dubois2003a,Schockaert2008}.
 %In the proposal section, we will follow the representation by means of possibility distributions, in order to work with both satisfaction and dissatisfaction degrees. Also, in order to work properly with fuzzy operators, the underlying domain should be numeric. 
 % Take a look into this:
 %In this paper, the representation for the dates will follow the Julian Day Number (JDN) representation \cite{Dir96}.
@@ -85,7 +85,7 @@ Several proposals for managing uncertain time in a database exist. Some proposal
 In order to deal with uncertainty in time intervals, several proposals are made. Here, two approaches are introduced: the first one, based on \emph{Fuzzy Validity Period}~\cite{Garrido2009} and the second one based on \emph{Possibilistic Valid-time Period}~\cite{JoseEnriquePons2012}.
 
 \begin{definition}
-A \textbf{Fuzzy Validity Period} (\emph{FVP}) is defined as a fuzzy time interval specifying when an object is valid. A fuzzy time interval is then the fuzzification of a crisp time interval.
+A \textbf{Fuzzy Validity Period} (\emph{FVP}) is defined as a fuzzy time interval specifying when the data regarding an object is valid. A fuzzy time interval is then the fuzzification of a crisp time interval.
 \end{definition}
 Several options to transform possibility distributions corresponding to the fuzzy starting point and the fuzzy end point into one consistent FVP exist \cite{Garrido2009}, e.g (Fig. \ref{fig:fuzzy-validity-period}):
 \begin{itemize}
@@ -110,7 +110,7 @@ Several options to transform possibility distributions corresponding to the fuzz
 \vspace*{13pt}
 
 \begin{definition}
-A \textbf{Possibilistic Valid-time Period} (\emph{PVP}) is an ill-known interval in time specifying when an object is valid.
+A \textbf{Possibilistic Valid-time Period} (\emph{PVP}) is an ill-known interval in time specifying when the data regarding an object is valid.
 \end{definition}
 A PVP is an ill-known interval in the sense of definition \ref{def;possibilistic-variable}, section \ref{subsec:possibilistic-variables}. Note that this representation is \emph{disjunctive}: the PVP represents only one crisp time interval, but that for some reason it is (partially) unknown.
 

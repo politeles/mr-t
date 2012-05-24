@@ -207,7 +207,9 @@ The algebra for the data manipulation is defined in \cite{Medina1994}. The Gener
 It is important to nottice that whereas the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is in the unit interval.  Therefore, for a valid-time object, say $A \in R$, in a crisp temporal database it is not possible an overlaping among any valid-time interval ($\forall I, \not \exists J: \left(A, I \right) \in R \wedge \left(A, J \right) \in R \wedge \not \Overlap\left(I, J \right)$). Thus, from the point of view of a fuzzy temporal database, there are the following options:
 
 \begin{itemize}
-\item [\textbf{Strictly consistent}] It is not possible for two PVPs of the same object to be valid at the same time. In other words, if $A$ is an object, $R$ is a relation and $\pi_{I}\left(t \right)$ and $\pi_{J}\left(t \right)$ are the possibilities for a time point $t \in \T$ to be in the PVPs $I$ and $J$ respectively,
+\item 
+\begin{definition}
+\textbf{Strictly consistent} It is not possible for two PVPs of the same object to be valid at the same time. In other words, if $A$ is an object, $R$ is a relation and $\pi_{I}\left(t \right)$ and $\pi_{J}\left(t \right)$ are the possibilities for a time point $t \in \T$ to be in the PVPs $I$ and $J$ respectively,
 \begin{align}
 \label{eq:stricly-consistent}
 \forall I,J, \forall t \in \T :\\
@@ -218,24 +220,42 @@ It is important to nottice that whereas the result of the evaluation of any comp
 \nonumber
 \pi_{I}(t) + \pi_{J}(t) \leq 1
 \end{align}
+\end{definition}
 
-\item [\textbf{Ill-consistent}] The overlapping of two PVPs of the same object do overlap. It can be distinghised among the following sub-types:
+
+
+
+\item 
+\begin{definition}
+ \textbf{Ill-consistent} The overlapping of two PVPs of the same object do overlap. It can be distinghised among the following sub-types:
 	\begin{itemize}
-	\item [\emph{Co-existence}] Two versions of the same object $A$ may exist at the same time.
-	\begin{align}
-	\label{eq:co-existence}
-	\forall I, \exists ! J, \exists t \in \T : \\
-	\nonumber
-	\pi_{I}(t) + \pi_{J}(t) \geq 1
-	\end{align}
-	\item [\emph{Weak-consistence}] Several versions of the same object $A$ may exist at the same time.
-	\begin{align}
-	\label{eq:weak-consistence}
-	\forall I, \exists J, \exists t \in \T : \\
-	\nonumber
-	\pi_{I}(t) + \pi_{J}(t) \geq 1
-	\end{align}
+	\item 
+	      \begin{definition}
+	      \emph{Co-existence} Two versions of the same object $A$ may exist at the same time.
+		      \begin{align}
+		      \label{eq:co-existence}
+		      \forall I, \exists ! J, \exists t \in \T : \\
+		      \nonumber
+		      \pi_{I}(t) + \pi_{J}(t) \geq 1
+		      \end{align}
+	      \end{definition}
+
+
+	\item 
+	      \begin{definition}
+	      \emph{Weak-consistence} Several versions of the same object $A$ may exist at the same time.
+		      \begin{align}
+		      \label{eq:weak-consistence}
+		      \forall I, \exists J, \exists t \in \T : \\
+		      \nonumber
+		      \pi_{I}(t) + \pi_{J}(t) \geq 1
+		      \end{align}
+	      \end{definition}
+
 	\end{itemize}
+\end{definition}
+
+
 \end{itemize}
 
 In the implementation of the DML operations we will consider a strictly consistent temporal database. Since the time intervals are now possibilistic valid-time periods, PVPs, the auxiliary functions defined in equations \eqref{eq:close-a-crisp-interval} to \eqref{eq:close-current} should be re-defined.
