@@ -7,7 +7,7 @@
 This section is devoted to specify the representation of time within the framework of the possibility theory. First of all, the specification for a single ill-known temporal point shall be explained. Then, the formal specification and the related constraints are given for an ill-known valid-time interval.
 
 \subsection{\label{subsec:ill-known-point-rep}Ill-known time point}
-An ill-known time point $X$ is a precise time point that for some reason, it is not fully specified. Note that $X$ has only one possible value but that value is unspecified.
+An ill-known time point $X$ is a precise time point that, for some reason, it is not fully specified. Note that $X$ has only one possible value but that value is unspecified.
 
 \begin{definition}
 \label{def:ill-known-time-point}
@@ -19,10 +19,14 @@ Consider a time domain $\T$, uncertainty about the values of the ill-known time 
 \end{equation}
 \end{definition}
 
+It is also possible to specify an ill-known time point by a convex combination of ill-known constraints, (Definition \ref{def:convex-combination-ill-known-constraints}) as shown by equation \eqref{eq:ill-known-value-def-by-const-unc}.
+
+
+
 \begin{definition}
 \label{def:ill-known-domain}
 \emph{Domain for an ill-known time point}\\
-Consider $\Pow(\T)$ the set of all the possibility distributions over $\T$, and the three fuzzy constants \emph{UNKNOWN} $=\left\lbrace 1/t, t \in \T \right\rbrace$, \emph{UNDEFINED} $=\left\lbrace 0/t, t \in \T \right\rbrace$ and \emph{NULL} $=\lbrace 1/$ \emph{UNKNOWN}, $1/$ \emph{UNDEFINED} $\rbrace$. The domain for an ill-known time point $X$ is given by: 
+Consider $\Pow(\T)$ the set of all the possibility distributions over $\T$, and the three fuzzy constants \emph{UNKNOWN} $=\left\lbrace 1/t, \forall t \in \T \right\rbrace$, \emph{UNDEFINED} $=\left\lbrace 0/t,\forall t \in \T \right\rbrace$ and \emph{NULL} $=\lbrace 1/$ \emph{UNKNOWN}, $1/$ \emph{UNDEFINED} $\rbrace$. The domain for an ill-known time point $X$ is given by: 
 \begin{align}
 \label{eq:ill-known-domain}
 \Dom (X) =  \lbrace \Pow(\T) & \cup \mbox{\emph{UNKNOWN}} \\
@@ -34,7 +38,6 @@ Consider $\Pow(\T)$ the set of all the possibility distributions over $\T$, and 
 \end{align}
 \end{definition}
 
-It is also possible to specify an ill-known time point by just a set of ill-known constraints plus 
 
 
 
@@ -50,8 +53,8 @@ The datatypes for an ill-known time point $X$ are shown in Table \ref{tbl:time-p
 \hline
 1 & A single time point &  $1/x, x \in \T$\\
 2 & A possibility distribution in the numeric domain & A fuzzy number or a fuzzy interval.\\
-3 & An unknown value & \textbf{UNKNOWN}$= \lbrace1/t, t \in \T \rbrace$\\
-4 & An undefined value & \textbf{UNDEFINED}$= \lbrace 0/t, t \in \T \rbrace$\\
+3 & An unknown value & \textbf{UNKNOWN}$= \lbrace1/t,\forall t \in \T \rbrace$\\
+4 & An undefined value & \textbf{UNDEFINED}$= \lbrace 0/t,\forall t \in \T \rbrace$\\
 5 & A null value & \textbf{NULL} $=\lbrace 1/$Unknown, 1/Undefined $\rbrace$\\
 \hline\\
 \end{tabular}
@@ -93,13 +96,13 @@ In that database, for the document with ID=23454, all the dates in the domain ar
 
 \begin{definition}
 \emph{Ill-known time interval}\\
-An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval that for some reason, its boundaries are not precisely known. The ill-known interval is defined by two ill-known points, namely $X$,$Y$.
+An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval whose boundaries are not precisely known. The ill-known interval is defined by two ill-known points, namely $X$,$Y$.
 In order to know if all the points in the crisp time interval $I=\left[a, b\right]$ are within the boundaries of the ill-known time interval $\left[X, Y\right]$ we define the following two ill-known constraints $C_{1}, C_{2}$ 
 \begin{eqnarray}
-C_1\stackrel{\triangle}{=}\left(\geq,X\right) \wedge \\
+C_1\stackrel{\triangle}{=}\left(\geq,X\right)  \\
 C_2\stackrel{\triangle}{=}\left(\leq,Y\right)
 \end{eqnarray}
-Note that the boolean operator applied to the constraints is $\bool=\wedge$.
+Note that the boolean operator applied to the constraints is $\bool=\wedge$. Hence, the construct of both constraints is $C_1 \wedge C_2$
 This means that we want to know if all the points in the interval $I$ are greater or equal to $X$ and, at the same time, smaller or equal to $Y$.
 \end{definition}
 
@@ -123,9 +126,14 @@ The simplified equations for the possibility and the necessity measures are~\cit
 Quite often, the user may want to specify time intervals with open boundaries in one or both endpoints. Consider an ill-known time interval $\left[X, Y\right]$. Then it is possible to distinguish between the following two types of open intervals:
 \begin{enumerate}
 \item
-\emph{Completely unknown time interval}: Both starting and ending points are unknown, therefore the hole interval is specified by the \emph{UNKNOWN} constant. Due to the representation, both endpoints, say $X$ and $Y$ are stored. Thus, the interval is stored as $[$ \emph{UNKNOWN}, \emph{UNKNOWN} $]$.
+\begin{definition}
+\emph{Completely unknown time interval}: Both starting and ending points are unknown, therefore the whole interval is specified by the \emph{UNKNOWN} constant. Due to the representation, both endpoints, say $X$ and $Y$, are stored. Thus, the interval is stored as $[$ \emph{UNKNOWN}, \emph{UNKNOWN} $]$. 
+\end{definition}
+
 \item
-\emph{Semi-open time interval}: Only one of the two ill-known endpoints for the time interval $\left[X, Y\right]$ is unknown. Note that due to the ill-known constraints $C_{1}, C_{2}$ it is not possible a representation like $[$ \emph{UNKNOWN} $, Y]$ or $[X, $ \emph{UNKNOWN} $]$. The solution adopted for this problem is explained in the following paragraph.
+\begin{definition}
+\emph{Semi-open time interval}: Only one of the two ill-known endpoints for the time interval $\left[X, Y\right]$ is unknown. Note that due to the ill-known constraints $C_{1}, C_{2}$ it is not possible a representation like $[$ \emph{UNKNOWN} $, Y]$ or $[X, $ \emph{UNKNOWN} $]$. The solution adopted for this problem is explained in the following paragraph. 
+\end{definition}
 \end{enumerate}
 
 \paragraph{Representation of semi-open time intervals}
@@ -199,23 +207,23 @@ Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider al
 \vspace*{13pt}
 
 
-\vglue13pt
-%\begin{table}[htbp]
-\tcap{Relations for the $\Open(C)$ function.}
-\centerline{\small Relations}
-\vglue-6pt
-\centerline{\small\baselineskip=13pt
-\begin{tabular}{c c c}\\
-\hline
-$R$ & $\Rp$ & $\Rn$\\ \hline
-$<$ & $>$ & $\leq$ \\
-$\leq$ & $\geq$ & $<$ \\
-$>$ & $<$ & $\geq$ \\
-$\geq$ & $\leq$ & $>$ \\
-\hline\\
-\end{tabular}
-\label{tbl:open-pos-nec-rels}
-}
+% \vglue13pt
+% %\begin{table}[htbp]
+% \tcap{Relations for the $\Open(C)$ function.}
+% \centerline{\small Relations}
+% \vglue-6pt
+% \centerline{\small\baselineskip=13pt
+% \begin{tabular}{c c c}\\
+% \hline
+% $R$ & $\Rp$ & $\Rn$\\ \hline
+% $<$ & $>$ & $\leq$ \\
+% $\leq$ & $\geq$ & $<$ \\
+% $>$ & $<$ & $\geq$ \\
+% $\geq$ & $\leq$ & $>$ \\
+% \hline\\
+% \end{tabular}
+% \label{tbl:open-pos-nec-rels}
+% }
 
 
 
