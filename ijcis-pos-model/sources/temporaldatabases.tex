@@ -67,9 +67,9 @@ Depending on the time managed, a database is classified as either a \textbf{Vali
 \subsubsection{Imperfection and time}
 Representing imprecision and its semantics when dealing with time has been studied for a long time. Several proposals for representing and computing imprecise time indications can be found in \cite{DeCaluwe1997,DeTre1997}. Also, the changes between several granularities can be seen as a source of imprecision \cite{Devos1998}.
 
-In the proposal section we will consider two kinds of imprecision:
+In the proposal section we will consider two kinds of imperfection:
 \begin{itemize}
-\item \textbf{Imperfection in the database} denotes the uncertainty that arises when the knowledge about the temporal data in the database is uncertain. E.g., a database record shows that \emph{`The car is in the garage around April.'}
+\item \textbf{Imperfection in the database} the knowledge about the temporal data contains some imperfection. E.g., a database record shows that \emph{`The car is in the garage around April.'}
  \item \textbf{Imprecision in the query specification} denotes the imprecision in the specification of temporal criteria by the user, when querying. E.g., \emph{`The user wants to obtain a car which is red and which is in the garage around April.'}
 \end{itemize}
 
@@ -163,6 +163,7 @@ Consider a relation $R$ in a temporal database, an entity $A$ given by the attri
 \end{equation}
 \end{definition}
 \begin{example}
+\label{ex:library-database}
  Consider a library database. Each physical book is stored with an identifier (ID), a title and the start and end loan dates respectively. Table \ref{tbl:library-sample} illustrates the first version of the database, after three insertions. In this example, $A = ($ ID, Title $)$ and $I = ($ Start Loan, End Loan $)$.
 \end{example}
 
@@ -192,10 +193,10 @@ In order to simplify the algorithms for the manipulation of data, some auxiliary
 
 \begin{definition}
  \label{def:until-changed}
-\textbf{Until changed (UC):} To show that the data related to the entity $\left(A, I \right)$ is up-to-date, a special constant called \emph{Until Changed} is defined for the endpoint of the time interval $I$. The value for this constant is considered to be $+\infty$. 
+\textbf{Until changed (UC):} To show that the data related to the entity $\left(A, I \right)$ is up-to-date, a special constant called \emph{Until Changed} is defined for the endpoint, $d$, of the time interval $I = \left(c, d\right)$. The value for this constant is considered to be $+\infty$. 
 \end{definition}
 
-%quizas poner un ejemplo relacionado con lo de la liberia.
+
 
 If the pair $\left(A, I \right)$ with $I = \left(c, UC \right), c \in \T$ is in the relation $R$, then, it is said that the pair $\left(A, I \right)$ is \emph{current} in the relation.
 
@@ -204,7 +205,7 @@ For example, last row in Table \ref{tbl:library-sample}. The value for the time 
 \begin{definition}
 \textbf{Current $\left(R, A \right)$:}
 \label{def:current-in-relation}
-This function returns a crisp time interval $I$ if the entity $A$ is current in the relation $R$ or $\emptyset$ if the entity $A$ is not current in the relation.
+This function returns a crisp time interval $I$ if the entity $A$ is current in the relation $R$ or the empty set, if the entity $A$ is not current in the relation.
 
 %Consider an object $A$ and a relation $R$ in a temporal database. The function Current$\left(R, A \right)$ obtains the tuple $\left(A, I \right)$ that is current in the relation $R$, that is it, $I = \left[a, +\infty \right]$.
 
@@ -221,7 +222,7 @@ I & \mbox{ if } (A,I) \in R \wedge I = \left(c, UC \right), c \in \T\\
 
 For example, the function Current(R, (3,`Dracula')) returns the time interval $I = \left(4/4/2012 , UC  \right)$. On the other hand, Current(R, (4,`Frankenstein')) returns the empty set.
 
-The following two Allen's relations (see Figure \ref{fig:allen-rel}) are defined like in~\cite{Nagypal2003} to implement the auxiliary functions. 
+The following two Allen's relations (see Figure \ref{fig:allen-rel}) are defined~\cite{Nagypal2003} to implement the auxiliary functions. 
 
 
 
@@ -368,7 +369,7 @@ This operation adds new information about an existing entity $A$ in the relation
 \MOD \left( R, \left(A, I \right)\right) =\\
 %\begin{cases}
 \nonumber
-\mbox{ Close-current }\left(R, A, \mbox{Current}\left(R, A \right) \right) %\\
+\mbox{ Close-current }\left(R, \left(A, I\right) \right) %\\
 % \mbox{ if Current}\left(R ,A \right) \neq \emptyset \\
 % R,  \mbox{ otherwise }
 %\end{cases}
@@ -491,12 +492,12 @@ For example, consider that the librarian wants to delete the history for the boo
 
 
 \subsubsection{\label{subsubsec:revise}Revise}
-This operation replaces the old values for the entity $A'= \left(a_1', \ldots, a_n' \right) $ with the new values specified by $A = \left(a_1, \ldots, a_n \right)$ in the relation $R$, at a given time interval $I$. This operation is defined when a correction on the values for the entity $A$ should be done.
+This operation replaces the old values for the entity $A'= \left(a_1', \ldots, a_n' \right) $ with the new values specified by $A = \left(a_1, \ldots, a_n \right)$ in the relation $R$, at a given time interval $I$. This operation is used when a correction on the values for the entity $A$ should be done.
 \begin{align}
 \REV\left(R, \left(A, I \right) \right)=\\
 \begin{cases}
 \nonumber
- R - \left(A', I \right) \cup \left(A, I \right) & \mbox{ if } \left(A', I \right) \in R  \\
+ R - \left(A', I \right) \cup \left \lbrace \left(A, I \right) \right \rbrace & \mbox{ if } \left(A', I \right) \in R  \\
    %: A = \left(a_1, \ldots, a_n \right),\\
 %A'= \left(a_1', \ldots, a_n' \right)   \\   
 R & \mbox{ otherwise }
