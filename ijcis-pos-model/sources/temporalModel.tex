@@ -5,7 +5,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
-The model is based on the GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated with an example. The information in the system is defined by the following elements:
+The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated with an example. The information in the system is defined by the following elements:
 
 \begin{definition}
 \label{def:generalized-fuzzy-domain}
@@ -21,7 +21,7 @@ The datatypes for $D_G$ are shown in table \ref{tbl:gefred-data-types}.
 \begin{definition}
 \label{def:typeof-domain}
 \textbf{Typeof(D).}
-The function typeof$\left(D \right)$ returns the datatype associated with the domain $D$. For datatype, the function returns the associated number as shown in Table \ref{tbl:gefred-data-types}.
+The function typeof$\left(D \right)$ returns the datatype associated with the domain $D$. For every datatype, the function returns the associated number as shown in Table \ref{tbl:gefred-data-types}.
 \end{definition}
 
 
@@ -51,7 +51,7 @@ No. & Datatype \\ \hline
 
 
 
-It is possible to define a more specific generalized temporal domain, $\T_G$:
+It is possible to define a more specific generalized temporal domain, $\T_G$.
 
 \begin{definition}
 \label{def:generalized-fuzzy-temporal-domain}
@@ -134,14 +134,14 @@ When the compatibility degree is 1, the component is omitted. The body, $\Body$ 
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
-\begin{tabular}{c c c |c c}\\
+\begin{tabular}{c c c |p{0.35\columnwidth}}\\
 \hline
-& & & \multicolumn{2}{c}{PVP} \\
-$\Head$ &  \textbf{ID}  & Title  &  Start Loan & End Loan\\
+& & & \centerline{PVP} \\
+$\Head$ &  \textbf{ID}  & Title  &  Start Loan , End Loan\\
 \hline
-\multirow{3}{*}{$\Body$ \Big\lbrace} &  3 & Dracula & [15/3/2012, 5, 2] & [30/3/2012, 1, 1] \\
- &4 & Frankenstein & [25/3/2012, 3, 2] & [4/4/2012, 1, 7] \\
-&5 & Harry Potter & [18/3/2012, 4, 1] & [2/4/2012, 2, 2]\\
+\multirow{3}{*}{$\Body$ } &  3 & Dracula & [15/3/2012, 5, 2] , [30/3/2012, 1, 1] \\
+ &4 & Frankenstein & [25/3/2012, 3, 2] , [4/4/2012, 1, 7] \\
+&5 & Harry Potter & [18/3/2012, 4, 1] , [2/4/2012, 2, 2]\\
 % \ 3 & Dracula & [4/4/2012, 3, 3] & UC \\
 \hline\\
 \end{tabular}
@@ -304,15 +304,17 @@ K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \r
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
-\begin{tabular}{c c c c | c c}\\
+\begin{tabular}{c c c c | p{0.35\columnwidth} }\\
 \hline
-& & & &\multicolumn{2}{c}{PVP} \\
-$\Head$  & \textbf{ID}  & \textbf{V} & Title  & Start Loan & End Loan \\
-\hline
-\multirow{4}{*}{$\Body  \Big\lbrace$}  & 3 & 001 & Dracula & [15/3/2012, 5, 2] & [30/3/2012, 1, 1] \\
-& 4 & 001 & Frankenstein & [25/3/2012, 3, 2] & [4/4/2012, 1, 7]\\
-& 5 & 001 & Harry Potter & [18/3/2012, 4, 1] & [2/4/2012, 2, 2]\\
-& 3 & 002 & Dracula & [4/4/2012, 3, 3] & UC \\
+% & & & \multicolumn{2}{c}{PVP} \\
+%& & & & \centerline{PVP}\\
+{$\Head$}  &  &  & &(Start Loan\\
+& \textbf{ID}  & \textbf{V} & Title& , End Loan)	\\
+ \hline
+\multirow{4}{*}{$\Body$}  & 3 & 001 & Dracula & [15/3/2012, 5, 2], [30/3/2012, 1, 1] \\
+& 4 & 001 & Frankenstein & [25/3/2012, 3, 2] , [4/4/2012, 1, 7]\\
+& 5 & 001 & Harry Potter & [18/3/2012, 4, 1] , [2/4/2012, 2, 2]\\
+ & 3 & 002 & Dracula & [4/4/2012, 3, 3] , UC \\
 \hline\\
 \end{tabular}
 }

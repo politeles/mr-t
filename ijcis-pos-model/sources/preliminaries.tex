@@ -1,11 +1,502 @@
-%Introductory text: present the entire structure (and purpose?) of the preliminaries section
-In this section, first some basic concepts and vocabulary concerning relational databases are reviewed. After this, some attention is given to temporal databases in general and to valid-time relations in particular. An example is presented, which will be used throughout the entire paper. Next, some concepts concerning possibility theory and fuzzy numbers and intervals are explained and defined, along with their terminology. The framework of set evaluation by ill-known constraints~\cite{Pons2011} is presented. Finally, some attention is given to the modelling and handling of imperfections in temporal modelling.
+%Introductory text:
+In this section, we introduce some basic concepts concerning possibilistic variables and fuzzy numbers and intervals. Then, the framework of set evaluation by ill-known constraints \cite{Pons2011} is explained. The section concludes with a brief introduction to temporal databases.
 
 
-%Something about relational databases in general and relations in specific (to make the vocabulary clear)
-\subsection{Relational Databases}
-In this subsection, a few structural and behavioral aspects of the relational database model will be presented.
+% %Something about relational databases in general and relations in specific (to make the vocabulary clear)
+% \subsection{Relational Databases}
+% In this subsection, a few structural and behavioral aspects of the relational database model will be presented.
+% 
+% In a relational database, information is structured in \emph{relations}. As explained in the introduction, a collection of similar entities is modelled by an entitytype, which, using the relational database model, will be modelled by a relation. A relation consists of a \emph{relation schema} and an \emph{extention}. The relation schema basically determines the relation structure, by dictating which data (describing entities) will be kept and how these data will be represented. Each (atomic) part of these data is a result value of a measurement of a property of an entity or a description of a property of an entity. The extention contains these data. A relation schema consists of a \emph{relation name} and a finite set of \emph{attributes}. The relation name is of course the name of the entire relation, while the attributes describe common properties of the entities modelled by the relation. Every attribute consists of an attribute name and an associated \emph{data type}. Each data type has its \emph{domain} and its operators. The domain of a data type is the set of values which data of the data type in question can assume. Operators of a data type can be applied to data of a data type. The extention of a relation is a set of \emph{tuples}. Each tuple represents an enitity, by containing values: for every attribute in the attribute set of the relation schema, the tuple contains the value describing the exact state of the property of the entity. %Remember: a tuple is just an ordered tuple of values.
 
-In a relational database, information is structured in \emph{relations}. As explained in the introduction, a collection of similar entities is modelled by an entitytype, which, using the relational database model, will be modelled by a relation. A relation consists of a \emph{relation schema} and an \emph{extention}. The relation schema basically determines the relation structure, by dictating which data (describing entities) will be kept and how these data will be represented. Each (atomic) part of these data is a result value of a measurement of a property of an entity or a description of a property of an entity. The extention contains these data. A relation schema consists of a \emph{relation name} and a finite set of \emph{attributes}. The relation name is of course the name of the entire relation, while the attributes describe common properties of the entities modelled by the relation. Every attribute consists of an attribute name and an associated \emph{data type}. Each data type has its \emph{domain} and its operators. The domain of a data type is the set of values which data of the data type in question can assume. Operators of a data type can be applied to data of a data type. The extention of a relation is a set of \emph{tuples}. Each tuple represents an enitity, by containing values: for every attribute in the attribute set of the relation schema, the tuple contains the value describing the exact state of the property of the entity. %Remember: a tuple is just an ordered tuple of values.
+\subsection{\label{subsec:possibility-theory}Possibility Theory}
+Possibility theory is devoted to the handling of incomplete information. In order to capture partial ignorance, two measures are provided: possibility and necessity.
 
-In this work, a specific variant of the relational database model will be presented.
+\begin{definition}
+Consider a set of outcomes $\Omega$. Let $\wp(\Omega)$ denote the powerset of $\Omega$ and let $A$ and $B$ be elements of $\wp(\Omega)$. A \emph{confidence measure on $\Omega$} is defined by a function
+	\begin{align}
+	g : \wp(\Omega) & \rightarrow \left[0,1\right]
+	\end{align}
+that satisfies
+	\begin{align}
+	g(\emptyset) &= 0 \\
+	g(\Omega) &= 1 	\label{NormalizationProperty} \\
+	A \subseteq B &\Rightarrow g(A) \leq g(B) \label{MonotonicityProperty}
+	\end{align}
+\end{definition}
+
+Both possibility and necessity measures are special cases of confidence measures.
+
+
+
+\begin{definition}
+Consider a confidence measure $\Pi$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $\Pi$ is now a \emph{possibility measure on $\Omega$} if it satisfies:
+	\begin{align}
+	\Pi\left(\bigcup_{j \in J} A_{j} \right) = \sup_{j \in J} \Pi(A_{j})
+	\end{align}
+\end{definition}
+
+In this work, the interpretation is as follows. The possibility of an event expresses how plausible the occurrence of the event seems to an observer of the experiment, given the (partial) knowledge of the observer about the experiment.
+
+Information on the possibility of distinct elements of the universe of discourse $\Omega$ can now be given by a \emph{possibility distribution} $\pi$ on $\Omega$, defined by:
+
+\begin{definition}
+Consider a possibility measure $\Pi$ on $\Omega$. A \emph{possibility distribution} $\pi$ on $\Omega$ underlying the possibility measure $\Pi$ is then a function defined by:
+	\begin{align}
+	\pi : \Omega \rightarrow \left[0, 1\right] : \pi(u) = \Pi(\{u\})
+	\end{align}
+\end{definition}
+
+\begin{definition}
+Consider a confidence measure $N$ on a set of outcomes $\Omega$. Let $J$ be a countable index set and let $\{ A_{j} | j \in J \wedge A_{j} \subseteq \Omega \}$ be a family of elements of $\wp(\Omega)$. $N$ is now a \emph{necessity measure} on $\Omega$ if it satisfies:
+	\begin{align}
+	N\left(\bigcap_{j \in J} A_{j} \right) = \inf_{j \in J} N(A_{j})
+	\end{align}
+\end{definition}
+
+In this work, the interpretation is as follows. The necessity of an event expresses how necessary the occurrence of the event seems to an observer of the experiment, given the (partial) knowledge of the observer about the experiment.
+
+Possibility and necessity measures are dual in the sense that:
+
+\begin{align}
+\forall A \subseteq \Omega : N(A) = 1 - \Pi(\bar{A})
+\end{align}
+
+That is, the degree to which an event is necessary is the extent to every other possible event is not plausible.
+
+\subsection{\label{subsec:possibilistic-variables}Possibilistic Variables}
+Possibilistic variables rely on possibility theory \cite{Dubois1988a} and are defined as follows \cite{Pons2011}.
+
+\begin{definition}
+\label{def;possibilistic-variable}
+A possibilistic variable $X$ over a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. Possibility distribution $\pi_X$ on $U$ models the available knowledge about the value $X$ takes; for each $u\in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$. In this work, this possibility is interpreted as a measure of how plausible it is that $X$ takes the value $u$, given (partial) knowledge about the value $X$ takes.
+\end{definition}
+
+The exact value a possibilistic variable takes, which is (partially) unknown, is called an \emph{ill-known value} in this work \cite{Dubois1988a}.
+
+When a possibilistic variable is defined on the powerset $\Pow(U)$ of some universe $U$, the unique value the variable takes will be a crisp set and its possibility distribution on the powerset $\Pow(U)$ will describe the possibility of each crisp subset of $U$ to be the value the variable takes. This exact value (a crisp set) the variable takes, is now called an \emph{ill-known set} \cite{Dubois1988a}.
+
+It is important to understand the difference between the following two concepts:
+\begin{itemize}
+\item
+A \emph{possibilistic variable} $X$ is bounded to take only one value , but this value is not known due to incomplete knowledge. 
+\item
+An \emph{ill-known set}~\cite{Dubois1988a}: a possibilistic variable defined over the universe $\Pow(U)$.
+\end{itemize}
+
+Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
+
+A specific application of possibilistic variables is obtained when the universe under consideration is the set of Boolean values $\mathbb{B}$ = $\{T,F\}$. Indeed, any Boolean proposition $p$ takes just one value in $\mathbb{B}$. If the knowledge about which value this proposition $p$ will take is given by a possibility distribution $\pi_p$; the proposition can be seen as a possibilistic variable. The possibility and necessity that $p$ = $T$ (the proposition holds) demand more attention. This possibility and necessity is noted here as:
+\begin{align}
+\label{propholdsposs}
+\text{Possibility that $p$ = $T$ (p holds):} &\\
+\nonumber
+Pos(p) = \pi_p(T)  \\
+\label{propholdsnecc}
+\text{Necessity that $p$ = $T$ (p holds):} & \\
+\nonumber
+Nec(p) = 1-\pi_p(F) 
+\end{align}
+
+Here, equation \eqref{propholdsposs} denotes the possibility that $p$ = $T$ and the proposition holds, while equation \eqref{propholdsnecc} denotes the necessity that $p$ = $T$ and the proposition holds.
+
+This work deals with ill-known intervals. These are ill-known sets, defined and represented via a starting and ending points, which are ill-known values. The elements of the set are the values between the starting and ending points. A closed ill-known interval with starting point defined by possibilistic variable $X$ and ending point by possibilistic variable $Y$ is noted here $\left[X, Y\right]$. %The correspondences and transitions between the representations of ill-known sets, between the representations of ill-known intervals and between the representations of an ill-known set and an ill-known interval are part of the authors current research.
+
+\subsection{\label{subsec:fuzzy-numbers}Fuzzy Numbers and Fuzzy Intervals}
+Among others, Dubois and Prade~\cite{Dubois1983} use fuzzy sets \cite{Zadeh1965} to define a \emph{fuzzy interval}:
+\begin{definition}
+A fuzzy interval is a fuzzy set $M$, defined by a membership function $\mu_{M}$ on the set of real numbers $\mathbb{R}$ such that:
+\begin{eqnarray}
+\mu_{M} :  \mathbb{R} \rightarrow \left[0,1\right]  \\ 
+\nonumber
+\forall (u,v)\in\mathbb{R}^2: \forall w \in [u,v]:\\
+\nonumber
+\mu_M(w) \geq\min(\mu_M(u),\mu_M(v))  \\
+\nonumber
+\exists m \in \mathbb{R} :  \mu_M(m)=1 
+\end{eqnarray}
+\end{definition}
+
+\vspace*{13pt}
+\begin{center}
+{
+\includegraphics[scale=0.25]{./graphs/triangular.pdf}
+
+}
+\end{center}
+%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
+\vspace*{10pt}
+\fcaption{\label{fig:triangular-dist}Example of fuzzy number.}
+%  \label{fig:fuzzy-validity-period}
+\vspace*{13pt}
+
+If this modal value $m$ is unique, then $M$ is referred to as a \emph{fuzzy number}. 
+%In other words, if the core of a fuzzy interval is a singleton, it is referred to as a fuzzy number (Figure \ref{fig:triangular-dist}).
+
+A simple form of the membership function of a fuzzy interval is a trapezoidal function (Figure \ref{fig:trapezoidal-dist}). It can be shown that such a membership function $\mu_T$ for a fuzzy interval $T$ is convex and normalized. The values $\left[\alpha, \beta, \gamma, \delta\right]$ represent a trapezoidal possibility distribution defined by $\mu_T$:
+
+% Four real values, denoted $\alpha$, $\beta$, $\gamma$ and $\delta$ suffice to represent a trapezoidal membership function of a fuzzy interval. In this work, a fuzzy interval defined as such will be noted as . The corresponding membership function definition for this  is then given by:
+
+\begin{align}
+\mu_T : & \quad \mathbb{R} \rightarrow \left[0,1\right] \\
+\nonumber
+ : & \quad x \rightarrow
+\begin{cases}
+1 & \mbox{ if } x \in [\beta,\gamma] \\
+0 & \mbox{ if } x > \delta \vee x < \alpha \\
+\frac{x-\alpha}{\beta - \alpha} & \mbox{ if } x \in [\alpha,\beta[ \\
+\frac{\delta -x}{\delta - \gamma} & \mbox{ if } x \in ]\gamma,\delta] \\
+\end{cases}
+\end{align}
+
+
+\vspace*{13pt}
+\begin{center}
+{
+\includegraphics[scale=0.25]{./graphs/trapezoidalDistribution.pdf}
+
+}
+\end{center}
+%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
+\vspace*{10pt}
+\fcaption{\label{fig:trapezoidal-dist}Example of fuzzy interval.}
+%  \label{fig:fuzzy-validity-period}
+\vspace*{13pt}
+%\def\JPicScale{0.5}
+%\begin{figure}[h!]
+%  \centering
+%  \input{./graphs/trapezoidal.tex}
+%  \caption{Trapezoidal membership function}
+%  \label{fig:trapezoidal}
+%\end{figure}
+
+
+The representation for a triangular possibility distribution is given by three values $\left[D,a,b \right]$. The distribution is obtained from a trapezoidal possibility distribution by replacing the values $\left[D-a, D, D, D+b \right]$.
+
+
+% The most convenient form of the membership function of a fuzzy number is a triangular form. It can be shown that such a membership function $\mu_M$ for a fuzzy number $M$ is convex and normalized. Three real values, denoted by $a$, $b$ and $D$, suffice to represent a triangular membership function of a fuzzy number and in this work, a fuzzy number defined as such will be noted as $\left[D, a, b \right]$. Here:
+% \begin{itemize}
+% \item
+% $D$ denotes the single value in the core of $M$
+% \item
+% $D-a$ is then $\inf \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
+% \item
+% $D+b$ is then $\sup \{u \in \mathbb{R} : \mu_{M}(u) > 0\}$
+% \end{itemize}
+% 
+% The membership function of such a fuzzy number is then given by:
+% 
+% \vspace{-10pt}
+% 
+% \begin{align}
+% \mu_M :   \mathbb{R} \rightarrow \left[0,1\right] :  x \rightarrow \nonumber\\
+% \begin{cases}
+% \nonumber
+% 0 & \mbox{ if } \left(x < D-a\right) \vee \left(x > D+b\right) \\
+% \frac{\left[x-\left(D-a\right)\right]}{a} & \mbox{ if } \left(x \geq D-a\right) \wedge (x \leq D)  \\
+% -\frac{\left[x-\left(D+b\right)\right]}{b} & \mbox{ if } \left(x \geq D\right) \wedge (x \leq D+b)
+% \end{cases}
+% \end{align}
+
+%\begin{figure}[h!]
+%  \centering
+%  \input{./graphs/triangular.tex}
+%  \caption{Triangular membership function.}
+%  \label{fig:triangular}
+%\end{figure}
+
+
+
+\subsection{\label{subsec:interval-evaluation-by-ill-known-constraints}Interval Evaluation by Ill-known Constraints}
+In our case, we need to know if all points in a crisp interval $I$ reside between the boundaries of an ill-known interval $\left[ X , Y \right]$. To compute that, we introduce the concept of \emph{ill-known constraint}\cite{Pons2011}.
+
+
+
+
+\begin{definition}
+Given a universe $U$, an ill-known constraint $C$ on a set $A \subseteq U$ is specified by means of a binary relation $R \subseteq U^{2}$ and a fixed, ill-known value denoted by its possibilistic variable $V$ over $U$, i.e.:
+\begin{align}
+\label{eq:ill-known-constraint}
+C \triangleq (R,V)
+\end{align}
+Set $A$ satisfies the constraint if and only if:
+\begin{align}
+\forall a \in A : (a,V) \in R
+\end{align}
+\end{definition}
+
+An example of an ill-known constraint is $C_{ex} = (<, X)$. Some set $A$ satisfies $C_{ex}$ if $\forall a \in A : a < X$, given the possibilistic variable $X$.
+
+The satisfaction of a constraint $C \triangleq (R,V)$ by a set $A$ is still a Boolean matter, but due to the uncertainty about the ill-known value $V$, it can be uncertain whether $C$ is satisfied by $A$ or not \cite{Pons2011}. In fact, this satisfaction now behaves as a proposition. Based on the possibility distribution $\pi_{V}$ of $V$, the possibility and necessity that $A$ satisfies $C$ can be computed. This proposition can thus be seen as a possibilistic variable on $\mathbb{B}$. The required possibility and necessity are:
+
+\vspace{-10pt}
+
+\begin{align}
+\label{ill-known-pos}\
+\Pos(A\text{ satisfies }C) & =\\
+\nonumber
+\min_{a \in A}\left(\sup_{(a,w) \in R}\pi_{V}(w)\right) \\
+\label{ill-known-nec}
+\Nec(A\text{ satisfies }C) & =\\
+\nonumber
+\min_{a \in A}\left(\inf_{(a,w) \notin R} 1-\pi_{V}(w)\right) 
+\end{align}
+
+So far, we have shown how it can be verified whether a set satisfies or not an ill-known constraint. The interval evaluation problem is explained in a more general context in \cite{Pons2011}.
+
+\begin{example}
+As example, consider  $X = \left[5, 3, 2 \right]$ and let $C =(\leq, X)$ the ill-known constraint. Then, the evaluation of the possibility and the necessity are obtained from \eqref{ill-known-pos} and \eqref{ill-known-nec} respectively. (See Figure \ref{fig:example-ill-known}).
+
+
+\vspace*{13pt}
+\begin{center}
+{
+\includegraphics[scale=1]{./graphs/example-ill-known.pdf}
+}
+\end{center}
+%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
+\vspace*{10pt}
+\fcaption{\label{fig:example-ill-known}Example of the evaluation of the ill-known constraint $C \triangleq (\leq, X)$. Possibility and necessity measures are shown in grey. }
+%  \label{fig:fuzzy-validity-period}
+\vspace*{13pt}
+
+
+
+ 
+\begin{align}
+\Pos(A\text{ satisfies }C) & =\\
+\nonumber
+\min_{a \in A}\left(\sup_{a \leq R}\pi_{X}(w)\right)\\
+\Nec(A\text{ satisfies }C) & =\\
+\nonumber
+\min_{a \in A}\left(\inf_{a > w} 1-\pi_{X}(w)\right) 
+\end{align}
+
+
+
+
+\end{example}
+
+
+
+
+
+It is observed that Boolean combinations of constraints are required. For example, the problem of interval evaluation (explained earlier) requires that all elements of an interval $[a,b]$ are larger than a value $X$ and, at the same time, smaller than a value $Y$, which implies that a conjunctive Boolean combination of both constraints must be satisfied. To allow Boolean combinations of constraints, the following definitions are introduced.
+\begin{definition}
+\label{def:set-evaluation}
+Consider a universe $U$, an $n$-ary vector $\mathbf{C}$ of constraints and a Boolean function $\bool:\mathbb{B}^{n}\rightarrow\mathbb{B}$. An evaluation function is defined by:
+\begin{equation}
+\lambda:\Pow(U)\rightarrow\mathbb{B}:\lambda(A)\mapsto\bool\Big(C_{1}(A),...,C_{n}(A)\Big).
+\end{equation}
+\end{definition}
+Definition \ref{def:set-evaluation} presents the definition of an evaluation function that evaluates a Boolean combination of some basic constraints. Informally, it states that a set $A$ passes the evaluation made by $\lambda$ if the Boolean combination of some propositions equals $T$. This crisp definition can be generalized to the case of ill-known constraints.
+\begin{definition}
+\label{def:ill-known-sets}
+Consider a universe $U$, an $n$-ary vector $\mathbf{C}$ of ill-known constraints and a Boolean function $\bool:\mathbb{B}^{n}\rightarrow\mathbb{B}$. The uncertainty about the evaluation of a set $A$ by an evaluation function $\lambda$ is then given by:
+\begin{equation}
+\forall A\in\Pow(U):\pi_{\lambda(A)}=\widetilde{\bool}\Big(\pi_{C_1(A)},...,\pi_{C_n(A)}\Big)\\
+\end{equation}
+Hereby, $\widetilde{\bool}$ is the possibilistic extension of $\bool$.
+\end{definition}
+It is well known that any Boolean function $\bool$ can be cast to a canonical form~\cite{McCluskey1965}, requiring only logical conjunction $\wedge$, logical disjunction $\vee$ and logical negation. Therefore, only those connectives will be treated within the scope of this paper. By applying the possibilistic extensions of $\wedge$, $\vee$ and $\neg$, concrete equations are obtained for the calculations of uncertainty about the evaluation of a set by means of an evaluation function $\lambda$. In the case of conjunction (i.e., $\bool=\wedge$), the inference of uncertainty about the evaluation of a set reduces to:
+\begin{eqnarray}
+\label{eq:conjunctive1}
+\forall A\in\Pow(U):\Pos(\lambda(A))&=\\
+\nonumber
+\min_{i=1 \ldots n}\Pos\left(C_i(A)\right)\\
+\label{eq:conjunctive2}
+\forall A\in\Pow(U):\Nec(\lambda(A))&=\\
+\nonumber
+\min_{i=1 \ldots n}\Nec\left(C_i(A)\right).
+\end{eqnarray}
+In the case of disjunction (i.e. $\bool=\vee$), the inference of uncertainty about the evaluation of a set reduces to:
+\begin{eqnarray}
+\label{eq:disjunctive}
+\forall A\in\Pow(U):\Pos(\lambda(A))&=\\
+\nonumber
+\max_{i=1 \ldots n}\Pos\left(C_i(A)\right)\\
+\forall A\in\Pow(U):\Nec(\lambda(A))&=\\
+\nonumber
+\max_{i=1 \ldots n}\Nec\left(C_i(A)\right).
+\end{eqnarray}
+Note that by using the functions $\min$ and $\max$ here, there is an implicit assumption that the possibilistic variables $\pi_{C_i}$ are mutual $\min$-dependent in the sense of De Cooman (i.e. non-interactive). For an extensive reading on (in)dependency of possibilistic variables, the reader is referred to~\cite{GertDeCooman1997b},\cite{GertDeCooman1997a},\cite{GertDeCooman1997}. In case of $\neg$, we get:
+\begin{eqnarray}
+\label{eq:negation}
+\forall A\in\Pow(U):\Pos(\neg\lambda(A))&=\\
+\nonumber
+1-\Nec(\lambda(A))\\
+\forall A\in\Pow(U):\Nec(\neg\lambda(A))&=\\
+\nonumber
+1-\Pos(\lambda(A)).
+\end{eqnarray}
+
+\begin{example}
+Consider that we want to check if crisp interval $I = \left[j, k\right]$ is included in $\left[X, Y\right]$. In this situation, two ill-known constraints are constructed.
+
+%We assume that $X$ specifies the lower bound and $Y$ the upper bound for a given interval, we want to known whether all points in the interval are larger than or equal to $X$ and smaller than or equal to $Y$. Therefore, we consider two ill-known constraints:
+
+\vspace{-10pt}
+
+\begin{eqnarray}
+C_1 & \triangleq\left(\geq,X\right)\\
+C_2 & \triangleq\left(\leq,Y\right)
+\end{eqnarray}
+
+To calculate the possibility and necessity concerning a conjunction of constraints, the $\min$ operator can be used. The possibility and necessity of $I$ being included in $\left[X, Y\right]$ are now: %satisfying both constraints is then:
+
+\vspace{-10pt}
+
+\begin{align}
+\label{eq:interval-pos}
+\Pos(I\text{ satisfies }C_1\ and\ C_2) & =\\
+\nonumber
+\min_{a \in I}\left(\sup_{a \geq w}\pi_{X}(w),\sup_{a \leq v}\pi_{Y}(v)\right)\\
+\label{eq:interval-nec}
+\Nec(I\text{ satisfies }C_1\ and\ C_2) & =\\
+\nonumber
+\min_{a \in I}\left(\inf_{a < w} 1-\pi_{X}(w),\inf_{a > v} 1-\pi_{Y}(v)\right).
+\end{align}
+\end{example}
+
+There is a special boolean combination of constraints that is of particular interest; let us see it.
+\begin{definition}
+\emph{Conjunctive combination of ill-known constraints}. Consider a universe $U$. Let $R_1, R_2 \subseteq U$ be two binary relations in U. Let $X_1, X_2$ be ywo fixed ill-known values in $U$. Let  $C_1 = (R_1, X_1)$ and $C_2 = (R_2, X_2)$ be two ill-known constraints. A conjunctive combination of both constraints is given by:
+\begin{align}
+\label{eq:convex-combination}
+CC \triangleq \left \lbrace C_1 \wedge C_2 \right \rbrace
+\end{align}
+In a more general way, it is possible to define the conjunctive combination of an n-ary vector of constraints:
+\begin{align}
+\label{eq:nary-convex-combination}
+CC \triangleq \left \lbrace C_1 \wedge \ldots \wedge C_n \right \rbrace
+\end{align}
+\end{definition}
+
+\begin{theorem}
+\label{th:convex-combination-ill-known-constraints}
+Consider the conjunctive combination $CC$ of any n-ary vector $\left \lbrace C_{1_{Z_1}}, \ldots, C_{n_{Z_n}} \right \rbrace$ of constraints over the ill-known variables $Z_1, \ldots, Z_n$. Then, if $\pi_{C_1(Z_1)}, \ldots, \pi_{C_n(Z_n)}$ are convex, then  $\pi_{CC}$ is also convex.
+\end{theorem}
+
+\begin{proof}
+Let $CC \triangleq \left \lbrace C_{1_{Z_1}} \wedge \ldots \wedge C_{n_{Z_n}}  \right \rbrace$. Then:
+\begin{align}
+\label{eq:proof-convex1}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) = \\
+\nonumber
+\min  \big( \pi_{C_1(Z_1)}\left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right), \ldots,\\
+\nonumber
+   \pi_{C_n(Z_n)}\left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right)  \big)
+\end{align}
+Since $\pi_{C_1(Z_1)}, \ldots, \pi_{C_n(Z_n)}$ are convex:
+\begin{align}
+\label{eq:proof-convex2}
+\pi_{C_1(Z_1)} \left(\lambda x_1 + \left( 1 - \lambda \right)x_2  \right) \geqq \\
+\nonumber
+\min \big(\pi_{C_1(Z_1)} \left( x_1 \right),\pi_{C_1(Z_1)} \left( x_2 \right)  \big)\\
+\nonumber
+\vdots \\
+\nonumber
+\pi_{C_n(Z_n)} \left(\lambda x_1 + \left( 1 - \lambda \right)x_2  \right) \geqq \\
+\nonumber
+\min \big(\pi_{C_n(Z_n)} \left( x_1 \right),\pi_{C_n(Z_n)} \left( x_2 \right) \big) 
+\end{align}
+Then, by using equation \eqref{eq:proof-convex1}:
+\begin{align}
+\label{eq:proof-convex3}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) \geqq  \\
+\nonumber
+\min \big( \min \left(\pi_{C_1(Z_1)} \left( x_1 \right),\pi_{C_1(Z_1)} \left( x_2 \right) \right),\\
+\nonumber
+\ldots, \min \left(\pi_{C_n(Z_n)} \left( x_1 \right),\pi_{C_n(Z_n)} \left( x_2 \right) \right) \big)
+\end{align}
+Which is equivalent to the following:
+\begin{align}
+\label{eq:proof-convex4}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) \geqq  \\
+\nonumber
+\min \big( \min \left(\pi_{C_1(Z_1)} \left( x_1 \right), \ldots, \pi_{C_n(Z_n)} \left( x_1 \right) \right),\\
+\nonumber
+\ldots, \min \left(\pi_{C_1(Z_1)} \left( x_2 \right), \ldots, \pi_{C_n(Z_n)} \left( x_2 \right) \right) \big)
+\end{align}
+Finally we obtain:
+\begin{align}
+\label{eq:proof-convex5}
+\pi_{CC} \left( \lambda x_1 + \left( 1 - \lambda \right)x_2 \right) \geqq  \\
+\nonumber
+\min \big(\pi_{CC} \left( x_1 \right), \pi_{CC} \left( x_2 \right) \big)
+\end{align}
+\end{proof}
+
+Sometimes, an ill-known value might be specified by a convex combination of ill-known constraints. This allow to define ill-known values by means of relationships with respect to other ill-known points.
+
+%\begin{definition}
+%\emph{Ill-known point defined by ill-known constraints}
+%Consider a universe $U$, an n-ary vector $\mathbf{C}$ of ill-known constraints and a Boolean function $\bool:\mathbb{B}^{n}\rightarrow\mathbb{B}$. An ill-known value $X$ is defined by:
+%\begin{align}
+%\label{eq:ill-known-value-def-by-const}
+%X \in \Pow(U):\pi_{X}=\widetilde{\bool}\Big(\pi_{C_1(Z_1)},...,\pi_{C_n(Z_n)}\Big)\\
+%\end{align} 
+%\end{definition}
+
+\begin{definition}
+\label{def:convex-combination-ill-known-constraints}
+\emph{Ill-known value defined by conjunctive combination of constraints.}
+Consider a universe $U$, $X$ an ill-known value and $CC \triangleq \left \lbrace C_{1_{Z_1}} \wedge \ldots \wedge C_{n_{Z_n}}  \right \rbrace$ a convex combination of ill-known constraints over the variables $Z_1, \ldots, Z_n$. Then, the value $X$ is defined by means of the convex combination:
+\begin{align}
+\label{eq:ill-known-value-by-convex-constraints}
+X \triangleq CC 
+\end{align}
+
+The uncertainty about the evaluation of an ill-known value $X$ is given by:
+\begin{align}
+\label{eq:ill-known-value-def-by-const-unc}
+X \in \Pow(U):\pi_{X}=\pi_{CC}
+\end{align} 
+Note that $\pi_{X}$ is convex since $\pi_{CC}$ is convex as demonstrated in Theorem \ref{th:convex-combination-ill-known-constraints}.
+\end{definition}
+
+
+\begin{example}
+As an example, consider the hospital database. When a patient enters o leaves a medical service in hospital, a record tracking the patient is stored. The exact time for this is not precissely known. Consider now that $X = \left[12, 2, 2\right]$ is the time in hours when a patient left the emergency service and $Y = \left[18, 2, 1 \right]$ is the time in hours when the patient left the hospital. It is possible to obtain $Z$ (the period of time between the emergency service and the left of the patient) by using a conjunctive combination of constraints.
+
+\begin{align}
+\nonumber
+CC = \left \lbrace C_1\left(>,X\right) \wedge C_2(\leq,Y) \right \rbrace \\
+\nonumber
+Z = CC
+\end{align}
+$Z$ is a fuzzy interval defined by a trapezoidal shape given by $\left[12,\ 14,\ 18,\ 19 \right]$.
+Figure \ref{fig:example-ill-known-by-const} illustrates the relations among the variables $X$, $Y$ and $Z$.
+\end{example}
+
+\vspace*{13pt}
+\begin{center}
+{
+\includegraphics[scale=1]{./graphs/ill-known-by-constraints.pdf}
+
+}
+\end{center}
+%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
+\vspace*{10pt}
+\fcaption{\label{fig:example-ill-known-by-const}Ill-known values $X$ and $Y$. The grey area represents the ill-known value $Z$ defined by the convex combination of the two ill-known constraints $C_1$ and $C_2$.}
+\vspace*{13pt}
+
+%\paragraph{Example} Consider the ill-known values $X = \left[5, 2, 8\right]$ and $Y = \left[9, 7, 10 \right]$. The knowledge about the evaluation of the interval $\left[a, b \right]$  is given by the expressions \eqref{eq:interval-pos},\eqref{eq:interval-nec}.  Figure~\ref{fig:3d-possibility} shows a 3D plot of the possibility that an interval $[a,b]$ passes the evaluations specified by the ill-known constraints. Note the triangular form for the resulting possibility distribution since the condition $a \leq b$ holds.
+%
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{graphs/3D_possibility.eps}
+%\caption{Possibility of evaluation for the interval $[a,b]$.}
+%\label{fig:3d-possibility}
+%\end{figure}
+%The necessity plot is obtained in a similar way and is shown in Figure~\ref{fig:3d-necessity}. Notice that the necessity measure is not normalized because the supports of $X$ and $Y$ overlap.
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.4]{graphs/3D_necessity.eps}
+%\caption{Necessity of evaluation for the interval $[a,b]$.}
+%\label{fig:3d-necessity}
+%\end{figure}
+
+%enlace:
+We have seen the main theoretical concepts about ill-known values. Now, we are going to explain the main concepts about the treatment of time and the imperfection related to the time in databases. In the following subsections we will show how to represent imperfect time intervals by means of ill-known values.
+
+
