@@ -4,22 +4,22 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section is devoted to specify the representation of time within the framework of the possibility theory. First of all, the specification for a single ill-known temporal point shall be explained. Then, the formal specification and the related constraints are given for an ill-known valid-time interval.
+This section is devoted to specify the representation of time within the framework of the possibility theory. First of all, the specification for a single ill-known temporal point will be explained. Then, the formal specification and the related constraints are given for an ill-known valid-time interval.
 
 \subsection{\label{subsec:ill-known-point-rep}Ill-known time point}
-An ill-known time point $X$ is a precise time point that, for some reason, it is not fully specified. Note that $X$ has only one possible value but that value is unspecified.
+An ill-known time point $X$ is a precise time point that, for some reason, is not fully specified. Note that $X$ has only one possible value but that value is unspecified.
 
 \begin{definition}
 \label{def:ill-known-time-point}
 \textbf{Ill-known time point.}\\
-Consider a time domain $\T$, uncertainty about the values of the ill-known time point $X$ is given by the possibility distribution $\pi_X$:
+Consider a time domain $\T$; the uncertainty about the values of the ill-known time point $X$ is given by the possibility distribution $\pi_X$:
 \begin{equation}
 \label{eq:ill-known-time-point}
 \Pi(X) = \pi_X(t) \in \left[0,1\right] , t \in \T
 \end{equation}
 \end{definition}
 
-It is also possible to specify an ill-known time point by a convex combination of ill-known constraints, (Definition \ref{def:convex-combination-ill-known-constraints}) as shown by equation \eqref{eq:ill-known-value-def-by-const-unc}.
+It is also possible to specify an ill-known time point by a convex combination of ill-known constraints, as shown by equation \eqref{eq:ill-known-value-def-by-const-unc}.
 
 
 
@@ -47,7 +47,7 @@ The data type for the representation of an ill-known time point allows the repre
 \vglue13pt
 %\begin{table}[htbp]
 \tcap{\label{tbl:time-point-types}Values for the time point data type.}
-\centerline{\small TIME POINT DATA TYPE}
+\centerline{\small TIME POINT DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
 \begin{tabular}{c p{0.4\columnwidth} p{0.3\columnwidth}}\\
@@ -64,7 +64,7 @@ Subtype & Value & Representation \\
 
 %Example of different uses of the ill-known time value.
 \begin{example}
-Consider a historical database with data from diplomatic documents. The following fields are stored: the digital identifier \emph{ID} which is the primary key  and the estimated time when the document was sent (field \emph{Date}). Table \ref{tbl:sample-time-point} contains some example data from this database. 
+Consider a historical database with data from medieval diplomatic documents. The following fields are stored: the digital identifier \emph{ID} which is the primary key  and the estimated time when the document was sent (field \emph{Date}). Table \ref{tbl:sample-time-point} contains some example data from this database. 
 \end{example}
 
 \vglue13pt
@@ -95,32 +95,36 @@ In that database, for the document with ID=23454, all the dates in the domain ar
 \subsection{\label{subsec:ill-known-interval}Ill-known time interval}
 
 
-\begin{definition}
+%\begin{definition}
 \textbf{Ill-known time interval}\\
-An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval whose boundaries are not precisely known. The ill-known interval is defined by two ill-known points, namely $X$,$Y$.
-In order to know if all the points in the crisp time interval $I=\left[a, b\right]$ are within the boundaries of the ill-known time interval $\left[X, Y\right]$ we define the following two ill-known constraints $C_{1}, C_{2}$ 
-\begin{eqnarray}
-\label{eq:constraint-c1}
-C_1\stackrel{\triangle}{=}\left(\geq,X\right)  \\
-\label{eq:constraint-c2}
-C_2\stackrel{\triangle}{=}\left(\leq,Y\right)
-\end{eqnarray}
-Note that the boolean operator applied to the constraints is $\bool=\wedge$. Hence, the construct of both constraints is $C_1 \wedge C_2$
-This means that we want to know if all the points in the interval $I$ are greater or equal to $X$ and, at the same time, smaller or equal to $Y$.
-\end{definition}
+An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval whose boundaries are not precisely known. The ill-known time interval is defined by two ill-known  time points, namely $X$,$Y$. The evaluation of the ill-known time interval is given iby equations \eqref{ill-known-pos},\eqref{ill-known-nec}.
 
-%% equations for the poss and nec!!
-The simplified equations for the possibility and the necessity measures are~\cite{Pons2011}:
-\begin{eqnarray}
-\label{eq:interval-pos}
-\Pos\left(\lambda([a,b])\right)&=&\\
-\nonumber
-\min\bigg(\sup_{a\leq w}\pi_{X}(w),\sup_{b\geq w}\pi_{Y}(w)\bigg)\\
-\label{eq:interval-nec}
-\Nec\left(\lambda([a,b])\right)&=&\\
-\nonumber
-\min\bigg(\inf_{a>w}1-\pi_{X}(w),\inf_{b<w}1-\pi_{Y}(w)\bigg).
-\end{eqnarray}
+
+
+
+% In order to know whether all the points in the crisp time interval $I=\left[a, b\right]$ are within the boundaries of the ill-known time interval $\left[X, Y\right]$ we define the following two ill-known constraints $C_{1}, C_{2}$ 
+% \begin{eqnarray}
+% \label{eq:constraint-c1}
+% C_1\stackrel{\triangle}{=}\left(\geq,X\right)  \\
+% \label{eq:constraint-c2}
+% C_2\stackrel{\triangle}{=}\left(\leq,Y\right)
+% \end{eqnarray}
+% Note that the boolean operator applied to the constraints is $\bool=\wedge$. Hence, the construct of both constraints is $C_1 \wedge C_2$
+% This means that we want to know if all the points in the interval $I$ are greater than or equal to $X$ and, at the same time, smaller than or equal to $Y$.
+% %\end{definition}
+% 
+% %% equations for the poss and nec!!
+% The simplified equations for the possibility and the necessity measures are~\cite{Pons2011}:
+% \begin{eqnarray}
+% \label{eq:time-interval-pos}
+% \Pos\left(\lambda([a,b])\right)&=&\\
+% \nonumber
+% \min\bigg(\sup_{a\leq w}\pi_{X}(w),\sup_{b\geq w}\pi_{Y}(w)\bigg)\\
+% \label{eq:time-interval-nec}
+% \Nec\left(\lambda([a,b])\right)&=&\\
+% \nonumber
+% \min\bigg(\inf_{a>w}1-\pi_{X}(w),\inf_{b<w}1-\pi_{Y}(w)\bigg).
+% \end{eqnarray}
 
 
 
@@ -142,27 +146,30 @@ Quite often, the user may want to specify time intervals with open boundaries in
 %\end{enumerate}
 
 \subsubsection{\label{subsubsec:representation-semi-open}Representation of semi-open time intervals}
-As mentioned before, the problem resides in the representation of these kind of interval. In order to get a short representation for these intervals, two constants are defined: $FB$ \emph{From the Beginning}: it is only valid for the left value of the interval and $UC$ \emph{Until Changed} (this name is usual in the temporal database community, see ~\cite{Jensen1994}) which is only valid for the right value of the interval. Note that these two constants are aliases for a function that obtains both possibility and necessity measures. 
+As mentioned before, the problem resides in the representation of this kind of interval. 
 
-Because of the ill-known constraints $C_{1}, C_{2}$, a function called \emph{Open} should be defined in order to deal with a proper representation of these intervals:
+% In order to get a short representation for these intervals, two constants are defined: $FB$ -\emph{From the Beginning}- it is only valid for the left value of the interval and $UC$ -\emph{Until Changed}- (this name is usual in the temporal database community, see ~\cite{Jensen1994}) which is only valid for the right value of the interval. Note that these two constants are aliases for a function that obtains both possibility and necessity measures. 
+
+Because of the ill-known constraints $C_{1}, C_{2}$, a function called \emph{Open} should be defined in order to deal with a proper representation of these intervals.
 
 \begin{definition}
 \label{def:open-func}
 $Open(C)$\\
-The function $\Open(C)$ provides both possibility and necessity measures for all the points in the open part of a semi-open ill-known time interval.
-The parameter $C$ is an ill-known constraint $C\stackrel{\triangle}{=}\left(R,T\right)$ as defined in \ref{subsec:interval-evaluation-by-ill-known-constraints}, in the equation \eqref{eq:ill-known-constraint} and in~\cite{Pons2011}.
+Consider an ill-known value $T$, a binary relationship $B_r$ one of $\left(\leq, <, >, \geq\right)$ and the constraint $C\stackrel{\triangle}{=}\left(R,T\right)$.
+The function $\Open(C) = \left(I_p(C), I_n(C) \right)$ provides both possibility and necessity measures for all the points in the open part of a semi-open ill-known time interval.
+
 The possibility and necessity measures are defined by:
 \begin{eqnarray}
 \label{eq:open-pos-nec}
-\Pos\left(\Open(C)\right) &=& \Big(\sup_{r\in\T \Rp\  w}\pi_{T}(w)\Big)\\
-\Nec\left(\Open(C)\right) &=& \Big(\inf_{r\in\T \Rn\  w}1-\pi_{T}(w)\Big)
+I_p \left(C \right) &=& \Big(\sup_{r\in\T \Rp\  w}\pi_{T}(w)\Big)\\
+I_n \left(C \right) &=& \Big(\inf_{r\in\T \Rn\  w}1-\pi_{T}(w)\Big)
 \end{eqnarray}
 Where the values for the binary relations $\Rp$ and $\Rn$ are shown in Table \ref{tbl:open-pos-nec-rels}.
 \end{definition} 
 
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{Relations for the $\Open(C)$ function. Depending on the relation $R = \left(\leq, <, >, \geq\right)$ in the constraint $C$, the values for $\Rp$ and $\Rn$ are shown.}
+\tcap{Relations for the $\Open(C)$ function. Depending on the relation $B_r = \left(\leq, <, >, \geq\right)$ in the constraint $C$, the values for $\Rp$ and $\Rn$ are shown.}
 \centerline{\small Relations}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
@@ -188,16 +195,16 @@ Where the constraints $C_1$ and $C_2$ are given in equations \eqref{eq:constrain
 
 \begin{example}
 \label{ex:open-time-interval}
-Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider also that in this case, $Y= \left[15/10/2012,3,4 \right] $. Figure \ref{fig:example-open-time-interval} shows the representation for $Y$. The user wants to obtain the possibility and the necessity measures for the $\FB$ part of the interval are:
+Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider also that in this case, $Y= \left[15/10/2012,3,4 \right] $. Figure \ref{fig:example-open-time-interval} shows the representation for $Y$. The user wants to obtain the possibility and the necessity measures for the $\FB$ part of the interval.
 \end{example}
 
 \begin{eqnarray}
 \nonumber
 \FB = \Open(C_2) \mbox{ with } C_2\stackrel{\triangle}{=}\left(\leq,Y\right)\\
 \nonumber
-\Pos\left(\Open(C)\right) = \Big(\sup_{r\in\T \geq\  w}\pi_{Y}(w)\Big)\\
+I_p(C_2)= \Big(\sup_{r\in\T \geq\  w}\pi_{Y}(w)\Big)\\
 \nonumber
-\Nec\left(\Open(C)\right) = \Big(\inf_{r\in\T <\  w}1-\pi_{Y}(w)\Big)
+I_n(C_2) = \Big(\inf_{r\in\T <\  w}1-\pi_{Y}(w)\Big)
 \end{eqnarray}
 
 
@@ -235,7 +242,7 @@ Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider al
 
 
 \subsubsection{\label{subsubsec:ill-known-time-interval-datatypes}Datatypes}
-In order to represent properly an ill-known time interval in a database, some datatypes are needed. Because of the ill-known constraints, not all the combinations of datatypes for each ill-known time point (see Table \ref{tbl:time-point-types}) are allowed. Table \ref{tbl:time-interval-types} shows all the possible combinations for the datatypes for an ill-known time interval denoted by $\left[X, Y\right]$.
+In order to properly represent  an ill-known time interval in a database, some datatypes are needed. Because of the ill-known constraints, not all the combinations of datatypes for each ill-known time point (see Table \ref{tbl:time-point-types}) are allowed. Table \ref{tbl:time-interval-types} shows all the possible datatypes combinations for the  for an ill-known time interval denoted by $\left[X, Y\right]$.
 
 \vglue13pt
 %\begin{table}[htbp]
@@ -262,36 +269,36 @@ $\FB$ & 1 or 2 & A left-open time interval.\\
 % \end{example}
 
 
-\subsection{\label{subsec:fuzzy-allen-relations}Allen's relations}
-The Allen's relations can be represented by a Boolean combination of ill-known constraints. The constructs for the constraints are shown in Table \ref{tbl:fuzzy-allen-relations}. The possibility and necessity measures are obtained for each Boolean function as explained in Section \ref{subsec:interval-evaluation-by-ill-known-constraints} in equations \eqref{eq:conjunctive1}-\eqref{eq:negation}.
-
-
-\vglue13pt
-%\begin{table}[htbp]
-\tcap{\label{tbl:fuzzy-allen-relations}Constructs of constraints related to their respective Allen relations, as used in the presented work. In this table, the ill-known time interval $J = \left[X, Y\right]$ in a record $r$ has a start point described by possibilistic variable $X$ and an end point described by possibilistic variable $Y$. The crisp time interval in the user's temporal demand is denoted $I$.}
-\centerline{\small Relations}
-\vglue-6pt
-\centerline{\small\baselineskip=13pt
-\begin{tabular}{p{0.2\columnwidth} p{0.8\columnwidth} }\\
-\hline
-Allen Relation & Construct of constraints\\
-\hline
-I before J & $C_1 \triangleq \left(<,X\right)$ \\
-\hline
-I equal J & $\left(C_1 \triangleq \left(\geq,X\right)\right) \wedge \neg \left(C_2 \triangleq \left(\neq,X\right) \right) \wedge \left(C_3 \triangleq \left(\leq,Y\right) \right) \wedge \neg \left(C_4 \triangleq \left(\neq,Y\right)\right)$ \\
-\hline
-I meets J & $\left(C_1 \triangleq \left(\leq,X\right)\right) \wedge \neg \left(C_2 \triangleq \left(\neq,X\right) \right)$ \\
-\hline
-I overlaps J & $\left(C_1 \triangleq \left(<,Y\right)\right) \wedge \neg \left(C_2 \triangleq \left(\leq,X\right) \right) \wedge \neg \left(C_3 \triangleq \left(\geq,X\right) \right)$ \\
-\hline
-I during J & $\left( \left (C_1 \triangleq \left(>,X\right) \right) \wedge \left(C_2 \triangleq \left(\leq,Y\right) \right) \right) \vee \left( \left(C_3 \triangleq \left(\geq,X\right) \right) \wedge  \left(C_4 \triangleq \left(<,Y\right) \right) \right)$ \\
-\hline
-I starts J & $\left(C_1 \triangleq \left(\geq,X\right) \right) \wedge \neg \left(C_2\triangleq \left(\neq,X\right)\right)$ \\
-\hline
-I finishes J & $\left(C_1 \triangleq \left(\leq,Y\right) \right) \wedge \neg \left(C_2\triangleq \left(\neq,Y\right)\right)$ \\
-\hline\\
-\end{tabular}
-}
+% \subsection{\label{subsec:fuzzy-allen-relations}Allen's relations}
+% The Allen's relations can be represented by a Boolean combination of ill-known constraints. The constructs for the constraints are shown in Table \ref{tbl:fuzzy-allen-relations}. The possibility and necessity measures are obtained for each Boolean function as explained in Section \ref{subsec:interval-evaluation-by-ill-known-constraints} in equations \eqref{eq:conjunctive1}-\eqref{eq:negation}.
+% 
+% 
+% \vglue13pt
+% %\begin{table}[htbp]
+% \tcap{\label{tbl:fuzzy-allen-relations}Constructs of constraints related to their respective Allen relations, as used in the presented work. In this table, the ill-known time interval $J = \left[X, Y\right]$ in a record $r$ has a start point described by possibilistic variable $X$ and an end point described by possibilistic variable $Y$. The crisp time interval in the user's temporal demand is denoted $I$.}
+% \centerline{\small Relations}
+% \vglue-6pt
+% \centerline{\small\baselineskip=13pt
+% \begin{tabular}{p{0.2\columnwidth} p{0.8\columnwidth} }\\
+% \hline
+% Allen Relation & Construct of constraints\\
+% \hline
+% I before J & $C_1 \triangleq \left(<,X\right)$ \\
+% \hline
+% I equal J & $\left(C_1 \triangleq \left(\geq,X\right)\right) \wedge \neg \left(C_2 \triangleq \left(\neq,X\right) \right) \wedge \left(C_3 \triangleq \left(\leq,Y\right) \right) \wedge \neg \left(C_4 \triangleq \left(\neq,Y\right)\right)$ \\
+% \hline
+% I meets J & $\left(C_1 \triangleq \left(\leq,X\right)\right) \wedge \neg \left(C_2 \triangleq \left(\neq,X\right) \right)$ \\
+% \hline
+% I overlaps J & $\left(C_1 \triangleq \left(<,Y\right)\right) \wedge \neg \left(C_2 \triangleq \left(\leq,X\right) \right) \wedge \neg \left(C_3 \triangleq \left(\geq,X\right) \right)$ \\
+% \hline
+% I during J & $\left( \left (C_1 \triangleq \left(>,X\right) \right) \wedge \left(C_2 \triangleq \left(\leq,Y\right) \right) \right) \vee \left( \left(C_3 \triangleq \left(\geq,X\right) \right) \wedge  \left(C_4 \triangleq \left(<,Y\right) \right) \right)$ \\
+% \hline
+% I starts J & $\left(C_1 \triangleq \left(\geq,X\right) \right) \wedge \neg \left(C_2\triangleq \left(\neq,X\right)\right)$ \\
+% \hline
+% I finishes J & $\left(C_1 \triangleq \left(\leq,Y\right) \right) \wedge \neg \left(C_2\triangleq \left(\neq,Y\right)\right)$ \\
+% \hline\\
+% \end{tabular}
+% }
 
 %\subsection{\label{subsec:time-interval-constraint}Ill-known valid time-interval}
 %The representation of a possibilistic valid-time interval is given by two ill-known points: $\left[S,E \right]$ the starting and ending points respectively.  
