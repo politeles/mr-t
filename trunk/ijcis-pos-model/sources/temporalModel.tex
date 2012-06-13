@@ -4,24 +4,27 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+In this section we will formalize the model for valid-time relational databases. The first subsection is devoted to the formalization of the model. Then, the data manipulation language is defined.
+
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
-The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated with an example. The information in the system is defined by the following elements:
+The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated with examples. The information in the system is defined by the following elements:
 
 \begin{definition}
 \label{def:generalized-fuzzy-domain}
-\textbf{Generalized fuzzy domain.}
-$D$ is the discourse domain, $\tilde \Pow\left(D \right)$ is the set of all possibility distributions defined on $D$, plus the NULL constant. The generalized fuzzy domain $D_G$ is defined as:
+\emph{Generalized fuzzy domain.}
+Let $D$ be the discourse domain, $\tilde \Pow\left(D \right)$ is the set of all possibility distributions defined on $D$, plus the NULL constant. The generalized fuzzy domain $D_G$ is defined as:
 \begin{equation}
 \label{eq:generalized-fuzzy-domain}
 D_G \subseteq \tilde \Pow\left(D \right)\cup \text{NULL}
 \end{equation}
 \end{definition}
-The datatypes for $D_G$ are shown in table \ref{tbl:gefred-data-types}. 
+The datatypes that can be used to represent $D_G$ are shown in table \ref{tbl:gefred-data-types}. 
 
 \begin{definition}
 \label{def:typeof-domain}
-\textbf{Typeof(D).}
-The function typeof$\left(D \right)$ returns the datatype associated with the domain $D$. For every datatype, the function returns the associated number as shown in Table \ref{tbl:gefred-data-types}.
+\textbf{Typeof(A).}
+Consider $D_G$ to be a generalized fuzzy domain and let $A \in D_G$ be a value for the domain. 
+The function typeof$\left(A \right)$ returns the datatype associated with the domain $D_G$. For a given value $A$, the function returns the associated number as shown in Table \ref{tbl:gefred-data-types}.
 \end{definition}
 
 
@@ -55,8 +58,8 @@ It is possible to define a more specific generalized temporal domain, $\T_G$.
 
 \begin{definition}
 \label{def:generalized-fuzzy-temporal-domain}
-\textbf{Generalized fuzzy temporal domain.}
-If $\T$ is the temporal domain, $\tilde \Pow\left( \T\right)$ is the set of all \emph{normalized} possibility distributions (see Section \ref{subsec:possibility-theory}, equation \eqref{NormalizationProperty}) defined on $\T$.
+\emph{Generalized fuzzy temporal domain.}
+Consider $\T$ to be the temporal domain, and let $\tilde \Pow\left( \T\right)$ be the set of all \emph{normalized} possibility distributions (see Section \ref{subsec:possibility-theory}, equation \eqref{NormalizationProperty}) defined on $\T$.
 The Generalized Fuzzy Temporal Domain, $\T_G$ is
 \begin{equation}
 \T_G \subseteq \left \lbrace \tilde \Pow\left( \T\right) \cup \text{NULL} \right \rbrace
@@ -68,8 +71,8 @@ Note that $\T_G \subseteq D_G$. The datatypes for this domain have been studied 
 
 
 \begin{definition}
-\textbf{Generalized fuzzy temporal relation.}
-A generalized fuzzy temporal relation $R_{FTG}$ is given by:
+\emph{Generalized fuzzy temporal relation.}
+A generalized fuzzy temporal relation $R_{FTG}$ is given by~\cite{Medina1994}:
 \label{def:generalized-fuzzy-temporal-relation}
 \begin{equation}
 \label{eq:generalized-fuzzy-temporal-relation}
@@ -109,15 +112,15 @@ The definition in \cite{Medina1994} for $R_{FTG}$ shows that classical relations
 
 \begin{example}
 \label{ex:sample-ft-database}
- Consider a library database as explained in example \ref{ex:library-database}. But now, the time is stored with imprecision. For simplicity, the ill-known time points are represented as triangular fuzzy numbers. An ill-known time point is given by $[dd/mm/yyyy,a,b]$. The values for $a$ and $b$ are integers. Thus, the date given by $[15/3/2012,5,2]$ is a triangular fuzzy number with the left bound the 10/3/2012, the core on the 15/3/2012 and the right bound on 17/3/2012.
+ Consider a hospital database as explained in example \ref{ex:library-database}. But now, the time is stored with imprecision, because the date of arrival and leave are not precisely known. For simplicity, the ill-known time points are represented as triangular fuzzy numbers. An ill-known time point is given by $[dd/mm/yyyy,a,b]$. The values for $a$ and $b$ are integers. Thus, the date given by $[15/3/2012,5,2]$ is a triangular fuzzy number with the left bound the 10/3/2012, the core on the 15/3/2012 and the right bound on 17/3/2012.
 Table \ref{tbl:fuzzy-library-sample} shows the elements Head, $\Head$ and Body, $\Body$. 
 \begin{align}
  \label{eq:head-ex}
 \Head = & \lbrace \left(\text{ID}:D_{\text{ID}}\right),\\
 \nonumber
-&  \left(\text{Title}:D_{\text{title}}\right),\\
-\nonumber
-& \left(\text{Loan}:D_{\text{Loan}}\right) \\
+&  \left(\text{Name}:D_{\text{Name}}\right),\\
+% \nonumber
+% & \left(\text{Loan}:D_{\text{Loan}}\right) \\
 \nonumber
 & \left(\text{PVP}:D_{\text{PVP}}\right) \rbrace
 \end{align}
@@ -130,18 +133,18 @@ When the compatibility degree is 1, the component is omitted. The body, $\Body$ 
 
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{\label{tbl:fuzzy-library-sample}Sample library database}
+\tcap{\label{tbl:fuzzy-library-sample}Sample hospital database}
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
 \begin{tabular}{c c c |p{0.35\columnwidth}}\\
 \hline
 & & & \centerline{PVP} \\
-$\Head$ &  \textbf{ID}  & Title  &  Start Loan , End Loan\\
+$\Head$ &  \textbf{ID}  & Name  &  Arrival , Leave\\
 \hline
-\multirow{3}{*}{$\Body$ } &  3 & Dracula & [15/3/2012, 5, 2] , [30/3/2012, 1, 1] \\
- &4 & Frankenstein & [25/3/2012, 3, 2] , [4/4/2012, 1, 7] \\
-&5 & Harry Potter & [18/3/2012, 4, 1] , [2/4/2012, 2, 2]\\
+\multirow{3}{*}{$\Body$ } &  3 & John & [15/3/2012, 5, 2] , [30/3/2012, 1, 1] \\
+ &4 & Antoon & [25/3/2012, 3, 2] , [4/4/2012, 1, 7] \\
+&5 & Daan & [18/3/2012, 4, 1] , [2/4/2012, 2, 2]\\
 % \ 3 & Dracula & [4/4/2012, 3, 3] & UC \\
 \hline\\
 \end{tabular}
@@ -149,7 +152,7 @@ $\Head$ &  \textbf{ID}  & Title  &  Start Loan , End Loan\\
 
 \begin{definition}
 \label{def:value-component}
-\textbf{Value component.}
+\emph{Value component.}
 The value component $R^{v}_{FTG}$ of a fuzzy temporal relation $R_{FTG}$ is a set with the value components for both the head and the body of the relation:
 \begin{align}
 \label{eq:value-component}
@@ -169,15 +172,15 @@ For example, in the case of the record with ID = 3:
 \nonumber
 \Head^{v} &=  \lbrace \left(\text{ID}:D_{\text{ID}}\right), \left(\text{Title}:D_{\text{title}}\right),\\
 \nonumber
-& \left(\text{Loan}:D_{\text{Loan}}\right), \left(\text{PVP}:D_{\text{PVP}}\right) \rbrace \\
+& \left(\text{PVP}:D_{\text{PVP}}\right) \rbrace \\
 \nonumber
-\Body^ {v} &= \left \lbrace 3:, \text{``Dracula``}: ,  \left[15/3/2012, 30/3/2012\right] \right \rbrace 
+\Body^ {v} &= \left \lbrace 3:, \text{``John``}: ,  \left[15/3/2012, 30/3/2012\right] \right \rbrace 
 \end{align}
 
 
 \begin{definition}
 \label{def:compatibility-component}
-\textbf{Compatibility component.}
+\emph{Compatibility component.}
 The compatibility component $R^{c}_{FTG}$ of a fuzzy temporal relation $R_{FTG}$ is a set with the compatibility components for both the head and the body of the relation:
 \begin{align}
 \label{eq:compatibility-component}
@@ -209,7 +212,7 @@ For example, in the case of the record with ID = 3:
 
 \begin{definition}
 \label{def:temporal-component}
-\textbf{Temporal component.}
+\emph{Temporal component.}
 The temporal component $R^{t}_{FTG}$ of a fuzzy temporal relation $R_{FTG}$ is a set with the temporal components for both the head and the body of the relation:
 \begin{align}
 \label{eq:temporal-component}
@@ -237,7 +240,8 @@ Analogously, it is possible to define the the value component for the temporal p
 
 \begin{definition}
 \label{def:generalized-primary-key}
-\textbf{Generalized primary key.}
+\emph{Generalized primary key.}
+Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s in S \subseteq \left(1, \ldots, n \right)$.
 A generalized primary key, $K_G$ is a subset of the head:
 \begin{align}
 \label{eq:generalized-primary-key}
@@ -268,7 +272,8 @@ In order to add valid-time support, the primary key should be re-defined. E.g., 
 
 \begin{definition}
 \label{def:generalized-fuzzy-temporal-key}
-\textbf{Generalized fuzzy temporal key.}
+\emph{Generalized fuzzy temporal key.}
+Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s in S \subseteq \left(1, \ldots, n \right)$.
 A generalized fuzzy temporal key, $K_{GT}$ is a subset of the head. An attribute, namely \emph{version} $V$ is added when dealing with valid-time.
 \begin{align}
 \label{eq:generalized-fuzzy-temporal-key}
@@ -308,13 +313,13 @@ K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \r
 \hline
 % & & & \multicolumn{2}{c}{PVP} \\
 %& & & & \centerline{PVP}\\
-{$\Head$}  &  &  & &(Start Loan\\
-& \textbf{ID}  & \textbf{V} & Title& , End Loan)	\\
+{$\Head$}  &  &  & &(Arrival\\
+& \textbf{ID}  & \textbf{V} & Name& ,Leave )	\\
  \hline
-\multirow{4}{*}{$\Body$}  & 3 & 001 & Dracula & [15/3/2012, 5, 2], [30/3/2012, 1, 1] \\
-& 4 & 001 & Frankenstein & [25/3/2012, 3, 2] , [4/4/2012, 1, 7]\\
-& 5 & 001 & Harry Potter & [18/3/2012, 4, 1] , [2/4/2012, 2, 2]\\
- & 3 & 002 & Dracula & [4/4/2012, 3, 3] , UC \\
+\multirow{4}{*}{$\Body$}  & 3 & 001 & John & [15/3/2012, 5, 2], [30/3/2012, 1, 1] \\
+& 4 & 001 & Antoon & [25/3/2012, 3, 2] , [4/4/2012, 1, 7]\\
+& 5 & 001 & Daan & [18/3/2012, 4, 1] , [2/4/2012, 2, 2]\\
+ & 3 & 002 & John & [4/4/2012, 3, 3] , UC \\
 \hline\\
 \end{tabular}
 }
@@ -322,9 +327,10 @@ K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \r
 
 \subsection{\label{subsec:data-manipulation}Data manipulation language}
 
-The algebra for the data manipulation is defined in \cite{Medina1994}. The Generalized Fuzzy Relational Algebra manipulates relations like $R_{FG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify, Delete, } and \emph{Revise}. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}.
+The Generalized Fuzzy Relational Algebra~\cite{Medina1994} manipulates relations like $R_{FG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify, Delete, }. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}.
+%The algebra for the data manipulation is defined in .
 
-It is important to notice that whereas the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is in the unit interval.  Therefore, for a valid-time object, say $A \in R$, in a crisp temporal database it is not possible an overlapping among any valid-time interval ($\forall I, \not \exists J: \left(A, I \right) \in R \wedge \left(A, J \right) \in R \wedge \lnot \Overlap\left(I, J \right)$). Thus, from the point of view of a fuzzy temporal database, there are the following options (see Figure \ref{fig:tdb-class}):
+It is important to notice that while the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is in the unit interval.  Therefore, for a valid-time object, say $A \in R$, in a crisp temporal database it is not possible an overlapping among any valid-time interval ($\forall I, \not \exists J: \left(A, I \right) \in R \wedge \left(A, J \right) \in R \wedge \lnot \Overlap\left(I, J \right)$). Thus, from the point of view of a fuzzy temporal database, there are the following options (see Figure \ref{fig:tdb-class}):
 
 % \begin{itemize}
 % \item 
@@ -391,7 +397,7 @@ It is important to notice that whereas the result of the evaluation of any compa
 
 %\end{itemize}
 
-In the implementation of the DML operations we will consider a strictly consistent temporal database. This is a natural extension of the crisp temporal databases. This approach allows a easy implementation for the DML operations defined in Section \ref{subsubsec:Understanding-valid-time-databases}.
+In the implementation of the DML operations we will consider a strictly consistent temporal database. This is a natural extension of the crisp temporal databases. This approach allows an implementation for the DML operations defined in Section \ref{subsubsec:Understanding-valid-time-databases}.
 
 Since the time intervals are now possibilistic valid-time periods, PVPs, the auxiliary functions defined in equations \eqref{eq:close-a-crisp-interval} to \eqref{eq:close-current} should be re-defined.
 
@@ -445,7 +451,7 @@ Consider an object $A$, the relation $R$ and a pvp, $J$. Then, the function clos
 \nonumber
 \big \lbrace R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right) \right \rbrace \cup \left \lbrace \left(A, J\right)\right \rbrace  \big \rbrace \\
 \nonumber
-\mbox{ if } I = \mbox{ Current } \left(R, A \right) \\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
+\mbox{ if Current } \left(R, A \right) \neq \emptyset \\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
 \nonumber R , \text{ in any other case}
 \end{cases}
 \end{eqnarray}
@@ -479,13 +485,13 @@ There are the following cases when performing an insert operation:
 For example, consider the database given by Table \ref{tbl:fuzzy-library-sample-valid-time}. The following sentences correspond with the insertion of the first version of each book.
 
 \begin{verbatim}
-Insert(3,'Dracula',
+Insert(3,'John',
 [[15/3/2012, 5, 2],
         [30/3/2012, 1, 1]]);
-Insert(4,'Frankenstein',
+Insert(4,'Antoon',
 [[25/3/2012, 3, 2], 
         [4/4/2012, 1, 7]]);
-Insert(5,'Harry Potter',
+Insert(5,'Daan',
 [[18/3/2012, 4, 1], 
         [2/4/2012, 2, 2]]);
 \end{verbatim}
@@ -497,22 +503,23 @@ Insert(5,'Harry Potter',
 \item The entity $A$ is in the relation $R$. Depending on the value of the time interval $I$, there are three possibilities:
 	\begin{enumerate}
 	\item Insert $\left(A, I\right)$ in the relation $R$. If the time interval $I$ does not overlap any other valid-time interval in the relation $R$. Note that here, the result of the Overlaps operator is in the unit interval.
-For example, the librarian loans the book with ID=3 but the book is not returned yet. The insert sentence is the following.
+For example, the patient with ID=3 has not left the hospital yet. The insert sentence is the following.
+
  \begin{verbatim}
-Insert(3,'Dracula',
+Insert(3,'John',
 [[4/4/2012, 3, 3], UC]);
 	      \end{verbatim}
 
-	\item Modify and close the current version of the entity $A$ and insert $\left(A, I \right)$. For example, consider now that the book with ID 3 is loaned  around the 24/4/2012 (this is model by a triangular fuzzy number: $\left[24/4/2012, 1, 1 \right]$). Here the problem is that the book with ID 3 was loaned around 4/4/2012, but not returned. If the book is already in the library for a new loan, then it is necessary to set the return date and add a new row with the new loan date. %This is illustrated in Table \ref{tbl:library-sample-2}, the insert sentence is:
+	\item Modify and close the current version of the entity $A$ and insert $\left(A, I \right)$. For example, consider now that the hospital with ID=3 arrived  around the 24/4/2012 (this is model by a triangular fuzzy number: $\left[24/4/2012, 1, 1 \right]$). Here the problem is that the patient with ID=3 arrived around 4/4/2012, but it was not stored in the database the leave date. If the patient is again in the hospital, then it is necessary to set the leave date and add a new row with the new arrival date. %This is illustrated in Table \ref{tbl:library-sample-2}, the insert sentence is:
 	    \begin{verbatim}
-Insert(3,'Dracula',
+Insert(3,'John',
 [[24/4/2012, 1, 1], UC]]);
 	      \end{verbatim}
 
-	\item Reject the insertion, if the time interval $I$ do overlap with a degree of 1 any existing valid-time interval for the entity $A$ in the relation $R$. For example, consider now that the librarian wants to introduce a past loan for the book with ID 3. The book was loaned around 6/4/12/2012 and returned around 25/4/2012. As this interval does overlaps other time intervals with a degree of 1, it is not possible that the book was loaned in that time interval.Therefore, the insertion is rejected. The insert sentence is:
+	\item Reject the insertion, if the time interval $I$ do overlap with a degree of 1 any existing valid-time interval for the entity $A$ in the relation $R$. For example, consider now that the hospital manager wants to introduce a past arrival for the patient with ID=3. The patient arrived around 6/4/12/2012 and left the hospital around 25/4/2012. As this interval does overlaps other time intervals with a degree of 1, it is not possible that the patient was it the hospital at that time interval. Therefore, the insertion is rejected. The insert sentence is:
 
 	      \begin{verbatim}
-Insert(3,'Dracula',
+Insert(3,'John',
 [[6/4/12/2012, 1, 1],
          [25/4/2012, 1, 1]]);
 	    \end{verbatim}
@@ -527,8 +534,8 @@ The algorithm for the implementation of the insert operation is the following:
 \INS \left(R ,\left(A, I \right) \right) &=\\
 \begin{cases}
 \nonumber
-R \cup \left(A, I \right), & \mbox{ if }  \left(A, I \right) \not \in R \vee \\
-&  \left(A, J \right) \in R \wedge I \text{Overlaps} J < 1\\
+R \cup \left(A, I \right), & \mbox{ if }  \left(A, I \right) \not \in R \mbox{ or }\\
+&  \left(A, J \right) \in R \mbox{ and } I \text{ Overlaps } J < 1\\
 %\big \lbrace \left( \exists J= \left(X', Y' \right): \left(A, J \right) \in R \wedge \right. \\
 %\left. Y' \in \left \lbrace \left(<, X \right)\right \rbrace  \right) \vee \\
 %\left( \exists K= \left(X'', Y'' \right): \left(A, K \right) \in R \wedge \right. \\
@@ -544,36 +551,36 @@ The delete operation logically removes an entity $A$ which is valid in the relat
 \DEL \left(R ,A \right) =\\
 \begin{cases}
 \nonumber
-R - \left(A, I \right), &  \forall \left( A, I \right) \in R\\
+R - \left \lbrace \left(A, I_1 \right), \ldots, \left(A, I_n \right) \right \rbrace, &  \forall I_i: \left( A, I_i \right) \in R\\
 R, & \mbox{ otherwise }  
 \end{cases} 	
 \end{align}
 
-For example, consider that the librarian wants to delete the history for the book with ID = 3. The following sentence deletes all the versions for the book with ID = 3.
+For example, consider that the hospital manager wants to delete the history for the patient with ID = 3. The following sentence deletes all the rows for the patient with ID = 3.
 
 \begin{verbatim}
- Delete(3,'Dracula');
+ Delete(3,'John');
 \end{verbatim}
 
 
-\subsubsection{\label{subsubsec:revise-fuzzy-temporal}Revise}
-This operation replaces the old values for the entity $A'= \left(a_1', \ldots, a_n' \right) $ with the new values specified by $A = \left(a_1, \ldots, a_n \right)$ in the relation $R$, at a given time interval $I$. This operation is used when a correction on the values for the entity $A$ should be done.
-\begin{align}
-\label{eq:revise-fuzzy-temporal}
-\REV\left(R, \left(A, I \right)\right)=\\
-\begin{cases}
-\nonumber
- R - \left(A', I \right) \cup \left \lbrace\left(A, I \right)\right \rbrace  & \mbox{ if } \left(A', I \right) \in R \\%: A = \left(a_1, \ldots, a_n \right),\\
-%A'= \left(a_1', \ldots, a_n' \right)   \\   
-R, & \mbox{ otherwise }
-\end{cases}
-\end{align} 
-
-
-For example, consider now that the librarian wants to make a correction in the title for the book with ID = 5. The new title is `Harry Potter IV'. The revise sentence is:
-
-\begin{verbatim}
-Revise(5,'Harry Potter IV', 
-[[18/3/2012, 4, 1], 
-          [2/4/2012, 2, 2]]);
-\end{verbatim}
+% \subsubsection{\label{subsubsec:revise-fuzzy-temporal}Revise}
+% This operation replaces the old values for the entity $A'= \left(a_1', \ldots, a_n' \right) $ with the new values specified by $A = \left(a_1, \ldots, a_n \right)$ in the relation $R$, at a given time interval $I$. This operation is used when a correction on the values for the entity $A$ should be done.
+% \begin{align}
+% \label{eq:revise-fuzzy-temporal}
+% \REV\left(R, \left(A, I \right)\right)=\\
+% \begin{cases}
+% \nonumber
+%  R - \left(A', I \right) \cup \left \lbrace\left(A, I \right)\right \rbrace  & \mbox{ if } \left(A', I \right) \in R \\%: A = \left(a_1, \ldots, a_n \right),\\
+% %A'= \left(a_1', \ldots, a_n' \right)   \\   
+% R, & \mbox{ otherwise }
+% \end{cases}
+% \end{align} 
+% 
+% 
+% For example, consider now that the librarian wants to make a correction in the title for the book with ID = 5. The new title is `Harry Potter IV'. The revise sentence is:
+% 
+% \begin{verbatim}
+% Revise(5,'Harry Potter IV', 
+% [[18/3/2012, 4, 1], 
+%           [2/4/2012, 2, 2]]);
+% \end{verbatim}
