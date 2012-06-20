@@ -4,10 +4,10 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we will formalize the model for valid-time relational databases. The first subsection is devoted to the formalization of the model. Then, the data manipulation language is defined.
+In this section we will formalize the model for possibilistic valid-time relational databases. The first subsection is devoted to the formalization of the model. Then, the data manipulation language is defined.
 
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
-The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated with examples. The information in the system is defined by the following elements:
+The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated through definitions and examples. The information in the system is defined by the following elements:
 
 \begin{definition}
 \label{def:generalized-fuzzy-domain}
@@ -24,11 +24,11 @@ The datatypes that can be used to represent $D_G$ are shown in table \ref{tbl:ge
 \label{def:typeof-domain}
 \textbf{Typeof(A).}
 Consider $D_G$ to be a generalized fuzzy domain and let $A \in D_G$ be a value for the domain. 
-The function typeof$\left(A \right)$ returns the datatype associated with the domain $D_G$. For a given value $A$, the function returns the associated number as shown in Table \ref{tbl:gefred-data-types}.
+The function typeof$\left(A \right)$ returns the datatype associated with the domain $D_G$. For a given value $A$, the function returns a number in $\left[1, 10 \right]$ as shown in Table \ref{tbl:gefred-data-types}.
 \end{definition}
 
 
-
+\begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
 \tcap{\label{tbl:gefred-data-types}Data types}
@@ -50,7 +50,7 @@ No. & Datatype \\ \hline
 \hline\\
 \end{tabular}
 } 
- 
+\end{samepage}
 
 
 
@@ -68,11 +68,18 @@ The Generalized Fuzzy Temporal Domain, $\T_G$ is
 
 Note that $\T_G \subseteq D_G$. The datatypes for this domain have been studied previously in section \ref{sec:time-rep} and are shown in tables \ref{tbl:time-point-types} and \ref{tbl:time-interval-types}.
 
-
+A generalized fuzzy relation is defined in \cite{Medina1994}. Here, we will extend the definition to a generalized fuzzy temporal relation.
 
 \begin{definition}
 \emph{Generalized fuzzy temporal relation.}
-A generalized fuzzy temporal relation $R_{FTG}$ is given by~\cite{Medina1994}:
+Consider $\A$ to be the set of all the entities, and let $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of (fuzzy) attributes that define an entity. Let $\I_{PVP}$ be the set of all the ill-known time intervals and let $I = \left(X, Y \right)$ be a PVP, $I \in \I_{PVP}$.  The pair $\left(A, I\right)$ expresses that the data regarding the entity A are valid during the ill-known time interval I. Let $R_{FTG} \subseteq \A \  x\  \I_{PVP}$ be a valid-time relation. Then, the following equation indicates that the pair $\left(A, I\right)$ is in the relation R:
+
+\begin{equation}
+\label{eq:fuzzy-rel-def}
+\left( R_{FTG}, \left(A , I\right) \right)
+\end{equation}
+
+A generalized fuzzy temporal relation $R_{FTG}$ can be noted also by:
 \label{def:generalized-fuzzy-temporal-relation}
 \begin{equation}
 \label{eq:generalized-fuzzy-temporal-relation}
@@ -112,7 +119,7 @@ The definition in \cite{Medina1994} for $R_{FTG}$ shows that classical relations
 
 \begin{example}
 \label{ex:sample-ft-database}
- Consider a hospital database as explained in example \ref{ex:library-database}. But now, the time is stored with imprecision, because the date of arrival and leave are not precisely known. For simplicity, the ill-known time points are represented as triangular fuzzy numbers. An ill-known time point is given by $[dd/mm/yyyy,a,b]$. The values for $a$ and $b$ are integers. Thus, the date given by $[15/3/2012,5,2]$ is a triangular fuzzy number with the left bound the 10/3/2012, the core on the 15/3/2012 and the right bound on 17/3/2012.
+ Consider a hospital database as explained in example \ref{ex:library-database}. But now, the time is stored with imprecision, because the date of arrival and departure are not precisely known. For simplicity, the ill-known time points are represented as triangular fuzzy numbers. An ill-known time point is given by $[dd/mm/yyyy,a,b]$. The values for $a$ and $b$ are integers. Thus, the date given by $[15/3/2012,5,2]$ is a triangular fuzzy number with the left bound the 10/3/2012, the core on the 15/3/2012 and the right bound on 17/3/2012.
 Table \ref{tbl:fuzzy-library-sample} shows the elements Head, $\Head$ and Body, $\Body$. 
 \begin{align}
  \label{eq:head-ex}
@@ -130,7 +137,7 @@ When the compatibility degree is 1, the component is omitted. The body, $\Body$ 
 \end{example}
 
 
-
+\begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
 \tcap{\label{tbl:fuzzy-library-sample}Sample hospital database}
@@ -149,6 +156,7 @@ $\Head$ &  \textbf{ID}  & Name  &  Arrival , Leave\\
 \hline\\
 \end{tabular}
 }
+\end{samepage}
 
 \begin{definition}
 \label{def:value-component}
@@ -236,19 +244,24 @@ For example, in the case of the record with ID = 3:
 \end{align}
 
 
-Analogously, it is possible to define the the value component for the temporal part and the compatibility component for the temporal part. 
+Analogously, it is possible to define both the name value component and the compatibility component for the temporal part.
+
+%the value component for the temporal part and the compatibility component for the temporal part. 
 
 \begin{definition}
 \label{def:generalized-primary-key}
 \emph{Generalized primary key.}
-Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s in S \subseteq \left(1, \ldots, n \right)$.
+Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s \in S \subseteq \left(1, \ldots, n \right)$.
 A generalized primary key, $K_G$ is a subset of the head:
 \begin{align}
 \label{eq:generalized-primary-key}
 K_G \subseteq \Head, K_G = \left \lbrace  \left(A_{Gs}:D_{Gs} \right) \right \rbrace \\
 \nonumber
 s\in S \subseteq \left(1, \ldots, n \right) \\
-\nonumber
+\end{align}
+Subject to the following constraints:
+\begin{align}
+%\nonumber
 \forall s \in S, \text{Typeof } \left(D_{Gs} \right) \in \left \lbrace 1, 2 \right \rbrace \\
 \nonumber
 \forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \\
@@ -263,9 +276,11 @@ For example, consider the database in Table \ref{tbl:fuzzy-library-sample}. With
 \nonumber
 K_G \subseteq \Head, K_G = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \right) \right \rbrace
 \end{align}
-In this case, the function \emph{Typeof(ID) = 2} (see Definition \ref{def:typeof-domain} and Table \ref{tbl:gefred-data-types}). The primary key for the table is the attribute \emph{ID}, a unique number. Two different books have two different values for the \emph{ID} attribute.
+In this case, the function \emph{Typeof(ID) = 2} (see Definition \ref{def:typeof-domain} and Table \ref{tbl:gefred-data-types}). The primary key for the table is the attribute \emph{ID}, a unique number. Two different patients have two different values for the \emph{ID} attribute.
 
-In order to add valid-time support, the primary key should be re-defined. E.g., consider the library database. If the primary key is the \emph{ID} attribute, a book could not be loaned more than once. To resolve this problem, we extend the given primary key with a version identifier. 
+In order to add valid-time support, the primary key should be re-defined. E.g., consider the hospital database. If the primary key is the \emph{ID} attribute, a patient could not arrive to the hospital more than once. To resolve this problem, we extend the given primary key with a version identifier. 
+
+%a book could not be loaned more than once. 
 %Thus, when a book is loaned, a new entry in the table is added. The \emph{ID} attribute identifies the physical book whereas 
 
 
@@ -273,8 +288,8 @@ In order to add valid-time support, the primary key should be re-defined. E.g., 
 \begin{definition}
 \label{def:generalized-fuzzy-temporal-key}
 \emph{Generalized fuzzy temporal key.}
-Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s in S \subseteq \left(1, \ldots, n \right)$.
-A generalized fuzzy temporal key, $K_{GT}$ is a subset of the head. An attribute, namely \emph{version} $V$ is added when dealing with valid-time.
+Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s \in S \subseteq \left(1, \ldots, n \right)$. Let  $V$ be a new attribute called \emph{version}. 
+A generalized fuzzy temporal key, $K_{GT}$ is a subset of the head.
 \begin{align}
 \label{eq:generalized-fuzzy-temporal-key}
 K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(A_{Gs}:D_{Gs} \right) \right.  \\
@@ -284,7 +299,9 @@ K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(A_{Gs}:D_{Gs} \right) \rig
 \text{Typeof }\left(D_{ID} \right) = \\
 \nonumber
 s\in S \subseteq \left(1, \ldots, n \right) \\
-\nonumber
+\end{align}
+Subject to the following constraints:
+\begin{align}
 \forall s \in S, \text{Typeof } \left(D_{Gs} \right) \in \left \lbrace 1, 2 \right \rbrace \\
 \nonumber
 \forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \\
@@ -297,15 +314,15 @@ Consider now the database in Table \ref{tbl:fuzzy-library-sample-valid-time}. Th
 
 \begin{align}
  \nonumber
-K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \right) \cup  \left(V_{\text{ID}}:D_{\text{ID}} \right) \right \rbrace	
+K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \right) , \left(V_{\text{ID}}:D_{\text{ID}} \right) \right \rbrace	
 %\nonumber
  %\left. \cup  \left(V_{ID}:D_{ID} \right)	\right \rbrace \\
 \end{align}
 
-
+\begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{\label{tbl:fuzzy-library-sample-valid-time}Sample library database}
+\tcap{\label{tbl:fuzzy-library-sample-valid-time}Sample hospital database}
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
@@ -323,19 +340,19 @@ K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \r
 \hline\\
 \end{tabular}
 }
-
+\end{samepage}
 
 \subsection{\label{subsec:data-manipulation}Data manipulation language}
 
-The Generalized Fuzzy Relational Algebra~\cite{Medina1994} manipulates relations like $R_{FG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify, Delete, }. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}.
+The Generalized Fuzzy Relational Algebra~\cite{Medina1994} manipulates relations like $R_{FTG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify, Delete, }. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}.
 %The algebra for the data manipulation is defined in .
 
-It is important to notice that while the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is in the unit interval.  Therefore, for a valid-time object, say $A \in R$, in a crisp temporal database it is not possible an overlapping among any valid-time interval ($\forall I, \not \exists J: \left(A, I \right) \in R \wedge \left(A, J \right) \in R \wedge \lnot \Overlap\left(I, J \right)$). Thus, from the point of view of a fuzzy temporal database, there are the following options (see Figure \ref{fig:tdb-class}):
+It is important to notice that while the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is a value in the unit interval.  Therefore, for a valid-time object, say $A \in R$, in a crisp temporal database it is not possible an overlapping among any valid-time interval ($\forall I, \not \exists J: \left(A, I \right) \in R \wedge \left(A, J \right) \in R \wedge \lnot \Overlap\left(I, J \right)$). Thus, from the point of view of a fuzzy temporal database, there are the following choices (see Figure \ref{fig:tdb-class}):
 
 % \begin{itemize}
 % \item 
 \begin{definition}
-\textbf{Strictly consistent} It is not possible for two PVPs of the same object to be valid at the same time. In other words, if $A$ is an object, $R$ is a relation and $\pi_{I}\left(t \right)$ and $\pi_{J}\left(t \right)$ are the possibilities for a time point $t \in \T$ to be in the PVPs $I$ and $J$ respectively,
+\textbf{Strictly consistent} It is not possible for two PVPs of the same entity to be valid at the same time. In other words, if $A$ is an entity, $R_{FTG}$ is a relation and $\pi_{I}\left(t \right)$ and $\pi_{J}\left(t \right)$ are the possibilities for a time point $t \in \T$ to be in the PVPs $I$ and $J$ respectively,
 \begin{align}
 \label{eq:stricly-consistent}
 \forall I,J, \forall t \in \T :\\
@@ -353,12 +370,12 @@ It is important to notice that while the result of the evaluation of any compari
 
 %\item 
 \begin{definition}
- \textbf{Ill-consistent} The overlapping of two PVPs of the same object do overlap. It can be distinguished among the following sub-types:
+ \textbf{Ill-consistent} The overlapping of two PVPs of the same entity do overlap. It can be distinguished among the following sub-types:
 \end{definition}
 % 	\begin{itemize}
 % 	\item 
 	      \begin{definition}
-	      \textbf{Co-existence} Two versions of the same object $A$ may exist at the same time.
+	      \textbf{Co-existence} Two versions of the same entity $A$ may exist at the same time.
 		      \begin{align}
 		      \label{eq:co-existence}
 		      \forall I, \exists ! J, \exists t \in \T : \\
@@ -370,7 +387,7 @@ It is important to notice that while the result of the evaluation of any compari
 
 	%\item 
 	      \begin{definition}
-	      \textbf{Weak-consistence} Several versions of the same object $A$ may exist at the same time.
+	      \textbf{Weak-consistence} Several versions of the same entity $A$ may exist at the same time.
 		      \begin{align}
 		      \label{eq:weak-consistence}
 		      \forall I, \exists J, \exists t \in \T : \\
@@ -399,7 +416,7 @@ It is important to notice that while the result of the evaluation of any compari
 
 In the implementation of the DML operations we will consider a strictly consistent temporal database. This is a natural extension of the crisp temporal databases. This approach allows an implementation for the DML operations defined in Section \ref{subsubsec:Understanding-valid-time-databases}.
 
-Since the time intervals are now possibilistic valid-time periods, PVPs, the auxiliary functions defined in equations \eqref{eq:close-a-crisp-interval} to \eqref{eq:close-current} should be re-defined.
+Since the time intervals are now possibilistic valid-time periods, PVPs, the auxiliary functions defined in equations \eqref{eq:close-a-crisp-interval} to \eqref{eq:close-current} are the basis for the following auxiliary functions.
 
 \begin{definition}
 \label{def:close-r-a-pvp}
@@ -421,12 +438,12 @@ For example, consider $I = \left[\left[4/4/2012, 3, 3\right] , UC\right]$ and $J
 
 \begin{definition}
 \label{def:pvp-current-in-relation}
-\textbf{Current$\left(R, A \right)$.}
-Consider an entity $A$ and a relation $R$ in a fuzzy temporal database. The function Current$\left(R, A \right)$ obtains the tuple $\left(A, I \right), I = \left(X, Y \right)$ that is current in the relation $R$, that is it, $I = \left[X , \text{UNKNOWN} \right]$.
+\textbf{Current$\left(R_{FTG}, A \right)$.}
+Consider an entity $A$ and a relation $R_{FTG}$ in a fuzzy temporal database. The function Current$\left(R_{FTG}, A \right)$ obtains the tuple $\left(A, I \right), I = \left(X, Y \right)$ that is current in the relation $R_{FTG}$, that is, $I = \left[X , \text{UNKNOWN} \right]$.
 
 \begin{align}
 \label{eq:pvp-current-in-relation}
-\mbox{Current} \left(R, A \right) &=& \\ 
+\mbox{Current} \left(R_{FTG}, A \right) &=& \\ 
 \begin{cases}
 \nonumber
 I & \mbox{ if } I = \left[X, UC \right] \\
@@ -436,53 +453,59 @@ I & \mbox{ if } I = \left[X, UC \right] \\
 \end{align}
 \end{definition}
 
-For example, consider the database in Table \ref{tbl:fuzzy-library-sample-valid-time}. The function Current$\left(R, A \right)$ with $A =\left(ID=3\right)$ returns time interval for the current version of $A$, $I = \left[ \left[4/4/2012, 3, 3 \right], UC \right]$. Nevertheless, the time interval for the entity with ID = 4 is the empty set.
-Now it is possible to close the current version of an object by using \eqref{eq:close-r-a-pvp} and \eqref{eq:pvp-current-in-relation}.
+For example, consider the database in Table \ref{tbl:fuzzy-library-sample-valid-time}. The function Current$\left(R_{FTG}, A \right)$ with $A =\left(ID=3\right)$ returns time interval for the current version of $A$, $I = \left[ \left[4/4/2012, 3, 3 \right], UC \right]$. Nevertheless, the time interval for the entity with ID = 4 is the empty set.
+Now it is possible to close the current version of an entity by using \eqref{eq:close-r-a-pvp} and \eqref{eq:pvp-current-in-relation}.
 
 \begin{definition}
 \label{def:pvp-close-current-version}
-\textbf{Close-current$\left(R, \left(A, J \right) \right)$.}
-Consider an object $A$, the relation $R$ and a pvp, $J$. Then, the function close - current$\left(R, A, J \right)$ closes any current version of the object $A$ if it exists and add the new version $\left(A, J \right)$.
+\textbf{Close-current$\left(R_{FTG}, \left(A, J \right) \right)$.}
+Consider an entity $A$, the relation $R_{FTG}$ and a pvp, $J$. Then, the function close - current$\left(R_{FTG}, A, J \right)$ closes any current version of the entity $A$ if it exists and add the new version $\left(A, J \right)$.
 
 \begin{eqnarray}
 \label{eq:pvp-close-current}
-\text{Close-current} \left(R, \left(A, J \right) \right) =\\
+\text{Close-current} \left(R_{FTG}, \left(A, J \right) \right) =\\
 \begin{cases}
 \nonumber
-\big \lbrace R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right) \right \rbrace \cup \left \lbrace \left(A, J\right)\right \rbrace  \big \rbrace \\
+\big \lbrace R_{FTG} - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right) \right \rbrace \cup \left \lbrace \left(A, J\right)\right \rbrace  \big \rbrace \\
 \nonumber
-\mbox{ if Current } \left(R, A \right) \neq \emptyset \\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
+\mbox{ if Current } \left(R_{FTG}, A \right) \neq \emptyset \\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
 \nonumber R , \text{ in any other case}
 \end{cases}
 \end{eqnarray}
 \end{definition}
 
-For example, consider the database in Table  \ref{tbl:fuzzy-library-sample-valid-time}. The function Close-current1$\left(R, \left(ID=3\right) \right.,$ $\left. \left[ \left[15/4/2012,2,1\right], UC\right]\right)$ closes the current version of the book with ID=3 and creates a new version with the specified time interval.
+For example, consider the database in Table  \ref{tbl:fuzzy-library-sample-valid-time}. The function Close-current1$\left(R_{FTG}, \left(ID=3\right) \right.,$ $\left. \left[ \left[15/4/2012,2,1\right], UC\right]\right)$ closes the current version of for the patient with ID=3 and creates a new version with the specified time interval.
 
 \subsubsection{\label{subsubsec:modify-fuzzy-temporal}Modify}
-This operation adds new information about an existing entity $A$ in the relation $R$. The modify operation does not remove any previous value of the entity $A$.
-Note that the modify operation is only applicable when the object $A$ is current in the relation $R$; $ \left(A, I \right) \in R, I = \left[X, \UC \right]$.
+This operation adds new information about an existing entity $A$ in the relation $R_{FTG}$. The modify operation does not remove any previous value of the entity $A$.
+Note that the modify operation is only applicable when the entity $A$ is current in the relation $R_{FTG}$; $ \left(A, I \right) \in R, I = \left[X, \UC \right]$.
+
+\begin{definition}
+\emph{$\MOD \left( R_{FTG}, \left( A, I \right) \right)$}. 
+Let $R_{FTG} \subseteq \A \  x\  \I_{PVP}$ be a  valid-time relation. Let  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of (fuzzy) attributes that define an entity and the PVP given by $I = \left(X, Y\right)$ the set of attributes defining the time interval. The algorithm for the modify operation is defined as follows.
+\end{definition}
+
 
 \begin{align}
 \label{eq:modify-fuzzy-temporal}
-\MOD \left( R, \left( A, I \right) \right) =\\
+\MOD \left( R_{FTG}, \left( A, I \right) \right) =\\
 %\begin{cases}
 \nonumber
-\mbox{ Close-current }\left(R, \left(A, I\right) \right) 
+\mbox{ Close-current }\left(R_{FTG}, \left(A, I\right) \right) 
 % \mbox{ if Current}\left(R ,A \right) \neq \emptyset \\
 % R,  \mbox{ otherwise }
 %\end{cases}
 \end{align}
 
 \subsubsection{\label{subsubsec:insert-fuzzy-temporal}Insert}
-The user wants to store an entity $A$ which is valid in the relation $R$ during the time interval specified by the PVP, $I = \left(X, Y \right)$.
+The user wants to store an entity $A$ which is valid in the relation $R_{FTG}$ during the time interval specified by the PVP, $I = \left(X, Y \right)$.
 %
 %
 %The interpretation of the insert operation is the following: The user wants to store in the database that an object $A$  is true for some period(s) of time $I$ in the given relation $R$. To indicate that the object $A$ is current in the relation, the special value Until Current, $\UC$  is used. 
 There are the following cases when performing an insert operation:
 \begin{enumerate}
-\item The entity $A$ was never in the relation $R$: The entity is added with the valid-time indicated by the PVP, $I$.
-For example, consider the database given by Table \ref{tbl:fuzzy-library-sample-valid-time}. The following sentences correspond with the insertion of the first version of each book.
+\item The entity $A$ was never in the relation $R_{FTG}$: The entity is added with the valid-time indicated by the PVP, $I$.
+For example, consider the database given by Table \ref{tbl:fuzzy-library-sample-valid-time}. The following sentences correspond with the insertion of the first arrival of each patient.
 
 \begin{verbatim}
 Insert(3,'John',
@@ -500,9 +523,9 @@ Insert(5,'Daan',
 
 
 
-\item The entity $A$ is in the relation $R$. Depending on the value of the time interval $I$, there are three possibilities:
+\item The entity $A$ is in the relation $R_{FTG}$. Depending on the value of the time interval $I$, there are three possibilities:
 	\begin{enumerate}
-	\item Insert $\left(A, I\right)$ in the relation $R$. If the time interval $I$ does not overlap any other valid-time interval in the relation $R$. Note that here, the result of the Overlaps operator is in the unit interval.
+	\item Insert $\left(A, I\right)$ in the relation $R_{FTG}$. If the time interval $I$ does not overlap any other valid-time interval in the relation $R_{FTG}$. Note that here, the result of the Overlaps operator is in the unit interval.
 For example, the patient with ID=3 has not left the hospital yet. The insert sentence is the following.
 
  \begin{verbatim}
@@ -516,7 +539,7 @@ Insert(3,'John',
 [[24/4/2012, 1, 1], UC]]);
 	      \end{verbatim}
 
-	\item Reject the insertion, if the time interval $I$ do overlap with a degree of 1 any existing valid-time interval for the entity $A$ in the relation $R$. For example, consider now that the hospital manager wants to introduce a past arrival for the patient with ID=3. The patient arrived around 6/4/12/2012 and left the hospital around 25/4/2012. As this interval does overlaps other time intervals with a degree of 1, it is not possible that the patient was it the hospital at that time interval. Therefore, the insertion is rejected. The insert sentence is:
+	\item Reject the insertion, if the time interval $I$ do overlap with a degree of 1 any existing valid-time interval for the entity $A$ in the relation $R_{FTG}$. For example, consider now that the hospital manager wants to introduce a past arrival for the patient with ID=3. The patient arrived around 6/4/12/2012 and left the hospital around 25/4/2012. As this interval does overlaps other time intervals with a degree of 1, it is not possible that the patient was it the hospital at that time interval. Therefore, the insertion is rejected. The insert sentence is:
 
 	      \begin{verbatim}
 Insert(3,'John',
@@ -527,32 +550,45 @@ Insert(3,'John',
 
 \end{enumerate}
 
-The algorithm for the implementation of the insert operation is the following:
+\begin{definition}
+ \emph{$\INS \left(R_{FTG} ,\left(A, I \right) \right)$}.
+Let $R_{FTG} \subseteq \A \  x\  \I_{PVP}$ be a  valid-time relation. Let  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of (fuzzy) attributes that define an entity and the PVP given by $I = \left(X, Y\right)$ the set of attributes defining the time interval. The algorithm for the implementation of the insert operation is defined as follows.
+\end{definition}
+
+
+
 
 \begin{align}
 \label{eq:insert-fuzzy-temporal}
-\INS \left(R ,\left(A, I \right) \right) &=\\
+\INS \left(R_{FTG} ,\left(A, I \right) \right) &=\\
 \begin{cases}
 \nonumber
-R \cup \left(A, I \right), & \mbox{ if }  \left(A, I \right) \not \in R \mbox{ or }\\
-&  \left(A, J \right) \in R \mbox{ and } I \text{ Overlaps } J < 1\\
+R_{FTG} \cup \left(A, I \right), & \mbox{ if }  \left(A, I \right) \not \in R_{FTG} \mbox{ or }\\
+&  \left(A, J \right) \in R_{FTG} \mbox{ and } I \text{ Overlaps } J < 1\\
 %\big \lbrace \left( \exists J= \left(X', Y' \right): \left(A, J \right) \in R \wedge \right. \\
 %\left. Y' \in \left \lbrace \left(<, X \right)\right \rbrace  \right) \vee \\
 %\left( \exists K= \left(X'', Y'' \right): \left(A, K \right) \in R \wedge \right. \\
 %\left. X'' \in \left \lbrace \left(>, Y \right)\right \rbrace \vee \right) \big \rbrace\\
 %&  J<I<K  \big \rbrace\\
-\MOD \left(R, \left(A, I \right)\right), & \mbox{ otherwise }  
+\MOD \left(R_{FTG}, \left(A, I \right)\right), & \mbox{ otherwise }  
 \end{cases} 	
 \end{align}
 \subsubsection{\label{subsubsec:delete-fuzzy-temporal}Delete}
-The delete operation logically removes an entity $A$ which is valid in the relation $R$:
+The delete operation logically removes an entity $A$ which is valid in the relation $R_{FTG}$.
+
+\begin{definition}
+ \emph{$\DEL \left(R_{FTG} ,A \right) $}.
+Let $R_{FTG} \subseteq \A \  x\  \I_{PVP}$ be a  valid-time relation. Let  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of (fuzzy) attributes that define an entity and the PVP given by $I = \left(X, Y\right)$ the set of attributes defining the time interval. The algorithm for the delete operation is defined as follows.
+\end{definition}
+
+
 \begin{align}
 \label{eq:delete-fuzzy-temporal}
-\DEL \left(R ,A \right) =\\
+\DEL \left(R_{FTG} ,A \right) =\\
 \begin{cases}
 \nonumber
-R - \left \lbrace \left(A, I_1 \right), \ldots, \left(A, I_n \right) \right \rbrace, &  \forall I_i: \left( A, I_i \right) \in R\\
-R, & \mbox{ otherwise }  
+R_{FTG} - \left \lbrace \left(A, I_1 \right), \ldots, \left(A, I_n \right) \right \rbrace, &  \forall I_i: \left( A, I_i \right) \in R_{FTG}\\
+R_{FTG}, & \mbox{ otherwise }  
 \end{cases} 	
 \end{align}
 

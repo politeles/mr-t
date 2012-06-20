@@ -44,10 +44,11 @@ Consider $\Pow(\T)$ the set of all the possibility distributions over $\T$, and 
 \subsubsection{\label{subsubsec:ill-known-time-datatypes}Datatypes}
 The data type for the representation of an ill-known time point allows the representation of the values shown in Table \ref{tbl:time-point-types}
 %The datatypes for an  $X$ are shown in Table \ref{}.
+\begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
 \tcap{\label{tbl:time-point-types}Values for the time point data type.}
-\centerline{\small TIME POINT DATA TYPES}
+\centerline{\small DIFFERENT VALUES FOR A TIME POINT}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
 \begin{tabular}{c p{0.4\columnwidth} p{0.3\columnwidth}}\\
@@ -61,6 +62,7 @@ Subtype & Value & Representation \\
 \hline\\
 \end{tabular}
 }
+\end{samepage}
 
 %Example of different uses of the ill-known time value.
 \begin{example}
@@ -95,11 +97,14 @@ In that database, for the document with ID=23454, all the dates in the domain ar
 \subsection{\label{subsec:ill-known-interval}Ill-known time interval}
 
 
-%\begin{definition}
-\textbf{Ill-known time interval}\\
-An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval whose boundaries are not precisely known. The ill-known time interval is defined by two ill-known  time points, namely $X$,$Y$. The evaluation of the ill-known time interval is given by equations \eqref{ill-known-pos},\eqref{ill-known-nec}.
 
+An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval whose boundaries are not precisely known. %The ill-known time interval is defined by two ill-known  time points, namely $X$,$Y$. The evaluation of the ill-known time interval is given by equations \eqref{ill-known-pos},\eqref{ill-known-nec}.
 
+\begin{definition}
+\emph{Ill-known time interval}
+Let $\T$ be the time domain, and $X$, $Y$ two ill-known values in the time domain. An ill-known time interval is given by $\left[X, Y\right]$. The evaluation of the ill-known time interval is given by equations \eqref{ill-known-pos},\eqref{ill-known-nec}. We will note $\I_{PVP}$ the set of all the ill-known time intervals.
+
+\end{definition}
 
 
 % In order to know whether all the points in the crisp time interval $I=\left[a, b\right]$ are within the boundaries of the ill-known time interval $\left[X, Y\right]$ we define the following two ill-known constraints $C_{1}, C_{2}$ 
@@ -155,21 +160,22 @@ Because of the ill-known constraints $C_{1}, C_{2}$, a function called \emph{Ope
 \begin{definition}
 \label{def:open-func}
 $Open(C)$\\
-Consider an ill-known value $T$, a binary relationship $B_r$ one of $\left(\leq, <, >, \geq\right)$ and the constraint $C\stackrel{\triangle}{=}\left(R,T\right)$.
+Consider an ill-known value $T$, a binary relationship $B_r \in \left \lbrace \leq, <, >, \geq\right \rbrace$ and the constraint $C\stackrel{\triangle}{=}\left(R,T\right)$.
 The function $\Open(C) = \left(I_p(C), I_n(C) \right)$ provides both possibility and necessity measures for all the points in the open part of a semi-open ill-known time interval.
 
 The possibility and necessity measures are defined by:
 \begin{eqnarray}
 \label{eq:open-pos-nec}
-I_p \left(C \right) &=& \Big(\sup_{r\in\T \Rp\  w}\pi_{T}(w)\Big)\\
-I_n \left(C \right) &=& \Big(\inf_{r\in\T \Rn\  w}1-\pi_{T}(w)\Big)
+I_p \left(C \right) &=& \Big(\sup_{r\in\T, r \Rp\  w}\pi_{T}(w)\Big)\\
+I_n \left(C \right) &=& \Big(\inf_{r\in\T, r \Rn\  w}1-\pi_{T}(w)\Big)
 \end{eqnarray}
 Where the values for the binary relations $\Rp$ and $\Rn$ are shown in Table \ref{tbl:open-pos-nec-rels}.
 \end{definition} 
 
+\begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{Relations for the $\Open(C)$ function. Depending on the relation $B_r = \left(\leq, <, >, \geq\right)$ in the constraint $C$, the values for $\Rp$ and $\Rn$ are shown.}
+\tcap{Relations for the $\Open(C)$ function. Depending on the relation $B_r \in \left \lbrace \leq, <, >, \geq\right \rbrace$ in the constraint $C$, the values for $\Rp$ and $\Rn$ are shown.}
 \centerline{\small Relations}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
@@ -184,6 +190,7 @@ $C\stackrel{\triangle}{=}\left(\geq,T\right)$ & $\leq$ & $>$ \\
 \end{tabular}
 \label{tbl:open-pos-nec-rels}
 }
+\end{samepage}
 
 As explained before, the constants $\FB$ and $\UC$ are aliases for the function $\Open$ with the following parameters:
 \begin{eqnarray}
@@ -195,7 +202,7 @@ Where the constraints $C_1$ and $C_2$ are given in equations \eqref{eq:constrain
 
 \begin{example}
 \label{ex:open-time-interval}
-Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider also that in this case, $Y= \left[15/10/2012,3,4 \right] $. Figure \ref{fig:example-open-time-interval} shows the representation for $Y$. The user wants to obtain the possibility and the necessity measures for the $\FB$ part of the interval.
+Consider an ill-known time interval given by $\left[\FB, Y \right]$. Consider also that, in this case, $Y= \left[15/10/2012,3,4 \right] $. Figure \ref{fig:example-open-time-interval} shows the representation for $Y$. The user wants to obtain the possibility and the necessity measures for the $\FB$ part of the interval.
 \end{example}
 
 \begin{eqnarray}
@@ -207,7 +214,7 @@ I_p(C_2)= \Big(\sup_{r\in\T \geq\  w}\pi_{Y}(w)\Big)\\
 I_n(C_2) = \Big(\inf_{r\in\T <\  w}1-\pi_{Y}(w)\Big)
 \end{eqnarray}
 
-
+\begin{samepage}
 \vspace*{13pt}
 \begin{center}
 {
@@ -219,7 +226,7 @@ I_n(C_2) = \Big(\inf_{r\in\T <\  w}1-\pi_{Y}(w)\Big)
 \vspace*{10pt}
 \fcaption{Possibility distribution for $Y$, and possibility and necessity measures for the open ill-known point, $X$}
 \vspace*{13pt}
-
+\end{samepage}
 
 % \vglue13pt
 % %\begin{table}[htbp]
@@ -242,8 +249,9 @@ I_n(C_2) = \Big(\inf_{r\in\T <\  w}1-\pi_{Y}(w)\Big)
 
 
 \subsubsection{\label{subsubsec:ill-known-time-interval-datatypes}Datatypes}
-In order to properly represent  an ill-known time interval in a database, some datatypes are needed. Because of the ill-known constraints, not all the combinations of datatypes for each ill-known time point (see Table \ref{tbl:time-point-types}) are allowed. Table \ref{tbl:time-interval-types} shows all the possible datatypes combinations for the  for an ill-known time interval denoted by $\left[X, Y\right]$.
+In order to properly represent  an ill-known time interval in a database, some datatypes are needed. Because of the ill-known constraints, not all the combinations of datatypes for each ill-known time point (see Table \ref{tbl:time-point-types}) are allowed. Table \ref{tbl:time-interval-types} shows all the possible values that can be used to represent an ill-known time interval denoted by $\left[X, Y\right]$.
 
+\begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
 \tcap{All the possible combination of values for the time interval $\left[X, Y\right]$. The subtypes refer to Table \ref{tbl:time-point-types}.}
@@ -262,6 +270,7 @@ $\FB$ & 1 or 2 & A left-open time interval.\\
 \end{tabular}
 \label{tbl:time-interval-types}
 }
+\end{samepage}
 
 % Maybe an example with a database.
 % \begin{example}
