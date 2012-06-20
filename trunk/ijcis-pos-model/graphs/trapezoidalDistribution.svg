@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="trapezoidalDistribution.pdf">
+   sodipodi:docname="trapezoidalDistribution.svg">
   <defs
      id="defs4">
     <marker
@@ -286,7 +286,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
      inkscape:cx="348.37914"
-     inkscape:cy="702.0777"
+     inkscape:cy="330.64913"
      inkscape:document-units="px"
      inkscape:current-layer="layer1-4"
      showgrid="true"
@@ -307,7 +307,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -558,6 +558,42 @@
          style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL-1)"
          d="m 801.96529,592.33826 45,0 0,0"
          id="path5580-6" />
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
+         x="343.57239"
+         y="361.4454"
+         id="text3068"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3070"
+           x="343.57239"
+           y="361.4454"
+           style="font-size:24px">Original start and end points</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
+         x="423.57239"
+         y="681.44543"
+         id="text3072"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3074"
+           x="423.57239"
+           y="681.44543"
+           style="font-size:24px">Convex hull</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
+         x="323.57239"
+         y="991.44543"
+         id="text3076"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3078"
+           x="323.57239"
+           y="991.44543"
+           style="font-size:24px">Uncertainty preserving approach</tspan></text>
     </g>
   </g>
 </svg>
