@@ -166,33 +166,160 @@ In the rest of the paper we will work only with PVP to represent valid-time inte
 This subsection is devoted to describe the behaviour of a crisp valid-time database. For the sake of simplicity, only the three main operations in the Data Manipulation Language (CReate Update, Delete) are shown. Usually the DML operations in a temporal database are re-defined (a typical update sentence in SQL could be expressed by means of a couple of insert and update sentences). Therefore, for the sake of clarity, these high level primitives in the DML for a valid-time database are usually noted as Insert, Modify and Delete. In the following subsections each primitive is defined and explained. Finally, an illustrative example is given. For a more complete information on the behaviour of a bitemporal database, please refer to ~\cite{Jensen1994}.
 
 \begin{definition}
+\label{def:valid-time-relation}
 \emph{Valid-time relation.}
-Consider $\A$ be the set of all the entities, and let $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity. Let $I = \left(S_i, E_i \right)$ be the set of attributes defining the time interval. The set $\I$ is the set of all the time intervals. The pair $\left(A, I\right)$ expresses that the data regarding the entity A are valid during the crisp time interval I. Let $R \subseteq \A \  x\  \I$ be a valid-time relation. Then, the following equation indicates that the pair $\left(A, I\right)$ is in the relation R:
+Consider the following definitions and notations:
+
+\begin{itemize}
+ \item A set of non-temporal attributes.
+	\begin{equation}
+	\label{eq:attribute-set}
+	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
+	\end{equation}
+      The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
+\item The primary key for the attributes in $A$ is given by $A_K$:
+      \begin{equation}
+       \label{eq:primary-key-a}
+      A_K \subset A
+      \end{equation}
+\item A set of two attributes; $S$  and $E$ the attributes for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
+\begin{equation}
+ \label{eq:attribute-time-interval}
+I = \left \lbrace S, E \right \rbrace
+\end{equation}
+\item Then $R$, the schema for the valid-time relation is:
+\begin{equation}
+ \label{eq:valid-time-relation}
+R = A \cup  I
+\end{equation}
+\item The primary key for the valid-time relation $R$ is:
+\begin{equation}
+ \label{eq:valid-time-temporal-pk}
+PK = A_K \cup I
+\end{equation}
+
+
+\item We will note by $r$ any valid instance of $R$. 
+      \begin{equation}
+       \label{eq:valid-time-instance}
+      r \subseteq D_1\ x\ \ldots\ x\ D_n
+      \end{equation}
+
+\item Let $t$ be a tuple in the instance $r$; $t \in r$:
+      \begin{itemize}
+      \item We will note the values for the starting and the ending  points,$s$ and $e$  respectively. The value for the time interval is given by $i$.
+      \begin{align}
+       \label{eq:starting-point}
+      s = t\left[S \right]\\
+      e = t\left[E \right]\\
+      i = \left(s, e\right)
+      \end{align}
+
+
+      \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
+	    \begin{equation}
+	     \label{eq:all-the-versions} 
+	      a_k = t\left[A_K \right]
+	    \end{equation}
+
+    \item Let $PK$ be the primary key for the valid-time relation as given in equation \eqref{eq:valid-time-temporal-pk}. Then, $pk$ denotes the values for the attributes in the primary key.
+	  \begin{equation}
+	   \label{eq:value-pk}
+	  pk = t\left[PK \right]
+	  \end{equation}
+
+
+      \end{itemize}
+\item $Vt$ is the set with all the versions for a given tuple $t$.
 
 \begin{equation}
-\label{eq:rel-def}
-\left( R, \left(A , I\right) \right)
+ \label{eq:all-the-versions}
+Vt = r\left(t\left[A_K\right] \right)
 \end{equation}
+If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+\end{itemize}
 \end{definition}
+We will illustrate the definitions with an example.
 
+\begin{example}
+Consider the set of attributes $A = \left \lbrace A_1, A_2, A_3 \right \rbrace$. The primary key for these attributes is given by $A_K = \left \lbrace A_1, A_2 \right \rbrace$. Let $I = \left \lbrace S, E \right \rbrace$ be the set of temporal attributes that define the validity period of the data. $R$ is the valid-time relation and $r$ is an instance of the relation. The instance $r$ is given by the following elements. $r = \left \lbrace \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right) \right.$,  $\left(a_{21}, a_{22}, a_{23}, s_2, e_2 \right)$ , $\left. \left(a_{11}, a_{12}, a_{31}, s_3, e_3 \right) \right \rbrace$. The instance $r$ is illustrated in Table \ref{tbl:sample-definitions}. 
+Consider the tuple $t = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
+\begin{align}
+ \nonumber
+s_1 &= t\left[S \right]\\
+ \nonumber
+e_1 &= t[E]\\
+ \nonumber
+i\ \ &= \left(s_1, e_1\right)\\
+ \nonumber
+a_k &= t\left[A_K\right] = \left(a_{11}, a_{12} \right) \\
+ \nonumber
+pk &= t\left[PK\right] =\left(a_{11}, a_{12}, s_1, e_1\right)\\
+ \nonumber
+Vt &= r\left(t\left[A_K\right] \right) = \left \lbrace t_1, t_3 \right \rbrace
+\end{align}
+
+
+
+\end{example}
+
+\begin{samepage}
+\vglue13pt
+%\begin{table}[htbp]
+\tcap{\label{tbl:sample-definitions}Sample database containing the instance $r$ of the valid-time relation $R$.}
+%\centerline{\small DATA TYPES}
+\vglue-6pt
+\centerline{\small\baselineskip=13pt
+\begin{tabular}{c c c c c c}\\
+\hline
+& \textbf{A$_1$}  & \textbf{A$_2$}  & $A_3$ & $S$ & $E$ \\
+\hline
+$t_1$&$a_{11}$ & $a_{12}$ & $a_{13}$ & $s_1$ & $e_1$ \\
+$t_1$ & $a_{21}$ & $a_{22}$ & $a_{23}$ &  $s_2$ & $e_2$ \\
+$t_1$ & $a_{11}$ & $a_{12}$ & $a_{31}$ & $s_3$ & $e_3$\\
+\hline\\
+\end{tabular}
+}
+\end{samepage}
+
+
+
+
+% Consider $\A$ be the set of all the entities, and let $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity. Let $I = \left(S_i, E_i \right)$ be the set of attributes defining the time interval. The set $\I$ is the set of all the time intervals. The pair $\left(A, I\right)$ expresses that the data regarding the entity A are valid during the crisp time interval I. Let $R \subseteq \A \  x\  \I$ be a valid-time relation. Then, the following equation indicates that the pair $\left(A, I\right)$ is in the relation R:
+% 
+% \begin{equation}
+% \label{eq:rel-def}
+% \left( R, \left(A , I\right) \right)
+% \end{equation}
+% 
+% 
 In order to simplify the algorithms for the manipulation of data, some auxiliary functions and constants are defined:
 
 
 \begin{definition}
  \label{def:from-beginning}
 \emph{From the beginning (FB).} 
-Consider $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity and $I = \left(S_i, E_i \right), S_i, E_i \in \T$ the set of attributes defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. We will say $I = \left(FB, E_i \right)$ when $I = \left(- \infty, E_i \right)$.
+Consider the elements in definition \ref{def:valid-time-relation}. We will say $i = \left(FB, e \right)$ when $i = \left(- \infty,e \right)$. 
+% $i = \left(s, e \right)$ be the value for a time interval as given equation \eqref{}.
+% $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity and $I = \left(S_i, E_i \right), S_i, E_i \in \T$ the set of attributes defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. We will say $I = \left(FB, E_i \right)$ when $I = \left(- \infty, E_i \right)$.
 %The from the beginning constant is used when the value for $s_i$ is equal to $-\infty$.
 \end{definition}
 
 \begin{definition}
  \label{def:until-changed}
 \emph{Until changed (UC).} 
-Consider $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity. Let $\T$ be the time domain, and $I = \left(S_i, E_i \right), S_i, E_i \in \T$ the set of attributes defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. We will say  $I = \left(S_i, UC \right)$ when $I = \left(S_i, +\infty \right)$.
+Consider the elements in definition \ref{def:valid-time-relation}. We will say  $i = \left(s, UC \right)$ when $i = \left(s, +\infty \right)$.
+% Consider $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity. Let $\T$ be the time domain, and $I = \left(S_i, E_i \right), S_i, E_i \in \T$ the set of attributes defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. We will say  $I = \left(S_i, UC \right)$ when $I = \left(S_i, +\infty \right)$.
 %The until changed constant is used when the value for $e_i$ is equal to $+\infty$.
 \end{definition}
 
-If the pair $\left(A, I \right)$ with $I = \left(S_i, UC \right), S_i \in \T$ is in the relation $R$, then, it is said that the pair $\left(A, I \right)$ is \emph{current} in the relation.
+\begin{definition}
+\emph{Current.} 
+Consider the elements in definition \ref{def:valid-time-relation}. We will say that the tuple $t$ is current in the instance $r$ of the relation $R$ when $i = \left(s, UC \right)$.
+\end{definition}
+
+
+%If the pair $\left(A, I \right)$ with $I = \left(S_i, UC \right), S_i \in \T$ is in the relation $R$, then, it is said that the pair $\left(A, I \right)$ is \emph{current} in the relation.
 
 For example, let us consider the last row in Table \ref{tbl:library-sample}. The value for the time interval is $I = \left(4/4/2012 , UC \right)$. The meaning is that the patient with ID = 3 was in the hospital the  4/4/2012 and he or she is still there. The patient with ID = 3 is current in the relation.
 
@@ -225,17 +352,19 @@ For example, let us consider the last row in Table \ref{tbl:library-sample}. The
 
 \begin{definition}
 \label{def:current-in-relation}
-\emph{Current $\left(R, A \right)$.}
-Consider $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i, UC \right)$ the set of attribute defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. The function Current $\left(R, A \right)$ returns the crisp time interval $I$ if the entity $A$ is currently in the relation $R$ or the empty set, if the entity $A$ is not currently in the relation. It is defined as follows:
+\emph{Current $\left(a_k \right)$.}
+Consider the elements in definition \ref{def:valid-time-relation}. The function Current $\left(a_k \right)$ returns the crisp time interval $i$ if the tuple $t$ with the primary key values given by $a_k$ is currently in the instance $r$ of the relation $R$. The function returns the emtyset otherwise.
+% 
+% Consider $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i, UC \right)$ the set of attribute defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. The function Current $\left(R, A \right)$ returns the crisp time interval $I$ if the entity $A$ is currently in the relation $R$ or the empty set, if the entity $A$ is not currently in the relation. It is defined as follows:
 
 %Consider an object $A$ and a relation $R$ in a temporal database. The function Current$\left(R, A \right)$ obtains the tuple $\left(A, I \right)$ that is current in the relation $R$, that is it, $I = \left[a, +\infty \right]$.
 
 \begin{align}
 \label{eq:current-in-relation}
-\mbox{Current} \left(R, A \right) &=& \\ 
+\mbox{Current} \left(a_k\right) &=& \\ 
 \begin{cases}
 \nonumber
-I & \mbox{ if } (A,I) \in R \mbox{ and } I = \left(S_i, UC \right), S_i \in \T\\
+t & \mbox{ if } \exists t \in r : i = \left(s, UC \right)\\
 \emptyset & \mbox{ otherwise}
 \end{cases}
 \end{align}
@@ -265,10 +394,10 @@ We will use two of the Allen's relations: Overlaps and During which will be defi
 \begin{definition}
 \emph{Overlaps:}
  \label{def:overlaps}
-Given two time intervals $I = \left(S_i, E_i \right)$ and $J = \left(S_j, E_j\right)$, it is said that I overlaps J if:
+Given two time intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2 e_2\right)$, it is said that $i_1$ overlaps $i_2$ if:
 \begin{equation}
  \label{eqn:overlaps}
-\text{I Overlaps J}  = \left(S_i > S_j  \right) \wedge \left(E_i < E_j  \right) 
+i_1 \text{ Overlaps } i_2  = \left(s_1 < s_2  \right) \wedge \left(e_1 < e_2  \right) 
 \end{equation}
 \end{definition}
   
@@ -276,34 +405,35 @@ Given two time intervals $I = \left(S_i, E_i \right)$ and $J = \left(S_j, E_j\ri
 \begin{definition}
 \emph{During:}
  \label{def:during}
-Given two time intervals $I = \left(S_i, E_i \right)$ and $J = \left(S_j, E_j\right)$, it is said that I during J if:
-\begin{equation}
+Given two time intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2 e_2\right)$, it is said that $i_1$ during $i_2$ if:
+\begin{align}
  \label{eqn:during}
-\text{I During J}  = \left(S_i < S_j  \right) \wedge \left(E_i > S_j  \right) \wedge \left(E_i < E_j \right)
-\end{equation}
+i_1\text{ During } i_2  =& \left(s_1 > s_2  \right) \wedge \left(e_1 > s_2 \right) \wedge \\
+\nonumber & \left(e_1 < e_2 \right)
+\end{align}
 \end{definition}
 
 In the rest of the paper, and without losing generality, we will consider that the time granularity are days. Also, the dates will be given in the format \emph{dd/mm/yyyy}.
 
 
 \begin{definition}
-\emph{CloseR$\left( I, J \right)$:}
+\emph{CloseR$\left(i_1, i_2\right)$:}
 \label{def:close-a-crisp-interval-r}
-Consider two crisp intervals $I= \left[S_i ,E_i \right]$ and $J= \left[S_j ,E_j \right]$. The CloseR$\left(I, J\right)$ function allows to close the right-open interval $I$ with respect to the first value $e$ in $J$:
+Consider two crisp intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2, e_2\right)$. The CloseR$\left(i_1, i_2 \right)$ function allows to close the right-open interval $i_1$ with respect to the first value $s_2$ in $i_2$:
 \begin{align}
 \label{eq:close-a-crisp-interval}
-\mbox{CloseR} \left( I, J \right) &=& \\ 
+\mbox{CloseR} \left( i_1, i_2\right) &=& \\ 
 \begin{cases}
 \nonumber
 %I & \mbox{ if } b \neq +\infty \\
 %I=\left[a, c \right[ & \mbox{ if } b = +\infty \wedge J > I
-\left[S_i, S_j \right[ & \mbox{ if } E_i = UC \mbox{ and } J \mbox{ During } I \\
-I & \mbox{ otherwise}
+i_1 = \left(s_1,s_2 \right( & \mbox{ if } e_1 = UC \mbox{ and } i_2 \mbox{ During } i_1 \\
+i_1 & \mbox{ otherwise}
 \end{cases}
 \end{align}
 \end{definition}
 
-For example, consider two time intervals, $I = \left(4/4/2012, UC \right)$ and $J = \left(24/4/2012, UC \right)$. The result of applying the CloseR$\left(I, J \right)$ is $I = \left(4/4/2012, 23/4/2012 \right)$.
+For example, consider two time intervals, $i_1 = \left(4/4/2012, UC \right)$ and $i_2 = \left(24/4/2012, UC \right)$. The result of applying the CloseR$\left(i_1, i_2 \right)$ is $i_1 = \left(4/4/2012, 23/4/2012 \right)$.
 
 
 
@@ -346,18 +476,29 @@ Now it is possible to close the current version of an entity by using \eqref{eq:
 
 \begin{definition}
 \label{def:close-current-version}
-\emph{Close-current$\left(R, \left(A, J  \right)\right)$}.
-Consider $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity and $J = \left(S_j,E_j \right)$ the set of attribute defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. Then, the function close-current$\left(R,\left(A,J\right) \right)$ closes any current version of the object $A$ if it exists and add the new version $\left(A, J\right)$.
+\emph{Close-current$\left(r, t\right)$}.
+Consider the elements in definition \ref{def:valid-time-relation}. The function Close-current$\left(r, t \right)$ closes any current version $t_k$ of the entity given by $t$ if it exists and add the new version $t$. For the implementation the following variables are defined:
+\begin{align}
+ \label{eq:variables-current-version}
+t_{CUR} = \mbox{ Current } \left(t[A_K] \right)\\
+\nonumber
+t_{UP} = t_{CUR}; t_{UP}\left[i \right] = \mbox{Close }\left(t_{UP}\left[i \right], t \right)
+\nonumber
+\end{align}
+Then, $t_{CUR}$ is the current version of the entity given by the tuple $t$, and $t_{UP}$ is the updated version of the tuple $t_{CUR}$. In this updated version, the time interval given by $i_{UP}$ is closed with respect to the tuple $t$.
+
 
 \begin{eqnarray}
 \label{eq:close-current}
-\text{Close-current} \left(R, \left(A, J\right) \right) =\\
+\text{Close-current} \left(r, t \right) =\\
 \begin{cases}
 \nonumber
-R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right)\right \rbrace \cup \left \lbrace\left(A, J\right) \right \rbrace  \\
-\nonumber
-\mbox{ if  Current } \left(R, A \right) \neq \emptyset\\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
-\nonumber R , \text{ otherwise}
+r - t_{CUR} \cup \lbrace t_{UP}\rbrace \cup \lbrace t \rbrace
+& \mbox{ if } t_{CUR} \neq \emptyset \\
+% R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right)\right \rbrace \cup \left \lbrace\left(A, J\right) \right \rbrace  \\
+% \nonumber
+% \mbox{ if  Current } \left(R, A \right) \neq \emptyset\\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
+\nonumber r , \text{ otherwise}
 \end{cases}
 \end{eqnarray}
 \end{definition}
@@ -393,16 +534,16 @@ This operation adds new information about an existing entity $A$ in the relation
 
 \begin{definition}
  \emph{Modify(R, (A,I))}.
-Let $R \subseteq \A\  x\  \I$ be a valid-time relation and  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i,E_i\right)$ the set of attributes defining the time interval. The algorithm for the modify operation is defined as follows.
+Consider the elements in definition \ref{def:valid-time-relation}. The algorithm for the modify operation is defined as follows.
 \end{definition}
 
 
 \begin{align}
 \label{eq:modify}
-\MOD \left( R, \left(A, I \right)\right) =\\
+\MOD \left( r, t\right) =\\
 %\begin{cases}
 \nonumber
-\mbox{ Close-current }\left(R, \left(A, I\right) \right) %\\
+\mbox{ Close-current }\left(r, t\right) %\\
 % \mbox{ if Current}\left(R ,A \right) \neq \emptyset \\
 % R,  \mbox{ otherwise }
 %\end{cases}
@@ -478,20 +619,24 @@ There are two main cases when performing a create operation:
 \end{samepage}
 
 \begin{definition}
- \emph{Insert(R,(A,I)))}.
-Let $R \subseteq \A\  x\  \I$ be a valid-time relation and  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i,E_i\right)$ the set of attributes defining the time interval. Then, the algorithm for the implementation of the insert operation is defined as follows.
+ \emph{Insert(r, t)}.
+Consider the elements in definition \ref{def:valid-time-relation}. Then, the algorithm for the implementation of the insert operation is defined as follows.
 \end{definition}
 
 
 
 \begin{align}
 \label{eq:insert}
-\INS \left(R ,\left(A, I\right)\right) =\\
+\INS \left(r, t\right) =\\
 \begin{cases}
 \nonumber
-R \cup \left(A, I \right) & \mbox{ if }  (A, I ) \not \in R  \mbox{ or } \\
- &   \left(A, J\right) \in R \mbox{ and } \lnot \left(I \mbox{ Overlaps } J\right) \\
-\mbox{modify(R,(A,I))} & \mbox{ otherwise }    %\mbox{ if } \exists J \left(A,J\right) \in R \wedge \mbox{Current(A,J)} \\ 
+r \cup \lbrace t \rbrace
+& \mbox{ if }  t \not \in r \mbox{ or }\\
+\nonumber & \forall t_k \in Vt, \lnot \left(i \mbox{ Overlaps } i_k\right)\\
+% 
+% R \cup \left(A, I \right) & \mbox{ if }  (A, I ) \not \in R  \mbox{ or } \\
+%  &   \left(A, J\right) \in R \mbox{ and } \lnot \left(I \mbox{ Overlaps } J\right) \\
+\mbox{modify(r, t)} & \mbox{ otherwise }    %\mbox{ if } \exists J \left(A,J\right) \in R \wedge \mbox{Current(A,J)} \\ 
 %R, &   
 \end{cases} 	
 \end{align}
@@ -499,20 +644,27 @@ R \cup \left(A, I \right) & \mbox{ if }  (A, I ) \not \in R  \mbox{ or } \\
 \subsubsection{\label{subsubsec:del}Delete}
 The delete operation logically removes a current entity $A$ which is valid in the relation $R$.
 \begin{definition}
- \emph{Delete(R,(A,I))}.
-Let $R \subseteq \A\  x\  \I$ be a valid-time relation and  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i,E_i\right)$ the set of attributes defining the time interval. The algorithm for the delete operation is defined as follows.
+ \emph{Delete(r, t)}.
+Consider the elements in definition \ref{def:valid-time-relation}.The algorithm for the delete operation is defined as follows.
+% 
+% Let $R \subseteq \A\  x\  \I$ be a valid-time relation and  $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i,E_i\right)$ the set of attributes defining the time interval. The algorithm for the delete operation is defined as follows.
 \end{definition}
 
 
 \begin{align}
 \label{eq:delete}
-\DEL \left(R ,A \right) =\\
+\DEL \left(r, t\right) =
 \begin{cases}
 \nonumber
-R - \left \lbrace \left(A, I_1 \right),  \ldots, \left(A, I_n \right)   \right \rbrace, & \forall I_i : \left( A, I_i \right) \in R\\
-R, & \mbox{ otherwise }  
+r - Vt
+% 
+% 
+% R - \left \lbrace \left(A, I_1 \right),  \ldots, \left(A, I_n \right)   \right \rbrace, & \forall I_i : \left( A, I_i \right) \in R\\
+% R, & \mbox{ otherwise }  
 \end{cases} 	
 \end{align}
+The set $Vt$ is computed as explained in definition \ref{def:valid-time-relation} and contains all the versions for the tuple $t$.
+
 
 For example, consider that the hospital manager wants to delete the history for the patient with ID = 3. The result of this operation is shown in Table \ref{tbl:library-sample-3}. 
 
