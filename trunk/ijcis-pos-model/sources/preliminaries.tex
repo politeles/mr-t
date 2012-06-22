@@ -83,7 +83,7 @@ When a possibilistic variable is defined on the powerset $\Pow(U)$ of some unive
 % An \emph{ill-known set}~\cite{Dubois1988a}: a possibilistic variable defined over the universe $\Pow(U)$.
 % \end{itemize}
 
-Note that while a possibilistic variable refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
+Note that while a single ill-known value refers to one (partially) unknown value, an ill-known set is a crisp set but, for some reason, (partially) unknown.
 
 A specific application of possibilistic variables is obtained when the universe under consideration is the set of Boolean values $\mathbb{B}$ = $\{T,F\}$. Indeed, any Boolean proposition $p$ takes just one value in $\mathbb{B}$. If the knowledge about which value this proposition $p$ will take is given by a possibility distribution $\pi_p$; the proposition can be seen as a possibilistic variable. The possibility and necessity that $p$ = $T$ (the proposition holds) demand more attention. This possibility and necessity is noted here as:
 \begin{align}
@@ -468,7 +468,7 @@ Note that $\pi_{X}$ is convex since $\pi_{CC}$ is convex as demonstrated in Theo
 
 
 \begin{example}
-As an example, consider the hospital database. When a patient enters o leaves a medical service in hospital, a record tracking the patient is stored. The exact time for this is not precisely known. Consider now that $X = \left[12, 2, 2\right]$ is the time in hours when a patient left the emergency service and $Y = \left[18, 2, 1 \right]$ is the time in hours when the patient left the hospital. It is possible to obtain $Z$ (the period of time between the emergency service and the left of the patient) by using a conjunctive combination of constraints.
+As an example, consider an employee's database. When an employee changes the status in the company, a record tracking the employee is stored. The exact time for this is not precisely known. Consider now that $X = \left[12, 2, 2\right]$ is the day of the month when an employee started a contract as a junior developer and $Y = \left[18, 2, 1 \right]$ is the day of the month when the employee changed the status to senior developer. It is possible to obtain $Z$ (the period of time between the junior and the senior contracts) by using a conjunctive combination of constraints.
 
 \begin{align}
 \nonumber
@@ -511,7 +511,7 @@ Figure \ref{fig:example-ill-known-by-const} illustrates the relations among the 
 %\end{figure}
 
 %enlace:
-We have seen the main theoretical concepts about ill-known values. Now, we are going to explain the main concepts about the treatment of time and the imperfection related to the time in databases. This two preliminary analysis will be the pillars of our proposal in section \ref{sec:time-rep}.
+We have seen the main theoretical concepts about ill-known values. Now, we are going to explain the main concepts about the treatment of time and the imperfection related to the time in databases. These two preliminary analysis will be the pillars of our proposal in section \ref{sec:time-rep}.
 
 %In the following subsections we will show how to represent imperfect time intervals by means of ill-known values.
 
