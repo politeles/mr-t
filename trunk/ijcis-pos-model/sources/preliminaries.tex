@@ -468,15 +468,15 @@ Note that $\pi_{X}$ is convex since $\pi_{CC}$ is convex as demonstrated in Theo
 
 
 \begin{example}
-As an example, consider an employee's database. When an employee changes the status in the company, a record tracking the employee is stored. The exact time for this is not precisely known. Consider now that $X = \left[12, 2, 2\right]$ is the day of the month when an employee started a contract as a junior developer and $Y = \left[18, 2, 1 \right]$ is the day of the month when the employee changed the status to senior developer. It is possible to obtain $Z$ (the period of time between the junior and the senior contracts) by using a conjunctive combination of constraints.
+As an example, consider a historical database containing data about diplomatic medieval documents. The starting and ending dates when a diplomatic document was valid, are not precisely known.  Consider now that the time granularity are years. Then $X = \left[1112, 2, 2\right]$ is the starting year for the validity of a document. A new diplomatic document was valid in the year $Y = \left[1118, 2, 1 \right]$. Then, It is possible to obtain $Z$ (the period of time between the starting of both documents) by using a conjunctive combination of constraints.
 
 \begin{align}
 \nonumber
-CC = \left \lbrace C_1\left(>,X\right) \wedge C_2(\leq,Y) \right \rbrace \\
+CC &= \left \lbrace C_1\left(>,X\right) \wedge C_2(\leq,Y) \right \rbrace \\
 \nonumber
-Z = CC
+Z &= CC
 \end{align}
-$Z$ is a fuzzy interval defined by a trapezoidal shape given by $\left[12,\ 14,\ 18,\ 19 \right]$.
+$Z$ is a fuzzy interval defined by a trapezoidal shape given by $\left[1112,\ 1114,\ 1118,\ 1119 \right]$.
 Figure \ref{fig:example-ill-known-by-const} illustrates the relations among the variables $X$, $Y$ and $Z$.
 \end{example}
 

@@ -18,7 +18,7 @@
    sodipodi:docname="ill-known-by-constraints.svg"><metadata
      id="metadata2843"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
      id="defs2841"><marker
    inkscape:stockid="Arrow1Lend"
    orient="auto"
@@ -169,20 +169,10 @@
      sodipodi:role="line"
      id="tspan3095"
      x="23.331865"
-     y="-864.56158">10</tspan></text>
+     y="-864.56158">1110</tspan></text>
 
-<text
-   xml:space="preserve"
-   style="font-size:5.70115948px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
-   x="36.815887"
-   y="-864.33679"
-   id="text3097"
-   sodipodi:linespacing="125%"
-   transform="scale(0.99756056,-1.0024454)"><tspan
-     sodipodi:role="line"
-     id="tspan3099"
-     x="36.815887"
-     y="-864.33679">11</tspan></text>
+
+
 
 <text
    xml:space="preserve"
@@ -195,7 +185,8 @@
      sodipodi:role="line"
      id="tspan3103"
      x="48.951511"
-     y="-864.30377">12</tspan></text>
+     y="-864.30377">1112</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -208,7 +199,8 @@
      sodipodi:role="line"
      id="tspan3107"
      x="61.14642"
-     y="-863.9353">13</tspan></text>
+     y="-863.9353" /></text>
+
 
 <text
    xml:space="preserve"
@@ -221,7 +213,8 @@
      sodipodi:role="line"
      id="tspan3111"
      x="72.548737"
-     y="-863.9353">14</tspan></text>
+     y="-863.9353">1114</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -234,7 +227,8 @@
      sodipodi:role="line"
      id="tspan3115"
      x="83.951057"
-     y="-863.9353">15</tspan></text>
+     y="-863.9353" /></text>
+
 
 <text
    xml:space="preserve"
@@ -247,7 +241,8 @@
      sodipodi:role="line"
      id="tspan3119"
      x="95.353378"
-     y="-863.9353">16</tspan></text>
+     y="-863.9353">1116</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -260,7 +255,8 @@
      sodipodi:role="line"
      id="tspan3123"
      x="106.75569"
-     y="-863.9353">17</tspan></text>
+     y="-863.9353" /></text>
+
 
 <text
    xml:space="preserve"
@@ -273,33 +269,24 @@
      sodipodi:role="line"
      id="tspan3127"
      x="118.15801"
-     y="-863.9353">18</tspan></text>
+     y="-863.9353">1118</tspan></text>
+
 
 <text
    xml:space="preserve"
    style="font-size:5.70115948px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
-   x="129.56033"
-   y="-863.9353"
+   x="133.69324"
+   y="-863.81342"
    id="text3129"
    sodipodi:linespacing="125%"
    transform="scale(0.99756056,-1.0024454)"><tspan
      sodipodi:role="line"
      id="tspan3131"
-     x="129.56033"
-     y="-863.9353">19</tspan></text>
+     x="133.69324"
+     y="-863.81342">1119</tspan></text>
 
-<text
-   xml:space="preserve"
-   style="font-size:5.70115948px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
-   x="140.96266"
-   y="-863.9353"
-   id="text3133"
-   sodipodi:linespacing="125%"
-   transform="scale(0.99756056,-1.0024454)"><tspan
-     sodipodi:role="line"
-     id="tspan3135"
-     x="140.96266"
-     y="-863.9353">20</tspan></text>
+
+
 
 <text
    xml:space="preserve"
@@ -313,7 +300,8 @@
      id="tspan4715"
      x="152.36497"
      y="-872.48712"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:LMRoman10;-inkscape-font-specification:LMRoman10;font-size:9.60000003px">time</tspan></text>
+     style="font-size:9.60000038px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:LMRoman10;-inkscape-font-specification:LMRoman10">years</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -329,6 +317,7 @@
      y="-921.19446"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:LMRoman10;-inkscape-font-specification:LMRoman10">1</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-size:5.70115948px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LMRoman10;-inkscape-font-specification:LMRoman10"
@@ -341,6 +330,7 @@
      id="tspan4725"
      x="18.162987"
      y="-869.73041">0</tspan></text>
+
 
 <text
    xml:space="preserve"
@@ -356,6 +346,7 @@
      y="-932.01709"
      style="font-family:LMRoman12;-inkscape-font-specification:LMRoman12;font-size:9.60000003px">possibility</tspan></text>
 
+
 <text
    xml:space="preserve"
    style="font-size:5.70115948px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:AG Book Rounded;-inkscape-font-specification:AG Book Rounded"
@@ -369,6 +360,7 @@
      x="125.86439"
      y="-927.26654"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:LMRoman10;-inkscape-font-specification:LMRoman10">Y</tspan></text>
+
 
 
 
@@ -410,6 +402,7 @@
      x="41.658974"
      y="-925.26312"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:LMRoman10;-inkscape-font-specification:LMRoman10">X</tspan></text>
+
 <text
    xml:space="preserve"
    style="font-size:5.70115948px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:AG Book Rounded;-inkscape-font-specification:AG Book Rounded"
@@ -423,6 +416,7 @@
      x="85.766571"
      y="-937.23383"
      style="-inkscape-font-specification:LMRoman10;font-family:LMRoman10;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Z</tspan></text>
+
 <path
    style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    d="m 42.375377,85.239197 29.958406,-75 57.666217,0"
