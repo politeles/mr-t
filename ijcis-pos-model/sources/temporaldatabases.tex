@@ -177,7 +177,7 @@ Consider the following definitions and notations:
 	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
 	\end{equation}
       The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
-\item The primary key for the attributes in $A$ is given by $A_K$:
+\item The primary key $A_K$ is a subset of the attributes in $A$.
       \begin{equation}
        \label{eq:primary-key-a}
       A_K \subset A
@@ -218,7 +218,7 @@ PK = A_K \cup I
 
       \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
 	    \begin{equation}
-	     \label{eq:all-the-versions} 
+	     \label{eq:pk-attribute} 
 	      a_k = t\left[A_K \right]
 	    \end{equation}
 
@@ -275,8 +275,8 @@ Vt &= r\left(t\left[A_K\right] \right) = \left \lbrace t_1, t_3 \right \rbrace
 & \textbf{A$_1$}  & \textbf{A$_2$}  & $A_3$ & $S$ & $E$ \\
 \hline
 $t_1$&$a_{11}$ & $a_{12}$ & $a_{13}$ & $s_1$ & $e_1$ \\
-$t_1$ & $a_{21}$ & $a_{22}$ & $a_{23}$ &  $s_2$ & $e_2$ \\
-$t_1$ & $a_{11}$ & $a_{12}$ & $a_{31}$ & $s_3$ & $e_3$\\
+$t_2$ & $a_{21}$ & $a_{22}$ & $a_{23}$ &  $s_2$ & $e_2$ \\
+$t_3$ & $a_{11}$ & $a_{12}$ & $a_{31}$ & $s_3$ & $e_3$\\
 \hline\\
 \end{tabular}
 }
@@ -321,29 +321,29 @@ Consider the elements in definition \ref{def:valid-time-relation}. We will say t
 
 %If the pair $\left(A, I \right)$ with $I = \left(S_i, UC \right), S_i \in \T$ is in the relation $R$, then, it is said that the pair $\left(A, I \right)$ is \emph{current} in the relation.
 
-For example, let us consider the last row in Table \ref{tbl:library-sample}. The value for the time interval is $I = \left(4/4/2012 , UC \right)$. The meaning is that the patient with ID = 3 was in the hospital the  4/4/2012 and he or she is still there. The patient with ID = 3 is current in the relation.
+For example, let us consider the last row in Table \ref{tbl:library-sample}. The value for the time interval is $I = \left(4/4/2012 , UC \right)$. The meaning is that the document with ID = 3 was valid the  4/4/2012 and it is still valid. The document with ID = 3 is current in the relation.
 
 
 \begin{example}
 \label{ex:library-database}
- Consider a hospital database. Each patient is stored in the database with an identifier (ID), the name and the dates when the patient entered and left the hospital. Table \ref{tbl:library-sample} illustrates the first version of the database, after three insertions. In this example, $A = ($ ID, Name $)$ and $I = ($ Arrival, Leave $)$.
+ Consider a historical database containing diplomatic documents. The starting and the ending dates when the diplomatic document is valid. It is possible that a diplomatic document is valid for a period of time and several years later it becomes valid again. The following elements are stored: an identifier of the document (ID), the entity that issues the document and the dates when document is valid. Table \ref{tbl:library-sample} illustrates the first version of the database, after three insertions. In this example, $A = ($ ID, Entity $)$ and $I = ($ Start, End $)$.
 \end{example}
 
 \begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{\label{tbl:library-sample}Sample hospital database}
+\tcap{\label{tbl:library-sample}Sample historical database}
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
 \begin{tabular}{c c c c}\\
 \hline
-\textbf{ID}  & Name  & Arrival & Leave \\
+\textbf{ID}  & Entity  & Start & End \\
 \hline
-3 & John & 15/3/2012 & 30/3/2012 \\
-4 & Antoon & 25/3/2012 & 4/4/2012 \\
-5 & Daan & 18/3/2012 & 2/4/2012\\
-3 & John & 4/4/2012 & UC \\
+3 & E.U. & 15/3/2012 & 30/3/2012 \\
+4 & N.A.T.O.  & 25/3/2012 & 4/4/2012 \\
+5 & C.E.I. & 18/3/2012 & 2/4/2012\\
+3 & E.U. & 4/4/2012 & UC \\
 \hline\\
 \end{tabular}
 }
@@ -352,8 +352,8 @@ For example, let us consider the last row in Table \ref{tbl:library-sample}. The
 
 \begin{definition}
 \label{def:current-in-relation}
-\emph{Current $\left(a_k \right)$.}
-Consider the elements in definition \ref{def:valid-time-relation}. The function Current $\left(a_k \right)$ returns the crisp time interval $i$ if the tuple $t$ with the primary key values given by $a_k$ is currently in the instance $r$ of the relation $R$. The function returns the emtyset otherwise.
+\emph{Current $\left(r,a_k \right)$.}
+Consider the elements in definition \ref{def:valid-time-relation}. The function Current $\left(r,a_k \right)$ returns the crisp time interval $i$ if the tuple $t$ with the primary key values given by $a_k$ is currently in the instance $r$ of the relation $R$. The function returns the empty set otherwise.
 % 
 % Consider $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i, UC \right)$ the set of attribute defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. The function Current $\left(R, A \right)$ returns the crisp time interval $I$ if the entity $A$ is currently in the relation $R$ or the empty set, if the entity $A$ is not currently in the relation. It is defined as follows:
 
@@ -361,16 +361,17 @@ Consider the elements in definition \ref{def:valid-time-relation}. The function 
 
 \begin{align}
 \label{eq:current-in-relation}
-\mbox{Current} \left(a_k\right) &=& \\ 
+\mbox{Current} \left(r, a_k\right) &=& \\ 
 \begin{cases}
 \nonumber
-t & \mbox{ if } \exists t \in r : i = \left(s, UC \right)\\
+t & \mbox{ if } \exists t \in r : i = \left(s, UC \right) \mbox{ and }\\
+& a_k = t[A_K] \\
 \emptyset & \mbox{ otherwise}
 \end{cases}
 \end{align}
 \end{definition}
 
-For example, the function Current(R, (3,`John')) returns the time interval $I = \left(4/4/2012 , UC  \right)$. Conversely, Current(R, (4,`Antoon')) returns the empty set.
+For example, the function Current(r, (3,`E.U.')) returns the time interval $i = \left(4/4/2012 , UC  \right)$. Conversely, Current(r, (4,`N.A.T.O.')) returns the empty set.
 
 
 The Allen's relations between two time intervals are shown in Figure \ref{fig:allen-rel}. The complete implementation of the relations using only the starting and the ending points is defined in~\cite{Nagypal2003}.
@@ -480,7 +481,7 @@ Now it is possible to close the current version of an entity by using \eqref{eq:
 Consider the elements in definition \ref{def:valid-time-relation}. The function Close-current$\left(r, t \right)$ closes any current version $t_k$ of the entity given by $t$ if it exists and add the new version $t$. For the implementation the following variables are defined:
 \begin{align}
  \label{eq:variables-current-version}
-t_{CUR} = \mbox{ Current } \left(t[A_K] \right)\\
+t_{CUR} = \mbox{ Current } \left(r, t[A_K] \right)\\
 \nonumber
 t_{UP} = t_{CUR}; t_{UP}\left[i \right] = \mbox{Close }\left(t_{UP}\left[i \right], t \right)
 \nonumber
@@ -503,7 +504,8 @@ r - t_{CUR} \cup \lbrace t_{UP}\rbrace \cup \lbrace t \rbrace
 \end{eqnarray}
 \end{definition}
 
-For example, consider the patient with ID = 3 in Table \ref{tbl:library-sample}. The current version arrived on 4/4/2012. The patient left the hospital but, for some reason, the date  was not registered. The patient arrived again at the hospital on 24/4/2012. Then, the Close-current function allows to close the current version of the patient and insert a new version. First, the function CloseR is applied with $I = \left(4/4/2012, UC \right)$ and $J = \left(24/4/2012, UC \right)$. Hence, the value for the time interval $I$ is $ \left(4/4/2012, 23/4/2012 \right)$. Then, the modifications on the value for the time interval $I$ are stored. Finally, a new row with the current values of the patient and the time interval $J$ is stored.
+For example, consider the document with ID = 3 in Table \ref{tbl:library-sample}. The current version of the document started on 4/4/2012. The document was not valid anymore but, for some reason, the date  was not registered. The document was valid again on 24/4/2012. Then, the Close-current function closes the current version of the document and adds a new version. First, the function CloseR is applied with $i_1 = \left(4/4/2012, UC \right)$ and $i_2 = \left(24/4/2012, UC \right)$. Hence, the value for the time interval $i_1$ is $ \left(4/4/2012, 23/4/2012 \right)$. Then, the modifications on the value for the time interval $i_1$ are stored. Finally a new row with the current values of the document and the time interval $i_2$ is stored.
+% patient with ID = 3 in Table \ref{tbl:library-sample}. The current version arrived on 4/4/2012. The patient left the hospital but, for some reason, the date  was not registered. The patient arrived again at the hospital on 24/4/2012. Then, the Close-current function allows to close the current version of the patient and insert a new version. First, the function CloseR is applied with $I = \left(4/4/2012, UC \right)$ and $J = \left(24/4/2012, UC \right)$. Hence, the value for the time interval $I$ is $ \left(4/4/2012, 23/4/2012 \right)$. Then, the modifications on the value for the time interval $I$ are stored. Finally, a new row with the current values of the patient and the time interval $J$ is stored.
 The result of this operation is illustrated on Table \ref{tbl:library-sample-2}.
 
 
@@ -527,13 +529,13 @@ The result of this operation is illustrated on Table \ref{tbl:library-sample-2}.
 %\end{eqnarray}
 %\end{definition}
 \subsubsection{\label{subsubsec:modify}Modify}
-This operation adds new information about an existing entity $A$ in the relation $R$. The modify operation does not remove any previous value of the object $A$. It closes the current version for the entity $A$ and adds a new version.
+This operation adds new information about an existing entity (given by the tuple $t$) in the instance $r$ of the relation $R$. The modify operation does not remove any previous value of the entity. It closes the current version and adds a new version.
 
 
 %Note that the modify operation is only applicable when the object $A$ is current in the relation $R$; $ \left(A, I \right) \in R, I = \left[a, +\infty \right]$.
 
 \begin{definition}
- \emph{Modify(R, (A,I))}.
+ \emph{Modify(r, t)}.
 Consider the elements in definition \ref{def:valid-time-relation}. The algorithm for the modify operation is defined as follows.
 \end{definition}
 
@@ -551,13 +553,13 @@ Consider the elements in definition \ref{def:valid-time-relation}. The algorithm
 
 
 \subsubsection{\label{subsubsec:insert}Insert}
-The user wants to store an entity $A$ which is valid in the relation $R$ during the time interval specified by $I = \left(a, b \right)$.
+The user wants to store an entity (given by the tuple $t$) which is valid in the instance $r$ of the relation $R$ during the time interval specified by $i = \left(s, e \right)$.
 %
 %
 %The interpretation of the insert operation is the following: The user wants to store in the database that an object $A$  is true for some period(s) of time $I$ in the given relation $R$. To indicate that the object $A$ is current in the relation, the special value Until Current, $\UC$  is used. 
 There are two main cases when performing a create operation:
 \begin{enumerate}
-\item The entity $A$ was never in the relation $R$: The entity is added with the valid-time indicated by the crisp interval $I$. 
+\item The entity was never in the relation: The entity is added with the valid-time indicated by the crisp interval $i$. 
 % In the example, this correspond with the following insertion sentences:
 % \begin{verbatim}
 % Insert(3,'Dracula',
@@ -569,9 +571,9 @@ There are two main cases when performing a create operation:
 % \end{verbatim}
 
 
-\item The entity $A$ is in the relation $R$. Depending on the value of the time interval $I$, there are three possibilities:
+\item The entity is in the relation. Depending on the value of the time interval, there are three possibilities:
 	\begin{enumerate}
-	\item Insert $\left(A, I\right)$ in the relation $R$. If the time interval $I$ does not overlap any other valid-time interval in the relation $R$ for the entity $A$. For example, consider that the book with ID = 3 is loaned on 4/4/2012 but the book has not been returned yet. This is illustrated in Table \ref{tbl:library-sample}.
+	\item Insert $t$ in the instance $r$ of the relation $R$. If the time interval $i$ does not overlap any other valid-time interval in the instance $r$ relation $R$ for the entity. For example, consider that the document with ID = 3 began again to be valid on 4/4/2012 and it is still currently valid. This is illustrated in Table \ref{tbl:library-sample}.
 %  The insert sentence is:
 % 	      \begin{verbatim}
 % Insert(3,'Dracula',
@@ -579,13 +581,13 @@ There are two main cases when performing a create operation:
 % 	      \end{verbatim}
 
 
-	\item Modify and close the current version of $A$ and insert $\left(A, I\right)$. For example, consider now that the patient with ID = 3 arrived to the hospital on 24/4/2012. Here the problem is that the patient with ID = 3 arrived on 4/4/2012 but, for some reason, the departure date was not stored. If the patient is already at the hospital, then it is necessary to set the departure date and add a new row with the new arrival date. This is illustrated in Table \ref{tbl:library-sample-2}.
+	\item Modify and close the current version of $t$ and insert the new version. For example, consider now that the document with ID = 3 was valid on 24/4/2012. Here the problem is that the document with ID = 3 was valid on 4/4/2012 but, for some reason, the ending date was not stored. If the document is again valid, then it is necessary to set the ending date and add a new row with the new starting date. This is illustrated in Table \ref{tbl:library-sample-2}.
 %  the insert sentence is:
 % 	    \begin{verbatim}
 % Insert(3,'Dracula',
 % (24/4/2012, UC));
 % 	      \end{verbatim}
-	\item Reject the insertion, if the time interval $I$ does overlap any existing valid-time interval for the entity $A$ in the relation $R$. For example, consider that the hospital manager wants to introduce a past arrival for the patient with ID = 3. The patient arrived on 6/4/2012 and left the hospital on 25/4/2012. As the dates do overlap, it is not possible that the patient was in the hospital at that time interval. Therefore, the insertion is rejected.
+	\item Reject the insertion, if the time interval $i$ does overlap any existing valid-time interval for the entity $t$ in the instance $r$ of the relation $R$. For example, consider that the document manager wants to introduce a past valid-time for the document with ID = 3. The validity period for the document is $[$6/4/2012, 25/4/2012$]$. As the dates do overlap, it is not possible that the document was valid at that time interval. Therefore, the insertion is rejected.
 %  The insert sentence is:
 % 
 % 	      \begin{verbatim}
@@ -600,19 +602,19 @@ There are two main cases when performing a create operation:
 \begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{\label{tbl:library-sample-2}Sample hospital database}
+\tcap{\label{tbl:library-sample-2}Sample historical database}
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
 \begin{tabular}{c c c c}\\
 \hline
-\textbf{ID}  & Name  & Arrival & Leave \\
+\textbf{ID}  & Entity  & Start & End \\
 \hline
-3 & John & 15/3/2012 & 30/3/2012 \\
-4 & Antoon & 25/3/2012 & 4/4/2012 \\
-5 & Daan Potter & 18/3/2012 & 2/4/2012\\
-3 & John & 4/4/2012 & 23/4/2012 \\
-3 & John & 24/4/2012 & UC \\
+3 & E.U. & 15/3/2012 & 30/3/2012 \\
+4 & N.A.T.O. & 25/3/2012 & 4/4/2012 \\
+5 & C.E.I.  & 18/3/2012 & 2/4/2012\\
+3 & E.U. & 4/4/2012 & 23/4/2012 \\
+3 & E.U. & 24/4/2012 & UC \\
 \hline\\
 \end{tabular}
 }
@@ -642,7 +644,7 @@ r \cup \lbrace t \rbrace
 \end{align}
 
 \subsubsection{\label{subsubsec:del}Delete}
-The delete operation logically removes a current entity $A$ which is valid in the relation $R$.
+The delete operation logically removes a current entity $t$ which is valid in the instance $r$ of the relation $R$.
 \begin{definition}
  \emph{Delete(r, t)}.
 Consider the elements in definition \ref{def:valid-time-relation}.The algorithm for the delete operation is defined as follows.
@@ -666,7 +668,7 @@ r - Vt
 The set $Vt$ is computed as explained in definition \ref{def:valid-time-relation} and contains all the versions for the tuple $t$.
 
 
-For example, consider that the hospital manager wants to delete the history for the patient with ID = 3. The result of this operation is shown in Table \ref{tbl:library-sample-3}. 
+For example, consider that the document manager wants to delete the history for the document with ID = 3. The result of this operation is shown in Table \ref{tbl:library-sample-3}. 
 
 % The delete sentence is:
 % 
@@ -677,16 +679,16 @@ For example, consider that the hospital manager wants to delete the history for 
 \begin{samepage}
 \vglue13pt
 %\begin{table}[htbp]
-\tcap{\label{tbl:library-sample-3}Sample hospital database}
+\tcap{\label{tbl:library-sample-3}Sample historical database}
 %\centerline{\small DATA TYPES}
 \vglue-6pt
 \centerline{\small\baselineskip=13pt
 \begin{tabular}{c c c c}\\
 \hline
-\textbf{ID}  & Name  & Arrival & Leave\\
+\textbf{ID}  & Entity  & Start & End\\
 \hline
-4 & Antoon & 25/3/2012 & 4/4/2012 \\
-5 & Daan & 18/3/2012 & 2/4/2012\\
+4 & N.A.T.O. & 25/3/2012 & 4/4/2012 \\
+5 & C.E.I. & 18/3/2012 & 2/4/2012\\
 \hline\\
 \end{tabular}
 }
