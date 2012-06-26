@@ -77,27 +77,27 @@ A generalized fuzzy relation is defined in \cite{Medina1994}. Here, we will exte
 \begin{definition}
 \emph{Generalized fuzzy temporal relation.}
 \label{def:fuzzy-temporal-relation}
-Consider the elements in definition \ref{def:valid-time-relation}. Some of the elements will be extended for the fuzzy case.
+Consider the elements in definition \ref{def:valid-time-relation}. Some of them will be extended for the fuzzy case.
 
 \begin{itemize}
- \item A set of non-temporal fuzzy  or crisp attributes.
-	\begin{equation}
-	\label{eq:fuzzy-attribute-set}
-	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
-	\end{equation}
-      The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
-\item The primary key $A_K$ is a subset of $A$.
-      \begin{equation}
-       \label{eq:fuzzy-primary-key-a}
-      A_K \subset A
-      \end{equation}
-A formal definition of primary key for fuzzy relational databases will be given later in Definition \ref{def:generalized-primary-key}.
-\item A set of two attributes; $S$  and $E$ the attributes for the starting and ending ill-known points respectively. $I$ is a possibilistic validity period \emph{PVP} as explained in Section \ref{subsec:ill-known-interval}.
-\begin{equation}
- \label{eq:fuzzy-attribute-time-interval}
-I = \left \lbrace S, E \right \rbrace
-\end{equation}
-\item An attribute called version identifier, $V_{ID}$. This attribute is a counter for each different version of the entities. 
+%  \item A set of non-temporal fuzzy  or crisp attributes.
+% 	\begin{equation}
+% 	\label{eq:fuzzy-attribute-set}
+% 	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
+% 	\end{equation}
+%       The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
+% \item The primary key $A_K$ is a subset of $A$.
+%       \begin{equation}
+%        \label{eq:fuzzy-primary-key-a}
+%       A_K \subset A
+%       \end{equation}
+% A formal definition of primary key for fuzzy relational databases will be given later in Definition \ref{def:generalized-primary-key}.
+% \item A set of two attributes; $S$  and $E$ the attributes for the starting and ending ill-known points respectively. $I$ is a possibilistic validity period \emph{PVP} as explained in Section \ref{subsec:ill-known-interval}.
+% \begin{equation}
+%  \label{eq:fuzzy-attribute-time-interval}
+% I = \left \lbrace S, E \right \rbrace
+% \end{equation}
+\item An attribute called version identifier, $V_{ID}$, will be added to the schema. This attribute is a counter for each different version of the entities. 
 % \begin{equation}
 %  \label{eq:fuzzy-version-identifier}
 % V_{ID} \subset \N
@@ -124,38 +124,38 @@ A formal definition of the primary key for fuzzy valid-time relations will be gi
       r \subseteq D_1\ x\ \ldots\ x\ D_n
       \end{equation}
 
-\item Let $t$ be a tuple in the instance $r$; $t \in r$:
-      \begin{itemize}
-      \item We will note the values for the starting and the ending  points,$s$ and $e$  respectively. The value for the time interval is given by $i$.
-      \begin{align}
-       \label{eq:fuzzy-starting-point}
-      s = t\left[S \right]\\
-      e = t\left[E \right]\\
-      i = \left(s, e\right)
-      \end{align}
-
-
-      \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:fuzzy-primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
-	    \begin{equation}
-	     \label{eq:fuzzy-pk-attribute} 
-	      a_k = t\left[A_K \right]
-	    \end{equation}
-
+% \item Let $t$ be a tuple in the instance $r$; $t \in r$:
+%       \begin{itemize}
+%       \item We will note the values for the starting and the ending  points,$s$ and $e$  respectively. The value for the time interval is given by $i$.
+%       \begin{align}
+%        \label{eq:fuzzy-starting-point}
+%       s = t\left[S \right]\\
+%       e = t\left[E \right]\\
+%       i = \left(s, e\right)
+%       \end{align}
+% 
+% 
+%       \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:fuzzy-primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
+% 	    \begin{equation}
+% 	     \label{eq:fuzzy-pk-attribute} 
+% 	      a_k = t\left[A_K \right]
+% 	    \end{equation}
+% 
     \item Let $K_{GT}$ be the primary key for the valid-time relation as given in equation \eqref{eq:fuzzy-valid-time-temporal-pk}. Then, $k$ denotes the values for the attributes in the primary key.
 	  \begin{equation}
 	   \label{eq:fuzzy-value-pk}
 	  k = t\left[K_{GT} \right]
 	  \end{equation}
-
-
-      \end{itemize}
-\item $Vt$ is the set with all the versions for a given tuple $t$.
-
-\begin{equation}
- \label{eq:fuzzy-all-the-versions}
-Vt = r\left(t\left[A_K\right] \right)
-\end{equation}
-If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+% 
+% 
+%       \end{itemize}
+% \item $Vt$ is the set with all the versions for a given tuple $t$.
+% 
+% \begin{equation}
+%  \label{eq:fuzzy-all-the-versions}
+% Vt = r\left(t\left[A_K\right] \right)
+% \end{equation}
+% If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
 \end{itemize}
 %\end{definition}
 
@@ -714,7 +714,6 @@ Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation
 \begin{align}
 \label{eq:insert-fuzzy-temporal}
 \INS \left(r, t\right) &=\\
-\INS \left(r, t\right) =\\
 \begin{cases}
 \nonumber
 r \cup \lbrace t \rbrace
@@ -738,7 +737,7 @@ Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation
 
 \begin{align}
 \label{eq:delete-fuzzy-temporal}
-\\DEL \left(r, t\right) =
+\DEL \left(r, t\right) =
 \begin{cases}
 \nonumber
 r - Vt

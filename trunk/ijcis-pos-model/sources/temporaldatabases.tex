@@ -177,12 +177,12 @@ Consider the following definitions and notations:
 	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
 	\end{equation}
       The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
-\item The primary key $A_K$ is a subset of the attributes in $A$.
+\item The original primary key $A_K$ is a subset of the attributes in $A$.
       \begin{equation}
        \label{eq:primary-key-a}
       A_K \subset A
       \end{equation}
-\item A set of two attributes; $S$  and $E$ the attributes for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
+\item A set of two attributes, $S$  and $E$ for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
 \begin{equation}
  \label{eq:attribute-time-interval}
 I = \left \lbrace S, E \right \rbrace
@@ -205,9 +205,10 @@ PK = A_K \cup I
       r \subseteq D_1\ x\ \ldots\ x\ D_n
       \end{equation}
 
-\item Let $t$ be a tuple in the instance $r$; $t \in r$:
-      \begin{itemize}
-      \item We will note the values for the starting and the ending  points,$s$ and $e$  respectively. The value for the time interval is given by $i$.
+\item Let $t$ be a tuple in the instance $r$; $t \in r$.
+    % \begin{itemize}
+    %  \item
+Then, we will note the values for the starting and the ending  points, $s$ and $e$  respectively. The value for the time interval is given by $i$.
       \begin{align}
        \label{eq:starting-point}
       s = t\left[S \right]\\
@@ -216,27 +217,28 @@ PK = A_K \cup I
       \end{align}
 
 
-      \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
+      \item Let $A_k \subset A$ be as defined in \eqref{eq:primary-key-a}). Then, $a_k$ denotes the values for $A_K$ in tuple $t$.
 	    \begin{equation}
 	     \label{eq:pk-attribute} 
 	      a_k = t\left[A_K \right]
 	    \end{equation}
 
-    \item Let $PK$ be the primary key for the valid-time relation as given in equation \eqref{eq:valid-time-temporal-pk}. Then, $pk$ denotes the values for the attributes in the primary key.
+    \item Let $PK$ be the primary key for the valid-time relation as given in equation \eqref{eq:valid-time-temporal-pk}. Then, $pk$ denotes the values for the attributes in the primary key in a tuple $t$.
 	  \begin{equation}
 	   \label{eq:value-pk}
 	  pk = t\left[PK \right]
 	  \end{equation}
 
 
-      \end{itemize}
-\item $Vt$ is the set with all the versions for a given tuple $t$.
+     % \end{itemize}
+\item $Vt$ is the set of all the versions for a given tuple $t$. Formally,
 
 \begin{equation}
  \label{eq:all-the-versions}
-Vt = r\left(t\left[A_K\right] \right)
+Vt =\left \lbrace t_i \in r, t_i\left[A_K\right] = t\left[A_K\right] \right \rbrace
 \end{equation}
-If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+Obviously, $t$ itself is included in the set.
+% If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
 \end{itemize}
 \end{definition}
 We will illustrate the definitions with an example.
@@ -256,7 +258,7 @@ a_k &= t\left[A_K\right] = \left(a_{11}, a_{12} \right) \\
  \nonumber
 pk &= t\left[PK\right] =\left(a_{11}, a_{12}, s_1, e_1\right)\\
  \nonumber
-Vt &= r\left(t\left[A_K\right] \right) = \left \lbrace t_1, t_3 \right \rbrace
+Vt &= \left \lbrace t_1, t_3 \right \rbrace
 \end{align}
 
 
@@ -423,7 +425,7 @@ In the rest of the paper, and without losing generality, we will consider that t
 Consider two crisp intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2, e_2\right)$. The CloseR$\left(i_1, i_2 \right)$ function allows to close the right-open interval $i_1$ with respect to the first value $s_2$ in $i_2$:
 \begin{align}
 \label{eq:close-a-crisp-interval}
-\mbox{CloseR} \left( i_1, i_2\right) &=& \\ 
+\mbox{CloseR} \left[ i_1, i_2\right[ &=& \\ 
 \begin{cases}
 \nonumber
 %I & \mbox{ if } b \neq +\infty \\
