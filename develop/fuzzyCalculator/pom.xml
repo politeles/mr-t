@@ -13,6 +13,42 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  
+  <!--<licenses>
+  <license>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    <distribution>repo</distribution>
+    <comments>A business-friendly OSS license</comments>
+  </license>
+</licenses>-->
+
+<organization>
+    <name>IdBis Intelligent Databases and Information Systems. 
+    Department of Computer Science and Artificial Intelligence. 
+    University of Granada</name>
+    <url>http://idbis.ugr.es</url>
+  </organization>
+ 
+  <developers>
+    <developer>
+      <id>jpons</id>
+      <name>Jose Enrique Pons Frias</name>
+      <email>jpons@decsai.ugr.es</email>
+      <url>http://decsai.ugr.es/~jpons</url>
+      <organization>University of Granada</organization>
+      <organizationUrl>http://idbis.ugr.es</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+      <properties>
+      <!--  <picUrl>http://tinyurl.com/prv4t</picUrl> -->
+      </properties>
+    </developer>
+  </developers>
 
   <dependencies>
     <dependency>
