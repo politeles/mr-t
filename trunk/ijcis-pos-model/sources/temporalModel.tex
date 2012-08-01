@@ -4,10 +4,10 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we will formalize the model for possibilistic valid-time relational databases. The first subsection is devoted to the formalization of the model. Then, the data manipulation language is defined.
+In this section we will formalize the model for possibilistic valid-time relational databases. The first subsection is devoted to the formalization of the model. Then, a data manipulation language is defined.
 
 \subsection{\label{subsec:temporal-model}The generalized temporal model}
-The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated through definitions and examples. The information in the system is defined by the following elements:
+The model is based on GEFRED~\cite{Medina1994} (Generalized Model of Fuzzy Relational DB) model. This model is extended by adding valid-time support which will be illustrated through the following definitions and examples. The information in the system is defined by the following elements:
 
 \begin{definition}
 \label{def:generalized-fuzzy-domain}
@@ -63,7 +63,7 @@ It is possible to define a more specific generalized temporal domain, $\T_G$.
 \begin{definition}
 \label{def:generalized-fuzzy-temporal-domain}
 \emph{Generalized fuzzy temporal domain.}
-Consider $\T$ to be the temporal domain, and let $\tilde \Pow\left( \T\right)$ be the set of all \emph{normalized} possibility distributions (see Section \ref{subsec:possibility-theory}, equation \eqref{NormalizationProperty}) defined on $\T$.
+Consider $\T$ to be the temporal domain, and let $\tilde \Pow\left( \T\right)$ be the set of all \emph{normalized} possibility distributions defined on $\T$.
 The Generalized Fuzzy Temporal Domain, $\T_G$ is
 \begin{equation}
 \T_G \subseteq \left \lbrace \tilde \Pow\left( \T\right) \cup \text{NULL} \right \rbrace
@@ -121,7 +121,7 @@ A formal definition of the primary key for fuzzy valid-time relations will be gi
 \item We will note by $r$ any valid instance of $R_{FTG}$. 
       \begin{equation}
        \label{eq:fuzzy-valid-time-instance}
-      r \subseteq D_1\ x\ \ldots\ x\ D_n
+      r \subseteq D_1\ x\ \ldots\ x\ D_n x\ \mathbb{N}  x\  \T_G\  x\ \T_G 
       \end{equation}
 
 % \item Let $t$ be a tuple in the instance $r$; $t \in r$:
@@ -159,29 +159,8 @@ A formal definition of the primary key for fuzzy valid-time relations will be gi
 \end{itemize}
 %\end{definition}
 
-We will illustrate the definitions with an example.
+Table \ref{tbl:fuzzy-sample-definitions} contains an example instance.
 
-\begin{example}
-Consider the set of attributes $A = \left \lbrace A_1, A_2, A_3 \right \rbrace$. The primary key for these attributes is given by $A_K = \left \lbrace A_1, A_2 \right \rbrace$. Let $I = \left \lbrace S, E \right \rbrace$ be the set of temporal attributes that define the possibilistic validity period of the data. $R_{FTG} = A \cup V_{ID} \cup I$ is the valid-time relation and $r$ is an instance of the relation. The instance $r$ is given by the following elements. $r = \left \lbrace \left(a_{11}, a_{12}, a_{13}, 001, s_1 ,e_1 \right) \right.$,  $\left(a_{21}, a_{22}, a_{23}, 001, s_2, e_2 \right)$ , $\left. \left(a_{11}, a_{12}, a_{31}, 002, s_3, e_3 \right) \right \rbrace$. The instance $r$ is illustrated in Table \ref{tbl:fuzzy-sample-definitions}. 
-Consider the tuple $t = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
-\begin{align}
- \nonumber
-s_1 &= t\left[S \right]\\
- \nonumber
-e_1 &= t[E]\\
- \nonumber
-i\ \ &= \left(s_1, e_1\right)\\
- \nonumber
-a_k &= t\left[A_K\right] = \left(a_{11}, a_{12} \right) \\
- \nonumber
-k &= t\left[PK\right] =\left(a_{11}, a_{12}, s_1, e_1\right)\\
- \nonumber
-Vt &= r\left(t\left[A_K\right] \right) = \left \lbrace t_1, t_3 \right \rbrace
-\end{align}
-
-
-
-\end{example}
 
 \begin{samepage}
 \vglue13pt
@@ -219,7 +198,7 @@ $t_3$ & $a_{11}$ & $a_{12}$ & $a_{31}$& $002$ & $s_3$ & $e_3$\\
 \label{eq:generalized-fuzzy-temporal-relation}
 R_{FTG} = \left(\Head, \Body \right)
 \end{equation}
-Where $\Head$ is the Head of the relation and consist on a fixed set of triplets attribute- domain - compatibility with an optional the valid-time attribute:
+Where $\Head$ is the Head of the relation and consists on a fixed set of triplets attribute- domain - compatibility with an optional the valid-time attribute:
 
 \begin{align}
 \label{eq:head-valid-time}
@@ -233,17 +212,17 @@ Where $\Head$ is the Head of the relation and consist on a fixed set of triplets
 \end{align}
 Note that $D_{Gj}$ ($j = 1, \ldots, n$) is the domain for the attribute $A_{Gj}$. $C_{A_{Gj}}$ is the compatibility attribute in the unit interval $\left[0, 1 \right]$.
 
-$\Body$ is the body of the relation and it consists on a set of tuples. Each tuple is a triplet attribute- value- degree with an optional valid-time attribute:
+$\Body$ is the body of the relation and it consists on a set of tuples. Each tuple is a set of triplets attribute- value- degree with an optional valid-time attribute:
 
 \begin{align}
 \label{eq:body-valid-time}
-\Body = \big \lbrace \left(A_{G1}:\tilde{d}_{i1}\left[,c_{i1} \right] \right),\\
+\Body = \big \lbrace \ldots \{ \left(A_{G1}:\tilde{d}_{i1}\left[,c_{i1} \right] \right),\\
 \nonumber
  \ldots,\\
  \nonumber
   \left(A_{Gn}:\tilde{d}_{in}\left[,c_{in} \right] \right),\\
   \nonumber
-   \Big[  \left( \text{PVP}, \tilde{d}_{\text{PVP}} \left[,C_{A_{\text{PVP}}} \right] \right)  \Big] \big \rbrace
+   \Big[  \left( \text{PVP}, \tilde{d}_{\text{PVP}} \left[,C_{A_{\text{PVP}}} \right] \right)  \Big] \} \ldots \big \rbrace
 \end{align}
 
 \end{definition}
@@ -302,9 +281,9 @@ R^{v}_{FTG} = \left \lbrace \Head^{v},\Body^{v} \right \rbrace \\
 \nonumber
 \text{Where: } \\
 \nonumber
-\Head^{v} = \left \lbrace A_{G1}:D_{G1}, \ldots,  A_{Gn}:D_{Gn} \right \rbrace \\
+\Head^{v} = \left \lbrace (A_{G1}:D_{G1}), \ldots,  (A_{Gn}:D_{Gn}) \right \rbrace \\
 \nonumber
-\Body^ {v} = \left \lbrace A_{G1}:\tilde{d}_{i1}, \ldots,  A_{Gn}:\tilde{d}_{in}\ \right \rbrace 
+\Body^ {v} = \left \lbrace (A_{G1}:\tilde{d}_{i1}), \ldots,  (A_{Gn}:\tilde{d}_{in})\ \right \rbrace 
 \end{align}
 \end{definition}
 
@@ -316,7 +295,9 @@ For example, in the case of the document with ID = 3:
 \nonumber
 & \left(\text{PVP}:D_{\text{PVP}}\right) \rbrace \\
 \nonumber
-\Body^ {v} &= \left \lbrace 3:, \text{``E.U.''}: ,  \left[15/3/1012, 30/3/1012\right] \right \rbrace 
+\Body^ {v} &= \{\ldots \{ (\text{ID}:3), (\text{Entity}:\text{``E.U.''}) ,\\
+\nonumber
+& t(\text{PVP}:\left[15/3/1012,5,2\right], \left[30/3/1012,1,1\right]) \} \ldots\}
 \end{align}
 
 
@@ -372,9 +353,11 @@ For example, in the case of the document with ID = 3:
 \begin{align}
 %\label{eq:sample-temporal-component}
 \nonumber
-\Head^{t} = & \lbrace \left( \text{PVP}, D_{\text{PVP}}\right),\\
+\Head^{t} = & \lbrace \left( \text{PVP}, D_{\text{PVP}}\right)\}\\
 \nonumber
-\Body^ {t} =& \left \lbrace 4/4/1012 , UC \right \rbrace 
+\Body^ {t} =& \{ \ldots (\text{PVP}:[\left[15/3/1012,5,2\right],\\
+\nonumber
+& \left[30/3/1012,1,1\right]]) \ldots\} 
 \end{align}
 
 
@@ -424,21 +407,21 @@ In order to add valid-time support, the primary key should be re-defined. E.g., 
 \emph{Generalized fuzzy temporal key.}
 Consider $D_G$ to be a fuzzy generalized domain, and let $A_{Gs}:D_{Gs}$ be the attributes and the domain of the attribute for each $s \in S \subseteq \left(1, \ldots, n \right)$. Let  $V$ be a new attribute called \emph{version}. 
 A generalized fuzzy temporal key, $K_{GT}$ is a subset of the head.
+
+
 \begin{align}
 \label{eq:generalized-fuzzy-temporal-key}
-K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(A_{Gs}:D_{Gs} \right) \right.  \\
+K_{GT} \subseteq \Head, K_{GT} = \left \lbrace \left(A_{Gs}:D_{Gs} \right)  \right \rbrace \\
 \nonumber
- \left. \cup  \left(V_{ID}:D_{ID} \right)	\right \rbrace \\
+\cup  \{\left(V_{ID}:\mathbb{N}  \right)\}\\
 \nonumber
-\text{Typeof }\left(D_{ID} \right) = \\
-\nonumber
-s\in S \subseteq \left(1, \ldots, n \right) \\
+s\in S \subseteq \left(1, \ldots, n \right)
 \end{align}
 Subject to the following constraints:
 \begin{align}
 \forall s \in S, \text{Typeof } \left(D_{Gs} \right) \in \left \lbrace 1, 2 \right \rbrace \\
 \nonumber
-\forall i, i' \in \left \lbrace 1, \ldots, m\right \rbrace , \exists s \in S: \\
+\forall i, i' \in \left \lbrace 1, \ldots, m \right \rbrace , \exists s \in S: \\
 \nonumber
 \left(A_{Gs}:d_{is} \right) \neq \left(A_{Gs}:d_{i's} \right)
 \end{align}
@@ -478,84 +461,23 @@ K_{GT} \subseteq \Head, K_{GT} = \left \lbrace  \left(\text{ID}:D_{\text{ID}} \r
 
 \subsection{\label{subsec:data-manipulation}Data manipulation language}
 
-The Generalized Fuzzy Relational Algebra~\cite{Medina1994} manipulates relations like $R_{FTG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify} and \emph{Delete}. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}.
+The Generalized Fuzzy Relational Algebra~\cite{Medina1994} manipulates relations like $R_{FTG}$. The operations defined are: \emph{Union, Intersection, Difference, Cartesian Product, Projection, Join} and \emph{Selection}. Thus, in this section we will describe and implement the following operations for temporal databases, as described in \ref{subsubsec:Understanding-valid-time-databases}. The operations implemented are: \emph{Insert, Modify} and \emph{Delete}. The semantics of the operations will be the same that those defined for a crisp temporal database, whereas the temporal representation is made by the possibilistic valid-time period and the ill-known constraints (see sections \ref{sec:prelim} and \ref{sec:time-rep}).
 %The algebra for the data manipulation is defined in .
 
-It is important to notice that while the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is a value in the unit interval. Therefore, for a crisp valid-time relation, it is not possible an overlapping among any valid-time interval. In other words, a crisp temporal database is always strictly consistent. Thus, from the point of view of a fuzzy temporal database, there are the following choices (see Figure \ref{fig:tdb-class}):
-
-% \begin{itemize}
-% \item 
-\begin{definition}
-\textbf{Strictly consistent} It is not possible that two versions of an entity to be valid at the same time.
-Consider a tuple $t$ in the instance $r$ of the fuzzy valid-time relation $R_{FTG}$ and  $Vt = \left \lbrace t_1, \ldots, t_n \right \rbrace$ as defined in \ref{def:fuzzy-temporal-relation}. Then, a fuzzy temporal database is strictly consistent if: 
-\begin{align}
-\label{eq:stricly-consistent}
-\forall k,j \in \left \lbrace 1, \ldots, n \right \rbrace, k < j\\
-\nonumber t_k \mbox{ Overlaps } t_j \leq 1
-\end{align}
-\end{definition}
-
-
-
-
-%\item 
-\begin{definition}
- \textbf{Ill-consistent} The overlapping of two PVPs of the same entity do overlap. It can be distinguished among the following sub-types:
-\end{definition}
-% 	\begin{itemize}
-% 	\item 
-	      \begin{definition}
-	      \textbf{Co-existence} Two versions of the same entity may exist at the same time.
-		      \begin{align}
-		      \forall k, \exists !j \in \left \lbrace 1, \ldots, n \right \rbrace, k < j\\
-		      \nonumber t_k \mbox{ Overlaps } t_j \geq 1
-		      \end{align}
-	      \end{definition}
-
-
-	%\item 
-	      \begin{definition}
-	      \textbf{Weak-consistence} Several versions of the same entity may exist at the same time.
-		      \begin{align}
-		      \label{eq:weak-consistence}
-		      \forall k, \exists j \in \left \lbrace 1, \ldots, n \right \rbrace, k < j\\
-		      \nonumber t_k \mbox{ Overlaps } t_j \geq 1
-		      \end{align}
-	      \end{definition}
-
-	%\end{itemize}
-
-
-\begin{samepage}
-\vspace*{13pt}
-\begin{center}
-{
-\includegraphics[scale=1.25]{./graphs/tdb-clas.pdf}
-
-}
-\end{center}
-%\centerline{ \psfig{file=./graphs/Y-time-point.eps}}
-\vspace*{10pt}
-\fcaption{\label{fig:tdb-class}Classification for a fuzzy temporal database. The validity for an entity is represented by a trapezoid. Graphic (a) shows an example of strictly consistent database. Between two versions of the entity it is possible some amount of overlapping, but always holds equation \eqref{eq:stricly-consistent}. Graphic (b) shows an example of a co-existence. Two versions of the same entity may overlap in any degree, but not more than two versions. Graphic (c) shows an example of weak-consistence. The different versions of the same entity are shown in an unfolded way, to clarify the multiple overlapping.   }
-\vspace*{13pt}
-\end{samepage}
-
-%\end{itemize}
-
-In the implementation of the DML operations we will consider a strictly consistent temporal database. This is a natural extension of the crisp temporal databases. This approach allows an implementation for the DML operations defined in Section \ref{subsubsec:Understanding-valid-time-databases}.
+It is important to notice that while the result of the evaluation of any comparison between crisp time intervals is boolean, the evaluation of any comparison between \emph{PVPs} is a value in the unit interval. 
 
 Since the time intervals are now possibilistic valid-time periods, PVPs, the auxiliary functions defined in equations \eqref{eq:close-a-crisp-interval} to \eqref{eq:close-current} are the basis for the following auxiliary functions.
 
 \begin{definition}
 \label{def:close-r-a-pvp}
 \textbf{CloseR$\left(i_1, i_2\right)$.}
-Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation}. The CloseR function closes the PVP given by $i_1$ with a conjunctive combination of ill-known constraints (see section \ref{subsec:interval-evaluation-by-ill-known-constraints}):
+Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation} and ill-known intervals given by $i_1=(s_1,e_1)$ and $i_2=(s_2,e2)$. The CloseR function closes the PVP given by $i_1$ with a conjunctive combination of ill-known constraints (see section \ref{subsec:interval-evaluation-by-ill-known-constraints}):
 \begin{align}
 \label{eq:close-r-a-pvp}
 \text{CloseR}\left(i_1, i_2\right) &= \\
 \begin{cases}
 \nonumber
-i_1 = \left(s_1, e_z \right) & \mbox{ if } i_1 = (s_1, UC), \\
+\left(s_1, e_z \right) & \mbox{ if } i_1 = (s_1, UC), \\
 & e_z \triangleq \left \lbrace C_1\left(>, s_1 \right), C_2\left(<, s_2 \right) \right \rbrace \\
 i_1 & \mbox{ otherwise }
 % \nonumber
@@ -566,7 +488,7 @@ i_1 & \mbox{ otherwise }
 \end{align}
 \end{definition}
 
-For example, consider $i_1 = \left[\left[4/4/1012, 3, 3\right] , UC\right]$ and $i_2 = \left[ \left[15/4/1012,2,1\right], UC\right]$. The result for CloseR$\left(i_1, i_2\right)$  is $i_1 = \left[ \left[4/4/1012, 3, 3\right], \left[4,7,13,15 \right] \right]$. The value that closes $i_1$ is a trapezoid in the form $\left[ \alpha, \beta, \gamma, \delta \right]$ as defined in Section \ref{subsec:fuzzy-numbers}.
+For example, consider $i_1 = \left[\left[4/4/1012, 3, 3\right] , UC\right]$ and $i_2 = \left[ \left[15/4/1012,2,1\right], UC\right]$. The result for CloseR$\left(i_1, i_2\right)$  is $i_1 = \left[ \left[4/4/1012, 3, 3\right], \left[4,7,13,15 \right] \right]$. The value that closes $i_1$ is a trapezoid in the form $\left[ \alpha, \beta, \gamma, \delta \right]$.
 
 % \begin{definition}
 % \label{def:pvp-current-in-relation}
@@ -599,7 +521,7 @@ Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation
 \begin{cases}
 \nonumber
 r - t_{CUR} \cup \lbrace t_{UP}\rbrace \cup \lbrace t \rbrace
-& \mbox{ if } t_{CUR} \neq \emptyset \\
+& \mbox{ if } \mbox{Current } \left(r, t[A_K] \right) \neq \emptyset \\
 % R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right)\right \rbrace \cup \left \lbrace\left(A, J\right) \right \rbrace  \\
 % \nonumber
 % \mbox{ if  Current } \left(R, A \right) \neq \emptyset\\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
@@ -678,7 +600,7 @@ Insert(5,'C.E.I.',
 
 \item The entity is in the relation. Depending on the value of the time interval $i$, there are three possibilities:
 	\begin{enumerate}
-	\item Insert $t$ in the instance $r$ of the relation $R_{FTG}$. If the time interval $i$ does not overlap any other valid-time interval in the relation $R_{FTG}$. Note that here, the result of the Overlaps operator is in the unit interval.
+	\item Insert $t$ in the instance $r$ of the relation $R_{FTG}$. If the time interval $i$ does not overlap any other valid-time interval in the relation $R_{FTG}$. Note that here, the result of the overlaps operator is in the unit interval.
 For example, the document with ID=3 is still valid. The insert sentence is the following.
 
  \begin{verbatim}
@@ -692,7 +614,7 @@ Insert(3,'E.U.',
 [[24/4/1012, 1, 1], UC]]);
 	      \end{verbatim}
 
-	\item Reject the insertion, if the time interval $i$ do overlap with a degree of 1 any existing valid-time interval for the entity in the relation. For example, consider now that the document manager wants to introduce a past validity period for the document with ID=3. The validity starting date for the document was around 6/4/12/1012 and the ending date was around 25/4/1012. As this interval does overlaps other time intervals with a degree of 1, it is not possible that the document was valid during two different periods of time. Therefore, the insertion is rejected. The insert sentence is:
+	\item Reject the insertion, if the time interval $i$ does overlap with a degree of 1 any existing valid-time interval for the entity in the relation. For example, consider now that the document manager wants to introduce a past validity period for the document with ID=3. The validity starting date for the document was around 6/4/12/1012 and the ending date was around 25/4/1012. As this interval does overlaps other time intervals with a degree of 1, it is not possible that the document was valid during two different periods of time. Therefore, the insertion is rejected. The insert sentence is:
 
 	      \begin{verbatim}
 Insert(3,'E.U.',
@@ -710,15 +632,18 @@ Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation
 
 
 
-
 \begin{align}
 \label{eq:insert-fuzzy-temporal}
-\INS \left(r, t\right) &=\\
+\INS \left(r, t\right) =\\
 \begin{cases}
 \nonumber
+r & \mbox{ if }  \exists t_k \in V(t), \\
+\nonumber &\left(t[S,E] \mbox{ overlaps } t_k[S,E]=1\right)\\
+\nonumber
 r \cup \lbrace t \rbrace
-& \mbox{ if }  t \not \in r \mbox{ or }\\
-\nonumber & \forall t_k \in Vt,  \left(i \mbox{ Overlaps } i_k\right) < 1\\
+& \mbox{ if }  V(t)=\emptyset \mbox{ or }\\
+\nonumber & \forall t_k \in V(t), \\
+\nonumber & \left(t[S,E] \mbox{ overlaps } t_k[S,E]\right) < 1\\
 % 
 % R \cup \left(A, I \right) & \mbox{ if }  (A, I ) \not \in R  \mbox{ or } \\
 %  &   \left(A, J\right) \in R \mbox{ and } \lnot \left(I \mbox{ Overlaps } J\right) \\
@@ -726,6 +651,10 @@ r \cup \lbrace t \rbrace
 %R, &   
 \end{cases} 	
 \end{align}
+
+
+
+
 \subsubsection{\label{subsubsec:delete-fuzzy-temporal}Delete}
 The delete operation logically removes an entity which is valid in the instance $r$ of the relation $R_{FTG}$.
 
@@ -738,10 +667,8 @@ Consider the elements in definition \ref{def:generalized-fuzzy-temporal-relation
 \begin{align}
 \label{eq:delete-fuzzy-temporal}
 \DEL \left(r, t\right) =
-\begin{cases}
 \nonumber
-r - Vt
-\end{cases} 	
+r - V(t)
 \end{align}
 
 For example, consider that the document manager wants to delete the history for the document with ID = 3. The following sentence deletes all the rows for the documents with ID = 3.
