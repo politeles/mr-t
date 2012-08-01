@@ -18,7 +18,7 @@ In a temporal DBMS, a \textbf{chronon} is the shortest duration of time supporte
 	\textbf{Decision time} (\emph{DT}) \cite{Nascimento1995,Chakravarthy1994,Etzion1992,Ozsoyoglu1995} denotes the time when an event was decided to happen. 
 	\end{itemize}
 	 
-	For example, consider a database containing employee contract descriptions. The time when the employee's contract is valid, represented by an interval, is the VT. The time when the employee's contract is stored in the database is the TT. The time when the decision for hiring this employee was made is the DT.
+	For example, consider a database containing employee contract descriptions. The time when the employee's contract is valid, represented by an interval, is the VT. The time when the employee's contract is stored in the database is the TT. The time when the decision for hiring this employee was made is a DT.
 
 % is a non-decomposable unit of time.  it  There are two ways to represent a chronon: as a point or as an interval \cite{655777}.
 
@@ -74,7 +74,7 @@ In this paper we will consider two kinds of imperfection:
 \end{itemize}
 
 \subsubsection{Representation}
-Several proposals for managing uncertain time in a database exist. Some proposals work with rough sets \cite{Qiang2009}, and some others rely on possibility distributions for representing uncertainty in time \cite{Dyreson1998,Garrido2009,Galindo2001}. In order to compare temporal possibility distributions, the extensions of the classical Allen's operators \cite{Allen1983} are defined in \cite{Ohlbach2004,Nagypal2003,Dubois2003a,Schockaert2008}.
+Several proposals for managing uncertain time in a database exist. Some proposals work with rough sets \cite{Qiang2009}, and some others rely on possibility distributions for representing uncertainty in time \cite{Dyreson1998,Garrido2009,Galindo2001}. To compare temporal possibility distributions, the extensions of the classical Allen's operators \cite{Allen1983} are defined in \cite{Ohlbach2004,Nagypal2003,Dubois2003a,Schockaert2008}.
 %In the proposal section, we will follow the representation by means of possibility distributions, in order to work with both satisfaction and dissatisfaction degrees. Also, in order to work properly with fuzzy operators, the underlying domain should be numeric. 
 % Take a look into this:
 %In this paper, the representation for the dates will follow the Julian Day Number (JDN) representation \cite{Dir96}.
@@ -121,17 +121,18 @@ The main feature for the FVP is the optimization for the storage. The compact re
 \begin{definition}
 A \textbf{Possibilistic Valid-time Period} (\emph{PVP}) is an ill-known interval of time specifying when the data regarding an object are valid.
 \end{definition}
-A PVP is an ill-known interval in the sense of definition \ref{def;possibilistic-variable}. Note that the PVP represents only one crisp time interval, but for some reason, it is (partially) unknown.
 
-The main feature for the PVP is that it preserves all the information for both starting and ending points\cite{Pons2011,Pons2012}. Table \ref{tbl:comparative-pvp-fvp} is a comparative between PVP and FVP. The following list defines the items in the comparative:
+Note that the PVP represents only one crisp time interval, but for some reason, it is (partially) unknown.
+
+The main advantage for the PVP is that it preserves all the information for both starting and ending points\cite{Pons2011,Pons2012}. Table \ref{tbl:comparative-pvp-fvp} is a comparative between PVP and FVP. The following list defines the items in the comparative:
 
 \begin{enumerate}
 \item Domain: The domain of the possibility distribution modelled by the approach.
 \item Implementation of relationships: How to implement a relationship.
 \item Allen's relations: Are the Allen's relations defined?
 \item Storage: The way the data are stored in the database.
-\item Possibility measures: Does the framework provide always a possibility measure for any relation between the temporal elements?
-\item Necessity measures:  Does the framework provide always a necessity measure for any relation between the temporal elements?
+\item Possibility measures: Does the framework provide a possibility measure for any relation between the temporal elements?
+\item Necessity measures:  Does the framework provide a necessity measure for any relation between the temporal elements?
 \end{enumerate}
 
 
@@ -180,13 +181,16 @@ Consider the following definitions and notations:
 \item The original primary key $A_K$ is a subset of the attributes in $A$.
       \begin{equation}
        \label{eq:primary-key-a}
-      A_K \subset A
+      A_K \subseteq A
       \end{equation}
-\item A set of two attributes, $S$  and $E$ for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
+\item Two attributes, $S$  and $E$ for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
 \begin{equation}
  \label{eq:attribute-time-interval}
 I = \left \lbrace S, E \right \rbrace
 \end{equation}
+
+$\T$ is the time domain.
+
 \item Then $R$, the schema for the valid-time relation is:
 \begin{equation}
  \label{eq:valid-time-relation}
@@ -202,40 +206,16 @@ PK = A_K \cup I
 \item We will note by $r$ any valid instance of $R$. 
       \begin{equation}
        \label{eq:valid-time-instance}
-      r \subseteq D_1\ x\ \ldots\ x\ D_n
+      r \subseteq D_1\ x\ \ldots\ x\ D_n x\ T x\ T
       \end{equation}
-
-\item Let $t$ be a tuple in the instance $r$; $t \in r$.
-    % \begin{itemize}
-    %  \item
-Then, we will note the values for the starting and the ending  points, $s$ and $e$  respectively. The value for the time interval is given by $i$.
-      \begin{align}
-       \label{eq:starting-point}
-      s = t\left[S \right]\\
-      e = t\left[E \right]\\
-      i = \left(s, e\right)
-      \end{align}
-
-
-      \item Let $A_k \subset A$ be as defined in \eqref{eq:primary-key-a}). Then, $a_k$ denotes the values for $A_K$ in tuple $t$.
-	    \begin{equation}
-	     \label{eq:pk-attribute} 
-	      a_k = t\left[A_K \right]
-	    \end{equation}
-
-    \item Let $PK$ be the primary key for the valid-time relation as given in equation \eqref{eq:valid-time-temporal-pk}. Then, $pk$ denotes the values for the attributes in the primary key in a tuple $t$.
-	  \begin{equation}
-	   \label{eq:value-pk}
-	  pk = t\left[PK \right]
-	  \end{equation}
 
 
      % \end{itemize}
-\item $Vt$ is the set of all the versions for a given tuple $t$. Formally,
+\item $V(t)$ is the set of all the versions for a given tuple $t$. Formally,
 
 \begin{equation}
  \label{eq:all-the-versions}
-Vt =\left \lbrace t_i \in r, t_i\left[A_K\right] = t\left[A_K\right] \right \rbrace
+V(t) =\left \lbrace t_i \in r, t_i\left[A_K\right] = t\left[A_K\right] \right \rbrace
 \end{equation}
 Obviously, $t$ itself is included in the set.
 % If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
@@ -245,20 +225,20 @@ We will illustrate the definitions with an example.
 
 \begin{example}
 Consider the set of attributes $A = \left \lbrace A_1, A_2, A_3 \right \rbrace$. The primary key for these attributes is given by $A_K = \left \lbrace A_1, A_2 \right \rbrace$. Let $I = \left \lbrace S, E \right \rbrace$ be the set of temporal attributes that define the validity period of the data. $R$ is the valid-time relation and $r$ is an instance of the relation. The instance $r$ is given by the following elements. $r = \left \lbrace \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right) \right.$,  $\left(a_{21}, a_{22}, a_{23}, s_2, e_2 \right)$ , $\left. \left(a_{11}, a_{12}, a_{31}, s_3, e_3 \right) \right \rbrace$. The instance $r$ is illustrated in Table \ref{tbl:sample-definitions}. 
-Consider the tuple $t = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
+Consider the tuple $t_1 = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
 \begin{align}
  \nonumber
-s_1 &= t\left[S \right]\\
+ t_1\left[S \right]&=s_1\\
  \nonumber
-e_1 &= t[E]\\
+t_1[E]&=e_1\\
  \nonumber
-i\ \ &= \left(s_1, e_1\right)\\
+t_1[S,E]&= \left(s_1, e_1\right)\\
  \nonumber
-a_k &= t\left[A_K\right] = \left(a_{11}, a_{12} \right) \\
+t_1\left[A_K\right] &= \left(a_{11}, a_{12} \right) \\
  \nonumber
-pk &= t\left[PK\right] =\left(a_{11}, a_{12}, s_1, e_1\right)\\
+t_1\left[PK\right] &=\left(a_{11}, a_{12}, s_1, e_1\right)\\
  \nonumber
-Vt &= \left \lbrace t_1, t_3 \right \rbrace
+V(t_1) &= \left \lbrace t_1, t_3 \right \rbrace
 \end{align}
 
 
@@ -301,7 +281,7 @@ In order to simplify the algorithms for the manipulation of data, some auxiliary
 \begin{definition}
  \label{def:from-beginning}
 \emph{From the beginning (FB).} 
-Consider the elements in definition \ref{def:valid-time-relation}. We will say $i = \left(FB, e \right)$ when $i = \left(- \infty,e \right)$. 
+Consider the elements in definition \ref{def:valid-time-relation} and a tuple t. We will say $t[S]=FB$ when $t[S]=- \infty$. 
 % $i = \left(s, e \right)$ be the value for a time interval as given equation \eqref{}.
 % $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity and $I = \left(S_i, E_i \right), S_i, E_i \in \T$ the set of attributes defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. We will say $I = \left(FB, E_i \right)$ when $I = \left(- \infty, E_i \right)$.
 %The from the beginning constant is used when the value for $s_i$ is equal to $-\infty$.
@@ -310,14 +290,14 @@ Consider the elements in definition \ref{def:valid-time-relation}. We will say $
 \begin{definition}
  \label{def:until-changed}
 \emph{Until changed (UC).} 
-Consider the elements in definition \ref{def:valid-time-relation}. We will say  $i = \left(s, UC \right)$ when $i = \left(s, +\infty \right)$.
+Consider the elements in definition \ref{def:valid-time-relation} and a tuple t. We will say $t[E]=UC$ when $t[E]=+ \infty$. 
 % Consider $A=\left(A_1, \ldots, A_n \right)$ be the set of attributes that define an entity. Let $\T$ be the time domain, and $I = \left(S_i, E_i \right), S_i, E_i \in \T$ the set of attributes defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. We will say  $I = \left(S_i, UC \right)$ when $I = \left(S_i, +\infty \right)$.
 %The until changed constant is used when the value for $e_i$ is equal to $+\infty$.
 \end{definition}
 
 \begin{definition}
 \emph{Current.} 
-Consider the elements in definition \ref{def:valid-time-relation}. We will say that the tuple $t$ is current in the instance $r$ of the relation $R$ when $i = \left(s, UC \right)$.
+Consider the elements in definition \ref{def:valid-time-relation}. We will say that the tuple $t$ is current in the instance $r$ of the relation $R$ when $t[E]=UC$.
 \end{definition}
 
 
@@ -328,7 +308,7 @@ For example, let us consider the last row in Table \ref{tbl:library-sample}. The
 
 \begin{example}
 \label{ex:library-database}
- Consider a historical database containing diplomatic documents. The starting and the ending dates when the diplomatic document is valid. It is possible that a diplomatic document is valid for a period of time and several years later it becomes valid again. The following elements are stored: an identifier of the document (ID), the entity that issues the document and the dates when document is valid. Table \ref{tbl:library-sample} illustrates the first version of the database, after three insertions. In this example, $A = ($ ID, Entity $)$ and $I = ($ Start, End $)$.
+ Consider a historical database containing diplomatic documents. The starting and the ending dates say when the diplomatic document is valid. It is possible that a diplomatic document is valid for a period of time and several years later it becomes valid again. The following elements are stored: an identifier of the document (ID), the entity that issues the document and the dates when the document is valid. Table \ref{tbl:library-sample} illustrates the first version of the database, after three insertions. In this example, $A = ($ ID, Entity $)$ and $I = ($ Start, End $)$.
 \end{example}
 
 \begin{samepage}
@@ -355,7 +335,7 @@ For example, let us consider the last row in Table \ref{tbl:library-sample}. The
 \begin{definition}
 \label{def:current-in-relation}
 \emph{Current $\left(r,a_k \right)$.}
-Consider the elements in definition \ref{def:valid-time-relation}. The function Current $\left(r,a_k \right)$ returns the crisp time interval $i$ if the tuple $t$ with the primary key values given by $a_k$ is currently in the instance $r$ of the relation $R$. The function returns the empty set otherwise.
+Consider the elements in definition \ref{def:valid-time-relation}. The function Current $\left(r,a_k \right)$ returns the crisp time interval of a tuple $t$ with primary key $a_k$ as follows:
 % 
 % Consider $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of attributes that define an entity and $I = \left(S_i, UC \right)$ the set of attribute defining the time interval. Let $R \subseteq \A\  x\  \I$ be a valid-time relation. The function Current $\left(R, A \right)$ returns the crisp time interval $I$ if the entity $A$ is currently in the relation $R$ or the empty set, if the entity $A$ is not currently in the relation. It is defined as follows:
 
@@ -366,14 +346,14 @@ Consider the elements in definition \ref{def:valid-time-relation}. The function 
 \mbox{Current} \left(r, a_k\right) &=& \\ 
 \begin{cases}
 \nonumber
-t & \mbox{ if } \exists t \in r : i = \left(s, UC \right) \mbox{ and }\\
-& a_k = t[A_K] \\
+t[S,E] & \mbox{ if } \exists t \in r : t[E]=UC \mbox{ and }\\
+& t[A_K]=a_k \\
 \emptyset & \mbox{ otherwise}
 \end{cases}
 \end{align}
 \end{definition}
 
-For example, the function Current(r, (3,`E.U.')) returns the time interval $i = \left(4/4/2012 , UC  \right)$. Conversely, Current(r, (4,`N.A.T.O.')) returns the empty set.
+For example, the function Current(r, 3) returns the time interval $\left(4/4/2012 , UC  \right)$. Conversely, Current(r, (4,`N.A.T.O.')) returns the empty set.
 
 
 The Allen's relations between two time intervals are shown in Figure \ref{fig:allen-rel}. The complete implementation of the relations using only the starting and the ending points is defined in~\cite{Nagypal2003}.
@@ -397,22 +377,25 @@ We will use two of the Allen's relations: Overlaps and During which will be defi
 \begin{definition}
 \emph{Overlaps:}
  \label{def:overlaps}
-Given two time intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2 e_2\right)$, it is said that $i_1$ overlaps $i_2$ if:
-\begin{equation}
+Given two time intervals defined by the couples of values $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2, e_2\right)$, it is said that $i_1$ overlaps $i_2$ if:
+\begin{align}
  \label{eqn:overlaps}
-i_1 \text{ Overlaps } i_2  = \left(s_1 < s_2  \right) \wedge \left(e_1 < e_2  \right) 
-\end{equation}
+i_1 \text{ overlaps } i_2  = \left((\left(s_1 < s_2  \right) \wedge \left(e_1 < e_2  \right)\right)\\
+\nonumber
+\vee \left((\left(s_1 > s_2  \right) \wedge \left(e_1 > e_2  \right)\right)
+\end{align}
+
+
 \end{definition}
   
 
 \begin{definition}
 \emph{During:}
  \label{def:during}
-Given two time intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2 e_2\right)$, it is said that $i_1$ during $i_2$ if:
+Given two time intervals defined by the couples of values $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2, e_2\right)$, it is said that $i_1$ during $i_2$ if:
 \begin{align}
  \label{eqn:during}
-i_1\text{ During } i_2  =& \left(s_1 > s_2  \right) \wedge \left(e_1 > s_2 \right) \wedge \\
-\nonumber & \left(e_1 < e_2 \right)
+i_1\text{ during } i_2  =& \left(s_1 > s_2  \right) \wedge \left(e_1 < e_2 \right)
 \end{align}
 \end{definition}
 
@@ -422,15 +405,15 @@ In the rest of the paper, and without losing generality, we will consider that t
 \begin{definition}
 \emph{CloseR$\left(i_1, i_2\right)$:}
 \label{def:close-a-crisp-interval-r}
-Consider two crisp intervals $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2, e_2\right)$. The CloseR$\left(i_1, i_2 \right)$ function allows to close the right-open interval $i_1$ with respect to the first value $s_2$ in $i_2$:
+Consider two crisp intervals defined by the couples of values $i_1 = \left(s_1, e_1 \right)$ and $i_2 = \left(s_2, e_2\right)$. The CloseR$\left(i_1, i_2 \right)$ function allows to close the right-open interval $i_1$ with respect to the first value $s_2$ in $i_2$:
 \begin{align}
 \label{eq:close-a-crisp-interval}
-\mbox{CloseR} \left[ i_1, i_2\right[ &=& \\ 
+\mbox{CloseR} \left( i_1, i_2\right) &=& \\ 
 \begin{cases}
 \nonumber
 %I & \mbox{ if } b \neq +\infty \\
 %I=\left[a, c \right[ & \mbox{ if } b = +\infty \wedge J > I
-i_1 = \left(s_1,s_2 \right( & \mbox{ if } e_1 = UC \mbox{ and } i_2 \mbox{ During } i_1 \\
+\left(s_1,s_2-1\right) & \mbox{ if } e_1 = UC \mbox{ and } i_2 \mbox{ During } i_1 \\
 i_1 & \mbox{ otherwise}
 \end{cases}
 \end{align}
@@ -480,13 +463,13 @@ Now it is possible to close the current version of an entity by using \eqref{eq:
 \begin{definition}
 \label{def:close-current-version}
 \emph{Close-current$\left(r, t\right)$}.
-Consider the elements in definition \ref{def:valid-time-relation}. The function Close-current$\left(r, t \right)$ closes any current version $t_k$ of the entity given by $t$ if it exists and add the new version $t$. For the implementation the following variables are defined:
+Consider the elements in definition \ref{def:valid-time-relation}. The function Close-current$\left(r, t \right)$ closes any current version $t_k$ of the entity given by $t$ and adds the new version $t$. For the implementation $t_{CUR}$ and $t_{UP}$ variables are defined:
 \begin{align}
  \label{eq:variables-current-version}
-t_{CUR} = \mbox{ Current } \left(r, t[A_K] \right)\\
-\nonumber
-t_{UP} = t_{CUR}; t_{UP}\left[i \right] = \mbox{Close }\left(t_{UP}\left[i \right], t \right)
-\nonumber
+t_{CUR}\left[A_k\right] &= t[A_K]\\\nonumber
+t_{CUR}\left[S,E \right] &= \mbox{Current } \left(r, t[A_K] \right)\\\nonumber
+t_{UP}[A_k] &= t[A_k]\\
+ t_{UP}\left[S,E \right] &= \mbox{CloseR }\left(t_{CUR}\left[S,E \right], t[S,E] \right)\nonumber
 \end{align}
 Then, $t_{CUR}$ is the current version of the entity given by the tuple $t$, and $t_{UP}$ is the updated version of the tuple $t_{CUR}$. In this updated version, the time interval given by $i_{UP}$ is closed with respect to the tuple $t$.
 
@@ -497,11 +480,11 @@ Then, $t_{CUR}$ is the current version of the entity given by the tuple $t$, and
 \begin{cases}
 \nonumber
 r - t_{CUR} \cup \lbrace t_{UP}\rbrace \cup \lbrace t \rbrace
-& \mbox{ if } t_{CUR} \neq \emptyset \\
+& \mbox{ if } \mbox{Current } \left(r, t[A_K] \right) \neq \emptyset \\
 % R - \left(A, I \right) \cup \left \lbrace \left(A, \mbox{ CloseR } \left(I, J\right) \right)\right \rbrace \cup \left \lbrace\left(A, J\right) \right \rbrace  \\
 % \nonumber
 % \mbox{ if  Current } \left(R, A \right) \neq \emptyset\\ %\wedge J > \mbox{ CloseR } \left(I, J \right)   \\
-\nonumber r , \text{ otherwise}
+r , \text{ otherwise}
 \end{cases}
 \end{eqnarray}
 \end{definition}
@@ -634,9 +617,11 @@ Consider the elements in definition \ref{def:valid-time-relation}. Then, the alg
 \INS \left(r, t\right) =\\
 \begin{cases}
 \nonumber
+r & \mbox{ if }  \exists t_k \in V(t), \left(t[S,E] \mbox{ overlaps } t_k[S,E]\right)\\
+\nonumber
 r \cup \lbrace t \rbrace
-& \mbox{ if }  t \not \in r \mbox{ or }\\
-\nonumber & \forall t_k \in Vt, \lnot \left(i \mbox{ Overlaps } i_k\right)\\
+& \mbox{ if }  V(t)=\emptyset \mbox{ or }\\
+\nonumber & \forall t_k \in V(t), \lnot \left(t[S,E] \mbox{ overlaps } t_k[S,E]\right)\\
 % 
 % R \cup \left(A, I \right) & \mbox{ if }  (A, I ) \not \in R  \mbox{ or } \\
 %  &   \left(A, J\right) \in R \mbox{ and } \lnot \left(I \mbox{ Overlaps } J\right) \\
@@ -658,16 +643,16 @@ Consider the elements in definition \ref{def:valid-time-relation}.The algorithm 
 \begin{align}
 \label{eq:delete}
 \DEL \left(r, t\right) =
-\begin{cases}
+%\begin{cases}
 \nonumber
-r - Vt
+r - V(t)
 % 
 % 
 % R - \left \lbrace \left(A, I_1 \right),  \ldots, \left(A, I_n \right)   \right \rbrace, & \forall I_i : \left( A, I_i \right) \in R\\
 % R, & \mbox{ otherwise }  
-\end{cases} 	
+%\end{cases} 	
 \end{align}
-The set $Vt$ is computed as explained in definition \ref{def:valid-time-relation} and contains all the versions for the tuple $t$.
+The set $V(t)$ is computed as explained in definition \ref{def:valid-time-relation} and contains all the versions for the tuple $t$.
 
 
 For example, consider that the document manager wants to delete the history for the document with ID = 3. The result of this operation is shown in Table \ref{tbl:library-sample-3}. 

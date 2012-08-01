@@ -4,10 +4,14 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section is devoted to specify the representation of time within the framework of the possibility theory. First of all, the specification for a single ill-known temporal point will be explained. Then, the formal specification and the related constraints are given for an ill-known valid-time interval.
+This section is devoted to specify the representation of time within the framework of the possibility theory. 
+
+First of all, the specification for a single ill-known temporal point will be explained. Then, the formal specification and the related constraints are given for an ill-known valid-time interval.
 
 \subsection{\label{subsec:ill-known-point-rep}Ill-known time point}
-An ill-known time point $X$ is a precise time point that, for some reason, is not fully specified. Note that $X$ has only one possible value but that value is unspecified.
+An ill-known time point $X$ is an atomic time point that, for some reason, is not fully specified. 
+
+Note that $X$ has only one possible value but that value is unspecified.
 
 \begin{definition}
 \label{def:ill-known-time-point}
@@ -26,10 +30,18 @@ It is also possible to specify an ill-known time point by a convex combination o
 \begin{definition}
 \label{def:ill-known-domain}
 \textbf{Domain for an ill-known time point.}\\
-Consider $\Pow(\T)$ the set of all the possibility distributions over $\T$, and the three fuzzy constants \emph{UNKNOWN} $=\left\lbrace 1/t, \forall t \in \T \right\rbrace$, \emph{UNDEFINED} $=\left\lbrace 0/t,\forall t \in \T \right\rbrace$ and \emph{NULL} $=\lbrace 1/$ \emph{UNKNOWN}, $1/$ \emph{UNDEFINED} $\rbrace$. The domain for an ill-known time point $X$ is given by: 
+Consider $\tilde\Pow(\T)$ the set of all the possibility distributions over $\T$, and the three fuzzy constants:
+
+\begin{itemize}
+
+\item \emph{UNKNOWN} $=\left\lbrace 1/t, \forall t \in \T \right\rbrace$, ç
+\item \emph{UNDEFINED} $=\left\lbrace 0/t,\forall t \in \T \right\rbrace$ and \item \emph{NULL} $=\lbrace 1/$ \emph{UNKNOWN}, $1/$ \emph{UNDEFINED} $\rbrace$. 
+\end{itemize}
+
+The domain for an ill-known time point $X$ is given by: 
 \begin{align}
 \label{eq:ill-known-domain}
-\Dom (X) =  \lbrace \Pow(\T) & \cup \mbox{\emph{UNKNOWN}} \\
+\Dom (X) =  \lbrace \tilde\Pow(\T) & \cup \mbox{\emph{UNKNOWN}} \\
 \nonumber
 &\cup \mbox{\emph{UNDEFINED}} \\
 \nonumber
@@ -42,7 +54,7 @@ Consider $\Pow(\T)$ the set of all the possibility distributions over $\T$, and 
 
 
 \subsubsection{\label{subsubsec:ill-known-time-datatypes}Datatypes}
-The data type for the representation of an ill-known time point allows the representation of the values shown in Table \ref{tbl:time-point-types}
+The data type for the representation of an ill-known time point allows the representation of the values shown in Table \ref{tbl:time-point-types}.
 %The datatypes for an  $X$ are shown in Table \ref{}.
 \begin{samepage}
 \vglue13pt
@@ -66,10 +78,14 @@ Subtype & Value & Representation \\
 
 %Example of different uses of the ill-known time value.
 \begin{example}
-Consider a historical database with data from medieval diplomatic documents. The following fields are stored: the digital identifier \emph{ID} which is the primary key  and the estimated time when the document was sent (field \emph{Date}). Table \ref{tbl:sample-time-point} contains some example data from this database. 
-\end{example}
+Consider a historical database with data from medieval diplomatic documents. 
 
-\vglue13pt
+The following fields are stored: the digital identifier \emph{ID} which is the primary key  and the estimated time when the document was sent (field \emph{Date}). 
+
+Table \ref{tbl:sample-time-point} contains some example data from this database. 
+\end{example}
+\newpage
+%\vglue13pt
 %\begin{table}[htbp]
 \tcap{Sample of the historical database}
 %\centerline{\small DATA TYPES}
@@ -98,7 +114,7 @@ In that database, for the document with ID=23454, all the dates in the domain ar
 
 
 
-An ill-known time interval denoted by $\left[X, Y\right]$ is a precise time interval whose boundaries are not precisely known. %The ill-known time interval is defined by two ill-known  time points, namely $X$,$Y$. The evaluation of the ill-known time interval is given by equations \eqref{ill-known-pos},\eqref{ill-known-nec}.
+An ill-known time interval denoted by $\left[X, Y\right]$ is a time interval whose boundaries are not precisely known. %The ill-known time interval is defined by two ill-known  time points, namely $X$,$Y$. The evaluation of the ill-known time interval is given by equations \eqref{ill-known-pos},\eqref{ill-known-nec}.
 
 \begin{definition}
 \emph{Ill-known time interval}
@@ -145,7 +161,7 @@ Quite often, the user may want to specify time intervals with open boundaries in
 
 %\item
 \begin{definition}
-\textbf{Semi-open time interval}: Only one of the two ill-known endpoints for the time interval $\left[X, Y\right]$ is unknown. Example \ref{ex:open-time-interval} and Figure \ref{fig:example-open-time-interval} illustrates a left open time interval.
+\textbf{Semi-open time interval}: Only one of the two ill-known boundaries for the time interval $\left[X, Y\right]$ is unknown. Example \ref{ex:open-time-interval} and Figure \ref{fig:example-open-time-interval} illustrates a left open time interval.
 % Note that due to the ill-known constraints $C_{1}, C_{2}$ it is not possible a representation like $[$ \emph{UNKNOWN} $, Y]$ or $[X, $ \emph{UNKNOWN} $]$. The solution adopted for this problem is explained in the following paragraph. 
 \end{definition}
 %\end{enumerate}
@@ -160,7 +176,7 @@ Because of the ill-known constraints $C_{1}, C_{2}$, a function called \emph{Ope
 \begin{definition}
 \label{def:open-func}
 $Open(C)$\\
-Consider an ill-known value $T$, a binary relationship $B_r \in \left \lbrace \leq, <, >, \geq\right \rbrace$ and the constraint $C\stackrel{\triangle}{=}\left(R,T\right)$.
+Consider an ill-known value $T$, a binary relationship $B_r \in \left \lbrace \leq, <, >, \geq\right \rbrace$ and the constraint $C\stackrel{\triangle}{=}\left(B_r,T\right)$.
 The function $\Open(C) = \left(I_p(C), I_n(C) \right)$ provides both possibility and necessity measures for all the points in the open part of a semi-open ill-known time interval.
 
 The possibility and necessity measures are defined by:
