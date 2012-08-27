@@ -13,7 +13,7 @@ Before considering the introduction of temporal modelling to information systems
 \label{subsec:basic-concepts}
 In information systems, time itself is usually perceived as a linear or cyclic concept~\cite{Jensen94thetsql2}. Therefore, a time domain modelling time is usually represented by a set with an imposed partial order. In general, two main types of time models can be discerned: a \emph{linear} model~\cite{benthem82} and a \emph{cyclic} model~\cite{lorentzos88}. In the linear model, a total order is imposed on the set and the progress of time is seen as a linear matter, while cyclic models are mainly used in the modelling of recurrent processes. It should be noted that the majority of proposals use linear time models.
 
-Data models used by information systems (and in specific, temporal database systems) may represent these underlying time domains using \emph{chronons}~\cite{Dyreson1994}, which can informally be described as the smallest distinguishable time units that can be used in the system. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
+Data models used by information systems (and in specific, temporal database systems) may represent an underlying time axis using \emph{chronons}~\cite{Dyreson1994}, which can informally be described as the smallest distinguishable time units that can be used in the system. However, to explain what chronons are, an explanation of some other temporal concepts is necessary.
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -23,9 +23,9 @@ An \emph{\textbf{instant}} is a time point on an underlying time axis.
 \vspace{-10pt}
 \end{svgraybox}
 
-Thus, an instant is basically an instantaneous time point in a time model.
+Thus, an instant is basically an instantaneous time point on the time axis underlying a time model. The term is used in the context of the time model too.
 
-Orthogonal to the classification of underlying time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models\cite{Dyreson1994}. In a discrete model~\cite{Clifford:1985:AHR:971699.318922}, the notion exists that every instant has a unique successor and the set of instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another. Here, intuitively, the set of instants can be seen as isomorphic to the set of rational numbers $\Q$ (when the set of instants is a discrete one) or the set of real numbers $\R$ (when the set of instants is a continuous one). In a continuous model, the notion also exists that between any two instants always lies another one, but the set of instants is always seen as continuous and there are no ``gaps'' between successive instants.
+Orthogonal to the classification of time models as linear or cyclic, they can be classified as \emph{discrete}, \emph{dense} or \emph{continuous} models\cite{Dyreson1994},~\cite{Jensen:Dyreson:1998:TheConsensusGlossary}. In a discrete model~\cite{Clifford:1985:AHR:971699.318922}, the notion exists that every instant has a unique successor and the set of (modelled) instants is seen as a discrete one. Here, intuitively, the set of instants can be seen as isomorphic to the set of natural numbers $\Nat$. In a dense model, the notion exists that between any two instants always lies another. Here, intuitively, the set of instants can be seen as isomorphic to the set of rational numbers $\Q$ (when the set of (modelled) instants is a discrete one) or the set of real numbers $\R$ (when the set of (modelled) instants is a continuous one). In a continuous model, the notion also exists that between any two instants always lies another one, but the set of (modelled) instants is always seen as continuous and there are no ``gaps'' between successive instants.
 
 Some other necessary concepts are: 
 
@@ -61,7 +61,7 @@ The modifier \emph{\textbf{`temporal'}} is used to indicate that the modified co
 
 %In the linear model, time advances from the past to the future in a totally ordered fashion (a relationship of total order is imposed to the set). A cyclic model of time is used for recurrent processes. The majority of the proposals work with a linear model of time.
 
-Data models for time modelling might now represent an underlying time domain using chronons:
+Data models used for time modelling might now represent an underlying time axis using chronons:
 
 \begin{svgraybox}
 \vspace{-10pt}
@@ -71,9 +71,9 @@ In a data model, a \emph{\textbf{chronon}} is a non-decomposable time interval o
 \vspace{-10pt}
 \end{svgraybox}
 
-A data model may now represent a time model or time domain by a sequence of consecutive chronons. These chronons have identical durations. A data model will typically not specify the exact chronon duration, so it can be fixed later by applications implementing the data model.
+A time model contained in a data model may now represent an underlying time axis by a sequence of consecutive chronons. These chronons have identical durations. A data model will typically not specify the exact chronon duration, so it can be fixed later by applications implementing the data model.
 
-The fact that chronons are actually time intervals has a particular effect on the representation of instants and time intervals. In a data model representing a time domain using chronons, an instant is of course represented by a chronon. A time interval may be represented by a set of contiguous chronons, depending on the amount of time the time interval comprises.
+The fact that chronons are actually time intervals has a particular effect on the representation of instants and time intervals. In a time model using chronons, an instant is of course represented by a chronon. A time interval may be represented by a set of contiguous chronons, depending on the amount of time the time interval comprises.
 
 %\begin{svgraybox}
 %The basic elements in a temporal domain are the following:\\
