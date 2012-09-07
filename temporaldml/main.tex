@@ -1,0 +1,159 @@
+\documentclass{llncs}
+%
+%
+%espero que no se enfaden por incluir este paquete:
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[dvips]{graphicx}
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage{color}
+
+\hyphenation{pro-per-ties}
+\hyphenation{ge-ne-ral-ly}
+\hyphenation{pre-fe-ren-ces}
+\hyphenation{u-sing}
+\hyphenation{pu-nish-ment}
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\N}{\operatorname{N}}
+\newcommand{\bool}{\operatorname*{\mathcal{B}}}
+\newcommand{\Pos}{\operatorname{Pos}}
+\newcommand{\Nec}{\operatorname{Nec}}
+\newcommand{\Open}{\operatorname{Open}}
+\newcommand{\Rp}{\operatorname{Rp}}
+\newcommand{\Rn}{\operatorname{Rn}}
+\newcommand{\FB}{\operatorname{FB}}
+\newcommand{\UC}{\operatorname{UC}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\Rel}{\mathcal{R}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\Nat}{\mathbb{N}}
+\newcommand{\Boolean}{\mathbb{B}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Head}{\mathcal{H}}
+\newcommand{\Body}{\mathcal{B}}
+\newcommand{\Dom}{\mathcal{D}}
+\newcommand{\INS}{\mbox{\textbf{insert}}}
+\newcommand{\DEL}{\mbox{\textbf{delete}}}
+\newcommand{\MOD}{\mbox{\textbf{modify}}}
+\newcommand{\REV}{\mbox{\textbf{revise}}}
+\newcommand{\Overlap}{\mbox{\textbf{Overlap}}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\I}{\mathcal{I}}
+\begin{document}
+
+\mainmatter              % start of the contributions
+%
+\title{Data Manipulation Language for fuzzy temporal databases.}
+%
+%\titlerunning{A Fuzzy Valid-Time Model}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{Jos\'e Enrique Pons \and Olga Pons Capote}
+%Jeffrey Dean \and David Grove \and Craig Chambers \and Kim~B.~Bruce \and
+%Elsa Bertino}
+%
+\authorrunning{Jos\'e Enrique Pons et al.} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+%\tocauthor{Ivar Ekeland, Roger Temam, Jeffrey Dean, David Grove,
+%Craig Chambers, Kim B. Bruce, and Elisa Bertino}
+%
+\institute{
+Department of Computer Science and Artificial Intelligence \\
+Universidad de Granada \\
+Escuela T\'ecnica Superior de Ingenier\'ia Inform\'atica \\
+C/Periodista Daniel Saucedo Aranda s/n \\
+E-18071 (Granada-Spain)\\
+\email{jpons,opc@decsai.ugr.es}\\ 
+%WWW home page:
+%\texttt{http://users/\homedir iekeland/web/welcome.html}
+%\and
+%Universit\'{e} de Paris-Sud,
+%Laboratoire d'Analyse Num\'{e}rique, B\^{a}timent 425,\\
+%F-91405 Orsay Cedex, France
+}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+
+\end{abstract}
+
+
+\section{\label{sec:selection}Selection}
+The selection operator $\sigma$ obtain a subset of tuples that fulfill a set of constraints from a given relation $R$. The set of constraints is usually a boolean combination of atomic constraints. The selection operator is noted as follows:
+\begin{equation}
+ \label{eq:selection}
+\sigma_{S} \left( R \right)
+\end{equation}
+
+Where $R$ is the relation, and $S$ is the selection formula. The selection formula is a set of two elements:
+% \begin{itemize}
+% \item relation.attribute boolean relation relation.attribute
+% \item relation.temporal-attribute allen-relation relation.temporal-attribute 
+% \end{itemize}
+\begin{equation}
+ \label{eq:selection_formula}
+S = \left \lbrace Q, Q^{t}\right \rbrace
+\end{equation}
+
+Where $q$ is a boolean combination of (possibly) fuzzy (and bipolar) non-temporal constraints and $q^{t}$ is also a boolean combination of fuzzy temporal constraints.
+
+\begin{equation}
+ \label{eq:non-temporal-constraints}
+Q = \left \lbrace q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_1}  \theta \mbox{ val }, \ldots, q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_n}  \theta \mbox{ val } \right \rbrace
+\end{equation}
+Where $\theta$ is an artihmetic operator; one of $\left \lbrace =, \neq, <, \leq, >, \geq \right \rbrace$ and val is a value in the domain of the attribute. 
+
+Then, consider a boolean function $\bool:\Boolean^{n}  \rightarrow \Boolean$. The evaluation function for the constraints in $Q$  is given by:
+
+\begin{equation}
+ \label{eq:evaluation-function}
+\lambda : Q \rightarrow \Boolean : \lambda (Q) \rightarrow \bool \left(q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_1}  \theta \mbox{ val }, \ldots, q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_n}  \theta \mbox{ val } \right)
+\end{equation}
+
+Now, the uncertainty about the evaluation of $Q$ and a boolean function $\bool:\Boolean^{n}  \rightarrow \Boolean$ is given by:
+
+\begin{equation}
+ \label{eq:evaluation-lambda-function}
+\pi_{\lambda \left(Q \right)} = \tilde{\bool} \left(\pi_{q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_1}  \theta \mbox{ val }}, \ldots, \pi_{q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_n}  \theta \mbox{ val }} \right)
+\end{equation}
+
+
+The temporal constraints, $Q^t$ are provided in a similar way. The main difference is that, instead of comparations like $\left \lbrace =, \neq, <, \leq, >, \geq \right \rbrace$, we use the allen's relations. Hence, the representation of the temporal constraints is expressed as follows:
+
+\begin{equation}
+\label{eq:temporal-constratins}
+Q^{t} = \left \lbrace q_{\mbox{attribute}_1}  ar \mbox{ val }, \ldots, q_{\mbox{attribute}_n}  ar \mbox{ val } \right \rbrace
+\end{equation}
+Here, $ar$ is one of the thirdteen Allen's relations (equal, before, overlaps, starts, finishes, meets, during) and their respective reverses.
+
+
+Now the combination of temporal and non-temporal results should be explicited here.
+
+
+\section{\label{sec:join}Join}
+The join operator $\Join$ builds a new relation from two given relations, namely $R$ and $S$. This new relation is a set with all the possible combinations of tuples in both $R$ and $S$. It is usually noted as $R \Join_{r \theta s} S$, where $r,s$ are attributes from $R$ and $S$ respectively and $\theta$ an arithmetic operator.
+
+The following example illustrates the behaviour of the join operator in a crisp temporal database.
+
+\begin{example}
+Consider the employees database shown in Table \ref{}.  
+\end{example}
+
+
+
+\section*{Acknowledgements}
+%
+The researchers are supported by the grant BES-2009-013805 within the research project TIN2008-02066: \emph{Fuzzy Temporal Information treatment in relational DBMS}.
+
+\bibliographystyle{splncs03}
+\bibliography{biblio}
+
+
+
+
+\end{document}
