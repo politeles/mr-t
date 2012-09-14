@@ -4,9 +4,12 @@
 %espero que no se enfaden por incluir este paquete:
 \usepackage{amsmath}
 \usepackage{amssymb}
+%\usepackage{amsthm}
+
 \usepackage[dvips]{graphicx}
 \usepackage{makeidx}  % allows for indexgeneration
 \usepackage{color}
+\usepackage[table]{xcolor}
 
 \hyphenation{pro-per-ties}
 \hyphenation{ge-ne-ral-ly}
@@ -41,6 +44,9 @@
 \newcommand{\Overlap}{\mbox{\textbf{Overlap}}}
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\I}{\mathcal{I}}
+\renewcommand{\Join}{\bowtie}
+%\theoremstyle{definition}
+%\newtheorem{definition}{Definition}
 \begin{document}
 
 \mainmatter              % start of the contributions
@@ -83,21 +89,48 @@ E-18071 (Granada-Spain)\\
 \end{abstract}
 
 
+\section{\label{sec:preliminaries}Preliminares}
+
+\begin{definition}
+ \label{def:temporal-schema}
+A crisp temporal schema is given by the following:
+
+\begin{equation}
+\label{eq:temporal-relation}
+R = \left(A_1, \ldots, A_n, T_s, T_e \right) 
+\end{equation}
+Where $A_1, \ldots, A_n$ are the attributes of the relation $R$ and $T = \left \lbrace T_s, T_e\right \rbrace$ is the staring and ending points of the valid-time interval.
+We define $r$ as an instance of the relation $R$.
+\end{definition}
+
+\begin{definition}
+ \label{def:fuzzy-temporal-schema}
+A fuzzy temporal schema is given by the following:
+
+% \begin{equation}
+%  \label{eq:fuzzy-temporal-relation}
+% R = \left(A_1, \ldots, A_n, T_s, T_e \right) 
+% \end{equation}
+% Where 
+ \end{definition}
+
+
+
 \section{\label{sec:selection}Selection}
 The selection operator $\sigma$ obtain a subset of tuples that fulfill a set of constraints from a given relation $R$. The set of constraints is usually a boolean combination of atomic constraints. The selection operator is noted as follows:
 \begin{equation}
  \label{eq:selection}
-\sigma_{S} \left( R \right)
+\sigma_{P} \left( R \right)
 \end{equation}
 
-Where $R$ is the relation, and $S$ is the selection formula. The selection formula is a set of two elements:
+Where $R$ is the relation, and $P$ is the selection formula. The selection formula is a set of two elements:
 % \begin{itemize}
 % \item relation.attribute boolean relation relation.attribute
 % \item relation.temporal-attribute allen-relation relation.temporal-attribute 
 % \end{itemize}
 \begin{equation}
  \label{eq:selection_formula}
-S = \left \lbrace Q, Q^{t}\right \rbrace
+P = \left \lbrace Q, Q^{t}\right \rbrace
 \end{equation}
 
 Where $q$ is a boolean combination of (possibly) fuzzy (and bipolar) non-temporal constraints and $q^{t}$ is also a boolean combination of fuzzy temporal constraints.
@@ -133,11 +166,445 @@ Here, $ar$ is one of the thirdteen Allen's relations (equal, before, overlaps, s
 
 
 Now the combination of temporal and non-temporal results should be explicited here.
+\begin{example}
+Consider an employee's database. The data are stored in two tables; Table \ref{table:employees} (relation $R$) contains temporal data about the employees and Table \ref{table:address} (relation $S$) contains temporal  data about the addresses for each emploree. Consider now that the user wants to obtain all the employees who are a profesor and that worked during the time interval $\left[7, 10 \right]$.
+%\vspace{-10pt} \ref{table:employees} \ref{table:address}
 
+\begin{table}
+\centering
+\caption{Employee's database. Relation $R$.}
+
+\begin{tabular}{c c c c c c }
+\hline
+ID & Job & Works for & Start & Finish \\ \hline
+1 & Prof. & 4 & 5 & 10 \\
+2 & Tech. & 4 & 3 & 7 \\
+3 & Account. & 4  & 4 & 10 \\
+4 & Adm. & - & 1 & UC \\
+1 & Prof. & 4 & 11 & UC \\
+\hline 
+\end{tabular}
+\label{table:employees}
+
+%\vspace{10pt}
+
+
+\end{table}
+
+%\vspace{-25pt}
+
+%\vspace{-10pt}
+
+\begin{table}
+\centering
+\caption{Address database. Relation $S$.}
+
+\begin{tabular}{c c c c }
+\hline
+ID & Adr. & Start & Finish \\ \hline
+1 & C/ Camino de ronda & FB & 12 \\
+2 & C/ Recogidas & FB & UC \\ 
+3 & C/ Pintor Maldonado & FB & UC \\
+4 & C/ Mesones & FB & UC \\
+1 & C/ Manuel de Falla & 12 & UC \\
+\hline 
+\end{tabular}
+\label{table:address}
+
+%\vspace{10pt}
+
+
+\end{table}
+
+%\vspace{-25pt}
+
+The selection formula is the following:
+
+\begin{equation}
+ \label{eq:selection-example}
+\sigma_{r.Job = 'Profesor', r.T \mbox{ During } \left[7, 10\right]} \left(R \right)
+\end{equation}
+The resultset for the selection is shown in Table \ref{table:example-selection}.
+\end{example}
+
+%\vspace{-10pt}
+
+\begin{table}
+\centering
+\caption{Resultset table for the selection in equation \eqref{eq:selection-example}}
+
+\begin{tabular}{c c c c c c }
+\hline
+ID & Job & Works for & Start & Finish \\ \hline
+1 & Prof. & 4 & 5 & 10 \\
+\hline 
+\end{tabular}
+\label{table:example-selection}
+
+%\vspace{10pt}
+
+
+\end{table}
+
+%\vspace{-25pt}
+
+
+
+
+
+
+\section{\label{sec:cartesian-product}Cartesian Product}
+The relational cartesian product is defined as all the possible combinations between two given relations $R$ and $S$. It is usually noted as $R \times S$.
+The temporal cartesian product operator is defined as the relational cartesian product with a predicate on the temporal valid-time intervals \cite{DengfengGao2002}. The temporal cartesian product is defined then as $R \times^T S$.
+
+We will re-define the predicate given in \cite{DengfengGao2002} in terms of the Allen's relations. Two auxiliary functions should be defined.
+
+\begin{definition}
+ \label{def:crisp-intersect}
+Intersect$\left(I, J \right)$. Given two intervals $I$ and $J$, the Intersect function returns a boolean value showing whether the two intervals intersect or not. In terms of the Allen's relations, two intervals $I$ and $J$ intersect if between them exist any of the Allen's relations except Before or After. In other words, only if the Allen's relations Before or After do not hold for the two intervals, they will intersect.
+
+\begin{equation}
+ \label{eq:crisp-intersect}
+\mbox{Intersect}\left( I, J \right) = \left \lbrace \neg \left(I_e < J_s \right) \vee \neg \left(J_e < I_s \right) \right \rbrace
+\end{equation}
+
+
+\end{definition}
+
+
+\begin{example}
+Consider the following intervals $I = \left[5, 10 \right]$ and  $J = \left[0, 12 \right]$. The instersect operation is calculated as follows:
+\begin{align}
+\mbox{Intersect}\left( I, J \right) &=& \left \lbrace \neg \left(10 < 0 \right)  \vee \neg \left(12 < 5 \right) \right \rbrace \\
+\nonumber
+&=& \mbox{True} \vee \mbox{True} \\
+\nonumber &=& \mbox{True}
+\end{align}
+
+\end{example}
+
+The other auxiliary function that allows to define the predicate for the cartesian product, needs some previous definitios as well. 
+
+\begin{definition}
+ \label{def:crisp-last}
+Last$\left(I_n, J_m \right)$. Given two time points $I_n$ and $J_m$, this function obtains the greatest time point.
+\begin{equation}
+ \label{eq:last-crisp}
+\mbox{Last}\left(I_n, J_m \right) = 
+\begin{cases}
+I_n & \mbox{ if } I_n > J_m \\
+J_m & \mbox{ otherwise } 
+\end{cases}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+ \label{def:crisp-first}
+First$\left(I_n, J_m \right)$. Given two time points $I_n$ and $J_m$, this function obtains the least time point.
+\begin{equation}
+ \label{eq:first-crisp}
+\mbox{First}\left(I_n, J_m \right) =
+\begin{cases}
+I_n & \mbox{ if } I_n < J_m \\
+J_m & \mbox{ otherwise } 
+\end{cases}
+\end{equation}
+\end{definition}
+
+
+
+\begin{definition}
+ \label{def:crisp-overlapping-interval}
+Overlapping-interval$\left(I, J \right)$. Given two intervals $I$ and $J$, this function returns an overlapping interval from the original two intervals.
+\begin{equation}
+ \label{eq:crisp-overlapping-interval}
+\mbox{OvInt}\left(I, J \right) = 
+\begin{cases}
+\left[\mbox{Last}\left( I_s, J_s \right), \mbox{First}\left(I_e, J_e \right) \right] & \mbox{ if } \mbox{Last}\left( I_s, J_s \right) \leq \mbox{First}\left(I_e, J_e \right) \\
+\emptyset & \mbox{ otherwise } 
+\end{cases}
+\end{equation}
+\end{definition}
+
+Now it is possible to define the temporal cartesian product.
+
+\begin{definition}
+ \label{def:crisp-temporal-cartesian-product}
+Temporal Cartesian Product.\\
+The temporal cartesian product of two temporal relations $r$ and $s$ is noted as $r \times^T s$ and is defined by the following formula:
+
+\begin{align}
+ \label{eq:crisp-temporal-cartesian-product}
+r \times^T s =  \lbrace z^{\left(n+m+2 \right)} | \exists x \in r, \exists y \in s \\
+\nonumber
+\mbox{intersect}\left(x[T], y[T] \right) \wedge \\
+\nonumber
+z\left[A\right] = x\left[A\right] \wedge z\left[B\right] = y \left[B \right] \wedge \\
+\nonumber
+ z\left[T \right] = \mbox{OvInt}\left(x\left[T\right], y\left[T\right] \right) \wedge z\left[T\right] \neq \emptyset  \rbrace
+\end{align}
+
+\end{definition}
+
+The following example illustrates the temporal cartesian product.
+\begin{example}
+ \label{ex:crisp-temporal-cartesian-product}
+Consider the employee's database mentioned before (Tables \ref{table:employees} and \ref{table:address}). Table \ref{table:example-crisp-cartesian-product} illustrates an intermediate step to compute the temporal cartesian  product.
+
+
+
+\end{example}
+
+\begin{table}
+\centering
+\caption{Intermediate calculations for the temporal cartesian product.}
+
+\begin{tabular}{c c c c c c c c}
+\hline
+r.id & s.id & $x\left[T\right]$ & $y\left[T\right]$ & intersect$\left(x\left[T\right], y\left[T\right]\right)$ & First$\left(I_e, J_e \right)$& Last$\left( I_s, J_s \right)$ &$z\left[T \right] = $OvInt$\left(x\left[T\right], y\left[T\right] \right) $  \\ \hline
+1 & 1 & $\left[5, 10 \right]$  & $\left[FB, 11 \right]$  & True  & 11 &  5 & $\left[5, 11 \right]$ \\
+1 & 2 & $\left[5, 10 \right]$  & $\left[FB, UC \right]$  & True  & UC &  5 & $\left[5, UC \right]$ \\
+1 & 3 & $\left[5, 10 \right]$  & $\left[FB, UC \right]$  & True  & UC &  5 & $\left[5, UC \right]$ \\
+1 & 4 & $\left[5, 10 \right]$  & $\left[FB, UC \right]$  & True  & UC &  5 & $\left[5, UC \right]$ \\
+1 & 1 & $\left[5, 10 \right]$  & $\left[12, UC \right]$  & False & UC & 12 & -                     \\
+2 & 1 & $\left[3, 7 \right]$   & $\left[FB, 11 \right]$  & True  & 11 &  3 & $\left[3, 11 \right]$ \\
+2 & 2 & $\left[3, 7 \right]$   & $\left[FB, UC \right]$  & True  & UC &  3 & $\left[3, UC \right]$ \\
+2 & 3 & $\left[3, 7 \right]$   & $\left[FB, UC \right]$  & True  & UC &  3 & $\left[3, UC \right]$ \\
+2 & 4 & $\left[3, 7 \right]$   & $\left[FB, UC \right]$  & True  & UC &  3 & $\left[3, UC \right]$ \\
+2 & 1 & $\left[3, 7 \right]$   & $\left[12, UC \right]$  & False & UC & 12 &  -                    \\
+3 & 1 & $\left[4, 10 \right]$  & $\left[FB, 11 \right]$  & True  & 11 &  4 & $\left[4, 11 \right]$ \\
+3 & 2 & $\left[4, 10 \right]$  & $\left[FB, UC \right]$  & True  & UC &  4 & $\left[4, 11 \right]$ \\
+3 & 3 &  $\left[4, 10 \right]$ & $\left[FB, UC \right]$  & True  & UC &  4 & $\left[4, 11 \right]$ \\
+3 & 4 & $\left[4, 10 \right]$  & $\left[FB, UC \right]$  & True  & UC &  4 & $\left[4, 11 \right]$ \\
+3 & 1 & $\left[4, 10 \right]$  & $\left[12, UC \right]$  & False & 12 & 12 & -                     \\
+4 & 1 & $\left[1, UC \right]$   & $\left[FB, 11 \right]$ & True  & UC &  1 & $\left[1, UC \right]$ \\
+4 & 2 & $\left[1, UC \right]$   & $\left[FB, UC \right]$ & True  & UC &  1 & $\left[1, UC \right]$ \\
+4 & 3 & $\left[1, UC \right]$   & $\left[FB, UC \right]$ & True  & UC &  1 & $\left[1, UC \right]$ \\
+4 & 4 & $\left[1, UC \right]$   & $\left[FB, UC \right]$ & True  & UC &  1 & $\left[1, UC \right]$ \\
+4 & 1 & $\left[1, UC \right]$   & $\left[12, UC \right]$ & True  & UC & 12 & $\left[12, UC \right]$ \\
+1 & 1 & $\left[11, UC \right]$  & $\left[FB, 11 \right]$ & False & UC & 11 & -                      \\
+1 & 2 & $\left[11, UC \right]$  & $\left[FB, UC \right]$ & True  & UC & 11 &  $\left[11, UC \right]$ \\
+1 & 3 & $\left[11, UC \right]$  & $\left[FB, UC \right]$ & True  & UC & 11 & $\left[11, UC \right]$ \\
+1 & 4 & $\left[11, UC \right]$  & $\left[FB, UC \right]$ & True  & UC & 11 & $\left[11, UC \right]$ \\
+1 & 1 & $\left[11, UC \right]$  & $\left[12, UC \right]$ & True  & UC & 12 &  $\left[12, UC \right]$ \\
+\hline 
+\end{tabular}
+\label{table:example-crisp-cartesian-product}
+\end{table}
+
+\subsection{\label{subsec:cartesian-product-ikc}Temporal cartesian product by ill-known constraints}
+In this subsection we are going to extend the crisp version of the temporal cartesian product to deal with ill-known time intervals. First of all, we need to define the ill-known counterpart functions of the previously defined \emph{intersects, first, last, OvIn}.
+
+\begin{definition}
+ \label{def:ik-intersects}
+Two ill-known time intervals intersect if one or both of the before and after relationships do not hold. Consider $I = \left[I_s, I_e \right]$ and $J = \left[J_s, J_e \right]$ be two ill-known time intervals with $I_s, J_s$ the starting ill-known points and $I_e, J_e$ the ending ill-known points of the intervals. Let the following ill-known constraints:
+\begin{align}
+ \label{eq:ik-intersects}
+C_1 &=& \left(<, I_s \right)  \\
+C_2 &=& \left(=, J_s \right) \\
+C_3 &=& \left(<, J_s \right) \\
+C_4 &=& \left(=, I_s \right) \\
+\mbox{Intersects}\left(I, J\right) &=& \left \lbrace \neg \left(C_1 \wedge C_2 \right) \vee  \neg \left( C_3 \wedge C_4 \right)  \right \rbrace \\
+\nonumber
+&=& \left \lbrace \neg \left( \left(C_1 \wedge C_2 \right) \wedge \left(C_3 \wedge C_4 \right)  \right)\right \rbrace
+\end{align}
+\end{definition}
+
+
+\begin{definition}
+ \label{def:ik-last}
+Last$\left(I_n, J_m \right)$. Given two ill-known points $I_n$ and $I_m$, the last operator is a combination of the following ill-known constraints:
+\begin{align}
+ \label{eq:il-last}
+C_1 &=& \left(>, I_n \right) \\
+C_2 &=& \left(=, J_m \right) \\
+C_3 &=& \left(>, J_m \right) \\
+C_4 &=& \left(=, I_n \right) \\
+\mbox{Last}\left(I_n, J_m \right) &=& \left(C_1 \wedge C_2  \right) \vee \left(C_3 \wedge C_4 \right)
+\end{align}
+\end{definition}
+
+Analogously, the first operator is defined as follows.
+\begin{definition}
+ \label{def:ik-first}
+First$\left(I_n, J_m \right)$. Given two ill-known points $I_n$ and $I_m$, this operator is a combination of the following ill-known constraints:
+\begin{align}
+ \label{eq:ik-first}
+C_1 &=& \left(<, I_n \right)\\
+C_2 &=& \left(=, J_m \right)\\
+C_3 &=& \left(<, J_m \right) \\
+C_4 &=& \left(=, I_n \right) \\
+\mbox{First}\left(I_n, J_m \right) &=& \left(C_1 \wedge C_2  \right) \vee \left(C_3 \wedge C_4 \right)
+\end{align}
+\end{definition}
+
+Now it is possible to define the function overlapping interval for the ill-known case.
+
+\begin{definition}
+ \label{def:ik-overlapping-interval}
+Given two ill-known time intervals $I$ and $J$, this function returns an overlapping interval from the original two intervals. It is necessary to define two ill-known constraints:
+
+\begin{align}
+ \label{eq:ilc-smaller-than}
+C_1 &=& \left(\leq,\mbox{First}\left(I_e, J_e \right)\right) \\
+C_2 &=& \left(=, \mbox{Last}\left( I_s, J_s \right)\right)
+\end{align}
+
+
+
+\begin{equation}
+ \mbox{OvInt}\left(I, J \right) = 
+\begin{cases}
+\left[\mbox{Last}\left( I_s, J_s \right), \mbox{First}\left(I_e, J_e \right) \right] & \mbox{ if } C_1 \wedge C_2 \neq 0.  \\
+\emptyset & \mbox{ otherwise } 
+\end{cases}
+\end{equation}
+\end{definition}
+
+Finally, the temporal cartesian product for ill-known time intervals is defined as follows.
+
+\begin{definition}
+ \label{def:temporal-cartesian-product-ik}
+The temporal cartesian product is notated $r \times^T s$ and is given by the following equation:
+\begin{align}
+ \label{eq:ik-temporal-cartesian-product}
+r \times^T s = \left \lbrace z^{\left(n+m+2\right)}  | \exists x \in r, \exists y \in s \right. \\
+\nonumber
+\mbox{intersect}\left(x[T], y[T] \right) > 0 \wedge \\
+\nonumber
+z\left[A\right] = x\left[A\right] \wedge z\left[B\right] = y \left[B \right] \wedge \\
+\nonumber
+\left.  z\left[T \right] = \mbox{OvInt}\left(x\left[T\right], y\left[T\right] \right) \wedge z\left[T\right] \neq \emptyset  \right \rbrace
+\end{align}
+\end{definition}
+
+The temporal cartesian product by ill-known constraints is illustrated with an example.
+\begin{example}
+ \label{ex:temporal-ill-known-constraint-ik}
+Consider a ill-known version of the employee's database, as illustrated by tables \ref{table:ill-known-employees} and \ref{table:ill-known-addresses}
+\end{example}
+
+\begin{table}
+\centering
+\caption{Relation for the employees with an ill-known valid-time interval.}
+\begin{tabular}{c c c c c c }
+\hline
+ID & Job & Works for & Start & Finish \\ \hline
+1 & Prof. & 4 & $\left[5, 1, 1 \right]$ & $\left[10, 1, 1 \right]$ \\
+2 & Tech. & 4 & $\left[3, 1, 1 \right]$ & $\left[7, 1, 1 \right]$ \\
+\hline 
+\end{tabular}
+\label{table:ill-known-employees}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Relation for the addresses with an ill-known valid-time interval.}
+\begin{tabular}{c c c c }
+\hline
+ID & Address & Start & Finish \\ \hline
+1 & C/ Camino de Ronda & $\left[1, 1, 1 \right]$ & $\left[12, 1, 1 \right]$ \\
+2 & C/ Recogidas &  $\left[1, 1, 1 \right]$ & $\left[5, 1, 1 \right]$ \\
+\hline 
+\end{tabular}
+\label{table:ill-known-addresses}
+\end{table}
+
+
+\begin{table}
+\centering
+\caption{Intermediate calculations for the temporal cartesian product.}
+
+\begin{tabular}{c c c c c }
+\hline
+r.id & s.id &  intersect$\left(x\left[T\right], y\left[T\right]\right)$ &  Last$\left( I_s, J_s \right)$ & First$\left(I_e, J_e \right)$  \\ \hline
+1 & 1 & 1 & $\left[5, 1, 1 \right]$ & $\left[10, 1, 1 \right]$ \\
+1 & 2 & 1 & $\left[5, 1, 1 \right]$ & $\left[5, 1, 1 \right]$ \\
+2 & 1 & 1 & $\left[3, 1, 1 \right]$ & $\left[7, 1, 1 \right]$ \\
+2 & 2 & 1 & $\left[3, 1, 1 \right]$ & $\left[5, 1, 1 \right]$ \\
+
+\hline 
+\end{tabular}
+\label{table:example-ik-cartesian-product}
+\end{table}
 
 \section{\label{sec:join}Join}
-The join operator $\Join$ builds a new relation from two given relations, namely $R$ and $S$. This new relation is a set with all the possible combinations of tuples in both $R$ and $S$. It is usually noted as $R \Join_{r \theta s} S$, where $r,s$ are attributes from $R$ and $S$ respectively and $\theta$ an arithmetic operator.
+The join operator $\Join$ builds a new relation from two given relations, namely $R$ and $S$. This new relation is a set with all the possible combinations of tuples in both $R$ and $S$. It is usually noted as $R \Join_{r \theta s} S$ and called (theta) join, where $r,s$ are attributes from $R$ and $S$ respectively and $\theta$ an arithmetic operator. The temporal join is defined on the temporal cartesian product.
 
+\begin{definition}
+ \label{def:temporal-theta-join}
+Temporal theta join. Let $R$ and $S$ be two relations and $r, s$ be the instances of each relation respectively. Then the temporal theta join is defined as follows:
+\begin{equation}
+ \label{eq:temporal-theta-join}
+R \Join_{r \theta s}^{T} S= \sigma_{r \theta s} \left(R \times^T S \right)
+\end{equation}
+
+\end{definition}
+
+\subsection{\label{subsec:Equijoin}Equijoin}
+The equijoin operator for relational databases enforces equality between specified subsets of the attributes of the relations. Then, the temporal equijoin operator is defined as the temporal join operator.
+
+\begin{definition}
+ \label{def:equijoin}
+Equijoin. Let $R$ and $S$ be two relations and $r, s$ be the instances of each relation respectively. $A , B$ are the sets of the attributes for the relations $R$ and $D$ respectively. And let $A' \subseteq A$ and $B' \subseteq B$. Then, the temporal equijoin is defined as follows:
+\begin{equation}
+ \label{eq:equijoin}
+R \Join_{r\left[A' \right] = s\left[B' \right]}^{T} S =  \sigma_{r\left[A' \right] = s\left[B' \right]} \left(R \times^T S \right)
+\end{equation}
+\end{definition}
+
+
+\subsubsection{\label{subsubsec:temporal-equijoin}Temporal Equijoin}
+The temporal equijoin is an equijoin operator in which the subset of attributes in the equijoin condition, are part of the primary key. Hence, the operator is defined as follows:
+
+\begin{definition}
+\label{def:temporal-equijoin}
+Temporal equijoin ($R$ TE-join $S$). Let $R, S$ be two relations and $r, s$ the instances of each relation respectively. The sets $A, B$ are the attributes of each relation. And $ID \subseteq A; ID \subseteq B$ is the primary key of both relations. The temporal equijoin operator is defined as follows:
+\begin{equation}
+ \label{eq:temporal-equijoin} 
+R \mbox{TE-join} S \equiv R \Join_{r\left[ID\right] = s\left[ID\right]}^{T} S
+\end{equation}
+
+
+\end{definition}
+
+
+%The following example illustrates the behaviour of the join operator in a crisp temporal database.
+% \begin{table}
+% \centering
+% \caption{Join Employees - Address.}
+% 
+% \begin{tabular}{c c c c c c c c c }
+% \hline
+% ID & Job & Works for & Start & Finish & Adr. & Start & Finish \\ \hline
+% 1 & Prof. & 4 & 5 & 10 & C/ Camino de ronda & - & 12 \\
+% \cellcolor[gray]{0.9}
+% 1 & \cellcolor[gray]{0.9} Prof. &\cellcolor[gray]{0.9} 4 &\cellcolor[gray]{0.9} 5 &\cellcolor[gray]{0.9} 10 &\cellcolor[gray]{0.9} C/ Manuel de Falla &\cellcolor[gray]{0.9} 12 &\cellcolor[gray]{0.9} - \\ 
+% 2 & Tech. & 4 & 3 & 7  & C/ Recogidas & - & - \\ 
+% 3 & Account. & 4  & 4 & 10 & C/ Pintor Maldonado & - & - \\
+% 4 & Adm. & - & 1 & -& C/ Mesones & - & - \\
+% 1 & Prof. & 4 & 11 & - & C/ Manuel de Falla & 12 & - \\
+% 1 & Prof. & 4 & 11 & - & C/ Camino de ronda & - & 12 \\
+% \hline 
+% \end{tabular}
+% \label{table:join-employees-address}
+% 
+% \vspace{10pt}
+% 
+% 
+% \end{table}
+% 
+% \vspace{-25pt}
+
+
+
+
+
+
+
+
+
+\newpage
 
 \section*{Acknowledgements}
 %
