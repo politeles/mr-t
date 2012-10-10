@@ -23,97 +23,118 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.metamodel.binding.HibernateTypeDescriptor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
 
 /**
- * The hibernate type for the primary key.
+ * Possibilistic Time Point Type.
+ * This class allows the persistence in Hibernate for the class 
+ * Possibilistic Time Point.
  * @author Jose Enrique Pons Frías <jpons@decsai.ugr.es>
- * First version 01/10/2012
+ * First version 02/10/2012
  * 
  */
-public class TemporalPKType implements CompositeUserType{
+public class PossibilisticTPType implements CompositeUserType{
+    private static final String MAIN_POINT = "mainpoint";
+    private static final String LEFT_SHIFT = "leftshift";
+    private static final String RIGHT_SHIFT = "rightshift";
 
+    public PossibilisticTPType() {
+        System.out.println("Creacion");
+    }
+    
+    
+    
+    
     public String[] getPropertyNames() {
-        return new String[]{"id","vid"};
+        
+        return new String[]{MAIN_POINT,LEFT_SHIFT,RIGHT_SHIFT};
     }
 
     public Type[] getPropertyTypes() {
         return new Type[]{
-        (Type)StandardBasicTypes.INTEGER, (Type)StandardBasicTypes.INTEGER
+          StandardBasicTypes.DATE,
+          StandardBasicTypes.DATE,
+          StandardBasicTypes.DATE
         };
-        }
-    
+    }
 
     public Object getPropertyValue(Object o, int i) throws HibernateException {
-        TemporalPK tpk = (TemporalPK)o;
-        Object result= null;
+        PossibilisticTP ptp = (PossibilisticTP)o;
+        Object result = null;
         switch(i){
-            case 0: result = (Object) tpk.getId();
+            case 0: result = (Object) ptp.mainPoint;
                 break;
-            case 1: result = (Object) tpk.getVid();
-                break; 
+            case 1: result = (Object) ptp.leftShift;
+                break;
+            case 2: result = (Object) ptp.rightShift;
+                break;
         }
         return result;
     }
 
     public void setPropertyValue(Object component, int property, Object val) throws HibernateException {
-        TemporalPK tpk = (TemporalPK)component;
-        Integer  set = (Integer)val;
+        PossibilisticTP ptp = (PossibilisticTP) component;
+        Date date = (Date) val;
         switch(property){
-            case 0: 
-                tpk.setId(set);
+            case 0: ptp.setMainPoint(date);
                 break;
-            case 1:
-                tpk.setVid(set);
+            case 1: ptp.setLeftShift(date);
                 break;
+            case 2: ptp.setRightShift(date);
+                break;
+                
         }
     }
 
     public Class returnedClass() {
-        return TemporalPK.class;
+        return PossibilisticTP.class;
     }
 
     public boolean equals(Object o, Object o1) throws HibernateException {
-        TemporalPK tp1,tp2;
-        tp1 = (TemporalPK) o;
-        tp2 = (TemporalPK) o1;
+        PossibilisticTP p1,p2;
+        p1 = (PossibilisticTP) o;
+        p2 = (PossibilisticTP) o1;
+        
         boolean result = false;
-        if(tp1.getId() == tp2.getId() && tp1.getVid() == tp2.getVid()){
+        if(p1.getMainPoint().compareTo(p2.getMainPoint())==0){
             result = true;
         }
         return result;
-        
     }
 
     public int hashCode(Object o) throws HibernateException {
-        return ((TemporalPK)o).hashCode();
+        return ((PossibilisticTP)o).hashCode();
     }
 
     public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor si, Object o) throws HibernateException, SQLException {
-        Integer id = (Integer) StandardBasicTypes.INTEGER.nullSafeGet(rs, names[0], si);
-        Integer vid = (Integer) StandardBasicTypes.INTEGER.nullSafeGet(rs, names[1], si);
-        
-        return new TemporalPK(id,vid);
-        
+       Date mainpoint = (Date) StandardBasicTypes.DATE.nullSafeGet(rs, names[0], si);
+       Date left = (Date)StandardBasicTypes.DATE.nullSafeGet(rs, names[1], si);
+       Date right = (Date) StandardBasicTypes.DATE.nullSafeGet(rs, names[2], si);
+       
+       return new PossibilisticTP(mainpoint, left, right);
+       
     }
 
     public void nullSafeSet(PreparedStatement ps, Object o, int index, SessionImplementor si) throws HibernateException, SQLException {
-        TemporalPK value = (TemporalPK)o;
-        Integer id = value.getId();
-        Integer vid = value.getVid();
-        StandardBasicTypes.INTEGER.nullSafeSet(ps, id, index, si);
-        StandardBasicTypes.INTEGER.nullSafeSet(ps, vid, index+1, si);
+        PossibilisticTP value = (PossibilisticTP) o;
+        Date mainpoint = value.getMainPoint();
+        Date left = value.getLeftShift();
+        Date right = value.getRightShift();
         
+        StandardBasicTypes.DATE.nullSafeSet(ps, mainpoint, index, si);
+        StandardBasicTypes.DATE.nullSafeSet(ps, left, index+1, si);
+        StandardBasicTypes.DATE.nullSafeSet(ps, right, index+2, si);
     }
 
     public Object deepCopy(Object o) throws HibernateException {
-        TemporalPK pK = (TemporalPK) o;
-        return new TemporalPK(pK.getId(), pK.getVid());
+        PossibilisticTP val = (PossibilisticTP) o;
+        //TODO: review this when the implementation change
+        return new PossibilisticTP(val.getMainPoint(), val.getLeftShift(), val.getRightShift());
     }
 
     public boolean isMutable() {
@@ -131,5 +152,6 @@ public class TemporalPKType implements CompositeUserType{
     public Object replace(Object o, Object o1, SessionImplementor si, Object o2) throws HibernateException {
         return deepCopy(o);
     }
+    
 
 }
