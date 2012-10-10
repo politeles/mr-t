@@ -23,8 +23,9 @@ package es.jpons.persistence.util;
 import es.jpons.persistence.interceptor.TemporalInterceptor;
 import java.util.List;
 import java.util.Properties;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -42,7 +43,7 @@ private static TemporalHibernateUtil instance;
 private static  SessionFactory factory;
 private static Properties prop;
 private static String rn;
-private static Logger log = LogManager.getLogger(TemporalHibernateUtil.class.getName());
+private static Logger log = Logger.getLogger(TemporalHibernateUtil.class.getName());
 
 //    private static  AnnotationConfiguration config = new AnnotationConfiguration().setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect").
 //                setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver").

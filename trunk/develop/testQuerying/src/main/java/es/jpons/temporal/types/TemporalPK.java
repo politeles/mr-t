@@ -21,6 +21,8 @@ package es.jpons.temporal.types;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  * Persistence class for the primary key in temporal databases.
@@ -30,8 +32,9 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class TemporalPK implements Serializable{
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer vid;
 
     public TemporalPK() {

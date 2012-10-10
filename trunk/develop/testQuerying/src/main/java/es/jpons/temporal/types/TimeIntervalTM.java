@@ -17,40 +17,50 @@
  * MA 02110-1301  USA
  */
 
-package es.jpons.persistence.interceptor;
+package es.jpons.temporal.types;
 
 import java.io.Serializable;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import org.hibernate.EmptyInterceptor;
-import org.hibernate.Session;
-import org.hibernate.type.Type;
+import java.util.Date;
+import javax.persistence.Embeddable;
 
 /**
- * Interceptor for the temporal dml.
+ * The representation of a time interval in the triangular model
  * @author Jose Enrique Pons Frías <jpons@decsai.ugr.es>
- * First version 28/09/2012
+ * First version 02/10/2012
  * 
  */
-public class TemporalInterceptor extends EmptyInterceptor{
+@Embeddable
+public class TimeIntervalTM implements Serializable{
 
-    private Session session;
-    private static Logger log = LogManager.getLogger(
-            TemporalInterceptor.class);
-
-    @Override
-    public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-//        return super.onSave(entity, id, state, propertyNames, types);
-        
-        log.debug("Saved object");
-        return false;
+    protected Date ix;
+    protected Date iy;
+    
+    
+   
+/**
+ * Default constructor.
+ */
+    public TimeIntervalTM() {
     }
-
-    @Override
-    public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-        super.onDelete(entity, id, state, propertyNames, types);
+/**
+ * Contructor for the triangular model.
+ * @param ix The coodinate in the x axis.
+ * @param iy  The coordinate in the y axis.
+ */
+    public TimeIntervalTM(Date ix, Date iy) {
+        this.ix = ix;
+        this.iy = iy;
     }
+    
+    
+    public void convertFromInterval(Date start,Date end){
+        if(start!=null && end != null){
+            this.ix = new Date((start.getTime() + end.getTime()) /2);
+            this.iy = new Date((end.getTime()-start.getTime())/2);
+        }
+    }
+    
+    
     
     
     

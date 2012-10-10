@@ -9,9 +9,9 @@ package es.jpons.persistence;
 
 import java.util.Properties;
 import javax.naming.NamingException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.hibernate.SessionFactory;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 
 /**
