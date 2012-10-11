@@ -22,6 +22,8 @@ import es.jpons.persistence.constants.OpenInterval;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Embeddable;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 /**
  * Possibilistic Valid-time period. This is a class for representing a
@@ -118,6 +120,47 @@ public class PossibilisticVTP implements Serializable {
                 this.side = OpenInterval.FB;
                 break;
         }
+    }
+    
+    
+    public PossibilisticVTP(Integer sday,Integer smonth,Integer syear,Integer eday,Integer emonth,Integer eyear){
+        DateTime dateStartingMainPoint,dateStartingLeft,dateStartingRight;
+            DateTime dateEndingMainPoint,dateEndingLeft,dateEndingRight;
+            
+            dateStartingMainPoint = new DateTime(syear,smonth, sday, 0, 0);
+            
+          
+            dateStartingLeft = dateStartingMainPoint.minusDays(3);
+            dateStartingRight = dateStartingMainPoint.plusDays(3);
+            
+            Duration d = new Duration(dateStartingLeft, dateStartingMainPoint);
+            Duration d1 = new Duration(dateStartingMainPoint, dateStartingRight);
+            
+            
+            
+            
+            dateEndingMainPoint = new DateTime(eyear,emonth, eday, 0, 0);
+            dateEndingLeft = dateEndingMainPoint.minusDays(3);
+            dateEndingRight = dateEndingMainPoint.plusDays(3);
+            
+            Duration d2 = new Duration(dateEndingLeft, dateEndingMainPoint);
+            Duration d3 = new Duration(dateEndingMainPoint, dateEndingRight);
+            
+            
+            PossibilisticTP start, end;
+            PossibilisticVTP pvp;
+            
+//            start = new PossibilisticTP(
+//                    dateStartingMainPoint.toDate(),
+//                    dateStartingLeft.toDate(),
+//                    dateStartingRight.toDate());
+//            end = new PossibilisticTP(   
+//                    dateEndingMainPoint.toDate(),
+//                    dateEndingLeft.toDate(),
+//                    dateEndingRight.toDate());
+            
+            pvp = new PossibilisticVTP(dateStartingMainPoint.toDate(),d.getMillis(),d1.getMillis(),dateEndingMainPoint.toDate(),d2.getMillis(),d3.getMillis());
+           
     }
 
     /**
@@ -259,11 +302,29 @@ public class PossibilisticVTP implements Serializable {
 
     @Override
     public String toString() {
-        return "PossibilisticVTP{" + "startVT="
-                + //                startVT 
-                //                +
-                ", endVT="
-                + //                endVT 
-                +'}';
+        String result = new String();
+        
+        if(this.getSide()!=null && this.getSide().compareTo(OpenInterval.FB)==0){
+            result += " [ FB ,";
+        }else{
+            DateTime mp = new DateTime(this.startMP);
+            DateTime left = new DateTime(mp.minus(this.startLeft));
+            DateTime right = new DateTime(mp.plus(this.startRight));
+            result += " [ ( " + left + " , " + mp + " , " + right + " ) ,";
+        }
+        
+        if(this.getSide()!=null && this.getSide().compareTo(OpenInterval.UC)==0){
+            result += "  UC ";
+        }else{
+             DateTime mp = new DateTime(this.endMP);
+            DateTime left = new DateTime(mp.minus(this.endLeft));
+            DateTime right = new DateTime(mp.plus(this.endRight));
+            result += "  ( " + left + " , " + mp + " , " + right + " ) ]";
+        }
+        
+        
+        
+        
+        return result;
     }
 }
