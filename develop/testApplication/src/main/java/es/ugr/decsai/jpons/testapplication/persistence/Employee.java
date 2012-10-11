@@ -18,10 +18,12 @@
  */
 package es.ugr.decsai.jpons.testapplication.persistence;
 
+import es.jpons.temporal.types.PossibilisticVTP;
 import es.jpons.temporal.types.TemporalPK;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -61,6 +63,19 @@ public class Employee implements Serializable {
     private String name;
 
     //valid time
+    @Embedded
+    @Columns(columns={
+        @Column(name="startMP"),
+        @Column(name="startR"),
+        @Column(name="startL"),
+        @Column(name="startMP"),
+        @Column(name="startR"),
+        @Column(name="startL")
+    })
+    protected PossibilisticVTP pvp;
+    
+    
+    
     public Employee() {
     }
 
@@ -78,6 +93,14 @@ public class Employee implements Serializable {
 
     public void setTid(TemporalPK tid) {
         this.tid = tid;
+    }
+
+    public PossibilisticVTP getPvp() {
+        return pvp;
+    }
+
+    public void setPvp(PossibilisticVTP pvp) {
+        this.pvp = pvp;
     }
     
 
@@ -105,6 +128,7 @@ public class Employee implements Serializable {
 //        this.vid = vid;
 //    }
 
+    
     public String getName() {
         return name;
     }
