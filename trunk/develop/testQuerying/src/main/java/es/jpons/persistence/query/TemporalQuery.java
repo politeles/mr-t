@@ -41,7 +41,7 @@ public class TemporalQuery {
     
     protected Criteria crispCriteria;
     protected Criteria temporalCriteria;
-    protected Double weight;
+    protected Double weight = 0.5D;
     protected AllenRelation  ar;
     protected PossibilisticVTP pvp;
     
@@ -86,6 +86,10 @@ public class TemporalQuery {
                             break;
             case after: this.temporalCriteria = CriteriaAllenRelations.after(this.temporalCriteria, pvp);
                 break;
+            case meets: this.temporalCriteria = CriteriaAllenRelations.meets(this.temporalCriteria, pvp);
+                break;
+            case meet_by: 
+                break;
         }
     }
     
@@ -102,12 +106,22 @@ public class TemporalQuery {
         List<QueryResult> merge = combine(crispResults, temporalResults);
         
         
-//        for(int i=0;i<merge.size();i++){
-//            Double sat = 0.0D;
-//            switch(ar){
-//                case before: sat = CriteriaAllenRelations.computeBeforeSatisfactionDegree(pvp, pvp);///TODO:por aqui
-//            }
-//        }
+        for(QueryResult q:merge){
+            
+            
+            switch(ar){
+                case before: q.temporalSatisfaction = CriteriaAllenRelations.computeBeforeSatisfactionDegree(q.vtp, pvp);
+                    break;
+                    // note that the after relation is the inverse of the before:
+                case after: q.temporalSatisfaction = CriteriaAllenRelations.computeBeforeSatisfactionDegree(pvp, q.vtp);
+                    break;
+                case meets: q.temporalSatisfaction = CriteriaAllenRelations.computeMeetsSatisfactionDegree(q.vtp, pvp);
+                    break;
+                case meet_by: q.temporalSatisfaction = CriteriaAllenRelations.computeMeetsSatisfactionDegree(pvp, q.vtp);
+            }
+           
+            q.aggregation = weight*(q.crispSatisfaction) + (1-weight)*q.temporalSatisfaction;
+        }
         
         
         return merge;

@@ -77,6 +77,20 @@ public class QueryResult {
         this.aggregation = aggregation;
     }
 
+    public Object getEntity() {
+        return entity;
+    }
+
+    public PossibilisticVTP getVtp() {
+        return vtp;
+    }
+
+    public TemporalPK getKey() {
+        return key;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 7;
