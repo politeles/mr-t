@@ -285,7 +285,7 @@ public class TemporalPersistenceManager {
                 Duration left = new Duration(startmp, closeMp);
                 Duration right = new Duration(closeMp, newleft);
 
-                toClose.setEndMP(closeMp.toDate());
+                toClose.setEndMP(closeMp.getMillis());
                 toClose.setEndLeft(left.getMillis());
                 toClose.setEndRight(right.getMillis());
 
