@@ -22,6 +22,7 @@ import es.jpons.persistence.constants.OpenInterval;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
@@ -42,15 +43,19 @@ public class PossibilisticVTP implements Serializable {
      * The class is composed by two time points, also a triangular
      * representation is provided.
      */
-    protected Date startMP;
+    protected Long startMP;
     protected Long startLeft;
     protected Long startRight;
-    protected Date endMP;
+    protected Long endMP;
     protected Long endLeft;
     protected Long endRight;
     protected Long ix;
     protected Long iy;
     protected OpenInterval side;
+    @Transient
+    protected Date startDate;
+    @Transient
+    protected Date endDate;
 
 //    @Embedded
 //     @Type(type = "es.jpons.temporal.types.PossibilisticTPType")
@@ -95,12 +100,15 @@ public class PossibilisticVTP implements Serializable {
  * @param endRight  The right side of the end point.
  */
     public PossibilisticVTP(Date startMP, Long startLeft, Long startRight, Date endMP, Long endLeft, Long endRight) {
-        this.startMP = startMP;
+        this.startMP = startMP.getTime();
         this.startLeft = startLeft;
         this.startRight = startRight;
-        this.endMP = endMP;
+        this.endMP = endMP.getTime();
         this.endLeft = endLeft;
         this.endRight = endRight;
+        
+        this.startDate = startMP;
+        this.endDate = endMP;
         //run the conversion to the triangular model
         convertToTM();
     }
@@ -108,16 +116,18 @@ public class PossibilisticVTP implements Serializable {
     public PossibilisticVTP(Date mainPoint, Long left, Long right, OpenInterval side) {
         switch (side) {
             case UC:
-                this.startMP = mainPoint;
+                this.startMP = mainPoint.getTime();
                 this.startLeft = left;
                 this.startRight = right;
                 this.side = OpenInterval.UC;
+                this.startDate = mainPoint;
                 break;
             case FB:
-                this.endMP = mainPoint;
+                this.endMP = mainPoint.getTime();
                 this.endLeft = left;
                 this.endRight = right;
                 this.side = OpenInterval.FB;
+                this.endDate = mainPoint;
                 break;
         }
     }
@@ -169,8 +179,8 @@ public class PossibilisticVTP implements Serializable {
     private void convertToTM() {
         if (this.startMP != null
                 && this.endMP != null) {
-            this.ix = (this.endMP.getTime() + this.startMP.getTime()) / 2;
-            this.iy = (this.endMP.getTime() - this.startMP.getTime()) / 2;
+            this.ix = (this.endMP + this.startMP) / 2;
+            this.iy = (this.endMP - this.startMP) / 2;
         }
 
 
@@ -182,17 +192,23 @@ public class PossibilisticVTP implements Serializable {
     private void convertToIK() {
         if (this.ix != null
                 && this.iy != null) {
-            this.startMP = new Date(this.ix - this.iy);
-            this.endMP = new Date(this.ix + this.iy);
+            this.startMP = this.ix - this.iy;
+            this.endMP = this.ix + this.iy;
         }
     }
 
-    public Date getStartMP() {
+    public Long getStartMP() {
         return startMP;
     }
 
-    public void setStartMP(Date startMP) {
+    public void setStartMP(Long startMP) {
         this.startMP = startMP;
+        if(startMP==null){
+            this.startDate = null;
+        }else{
+            this.startDate = new Date(startMP);
+        }
+        
     }
 
     public Long getStartLeft() {
@@ -211,12 +227,18 @@ public class PossibilisticVTP implements Serializable {
         this.startRight = startRight;
     }
 
-    public Date getEndMP() {
+    public Long getEndMP() {
         return endMP;
     }
 
-    public void setEndMP(Date endMP) {
+    public void setEndMP(Long endMP) {
         this.endMP = endMP;
+        if(endMP == null){
+            this.endDate = null;
+        }else{
+             this.endDate = new Date(endMP);
+        }
+       
     }
 
     public Long getEndLeft() {
@@ -258,6 +280,29 @@ public class PossibilisticVTP implements Serializable {
     public void setSide(OpenInterval side) {
         this.side = side;
     }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+        if(startDate != null){
+            this.startMP = startDate.getTime();
+        }
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+        if(endDate!=null){
+            this.endMP = endDate.getTime();
+        }
+    }
+    
     
     
 
