@@ -88,8 +88,27 @@ public class TemporalQuery {
                 break;
             case meets: this.temporalCriteria = CriteriaAllenRelations.meets(this.temporalCriteria, pvp);
                 break;
-            case meet_by: 
+            case meet_by: this.temporalCriteria = CriteriaAllenRelations.meet_by(temporalCriteria, pvp);
                 break;
+            case overlaps: this.temporalCriteria = CriteriaAllenRelations.overlaps(temporalCriteria, pvp);
+                break;
+            case overlapped_by: this.temporalCriteria = CriteriaAllenRelations.overlapped_by(temporalCriteria, pvp);
+                break;
+            case during: this.temporalCriteria = CriteriaAllenRelations.during(temporalCriteria, pvp);
+                break;
+            case contains: this.temporalCriteria  = CriteriaAllenRelations.contains(temporalCriteria, pvp);
+                break;
+            case equal: this.temporalCriteria = CriteriaAllenRelations.equals(temporalCriteria, pvp);
+                break;
+            case starts: 
+            case started_by:
+                this.temporalCriteria = CriteriaAllenRelations.starts(temporalCriteria, pvp);
+                break;
+            case finishes:
+            case finished_by:
+                this.temporalCriteria = CriteriaAllenRelations.ends(temporalCriteria, pvp);
+                break;
+            
         }
     }
     
@@ -118,6 +137,16 @@ public class TemporalQuery {
                 case meets: q.temporalSatisfaction = CriteriaAllenRelations.computeMeetsSatisfactionDegree(q.vtp, pvp);
                     break;
                 case meet_by: q.temporalSatisfaction = CriteriaAllenRelations.computeMeetsSatisfactionDegree(pvp, q.vtp);
+                    break;
+                case overlaps: q.temporalSatisfaction = CriteriaAllenRelations.computeOverlapsSatisfactionDegree(q.vtp, pvp);
+                    break;
+                case overlapped_by: q.temporalSatisfaction = CriteriaAllenRelations.computeOverlapsSatisfactionDegree(pvp,q.vtp);
+                    break;
+                case during: q.temporalSatisfaction = CriteriaAllenRelations.computeDuringSatisfactionDegree(q.vtp, pvp);
+                    break;
+                case contains: q.temporalSatisfaction = CriteriaAllenRelations.computeContainsSatisfactionDegree(q.vtp, pvp);
+                    break;
+                
             }
            
             q.aggregation = weight*(q.crispSatisfaction) + (1-weight)*q.temporalSatisfaction;
