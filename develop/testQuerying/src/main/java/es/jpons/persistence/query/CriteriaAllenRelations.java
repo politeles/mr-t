@@ -56,36 +56,49 @@ public class CriteriaAllenRelations {
 
     public static Double computeBeforeSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
         Double satisfaction = 0.0;
-
-        Double a = 0.0 + i.getEndLeft();
-        Double b = 0.0 + i.getEndRight();
-        Double d = 0.0 + i.getEndMP();
-
-
-        Double a1 = 0.0 + j.getStartLeft();
-        Double b1 = 0.0 + j.getStartRight();
-        Double d1 = 0.0 + j.getStartMP();
-        if (log.isDebugEnabled()) {
-            log.debug("a1: " + a1 + " b1: " + b1 + " d1: " + d1);
+        boolean inside = false;
+        
+        if(i.getEndMP() < j.getStartMP()){
+            inside = true;
         }
-        Double y1 = 0.0, y2 = 0.0, x1 = 0.0, x2 = 0.0;
-        x1 += (a * (d1 - a1) + a1 * d) / (a1 + a);
-        y1 += -(-d1 + d - a) / (a1 + a);
-
-        if (Math.abs(b - a1) > 0) {
-            x2 += (b * (a1 - d1) + a1 * d) / (b - a1);
-            y2 += (-d1 + d + b) / (b - a1);
-        }
-
-        Double max = 0.0;
-        if (y1 > 0 && y1 <= 1 && y2 >= 0 && y2 <= 1) {
-            satisfaction += (y1 >= y2) ? y1 : y2;
-        } else {
+        
+        
+//
+//        Double a = 0.0 + i.getEndLeft();
+//        Double b = 0.0 + i.getEndRight();
+//        Double d = 0.0 + i.getEndMP();
+//
+//
+//        Double a1 = 0.0 + j.getStartLeft();
+//        Double b1 = 0.0 + j.getStartRight();
+//        Double d1 = 0.0 + j.getStartMP();
+//        if (log.isDebugEnabled()) {
+//            log.debug("a1: " + a1 + " b1: " + b1 + " d1: " + d1);
+//        }
+//        Double y1 = 0.0, y2 = 0.0, x1 = 0.0, x2 = 0.0;
+//        x1 += (a * (d1 - a1) + a1 * d) / (a1 + a);
+//        y1 += -(-d1 + d - a) / (a1 + a);
+//
+//        if (Math.abs(b - a1) > 0) {
+//            x2 += (b * (a1 - d1) + a1 * d) / (b - a1);
+//            y2 += (-d1 + d + b) / (b - a1);
+//        }
+//
+//        Double max = 0.0;
+//        if (y1 > 0 && y1 <= 1 && y2 >= 0 && y2 <= 1) {
+//            satisfaction += (y1 >= y2) ? y1 : y2;
+//        } else {
+//            satisfaction = 1.0;
+//        }
+//        if (log.isDebugEnabled()) {
+//            log.debug("a: " + a + " b: " + b + " d: " + d + " y1: " + y1 + " y2 :" + y2 + "satisfaction; " + satisfaction);
+//        }
+        
+        satisfaction = computeIntersectionLt(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getStartLeft(), j.getStartMP());
+        if(inside && satisfaction ==0){
             satisfaction = 1.0;
         }
-        if (log.isDebugEnabled()) {
-            log.debug("a: " + a + " b: " + b + " d: " + d + " y1: " + y1 + " y2 :" + y2 + "satisfaction; " + satisfaction);
-        }
+        
         return satisfaction;
     }
 
@@ -208,8 +221,8 @@ public class CriteriaAllenRelations {
      */
     public static Criteria contains(Criteria initializedCriteria, PossibilisticVTP pvp) {
         Long jstart = pvp.getStartMP();
-        Long jright = pvp.getEndMP() + pvp.getEndRight();
-        Long jleft = pvp.getStartMP() - pvp.getStartLeft();
+        Long jright = pvp.getStartMP() + pvp.getStartRight();
+        Long jleft = pvp.getEndMP() - pvp.getEndLeft();
         Long jend = pvp.getEndMP();
 
         initializedCriteria = initializedCriteria.add(
@@ -271,6 +284,14 @@ public class CriteriaAllenRelations {
     }
 
     public static Double computeOverlapsSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
+        boolean inside = false;
+
+        if ((i.getStartMP() + i.getStartRight() < j.getStartMP())
+                && (i.getEndMP() - i.getEndLeft() > j.getStartMP())
+                && (i.getEndMP() + i.getEndRight() < j.getEndMP())) {
+            inside = true;
+        }
+
         Double a, b, c, max;
 
         a = computeIntersectionLt(i.getStartLeft(), i.getStartRight(), i.getStartMP(), j.getStartLeft(), j.getStartMP());
@@ -282,10 +303,23 @@ public class CriteriaAllenRelations {
         c = computeIntersectionLt(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndMP());
         max = (c > max) ? c : max;
 
+        if (inside && max == 0) {
+            max = 1.0;
+        }
+
         return max;
     }
 
     public static Double computeContainsSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
+
+        boolean inside = false;
+
+        if ((i.getStartMP() < j.getStartMP() && i.getEndMP() >= (j.getEndMP() - j.getEndLeft()))
+                || (i.getStartMP() <= j.getStartMP() + j.getStartRight()) && (i.getEndMP() > j.getEndMP())) {
+            inside = true;
+        }
+
+
         Double min = 1.0, max1 = 0.0, max2 = 0.0, a, b, c, d;
 
         a = computeIntersectionLt(i.getStartLeft(), i.getStartRight(), i.getStartMP(), j.getStartLeft(), j.getStartMP());
@@ -299,6 +333,9 @@ public class CriteriaAllenRelations {
         max2 = (c > d) ? c : d;
 
         min = (max1 < max2) ? max1 : max2;
+        if (inside && min == 0) {
+            min = 1.0;
+        }
 
 
 
@@ -306,7 +343,14 @@ public class CriteriaAllenRelations {
     }
 
     public static Double computeDuringSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
+        boolean inside = false;
+        if ((i.getStartMP() > j.getStartMP() && i.getEndMP() <= (j.getEndMP() + j.getEndRight()))
+                || (i.getStartMP() >= (j.getStartMP() - j.getStartLeft()) && i.getEndMP() < j.getEndMP())) {
+            inside = true;
+        }
+
         Double min = 1.0, max1 = 0.0, max2 = 0.0, a, b, c, d;
+
 
         a = computeIntersectionGt(i.getStartLeft(), i.getStartRight(), i.getStartMP(), j.getStartLeft(), j.getStartRight(), j.getStartMP());
         b = computeIntersectionLte(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndRight(), j.getEndMP());
@@ -319,34 +363,36 @@ public class CriteriaAllenRelations {
         max2 = (c > d) ? c : d;
 
         min = (max1 < max2) ? max1 : max2;
-
+        if (inside && min == 0) {
+            min = 1.0;
+        }
 
 
         return min;
     }
 
     public static Double computeEqualsSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
-        Double max, a, b;
+        Double min, a, b;
 
         a = computeIntersections(i.getStartLeft(), i.getStartRight(), i.getStartMP(), j.getStartLeft(), j.getStartRight(), j.getStartMP());
         b = computeIntersections(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndRight(), j.getEndMP());
 
-        max = (a > b) ? a : b;
+        min = (a < b) ? a : b;
 
-        return max;
+        return min;
     }
-    
+
     public static Double computeStartsSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
         Double res;
-         res = computeIntersections(i.getStartLeft(), i.getStartRight(), i.getStartMP(), j.getStartLeft(), j.getStartRight(), j.getStartMP());
+        res = computeIntersections(i.getStartLeft(), i.getStartRight(), i.getStartMP(), j.getStartLeft(), j.getStartRight(), j.getStartMP());
         return res;
     }
+
     public static Double computeFinishesSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j) {
         Double res;
-         res = computeIntersections(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndRight(), j.getEndMP());
+        res = computeIntersections(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndRight(), j.getEndMP());
         return res;
     }
-    
 
     /**
      * Computes the intersection between two triangles

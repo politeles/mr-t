@@ -20,6 +20,7 @@ package es.jpons.temporal.types;
 
 import es.jpons.persistence.constants.OpenInterval;
 import java.io.Serializable;
+import java.rmi.server.Skeleton;
 import java.util.Date;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
@@ -132,16 +133,28 @@ public class PossibilisticVTP implements Serializable {
         }
     }
     
-    
-    public PossibilisticVTP(Integer sday,Integer smonth,Integer syear,Integer eday,Integer emonth,Integer eyear){
+    /**
+     * Constructor
+     * @param sday Starting day of month
+     * @param smonth Starting month of year
+     * @param syear Starting year
+     * @param sLeftDays Number of days of the left starting margin.
+     * @param sRightDays Number of days of the right starting margin.
+     * @param eday Ending day of month.
+     * @param emonth Ending month of year.
+     * @param eyear Ending year.
+     * @param eLeftDays Number of days of the ending margin.
+     * @param eRightDays Number of days of the right ending margin.
+     */
+    public PossibilisticVTP(Integer sday,Integer smonth,Integer syear,Integer sLeftDays, Integer sRightDays,Integer eday,Integer emonth,Integer eyear,Integer eLeftDays, Integer eRightDays){
         DateTime dateStartingMainPoint,dateStartingLeft,dateStartingRight;
             DateTime dateEndingMainPoint,dateEndingLeft,dateEndingRight;
             
             dateStartingMainPoint = new DateTime(syear,smonth, sday, 0, 0);
             
           
-            dateStartingLeft = dateStartingMainPoint.minusDays(3);
-            dateStartingRight = dateStartingMainPoint.plusDays(3);
+            dateStartingLeft = dateStartingMainPoint.minusDays(sLeftDays);
+            dateStartingRight = dateStartingMainPoint.plusDays(sRightDays);
             
             Duration d = new Duration(dateStartingLeft, dateStartingMainPoint);
             Duration d1 = new Duration(dateStartingMainPoint, dateStartingRight);
@@ -150,16 +163,17 @@ public class PossibilisticVTP implements Serializable {
             
             
             dateEndingMainPoint = new DateTime(eyear,emonth, eday, 0, 0);
-            dateEndingLeft = dateEndingMainPoint.minusDays(3);
-            dateEndingRight = dateEndingMainPoint.plusDays(3);
+            dateEndingLeft = dateEndingMainPoint.minusDays(eLeftDays);
+            dateEndingRight = dateEndingMainPoint.plusDays(eRightDays);
             
             Duration d2 = new Duration(dateEndingLeft, dateEndingMainPoint);
             Duration d3 = new Duration(dateEndingMainPoint, dateEndingRight);
             
             
-            PossibilisticTP start, end;
+//            PossibilisticTP start, end;
             PossibilisticVTP pvp;
             
+//            
 //            start = new PossibilisticTP(
 //                    dateStartingMainPoint.toDate(),
 //                    dateStartingLeft.toDate(),
@@ -169,7 +183,17 @@ public class PossibilisticVTP implements Serializable {
 //                    dateEndingLeft.toDate(),
 //                    dateEndingRight.toDate());
             
-            pvp = new PossibilisticVTP(dateStartingMainPoint.toDate(),d.getMillis(),d1.getMillis(),dateEndingMainPoint.toDate(),d2.getMillis(),d3.getMillis());
+            //PossibilisticVTP(dateStartingMainPoint.toDate(),d.getMillis(),d1.getMillis(),dateEndingMainPoint.toDate(),d2.getMillis(),d3.getMillis());
+            this.startMP = dateStartingMainPoint.getMillis();
+            this.startLeft = d.getMillis();
+            this.startRight = d1.getMillis();
+            this.endMP = dateEndingMainPoint.getMillis();
+            this.endLeft = d2.getMillis();
+            this.endRight = d3.getMillis();
+            this.startDate = dateStartingMainPoint.toDate();
+            this.endDate = dateEndingMainPoint.toDate();
+            
+            convertToTM();
            
     }
 
