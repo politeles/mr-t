@@ -10,6 +10,9 @@
 \usepackage{makeidx}  % allows for indexgeneration
 \usepackage{color}
 \usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{algorithm2e}
 
 \hyphenation{pro-per-ties}
 \hyphenation{ge-ne-ral-ly}
@@ -45,6 +48,12 @@
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\I}{\mathcal{I}}
 \renewcommand{\Join}{\bowtie}
+
+
+
+\usepackage[textwidth=2.2cm]{todonotes}
+%\usepackage[disable]{todonotes}
+
 %\theoremstyle{definition}
 %\newtheorem{definition}{Definition}
 \begin{document}
@@ -235,6 +244,186 @@ We want to know the possibility of $I$ Before $J$. As a result of triangle's lin
 
 
 
+
+
+\section{\label{sec:evaluation}Evaluation }
+In this section we will explain the evaluation of the Allen's relations in the possibilistic case defined by sets of ill-known constraints.
+First of all, we will consider that the representation for both starting and ending points is a triangular membership function. Therefore, the possibilistic interval is defined by two triangular membership functions.
+The membership function for a time point $X = \left[D, a, b \right]$ is given by the following equation:
+
+\begin{equation}
+ \label{eq:triangular-membership}
+\mu\left(x \right) =
+\begin{cases}
+ 0, & \mbox{ if } x \leq \left(D-a \right) \vee x \geq \left( D+b\right)\\
+1, & \mbox{ if } x = D\\
+\frac{x-(D-a)}{a} , & \mbox{ if } x > \left(D-a \right) \wedge x< D\\
+\frac{D+b-x}{b} , & \mbox{ if } x > D \wedge x< \left(D +b\right)
+\end{cases}
+\end{equation}
+
+The last two cases are based on the equation for the line and a point. The following equations are the membership functions for the ill-known constraints:
+
+\begin{itemize}
+ \item $\left(<, X \right)$:
+	\begin{equation}
+	 \label{eq:ikc-lt}
+	  \mu\left(x \right) =
+	      \begin{cases}
+			  1, & \mbox{ if } x \leq D-a\\
+			  0, & \mbox{ if } x \geq D\\
+			  \frac{x-D}{a} , & \mbox{ if } x > \left(D-a \right) \wedge x< D\\			  
+			  \end{cases}
+	\end{equation}
+\item $\left(\leq, X \right)$
+	\begin{equation}
+		\label{eq:ikc-leq}
+		  \mu\left(x \right) =
+		      \begin{cases}
+				  1, & \mbox{ if } x \leq D\\
+				  0, & \mbox{ if } x \geq D+b\\
+				  \frac{D+b-x}{b} , & \mbox{ if } x > D \wedge x< \left(D+b\right)\\			  
+				  \end{cases}
+		\end{equation}
+\item $\left(>, X \right)$
+	\begin{equation}
+		\label{eq:ikc-gt}
+		  \mu\left(x \right) =
+		      \begin{cases}
+				  0, & \mbox{ if } x \leq D\\
+				  1, & \mbox{ if } x \geq D+b\\
+				  \frac{x-D}{b} , & \mbox{ if } x > D \wedge x< \left(D+b\right)\\			  
+				  \end{cases}
+		\end{equation}
+
+\item $\left(\geq, X \right)$
+	\begin{equation}
+		\label{eq:ikc-geq}
+		  \mu\left(x \right) =
+		      \begin{cases}
+				  0, & \mbox{ if } x \leq \left(D-a \right)\\
+				  1, & \mbox{ if } x \geq D\\
+				  \frac{x-\left(D-a\right)}{a} , & \mbox{ if } x > \left(D-a\right) \wedge x< D\\			  
+				  \end{cases}
+		\end{equation}
+\item $\left(=, X \right)$, see equation \eqref{eq:triangular-membership}.
+
+\item $\left(\neq, X \right)$
+	\begin{equation}
+		\label{eq:ikc-neq}
+		  \mu\left(x \right) =
+		      \begin{cases}
+				  1, & \mbox{ if } x \leq \left(D-a\right) \wedge x \geq \left(D+b \right)\\
+				  \frac{D-x}{a} , & \mbox{ if } x > \left(D-a\right) \wedge x< D\\
+				  \frac{x-D}{b} , & \mbox{ if } x > D \wedge x< \left(D+b \right)\\	
+				  \end{cases}
+		\end{equation}
+
+	
+\end{itemize}
+
+
+
+
+\begin{figure} 
+\centering
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{graphs/lt.eps}
+%   \caption{See equation \eqref{eq:ikc-lt}}
+%   \label{fig:lt}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{graphs/lte.eps}
+%   \caption{See equation \eqref{eq:ikc-leq}}
+%   \label{fig:lte}
+\end{subfigure}
+
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{graphs/gt.eps}
+%   \caption{See equation \eqref{eq:ikc-gt}}
+%   \label{fig:gt}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{graphs/gte.eps}
+%   \caption{See equation \eqref{eq:ikc-gte}}
+%   \label{fig:gte}
+\end{subfigure}
+
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{graphs/eq.eps}
+%   \caption{See equation \eqref{eq:triangular-membership}}
+%   \label{fig:eq}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{graphs/neq.eps}
+%   \caption{See equation \eqref{eq:ikc-neq}}
+%   \label{fig:neq}
+\end{subfigure}
+\caption{Representation for the membership functions for each ill-known constraint.}
+\end{figure}
+
+
+%\begin{definition}
+ \label{def:intersects_lt}
+\begin{algorithm}
+\SetAlgoLined
+ \KwData{Two triangular ill-known values $X=\left[D_x, a_x, b_x \right]$ and $Y=\left[D_y, a_y, b_y \right]$}
+ \KwResult{The intersection of $\left(=, X \right) \wedge \left(<, Y \right)$ }
+$s_1 = -\frac{-D_y+D_x-a_x}{a_x+a_y}$\;
+$s_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}$\;
+
+\eIf{$s_1 \wedge s_2 \not \in \left[0,1 \right]$}{
+   return 0\;
+   }{
+   return $\max \left(s_1, s_2 \right)$\;
+  }
+% \mbox{intersects_lt } \left(\left[D_y,a_y,b_y \right], \left[D_x,a_x,b_x \right]\right)\\
+% s_1 = -\frac{-D_y+D_x-a_x}{a_x+a_y}\\
+% s_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}\\
+\end{algorithm}
+
+
+%\end{definition}
+
+
+
+
+
+
+
+
+Based on this, we are going to implement all the comparisons between two ill-known points.
+% 
+% Consider two ill-known points, $X = \left[D_x, a_x, b_x \right]$ and $Y = \left[D_y, a_y, b_y \right]$. Then to compute $X \leq Y$ we have the following ill-known constraints:
+% 
+% \begin{align}
+% \label{eq:leq_c1}
+%  C_1 \triangleq \left(=, X \right)\\
+% \label{eq:leq_c2}
+% C_2 \triangleq \left(\leq, Y \right)
+% \end{align}
+% 
+% The membership function for the constraint $C_1$ \eqref{eq:leq_c1} is given by equation \eqref{eq:triangular-membership}. The membership function for the constraint $C_2$ is given by the following equation:
+% 
+% \begin{equation}
+%  \label{eq:c2_leq}
+% \mu\left(y \right) = 
+% \begin{cases}
+%  0, & \mbox{ if } y > D\\
+% 1, & \mbox{ if } y \leq \left(D - a \right) \\
+% \frac{}{}, & \mbox{ if }
+% \end{cases}
+% 
+% \end{equation}
 
 
 
