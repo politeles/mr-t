@@ -13,6 +13,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{algorithm2e}
+\usepackage{multirow}
 
 \hyphenation{pro-per-ties}
 \hyphenation{ge-ne-ral-ly}
@@ -372,27 +373,178 @@ The last two cases are based on the equation for the line and a point. The follo
 \end{figure}
 
 
-%\begin{definition}
- \label{def:intersects_lt}
-\begin{algorithm}
-\SetAlgoLined
- \KwData{Two triangular ill-known values $X=\left[D_x, a_x, b_x \right]$ and $Y=\left[D_y, a_y, b_y \right]$}
- \KwResult{The intersection of $\left(=, X \right) \wedge \left(<, Y \right)$ }
-$s_1 = -\frac{-D_y+D_x-a_x}{a_x+a_y}$\;
-$s_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}$\;
 
-\eIf{$s_1 \wedge s_2 \not \in \left[0,1 \right]$}{
-   return 0\;
-   }{
-   return $\max \left(s_1, s_2 \right)$\;
-  }
-% \mbox{intersects_lt } \left(\left[D_y,a_y,b_y \right], \left[D_x,a_x,b_x \right]\right)\\
-% s_1 = -\frac{-D_y+D_x-a_x}{a_x+a_y}\\
-% s_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}\\
+
+The algorithm to compute the intersections between two ill-known constraints is given by the following algorithm:
+\begin{algorithm}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+
+\Input{Two ill-known values $X, Y$ with triangular membership functions and two ill-known constraints in the form $C_1 \triangleq \left(\theta, Y \right)$, $C_2 \triangleq \left(=, X \right)$}
+\Output{The possibility degree for $C_1 \wedge C_2$}
+\caption{Computation of the possibility for two ill-known constraints.}
+ \KwData{\;
+$X=\left[D_x, a_x, b_x \right]$\;
+$Y=\left[D_y, a_y, b_y \right]$\;
+$C_1 \triangleq \left( \theta, Y \right), \theta \in \left(<,\leq,> ,\geq \right)$\;
+$C_2 \triangleq \left( =, X \right)$
+}
+\KwResult{$\Pos \left(C_1 \wedge C_2 \right)$}
+\BlankLine
+\tcc{Based on the standard equation of a line passing through 2 points:}
+gen:$\gets \frac{x-x_1}{x_2-x_1} = \frac{y-y_1}{y_2-y_1}$\;
+\tcc{The definition of the left and the right lines for the ill-known constraint $\left(=, X \right)$:}
+li:$\leftarrow$gen $\left \lbrace x_1 = \left(D_x-a_x\right), x_2 = D_x, y_1 = 0, y_2 = 1 \right \rbrace$\;
+ld:$\leftarrow$gen $\left \lbrace x_1 = \left(D_x+b_x\right), x_2 = D_x, y_1 = 0, y_2 = 1 \right \rbrace$\;
+
+$sol\gets \emptyset$ \tcc*[l]{The set that contains the candidate solutions}
+\Switch{$\theta$}
+{
+\Case{$<$}{
+ld1:$\leftarrow$gen $\left \lbrace x_1 = \left(D_y+a_y\right), x_2 = D_y, y_1 = 1, y_2 = 0 \right \rbrace$\;
+% $sol_1 \leftarrow $ solve (li,ld1 ) = $sol_1 = -\frac{-D_y+D_x-a_x}{a_x+a_y}$\;
+% $sol_2 \leftarrow $ solve (ld,ld1 ) = $sol_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}$\;
+}
+\Case{$\leq$}{
+ld1:$\leftarrow$gen $\left \lbrace x_1 = \left(D_y+b_y\right), x_2 = D_y, y_1 = 0, y_2 = 1 \right \rbrace$\;
+% $sol_1 \leftarrow $ solve (li,ld1 ) = $sol_1 = -\frac{-D_y+D_x-b_y-a_x}{a_x+b_y}$\;
+% $sol_2 \leftarrow $ solve (ld,ld1 ) = $sol_2 = \frac{-D_y+D_x-b_y+b_x}{b_x-b_y}$\;
+}
+\Case{$>$}{
+li1:$\leftarrow$gen $\left \lbrace x_1 = D_y, x_2 = \left(D_y+b_y \right), y_1 = 0, y_2 = 1 \right \rbrace$\;
+% $sol_1 \leftarrow $ solve (li,li1 ) = $sol_1 = -\frac{-D_y+D_x-a_x}{a_x-b_y}$\;
+% $sol_2 \leftarrow $ solve (ld,li1 ) = $sol_2 = \frac{-D_y+D_x+b_x}{b_x+b_y}$\;
+}
+\Case{$\geq$}{
+li1:$\leftarrow$gen $\left \lbrace x_1 = D_y, x_2 = \left(D_y-a_y \right), y_1 = 1, y_2 = 0 \right \rbrace$\;
+% $sol_1 \leftarrow $ solve (li,li1 ) = $sol_1 = -\frac{-D_y+D_x+a_y-a_x}{a_x-a_y}$\;
+% $sol_2 \leftarrow $ solve (ld,li1 ) = $sol_2 = \frac{-D_y+D_x+b_x+a_y}{b_x+a_y}$\;
+}
+\Case{$=$}{
+ld1:$\leftarrow$gen $\left \lbrace x_1 = \left(D_y+b_y\right), x_2 = D_y, y_1 = 0, y_2 = 1 \right \rbrace$\;
+li1:$\leftarrow$gen $\left \lbrace x_1 = D_y, x_2 = \left(D_y-a_y \right), y_1 = 1, y_2 = 0 \right \rbrace$\;
+% $sol_1 \leftarrow $ solve (li,ld1 ) = $sol_1 = -\frac{-D_y+D_x-a_x}{a_x+a_y}$\;
+% $sol_2 \leftarrow $ solve (ld,ld1 ) = $sol_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}$\;
+% $sol_3 \leftarrow $ solve (li,li1 ) = $sol_3 = -\frac{-D_y+D_x+a_y-a_x}{a_x-a_y}$\;
+% $sol_4 \leftarrow $ solve (ld,li1 ) = $sol_4 = \frac{-D_y+D_x+b_x+a_y}{b_x+a_y}$\;
+
+}
+\Case{$\neq$}{
+ld1:$\leftarrow$gen $\left \lbrace x_1 = \left(D_y+a_y\right), x_2 = D_y, y_1 = 1, y_2 = 0 \right \rbrace$\;
+li1:$\leftarrow$gen $\left \lbrace x_1 = D_y, x_2 = \left(D_y+b_y \right), y_1 = 0, y_2 = 1 \right \rbrace$\;
+% $sol_1 \leftarrow $ solve (li,ld1 ) = $sol_1 = -\frac{-D_y+D_x-b_y-a_x}{a_x+b_y}$\;
+% $sol_2 \leftarrow $ solve (ld,ld1 ) = $sol_2 = \frac{-D_y+D_x-b_y+b_x}{b_x-b_y}$\;
+% $sol_3 \leftarrow $ solve (li,li1 ) = $sol_3 = -\frac{-D_y+D_x-a_x}{a_x-b_y}$\;
+% $sol_4 \leftarrow $ solve (ld,li1 ) = $sol_4 = \frac{-D_y+D_x+b_x}{b_x+b_y}$\;
+}
+}
+\tcc{Now compute the intersections between each pair of lines:}
+$sol_1 \leftarrow $ solve (li,ld1 )\;
+$sol_2 \leftarrow $ solve (ld,ld1 )\;
+$sol_3 \leftarrow $ solve (li,li1 )\;
+$sol_4 \leftarrow $ solve (ld,li1 )\;
+\tcc{Finally get the result value:}
+$\max \gets 0$\;
+\lForEach{$sol[i] \in sol$}
+{
+\uIf{$sol[i] \in \left[0, 1 \right] \wedge sol[i] > \max$}{ $\max = sol[i]$\;}
+}
+\KwRet{$\max$\;}
 \end{algorithm}
 
+For a quick reference, the following table \ref{tbl:function-solve} presents the results for the function solve(l1,l2).
 
-%\end{definition}
+% \vspace{-10pt}
+
+\begin{table}
+\centering
+\caption{Results for the function solve}
+
+\begin{tabular}{c l }
+\hline
+Operator & Results \\ \hline
+\multirow{2}{*}{$<$} 
+ & $sol_1 = -\left({-D_y+D_x-a_x}\right)/\left({a_x+a_y}\right)$ \\
+ & $sol_2 = \left({-D_y+D_x+b_x}\right)/\left({b_x+a_y}\right)$ \\ \hline
+\multirow{2}{*}{$\leq$}
+ & $sol_1 = -\left({-D_y+D_x-b_y-a_x}\right)/\left({a_x+b_y}\right)$ \\
+&  $sol_2 = \left({-D_y+D_x-b_y+b_x}\right)/\left({b_x-b_y}\right)$ \\ \hline
+\multirow{2}{*}{$>$}
+& $sol_1 = -\left({-D_y+D_x-a_x}\right)/\left({a_x-b_y}\right)$\\
+& $sol_2 = \left({-D_y+D_x+b_x}\right)/\left({b_x+b_y}\right)$ \\ \hline
+\multirow{2}{*}{$\geq$}
+& $sol_1 = -\left({-D_y+D_x+a_y-a_x}\right)/\left({a_x-a_y}\right)$\\
+& $sol_2 = \left({-D_y+D_x+b_x+a_y}\right)/\left({b_x+a_y}\right)$ \\
+\multirow{4}{*}{$=$}
+& $sol_1 = -\left({-D_y+D_x-a_x}\right)/\left({a_x+a_y}\right)$ \\
+& $sol_2 = \left({-D_y+D_x+b_x}\right)/\left({b_x+a_y}\right)$ \\
+& $sol_3 = -\left({-D_y+D_x+a_y-a_x}\right)/\left({a_x-a_y}\right)$ \\
+& $sol_4 = \left({-D_y+D_x+b_x+a_y}\right)/\left({b_x+a_y}\right)$ \\ \hline
+\multirow{4}{*}{$\neq$}
+& $sol_1 = -\left({-D_y+D_x-b_y-a_x}\right)/\left({a_x+b_y}\right)$ \\
+& $sol_2 = \left({-D_y+D_x-b_y+b_x}\right)/\left({b_x-b_y}\right)$ \\
+& $sol_3 = -\left({-D_y+D_x-a_x}\right)/\left({a_x-b_y}\right)$ \\
+& $sol_4 = \left({-D_y+D_x+b_x}\right)/\left({b_x+b_y}\right)$ \\
+\hline 
+\end{tabular}
+\label{tbl:function-solve}
+
+% \vspace{10pt}
+
+
+\end{table}
+
+% \vspace{-25pt}
+
+
+
+
+
+\begin{table}
+\centering
+\caption{Allen's relations for two ill-known values}
+
+\begin{tabular}{c c c c}
+\hline
+Relation & Crisp relation & Ill-known constraints & Combination \\ \hline
+\multirow{2}{*}{Before}
+&  $e_i < s_j$ & $C_1 \triangleq \left(<, S_j \right)$ & $C_1 \wedge C_2$\\
+& & $C_2 \triangleq \left(= , E_i \right)$ &\\ \hline
+\multirow{4}{*}{Equals}
+&  $e_i = e_j \wedge $ & $C_1 \triangleq \left(=, E_i \right)$ & $C_1 \wedge C_2$\\
+& $s_i = s_j $& $C_2 \triangleq \left(= , E_j \right)$ & $\wedge$\\
+& & $C_3 \triangleq \left(= , S_i \right)$ & $C_3 \wedge C_4$\\
+& & $C_4 \triangleq \left(= , S_j \right)$ &\\ \hline
+\multirow{5}{*}{Overlaps}
+&  $s_i < s_j \wedge $ & $C_1 \triangleq \left(< , S_j \right)$ & $C_1 \wedge C_2$\\
+& $e_i > s_j \wedge $  & $C_2 \triangleq \left(= , S_i \right)$ & $\wedge$\\
+& $e_i < e_j $         & $C_3 \triangleq \left(> , S_j \right)$ & $C_3 \wedge C_4$\\
+&                      & $C_4 \triangleq \left(= , E_i \right)$ & $\wedge $ \\
+&                      & $C_5 \triangleq \left(< , E_j \right)$ & $ C_5 \wedge C_4 $\\ \hline
+\multirow{2}{*}{Meets}
+& $e_i = s_j$ & $C_1 \triangleq \left(= , S_j \right)$ & $C_1 \wedge C_2$\\
+&	      & $C_2 \triangleq \left(= , E_i \right)$ & \\ \hline
+\multirow{5}{*}{During}
+&  $ \left( s_i < s_j \wedge \right. $ & $C_1 \triangleq \left(< , S_j \right)$     & $ \left( C_1 \wedge C_2 \right.$\\
+& $\left. e_i \leq e_j\right) \vee $   & $C_2 \triangleq \left(= , S_i \right)$     & $\wedge$\\
+& $\left(s_i \geq s_j  \wedge \right.$ & $C_3 \triangleq \left(\leq , E_j \right)$  & $ \left.C_3 \wedge C_4 \right)$\\
+& $\left. e_i < e_j \right)$           & $C_4 \triangleq \left(= , E_i \right)$     & $\vee $ \\
+&                                      & $C_5 \triangleq \left(\geq , S_j \right)$  & $\left( C_5 \wedge C_2 \right.$\\ 
+&                                      & $C_6 \triangleq \left(< , E_j \right)$     & $\left. C_6 \wedge C_4 \right)$\\ \hline
+
+
+
+\hline 
+\end{tabular}
+\label{tbl:allen-relation-by-ill-known-constraints}
+
+% \vspace{10pt}
+
+
+\end{table}
 
 
 
@@ -401,29 +553,12 @@ $s_2 = \frac{-D_y+D_x+b_x}{b_x+a_y}$\;
 
 
 
-Based on this, we are going to implement all the comparisons between two ill-known points.
-% 
-% Consider two ill-known points, $X = \left[D_x, a_x, b_x \right]$ and $Y = \left[D_y, a_y, b_y \right]$. Then to compute $X \leq Y$ we have the following ill-known constraints:
-% 
-% \begin{align}
-% \label{eq:leq_c1}
-%  C_1 \triangleq \left(=, X \right)\\
-% \label{eq:leq_c2}
-% C_2 \triangleq \left(\leq, Y \right)
-% \end{align}
-% 
-% The membership function for the constraint $C_1$ \eqref{eq:leq_c1} is given by equation \eqref{eq:triangular-membership}. The membership function for the constraint $C_2$ is given by the following equation:
-% 
-% \begin{equation}
-%  \label{eq:c2_leq}
-% \mu\left(y \right) = 
-% \begin{cases}
-%  0, & \mbox{ if } y > D\\
-% 1, & \mbox{ if } y \leq \left(D - a \right) \\
-% \frac{}{}, & \mbox{ if }
-% \end{cases}
-% 
-% \end{equation}
+
+
+
+
+
+
 
 
 
