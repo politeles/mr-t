@@ -534,9 +534,12 @@ Relation & Crisp relation & Ill-known constraints & Combination \\ \hline
 & $\left. e_i < e_j \right)$           & $C_4 \triangleq \left(= , E_i \right)$     & $\vee $ \\
 &                                      & $C_5 \triangleq \left(\geq , S_j \right)$  & $\left( C_5 \wedge C_2 \right.$\\ 
 &                                      & $C_6 \triangleq \left(< , E_j \right)$     & $\left. C_6 \wedge C_4 \right)$\\ \hline
-
-
-
+\multirow{2}{*}{Starts}
+& $s_i = s_j $ & $C_1 \triangleq \left(= , S_j \right)$ & $C_1 \wedge C_2$ \\
+&	       & $C_2 \triangleq \left(= , S_i \right)$ & \\ \hline
+\multirow{2}{*}{Finishes}
+& $e_i = e_j $ & $C_1 \triangleq \left(= , E_j \right)$ & $C_1 \wedge C_2$ \\
+&	       & $C_2 \triangleq \left(= , E_i \right)$ & \\ \hline
 \hline 
 \end{tabular}
 \label{tbl:allen-relation-by-ill-known-constraints}
@@ -550,15 +553,250 @@ Relation & Crisp relation & Ill-known constraints & Combination \\ \hline
 
 
 
+\subsection{evaluation for allen's relations}
+In this subsection we are going to implement the allen's relationships for two ill-known time intervals.
+% 
+% \paragraph{Before}
+% $\Pos \left(I \mbox{ Before } J \right) = Pos \left(C_1 \wedge C_2\right)$:
+\begin{algorithm}
+\Titleofalgo{Implementation of the Before allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ Before $J$}
+\caption{Implementation for the Before operator.}
+ \KwData{\BlankLine
+$I= \left[S_i, E_i \right]$\;
+$J = \left[S_j, E_j \right]$\;
+\tcc{In this implementation we will only use $E_i$ and $S_j$}
+$E_i = \left[D_{E_i}, a_{E_i}, b_{E_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ Before } J \right)$}
+\BlankLine
+
+\uIf{$D_{E_i}-a_{E_i} > D_{S_j}$}{pos $\gets 0$\;}
+\uElseIf{$D_{E_i}+b_{E_i} < D_{S_j}$}{ pos $\gets 1$\;}
+\Else{pos $\gets$  Intersects$\left(C_1, C_2 \right)$\;}
+% Pos \left(C_1 \wedge C_2\right) = 
+% \begin{cases}
+% 0 & \mbox{ if } D_{E_i}-a_{E_i} > D_{S_j}\\
+% 1 & \mbox{ if } D_{E_i}+b_{E_i} < D_{S_j}\\
+% \mbox{Intersects}\left(E_i,S_j \right) & \mbox{ otherwise} 
+% \end{cases}
+\end{algorithm}
+
+% \paragraph{Equals}
+% $\Pos \left(I \mbox{ Equals } J \right) = Pos \left(C_1 \wedge C_2 \wedge C_3 \wedge C_4 \right)$:
+
+\begin{algorithm}
+ \Titleofalgo{Implementation of the Equals allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ Equals $J$}
+\caption{Implementation for the Equals operator.}
+ \KwData{\BlankLine
+$I= \left[S_i, E_i \right]$\;
+$J = \left[S_j, E_j \right]$\;
+\tcc{In this implementation we will use $S_i, E_i, S_j, E_j$}
+$S_i =\left[D_{S_i}, a_{S_i}, b_{S_i} \right]$\;
+$E_i = \left[D_{E_i}, a_{E_i}, b_{E_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+$E_j = \left[D_{E_j}, a_{E_j}, b_{E_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ Equals } J \right)$}
+
+
+\uIf{$D_{S_i} = D_{S_j} \wedge a_{S_i} = a_{S_j} \wedge b_{S_i} = b_{S_j} \wedge
+D_{E_i} = D_{E_j} \wedge a_{E_i} = a_{E_j} \wedge b_{E_i} = b_{E_j}$}{ pos $\gets 1$\;}
+\Else{
+pos $\gets \max \left( \mbox{ Intersects }\left(C_1, C_2 \right),  \mbox{ Intersects }\left(C_3, C_4 \right)\right)$\;}
+\end{algorithm}
+
+% \begin{equation}
+% Pos \left(C_1 \wedge C_2 \wedge C_3 \wedge C_4\right) = 
+% \begin{cases}
+% 0 & \mbox{ if } D_{E_i}-a_{E_i} > D_{S_j}\\
+% 1 & \mbox{ if } D_{S_i} = D_{S_j} \wedge a_{S_i} = a_{S_j} \wedge b_{S_i} = b_{S_j} \wedge
+% D_{E_i} = D_{E_j} \wedge a_{E_i} = a_{E_j} \wedge b_{E_i} = b_{E_j}\\
+% \mbox{Intersects}\left(E_i,S_j \right) & \mbox{ otherwise} 
+% \end{cases}
+% \end{equation}
+
+% \paragraph{Overlaps}
+\begin{algorithm}
+ \Titleofalgo{Implementation of the Overlaps allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ Meets $J$}
+\caption{Implementation for the Overlaps operator.}
+ \KwData{\BlankLine
+$I= \left[S_i, E_i \right]$\;
+$J = \left[S_j, E_j \right]$\;
+\tcc{In this implementation we will use $S_i, E_i, S_j, E_j$}
+$S_i =\left[D_{S_i}, a_{S_i}, b_{S_i} \right]$\;
+$E_i = \left[D_{E_i}, a_{E_i}, b_{E_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+$E_j = \left[D_{E_j}, a_{E_j}, b_{E_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ Overlaps } J \right)$}
+
+
+\uIf{
+$D_{S_i}+b_{S_i} < D_{S_j} \wedge
+D_{E_i}-a_{E_i} > D_{S_j} \wedge
+ D_{E_i}+b_{E_i} < D_{E_j}$
+}
+{ pos $\gets 1$\;}
+\Else{pos 
+$\gets \max \left( \mbox{Intersects} \left(C_1, C_2\right), \mbox{Intersects} \left(C_3, C_4 \right), \mbox{Intersects} \left(C_5, C_4 \right) \right)$\;
+}
+\end{algorithm}
+% 
+% \paragraph{Meets}
+% $\Pos \left(I \mbox{ Meets } J \right) = Pos \left(C_1 \wedge C_2\right)$:
+\begin{algorithm}
+ \Titleofalgo{Implementation of the Meets allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ Meets $J$}
+\caption{Implementation for the Meets operator.}
+ \KwData{\BlankLine
+$I= \left[S_i, E_i \right]$\;
+$J = \left[S_j, E_j \right]$\;
+\tcc{In this implementation we will use $E_i, S_j$}
+$E_i = \left[D_{E_i}, a_{E_i}, b_{E_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ Meets } J \right)$}
+
+
+\uIf{$D_{E_i} = D_{S_j} \wedge a_{E_i} = a_{S_j} \wedge b_{E_i} = b_{S_j}$}
+{ pos $\gets 1$\;}
+\Else{pos $\gets$ Intersects$\left(C_1, C_2 \right)$ \;}
+\end{algorithm}
+
+% \begin{equation}
+%  Pos \left(C_1 \wedge C_2\right) = 
+% \begin{cases}
+% 0 & \mbox{ if } D_{E_i}+b_{E_i} < D_{S_j}-a_{S_j}\\
+% 1 & \mbox{ if } D_{E_i} = D_{S_j} \wedge a_{E_i} = a_{S_j} \wedge b_{E_i} = b_{S_j} \\
+% \mbox{Intersects} \left(E_i, S_j \right) & \mbox{ otherwise}
+% \end{cases}
+% \end{equation}
+
+% 
+% 
+% \paragraph{During}
+% $\Pos \left(I \mbox{ During } J \right) = Pos \left(\left(C_1 \wedge C_2 \wedge C_3  \wedge C_4 \right) \vee \left( C_5 \wedge C_2 \wedge C_6 \wedge C_4 \right)\right)$:
+\begin{algorithm}
+ \Titleofalgo{Implementation of the During allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ During $J$}
+\caption{Implementation for the During operator.}
+ \KwData{\BlankLine
+\tcc{In this implementation we will use $S_i, E_i, S_j, E_j$}
+$S_i =\left[D_{S_i}, a_{S_i}, b_{S_i} \right]$\;
+$E_i = \left[D_{E_i}, a_{E_i}, b_{E_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+$E_j = \left[D_{E_j}, a_{E_j}, b_{E_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ During } J \right)$}
+\uIf{$\left( D_{S_i}+b_{S_i} < D_{S_j} \wedge D_{E_i}+b_{E_i} \leq D_{E_j}-a_{E_j}   \right)  \vee \left( D_{S_i}-a_{S_i} \geq D_{S_j}+b_{S_j} \wedge  D_{E_i}+b_{E_i} < D_{E_j} \right)$}
+{ pos $\gets 1$\;}
+\Else{
+\dontprintsemicolon
+pos $\gets \min \left( \max \left(\mbox{Intersects}\left(C_1, C_2 \right), \mbox{Intersects}\left(C_3, C_4 \right) \right), \right.$ \;
+\printsemicolon
+$\left. \max  \left(\mbox{Intersects}\left(C_5, C_2 \right), \mbox{Intersects}\left(C_6, C_4 \right) \right)  \right)$ \;}
+\end{algorithm}
 
 
 
+\begin{algorithm}
+ \Titleofalgo{Implementation of the Starts allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
 
 
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ Starts $J$}
+\caption{Implementation for the Starts operator.}
+ \KwData{\BlankLine
+\tcc{In this implementation we will use $S_i,, S_j$}
+$S_i =\left[D_{S_i}, a_{S_i}, b_{S_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ Starts } J \right)$}
+\uIf{$D_{S_i} = D_{S_j} \wedge a_{S_i} = a_{S_j} \wedge b_{S_i} = b_{S_j}$ }
+{ pos $\gets 1$\;}
+\Else{
+pos $\gets \mbox{Intersects}\left(C_1, C_2 \right)$ \;}
+\end{algorithm}
+
+\begin{algorithm}
+ \Titleofalgo{Implementation of the Finishes allen's relationship.}
+\SetLine
+\linesnumbered
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
 
 
-
-
+\Input{Two ill-known values $I, J$ with triangular membership functions.}
+\Output{The possibility degree for $I$ Starts $J$}
+\caption{Implementation for the Starts operator.}
+ \KwData{\BlankLine
+\tcc{In this implementation we will use $S_i,, S_j$}
+$S_i =\left[D_{S_i}, a_{S_i}, b_{S_i} \right]$\;
+$S_j =\left[D_{S_j}, a_{S_j}, b_{S_j} \right]$\;
+\tcc{Initialization of the result variable:}
+pos $\gets 0$\;
+}
+\KwResult{$\Pos \left( I \mbox{ Finishes } J \right)$}
+\uIf{$D_{E_i} = D_{E_j} \wedge a_{E_i} = a_{E_j} \wedge b_{E_i} = b_{E_j}$ }
+{ pos $\gets 1$\;}
+\Else{
+pos $\gets \mbox{Intersects}\left(C_1, C_2 \right)$ \;}
+\end{algorithm}
 
 
 
