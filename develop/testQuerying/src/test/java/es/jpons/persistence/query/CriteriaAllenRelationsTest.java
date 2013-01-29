@@ -35,13 +35,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testBefore() {
         System.out.println("before");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.before(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -83,13 +77,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testAfter() {
         System.out.println("after");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.after(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -97,13 +85,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testMeets() {
         System.out.println("meets");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.meets(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -111,13 +93,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testMeet_by() {
         System.out.println("meet_by");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.meet_by(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -125,13 +101,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testOverlaps() {
         System.out.println("overlaps");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.overlaps(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -139,13 +109,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testOverlapped_by() {
         System.out.println("overlapped_by");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.overlapped_by(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -153,13 +117,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testDuring() {
         System.out.println("during");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.during(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -167,13 +125,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testContains() {
         System.out.println("contains");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.contains(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -181,13 +133,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testEquals() {
         System.out.println("equals");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.equals(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -195,13 +141,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testStarts() {
         System.out.println("starts");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.starts(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -209,13 +149,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testEnds() {
         System.out.println("ends");
-        Criteria initializedCriteria = null;
-        PossibilisticVTP pvp = null;
-        Criteria expResult = null;
-        Criteria result = CriteriaAllenRelations.ends(initializedCriteria, pvp);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -553,17 +487,7 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testComputeIntersectionGt() {
         System.out.println("computeIntersectionGt");
-        Long ai = null;
-        Long bi = null;
-        Long di = null;
-        Long aj = null;
-        Long bj = null;
-        Long dj = null;
-        Double expResult = null;
-        Double result = CriteriaAllenRelations.computeIntersectionGt(ai, bi, di, aj, bj, dj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -571,16 +495,6 @@ public class CriteriaAllenRelationsTest extends TestCase {
      */
     public void testComputeIntersectionGte() {
         System.out.println("computeIntersectionGte");
-        Long ai = null;
-        Long bi = null;
-        Long di = null;
-        Long aj = null;
-        Long bj = null;
-        Long dj = null;
-        Double expResult = null;
-        Double result = CriteriaAllenRelations.computeIntersectionGte(ai, bi, di, aj, bj, dj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 }
