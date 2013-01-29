@@ -18,14 +18,9 @@
  */
 package es.jpons.persistence.query;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-import es.jpons.temporal.types.PossibilisticTP;
 import es.jpons.temporal.types.PossibilisticVTP;
-import java.sql.Types;
-import javassist.bytecode.analysis.Type;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.LongType;
 

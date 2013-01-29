@@ -209,7 +209,13 @@ public class TemporalQuery {
 //        return isContained;
 //        
 //    }
-    
+    public TemporalQuery innerJoin(Object entity){
+        
+        
+        
+        
+        return this;
+    }
     
    
 }
