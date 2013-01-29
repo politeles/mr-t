@@ -20,6 +20,9 @@ package es.ugr.decsai.jpons.testapplication;
 
 import es.jpons.persistence.TemporalPersistenceManager;
 import es.jpons.persistence.constants.OpenInterval;
+import es.jpons.persistence.query.AllenRelation;
+import es.jpons.persistence.query.QueryResult;
+import es.jpons.persistence.query.TemporalQuery;
 import es.ugr.decsai.jpons.testapplication.persistence.Employee;
 import es.jpons.temporal.types.PossibilisticTP;
 import es.jpons.temporal.types.PossibilisticVTP;
@@ -57,7 +60,7 @@ public class Main {
         // then the delta = lo2 - ls;
 //        delta = vTP.getEndMP().getTime() + vTP.getStartMP().getTime();
         // delta2 = le-lo1;
-        delta = delta1 = Math.abs(vTP.getEndMP().getTime()- vTP.getStartMP().getTime())/sqrt2;
+        delta = delta1 = Math.abs(vTP.getEndMP()- vTP.getStartMP())/sqrt2;
         
         System.out.println("Delta:"+delta+ " delta1: "+delta1);
 //        Double soly,soly1;
@@ -79,7 +82,7 @@ public class Main {
         
         
         
-        if(comp.getIx()<=vTP.getStartMP().getTime() && comp.getIy()<= (vTP.getStartMP().getTime()-vTP.getEndMP().getTime())){
+        if(comp.getIx()<=vTP.getStartMP() && comp.getIy()<= (vTP.getStartMP()-vTP.getEndMP())){
             System.out.println("The point overlaps the vtp");
         }else{
             System.out.println("The point does not overlap the vtp");
@@ -268,7 +271,7 @@ TemporalPersistenceManager manager = TemporalPersistenceManager.getInstance(prop
             
             PossibilisticVTP pvp2,pvp3,pvp4;
             
-            pvp2 = createVTP(10, 3, 2012, 21, 3, 2012);
+            pvp2 = createVTP(10, 3, 2012, 30, 4, 2012);
             pvp3 = createVTP(1, 5, 2012, 27, 5, 2012);
             pvp4 = createVTP(30, 3, 2012, 25, 4, 2012);
             
@@ -298,7 +301,7 @@ TemporalPersistenceManager manager = TemporalPersistenceManager.getInstance(prop
             
             Employee e1 = new Employee(new TemporalPK(23,1), "emp3");
             pvp.setSide(OpenInterval.UC);
-            e1.setPvp(pvp);
+            e1.setPvp(pvp2);
             
             Employee e2 = new Employee(new TemporalPK(2,2), "emp4");
             e2.setPvp(pvp4);
@@ -314,11 +317,37 @@ TemporalPersistenceManager manager = TemporalPersistenceManager.getInstance(prop
             
             manager.save(e1);
             manager.save(e2);
-            manager.update(e3);
+            manager.save(e3);
+          //  manager.update(e3);
+             beginTransaction.commit();
+             
+            TemporalQuery tq = manager.createTemporalQuery(e3);
+            tq.setAllenRelation(AllenRelation.before, pvp3);
+            List<QueryResult> list = tq.getList();
             
-            String tableName = e3.getClass().getSimpleName();
-            TemporalPersistenceManager.getSession().createQuery("Delete from "+ tableName + " where tid.id = :idval" ).setParameter("idval", e3.getTid().getId()).executeUpdate();
-//            //query:
+            for(QueryResult qr:list){
+                System.out.println("aggregation: "+qr.getAggregation()
+                        + " temporal "+qr.getTemporalSatisfaction()+
+                        " endmp: " + qr.getVtp().getEndMP() + " vid: " + qr.getKey());
+            }
+            
+            
+            PossibilisticVTP pvpafter = createVTP(28, 4, 2012, 30, 4, 2013);
+            TemporalQuery tq1 = manager.createTemporalQuery(e3);
+            tq1.setAllenRelation(AllenRelation.meets, pvpafter);
+            List<QueryResult> list1 = tq1.getList();
+            
+            for(QueryResult qr:list1){
+                System.out.println("aggregation: "+qr.getAggregation()
+                        + " temporal "+qr.getTemporalSatisfaction()+
+                        " endmp: " + qr.getVtp().getEndMP() + " vid: " + qr.getKey());
+            }
+            
+            
+            
+//            String tableName = e3.getClass().getSimpleName();
+//            TemporalPersistenceManager.getSession().createQuery("Delete from "+ tableName + " where tid.id = :idval" ).setParameter("idval", e3.getTid().getId()).executeUpdate();
+////            //query:
 //            Session s = TemporalPersistenceManager.getSession();
 //            Date startdate = new DateTime(2012, 3, 10, 0, 0).toDate();
 //            Date enddate = new DateTime(2012,3,21,1,0,0).toDate();
@@ -334,7 +363,7 @@ TemporalPersistenceManager manager = TemporalPersistenceManager.getInstance(prop
 //                }
 //            }
 //            
-            beginTransaction.commit();
+//            beginTransaction.commit();
             manager.close();
 //            t.commit();
 //       em.getTransaction().begin();
