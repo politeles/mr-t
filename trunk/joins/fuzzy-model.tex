@@ -1,0 +1,184 @@
+\begin{definition}
+\label{def:generalized-fuzzy-temporal-domain}
+\emph{Generalized fuzzy temporal domain.}
+Consider $\T$ to be the temporal domain, and let $\tilde \Pow\left( \T\right)$ be the set of all \emph{normalized} possibility distributions (see Section \ref{subsec:possibility-theory}, equation \eqref{NormalizationProperty}) defined on $\T$.
+The Generalized Fuzzy Temporal Domain, $\T_G$ is
+\begin{equation}
+\T_G \subseteq \left \lbrace \tilde \Pow\left( \T\right) \cup \text{NULL} \right \rbrace
+\end{equation}
+\end{definition}
+
+Note that $\T_G \subseteq D_G$. The datatypes for this domain have been studied previously in section \ref{sec:time-rep} and are shown in tables \ref{tbl:time-point-types} and \ref{tbl:time-interval-types}.
+
+A generalized fuzzy relation is defined in \cite{Medina1994}. Here, we will extend the definition to a generalized fuzzy temporal relation.
+
+\begin{definition}
+\emph{Generalized fuzzy temporal relation.}
+\label{def:fuzzy-temporal-relation}
+Consider the elements in definition \ref{def:valid-time-relation}. Some of them will be extended for the fuzzy case.
+
+\begin{itemize}
+%  \item A set of non-temporal fuzzy  or crisp attributes.
+% 	\begin{equation}
+% 	\label{eq:fuzzy-attribute-set}
+% 	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
+% 	\end{equation}
+%       The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
+% \item The primary key $A_K$ is a subset of $A$.
+%       \begin{equation}
+%        \label{eq:fuzzy-primary-key-a}
+%       A_K \subset A
+%       \end{equation}
+% A formal definition of primary key for fuzzy relational databases will be given later in Definition \ref{def:generalized-primary-key}.
+% \item A set of two attributes; $S$  and $E$ the attributes for the starting and ending ill-known points respectively. $I$ is a possibilistic validity period \emph{PVP} as explained in Section \ref{subsec:ill-known-interval}.
+% \begin{equation}
+%  \label{eq:fuzzy-attribute-time-interval}
+% I = \left \lbrace S, E \right \rbrace
+% \end{equation}
+\item An attribute called version identifier, $V_{ID}$, will be added to the schema. This attribute is a counter for each different version of the entities. 
+% \begin{equation}
+%  \label{eq:fuzzy-version-identifier}
+% V_{ID} \subset \N
+% \end{equation}
+
+
+
+\item Then $R_{FTG}$, the schema for the fuzzy valid-time relation is:
+\begin{equation}
+ \label{eq:fuzzy-valid-time-relation}
+R_{FTG} = A \cup V_{ID} \cup  I
+\end{equation}
+\item The primary key for the fuzzy valid-time relation $R_{FTG}$ is:
+\begin{equation}
+ \label{eq:fuzzy-valid-time-temporal-pk}
+K_{GT} = A_K \cup V_{ID}
+\end{equation}
+A formal definition of the primary key for fuzzy valid-time relations will be given later in Definition \ref{def:generalized-fuzzy-temporal-key}.
+
+
+\item We will note by $r$ any valid instance of $R_{FTG}$. 
+      \begin{equation}
+       \label{eq:fuzzy-valid-time-instance}
+      r \subseteq D_1\ x\ \ldots\ x\ D_n
+      \end{equation}
+
+% \item Let $t$ be a tuple in the instance $r$; $t \in r$:
+%       \begin{itemize}
+%       \item We will note the values for the starting and the ending  points,$s$ and $e$  respectively. The value for the time interval is given by $i$.
+%       \begin{align}
+%        \label{eq:fuzzy-starting-point}
+%       s = t\left[S \right]\\
+%       e = t\left[E \right]\\
+%       i = \left(s, e\right)
+%       \end{align}
+% 
+% 
+%       \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:fuzzy-primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
+% 	    \begin{equation}
+% 	     \label{eq:fuzzy-pk-attribute} 
+% 	      a_k = t\left[A_K \right]
+% 	    \end{equation}
+% 
+    \item Let $K_{GT}$ be the primary key for the valid-time relation as given in equation \eqref{eq:fuzzy-valid-time-temporal-pk}. Then, $k$ denotes the values for the attributes in the primary key.
+	  \begin{equation}
+	   \label{eq:fuzzy-value-pk}
+	  k = t\left[K_{GT} \right]
+	  \end{equation}
+% 
+% 
+%       \end{itemize}
+% \item $Vt$ is the set with all the versions for a given tuple $t$.
+% 
+% \begin{equation}
+%  \label{eq:fuzzy-all-the-versions}
+% Vt = r\left(t\left[A_K\right] \right)
+% \end{equation}
+% If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+\end{itemize}
+%\end{definition}
+
+We will illustrate the definitions with an example.
+
+\begin{example}
+Consider the set of attributes $A = \left \lbrace A_1, A_2, A_3 \right \rbrace$. The primary key for these attributes is given by $A_K = \left \lbrace A_1, A_2 \right \rbrace$. Let $I = \left \lbrace S, E \right \rbrace$ be the set of temporal attributes that define the possibilistic validity period of the data. $R_{FTG} = A \cup V_{ID} \cup I$ is the valid-time relation and $r$ is an instance of the relation. The instance $r$ is given by the following elements. $r = \left \lbrace \left(a_{11}, a_{12}, a_{13}, 001, s_1 ,e_1 \right) \right.$,  $\left(a_{21}, a_{22}, a_{23}, 001, s_2, e_2 \right)$ , $\left. \left(a_{11}, a_{12}, a_{31}, 002, s_3, e_3 \right) \right \rbrace$. The instance $r$ is illustrated in Table \ref{tbl:fuzzy-sample-definitions}. 
+Consider the tuple $t = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
+\begin{align}
+ \nonumber
+s_1 &= t\left[S \right]\\
+ \nonumber
+e_1 &= t[E]\\
+ \nonumber
+i\ \ &= \left(s_1, e_1\right)\\
+ \nonumber
+a_k &= t\left[A_K\right] = \left(a_{11}, a_{12} \right) \\
+ \nonumber
+k &= t\left[PK\right] =\left(a_{11}, a_{12}, s_1, e_1\right)\\
+ \nonumber
+Vt &= r\left(t\left[A_K\right] \right) = \left \lbrace t_1, t_3 \right \rbrace
+\end{align}
+
+
+
+\end{example}
+
+\begin{table}[h]
+\caption[Example of fuzzy valid-time relation.]{\label{tbl:fuzzy-sample-definitions}Sample database containing the instance $r$ of the fuzzy valid-time relation $R_{FTG}$.}
+\centering
+\begin{tabular}{c c c c c c c}\\ \hline
+& \textbf{A$_1$}  & \textbf{A$_2$}  & $A_3$ & $V_{ID}$ & $S$ & $E$ \\
+\hline
+$t_1$&$a_{11}$ & $a_{12}$ & $a_{13}$ & $001$ & $s_1$ & $e_1$ \\
+$t_2$ & $a_{21}$ & $a_{22}$ & $a_{23}$& $001$ &  $s_2$ & $e_2$ \\
+$t_3$ & $a_{11}$ & $a_{12}$ & $a_{31}$& $002$ & $s_3$ & $e_3$\\
+\hline\\
+\end{tabular}
+\end{table}
+
+
+
+% 
+% 
+% Consider $\A$ to be the set of all the entities, and let $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of (fuzzy) attributes that define an entity. Let $\I_{PVP}$ be the set of all the ill-known time intervals and let $I = \left(X, Y \right)$ be a PVP, $I \in \I_{PVP}$.  The pair $\left(A, I\right)$ expresses that the data regarding the entity A are valid during the ill-known time interval I. Let $R_{FTG} \subseteq \A \  x\  \I_{PVP}$ be a valid-time relation. Then, the following equation indicates that the pair $\left(A, I\right)$ is in the relation R:
+% 
+% \begin{equation}
+% \label{eq:fuzzy-rel-def}
+% \left( R_{FTG}, \left(A , I\right) \right)
+% \end{equation}
+% 
+ A generalized fuzzy temporal relation $R_{FTG}$ can be noted also by:
+\label{def:generalized-fuzzy-temporal-relation}
+\begin{equation}
+\label{eq:generalized-fuzzy-temporal-relation}
+R_{FTG} = \left(\Head, \Body \right)
+\end{equation}
+Where $\Head$ is the Head of the relation and consist on a fixed set of triplets attribute- domain - compatibility with an optional the valid-time attribute:
+
+\begin{align}
+\label{eq:head-valid-time}
+\Head = \big \lbrace \left(A_{G1}:D_{G1}\left[,C_{A_{G1}} \right] \right),\\
+\nonumber
+ \ldots,\\
+ \nonumber
+  \left(A_{Gn}:D_{Gn}\left[,C_{A_{Gn}} \right] \right),\\
+  \nonumber
+  \Big[  \left( \text{PVP}, D_{\text{PVP}}\left[,C_{A_{\text{PVP}}} \right] \right) \Big] \big \rbrace
+\end{align}
+Note that $D_{Gj}$ ($j = 1, \ldots, n$) is the domain for the attribute $A_{Gj}$. $C_{A_{Gj}}$ is the compatibility attribute in the unit interval $\left[0, 1 \right]$.
+
+$\Body$ is the body of the relation and it consists on a set of tuples. Each tuple is a triplet attribute- value- degree with an optional valid-time attribute:
+
+\begin{align}
+\label{eq:body-valid-time}
+\Body = \big \lbrace \left(A_{G1}:\tilde{d}_{i1}\left[,c_{i1} \right] \right),\\
+\nonumber
+ \ldots,\\
+ \nonumber
+  \left(A_{Gn}:\tilde{d}_{in}\left[,c_{in} \right] \right),\\
+  \nonumber
+   \Big[  \left( \text{PVP}, \tilde{d}_{\text{PVP}} \left[,C_{A_{\text{PVP}}} \right] \right)  \Big] \big \rbrace
+\end{align}
+
+\end{definition}
+
+
+The definition in \cite{Medina1994} for $R_{FTG}$ shows that classical relations are a particular case of this model. 

@@ -1,0 +1,100 @@
+We will define the main concepts and elements in order to implement a model for temporal relational databases. First of all, we will introduce some definitions and notations.
+
+
+
+\begin{definition}
+\label{def:valid-time-relation}
+\emph{Valid-time relation.}
+Consider the following definitions and notations:
+
+\begin{itemize}
+ \item A set of non-temporal attributes.
+	\begin{equation}
+	\label{eq:attribute-set}
+	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
+	\end{equation}
+      The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
+\item The original primary key $A_K$ is a subset of the attributes in $A$.
+      \begin{equation}
+       \label{eq:primary-key-a}
+      A_K \subseteq A
+      \end{equation}
+\item Two attributes, $S$  and $E$ for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
+\begin{equation}
+ \label{eq:attribute-time-interval}
+I = \left \lbrace S, E \right \rbrace
+\end{equation}
+
+$\T$ is the time domain.
+
+\item Then $R$, the schema for the valid-time relation is:
+\begin{equation}
+ \label{eq:valid-time-relation}
+R = A \cup  I
+\end{equation}
+\item The primary key for the valid-time relation $R$ is:
+\begin{equation}
+ \label{eq:valid-time-temporal-pk}
+PK = A_K \cup I
+\end{equation}
+
+
+\item We will note by $r$ any valid instance of $R$. 
+      \begin{equation}
+       \label{eq:valid-time-instance}
+      r \subseteq D_1\ x\ \ldots\ x\ D_n x\ T x\ T
+      \end{equation}
+
+
+     % \end{itemize}
+\item $V(t)$ is the set of all the versions for a given tuple $t$. Formally,
+
+\begin{equation}
+ \label{eq:all-the-versions}
+V(t) =\left \lbrace t_i \in r, t_i\left[A_K\right] = t\left[A_K\right] \right \rbrace
+\end{equation}
+Obviously, $t$ itself is included in the set.
+% If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+\end{itemize}
+\end{definition}
+We will illustrate the definitions with an example.
+
+\begin{example}
+Consider the set of attributes $A = \left \lbrace A_1, A_2, A_3 \right \rbrace$. The primary key for these attributes is given by $A_K = \left \lbrace A_1, A_2 \right \rbrace$. Let $I = \left \lbrace S, E \right \rbrace$ be the set of temporal attributes that define the validity period of the data. $R$ is the valid-time relation and $r$ is an instance of the relation. The instance $r$ is given by the following elements. $r = \left \lbrace \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right) \right.$,  $\left(a_{21}, a_{22}, a_{23}, s_2, e_2 \right)$ , $\left. \left(a_{11}, a_{12}, a_{31}, s_3, e_3 \right) \right \rbrace$. The instance $r$ is illustrated in Table \ref{tbl:sample-definitions}. 
+Consider the tuple $t_1 = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
+\begin{align}
+ \nonumber
+ t_1\left[S \right]&=s_1\\
+ \nonumber
+t_1[E]&=e_1\\
+ \nonumber
+t_1[S,E]&= \left(s_1, e_1\right)\\
+ \nonumber
+t_1\left[A_K\right] &= \left(a_{11}, a_{12} \right) \\
+ \nonumber
+t_1\left[PK\right] &=\left(a_{11}, a_{12}, s_1, e_1\right)\\
+ \nonumber
+V(t_1) &= \left \lbrace t_1, t_3 \right \rbrace
+\end{align}
+
+
+
+\end{example}
+
+\begin{table}[h]
+\centering
+%\begin{table}[htbp]
+\caption[Example database for $r \in R$]{\label{tbl:sample-definitions}Example database containing the instance $r$ of the valid-time relation $R$.}
+\vspace{2mm}
+%\centerline{\small DATA TYPES}
+\begin{tabular}{c c c c c c}\\
+\hline
+& \textbf{A$_1$}  & \textbf{A$_2$}  & $A_3$ & $S$ & $E$ \\
+\hline
+$t_1$&$a_{11}$ & $a_{12}$ & $a_{13}$ & $s_1$ & $e_1$ \\
+$t_2$ & $a_{21}$ & $a_{22}$ & $a_{23}$ &  $s_2$ & $e_2$ \\
+$t_3$ & $a_{11}$ & $a_{12}$ & $a_{31}$ & $s_3$ & $e_3$\\
+\hline\\
+\end{tabular}
+\end{table}
+
