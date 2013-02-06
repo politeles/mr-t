@@ -9,6 +9,12 @@
 \usepackage[hyphens]{url}
 \usepackage[breaklinks]{hyperref}
 
+% Para activar las notas descomentar la linea siguiente y comentar la segunda
+% Para desactivar las notas descomentar la linea segunda y comentar la primera
+\usepackage[textwidth=2.2cm]{todonotes}
+%\usepackage[disable]{todonotes}
+
+
 \hyphenation{pro-per-ties}
 \hyphenation{ge-ne-ral-ly}
 \hyphenation{pre-fe-ren-ces}
@@ -99,16 +105,15 @@ Sint-Pietersnieuwstraat 41, B-9000 Ghent, Belgium\\
 \input{intro}
 
 %
-\section{\label{sec:prel}Preliminaries}
-
-\subsection{Possibilistic variables}
+\section{\label{sec:preliminaries}Preliminaries}
+The basics on possibility theory is introduced within the first subsection. Then, some background concepts about temporal databases are introduced. Finally, the representation of imperfect temporal intervals is explained.
 \input{possibilistic}
 \subsection{Time in databases}
 %
 \input{time}
 
 %
-\section{\label{sec:prop}Algebra for crisp temporal databases}
+\section{\label{sec:proposal}Algebra for crisp temporal databases}
 %
 \input{temporal-model.tex}
 
