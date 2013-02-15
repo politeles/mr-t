@@ -388,6 +388,73 @@ public class CriteriaAllenRelations {
         res = computeIntersections(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndRight(), j.getEndMP());
         return res;
     }
+    
+    /**
+     * Intersection of two possibilistic valid time points.
+     * 
+     * @param i
+     * @param j
+     * @return 
+     */
+    public static double computeIntersectsSatisfactionDegree(PossibilisticVTP i, PossibilisticVTP j){
+        Double res,a,b;
+       a = computeIntersectionLt(i.getStartLeft(),i.getStartRight(),i.getStartMP(),j.getStartLeft(),j.getStartMP());
+       b = computeIntersectionLt(j.getStartLeft(),j.getStartRight(),j.getStartMP(),i.getStartLeft(),i.getStartMP());
+       
+       res = (a<b)?a:b;
+       
+       return res;
+    }
+    
+    /**
+     * Computes de overlapping interval for two possibilistic valid-time points
+     * @param i
+     * @param j
+     * @return 
+     */
+   public static PossibilisticVTP overlappingInterval(PossibilisticVTP i, PossibilisticVTP j){
+       PossibilisticVTP result = new PossibilisticVTP();
+       // 1st step: compute the lower bound:
+       Double beforeij = computeIntersectionLt(i.getStartLeft(),i.getStartRight(),i.getStartMP(),j.getStartLeft(),j.getStartMP());
+       Double beforeji = computeIntersectionLt(j.getStartLeft(), j.getStartRight(), j.getStartMP(), i.getStartLeft(), i.getStartMP());
+       
+       if(beforeij > beforeji ){
+           // i before j holds, then j should be taken as the lower bound:
+           result.setStartDate(j.getStartDate());
+           result.setStartLeft(j.getStartLeft());
+           result.setStartRight(j.getStartRight());
+       }else{
+           // j before i holds then i should be taken as the lower bound:
+           result.setStartDate(i.getStartDate());
+           result.setStartLeft(i.getStartLeft());
+           result.setStartRight(i.getStartRight());
+       }
+       
+       //2nd step: compute the higher bound:
+       beforeij = computeIntersectionLt(i.getEndLeft(), i.getEndRight(), i.getEndMP(), j.getEndLeft(), j.getEndMP());
+       beforeji = computeIntersectionLt(j.getEndLeft(), j.getEndRight(), j.getEndMP(), i.getEndLeft(),i.getEndMP());
+       
+       if(beforeij > beforeji){
+           //i before j holds, then i should be thake as the higher bound:
+           result.setEndDate(i.getEndDate());
+           result.setEndLeft(i.getEndLeft());
+           result.setEndRight(i.getEndRight());
+       } else{
+           result.setEndDate(j.getEndDate());
+           result.setEndLeft(j.getEndLeft());
+           result.setEndRight(j.getEndRight());
+       }
+       
+       
+       
+       
+       
+       
+       
+       return result;
+       
+       
+   }
 
     /**
      * Computes the intersection between two triangles

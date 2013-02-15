@@ -345,6 +345,18 @@ TemporalPersistenceManager manager = TemporalPersistenceManager.getInstance(prop
             
             
             
+            //test for the cartesian product:
+            tq1.createTemporalQuery(e1);
+            System.out.println("---- CARTESIAN PRODUCT ----");
+            List<QueryResult> list2 = tq1.cartesianProduct();
+            
+            for(QueryResult qr:list2){
+                System.out.println("aggregation: "+qr.getAggregation()
+                        + " temporal "+qr.getTemporalSatisfaction()+
+                        " endmp: " + qr.getVtp().getEndMP() + " vid: " + qr.getKeys());
+            }
+            
+            
 //            String tableName = e3.getClass().getSimpleName();
 //            TemporalPersistenceManager.getSession().createQuery("Delete from "+ tableName + " where tid.id = :idval" ).setParameter("idval", e3.getTid().getId()).executeUpdate();
 ////            //query:

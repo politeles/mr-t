@@ -18,7 +18,7 @@ public class TrapezoidalFuzzyNumber extends FuzzyNumber{
     protected Double beta;
     protected Double gamma;
     protected Double delta;
-    
+
 
     public TrapezoidalFuzzyNumber(Double alpha, Double beta, Double gamma,Double delta) {
         this.alpha = alpha;
@@ -100,6 +100,27 @@ public class TrapezoidalFuzzyNumber extends FuzzyNumber{
         
         
     }
+    
+     protected static Double getMin(TrapezoidalFuzzyNumber f1,TrapezoidalFuzzyNumber f2){
+         Double min;
+         if(f1.getAlpha() < f2.getAlpha()){
+            min = f1.getAlpha();
+        }else{
+            min = f2.getAlpha();
+        }
+         return min;
+     }
+     
+     
+     protected static Double getMax(TrapezoidalFuzzyNumber f1,TrapezoidalFuzzyNumber f2){
+         Double max;
+         if(f1.getDelta() > f2.getDelta()){
+            max = f1.getDelta();
+        }else{
+            max = f2.getDelta();
+        }
+         return max;
+     }
     /**
      * Fuzzy equality implemented as
      * sup min eval(f1),eval(f2))
@@ -250,6 +271,26 @@ public class TrapezoidalFuzzyNumber extends FuzzyNumber{
     public static Double Neq(TrapezoidalFuzzyNumber f1,TrapezoidalFuzzyNumber f2) throws FuzzyConstraintException{
         return Neq(f1, f2, 0.01D);
     }
+    
+    
+    public static Double Fgt(TrapezoidalFuzzyNumber f1,TrapezoidalFuzzyNumber f2,Double precission) throws FuzzyConstraintException{
+        Double result = 0D;
+        
+        Double min = getMin(f1, f2);
+        Double max = getMax(f1, f2);
+        Double val1, val2, maxval, inf;
+        inf = Double.POSITIVE_INFINITY;
+        for(double i = min; i< max;i+= precission){
+            val1 = f1.evaluate(i);
+            val2 = f2.evaluate(i);
+            
+            
+        }
+        
+        return result;
+    }
+    
+    
     /**
      * Discrete implementation for the Fuzzy Greater Than operator.
      * @param f1 the first trapezoidal number.

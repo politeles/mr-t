@@ -91,55 +91,328 @@ E-18071 (Granada-Spain)\\
 
 \section{\label{sec:preliminaries}Preliminares}
 
-\begin{definition}
- \label{def:temporal-schema}
-A crisp temporal schema is given by the following:
-
-\begin{equation}
-\label{eq:temporal-relation}
-R = \left(A_1, \ldots, A_n, T_s, T_e \right) 
-\end{equation}
-Where $A_1, \ldots, A_n$ are the attributes of the relation $R$ and $T = \left \lbrace T_s, T_e\right \rbrace$ is the staring and ending points of the valid-time interval.
-We define $r$ as an instance of the relation $R$.
-\end{definition}
-
-\begin{definition}
- \label{def:fuzzy-temporal-schema}
-A fuzzy temporal schema is given by the following:
-
+% \begin{definition}
+%  \label{def:temporal-schema}
+% A crisp temporal schema is given by the following:
+% 
 % \begin{equation}
-%  \label{eq:fuzzy-temporal-relation}
+% \label{eq:temporal-relation}
 % R = \left(A_1, \ldots, A_n, T_s, T_e \right) 
 % \end{equation}
-% Where 
- \end{definition}
+% Where $A_1, \ldots, A_n$ are the attributes of the relation $R$ and $T = \left \lbrace T_s, T_e\right \rbrace$ is the staring and ending points of the valid-time interval.
+% We define $r$ as an instance of the relation $R$.
+% \end{definition}
+
+
+\begin{definition}
+\label{def:valid-time-relation}
+\emph{Valid-time relation.}
+Consider the following definitions and notations:
+
+\begin{itemize}
+ \item A set of non-temporal attributes.
+	\begin{equation}
+	\label{eq:attribute-set}
+	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
+	\end{equation}
+      The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
+\item The original primary key $A_K$ is a subset of the attributes in $A$.
+      \begin{equation}
+       \label{eq:primary-key-a}
+      A_K \subseteq A
+      \end{equation}
+\item Two attributes, $S$  and $E$ for the starting and ending points respectively. $I$ defines the valid time interval for the data. 
+\begin{equation}
+ \label{eq:attribute-time-interval}
+I = \left \lbrace S, E \right \rbrace
+\end{equation}
+
+$\T$ is the time domain.
+
+\item Then $R$, the schema for the valid-time relation is:
+\begin{equation}
+ \label{eq:valid-time-relation}
+R = A \cup  I
+\end{equation}
+\item The primary key for the valid-time relation $R$ is:
+\begin{equation}
+ \label{eq:valid-time-temporal-pk}
+PK = A_K \cup I
+\end{equation}
+
+
+\item We will note by $r$ any valid instance of $R$. 
+      \begin{equation}
+       \label{eq:valid-time-instance}
+      r \subseteq D_1\times \ \ldots\ \times \ D_n \times \ T \times \ T
+      \end{equation}
+
+
+     % \end{itemize}
+\item $V(t)$ is the set of all the versions for a given tuple $t$. Formally,
+
+\begin{equation}
+ \label{eq:all-the-versions}
+V(t) =\left \lbrace t_i \in r, t_i\left[A_K\right] = t\left[A_K\right] \right \rbrace
+\end{equation}
+Obviously, $t$ itself is included in the set.
+% If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+\end{itemize}
+\end{definition}
+We will illustrate the definitions with an example.
+
+\begin{example}
+Consider the set of attributes $A = \left \lbrace A_1, A_2, A_3 \right \rbrace$. The primary key for these attributes is given by $A_K = \left \lbrace A_1, A_2 \right \rbrace$. Let $I = \left \lbrace S, E \right \rbrace$ be the set of temporal attributes that define the validity period of the data. $R$ is the valid-time relation and $r$ is an instance of the relation. The instance $r$ is given by the following elements. $r = \left \lbrace \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right) \right.$,  $\left(a_{21}, a_{22}, a_{23}, s_2, e_2 \right)$ , $\left. \left(a_{11}, a_{12}, a_{31}, s_3, e_3 \right) \right \rbrace$. The instance $r$ is illustrated in Table \ref{tbl:sample-definitions}. 
+Consider the tuple $t_1 = \left(a_{11}, a_{12}, a_{13}, s_1 ,e_1 \right)$. Then,
+\begin{align}
+ \nonumber
+ t_1\left[S \right]&=s_1\\
+ \nonumber
+t_1[E]&=e_1\\
+ \nonumber
+t_1[S,E]&= \left(s_1, e_1\right)\\
+ \nonumber
+t_1\left[A_K\right] &= \left(a_{11}, a_{12} \right) \\
+ \nonumber
+t_1\left[PK\right] &=\left(a_{11}, a_{12}, s_1, e_1\right)\\
+ \nonumber
+V(t_1) &= \left \lbrace t_1, t_3 \right \rbrace
+\end{align}
+
+\begin{table}
+\centering
+\label{tbl:sample-definitions}
+\caption{Sample database containing the instance $r$ of the valid-time relation $R$.}
+\begin{tabular}{c c c c c c}\\
+\hline
+& \textbf{A$_1$}  & \textbf{A$_2$}  & $A_3$ & $S$ & $E$ \\
+\hline
+$t_1$&$a_{11}$ & $a_{12}$ & $a_{13}$ & $s_1$ & $e_1$ \\
+$t_2$ & $a_{21}$ & $a_{22}$ & $a_{23}$ &  $s_2$ & $e_2$ \\
+$t_3$ & $a_{11}$ & $a_{12}$ & $a_{31}$ & $s_3$ & $e_3$\\
+\hline\\
+\end{tabular}
+\end{table}
+
+
+\end{example}
+
+% \begin{definition}
+%  \label{def:fuzzy-temporal-schema}
+% A fuzzy temporal schema is given by the following:
+% 
+% % \begin{equation}
+% %  \label{eq:fuzzy-temporal-relation}
+% % R = \left(A_1, \ldots, A_n, T_s, T_e \right) 
+% % \end{equation}
+% % Where 
+%  \end{definition}
+
+
+
+\begin{definition}
+\label{def:generalized-fuzzy-temporal-domain}
+\emph{Generalized fuzzy temporal domain.}
+Consider $\T$ to be the temporal domain, and let $\tilde \Pow\left( \T\right)$ be the set of all \emph{normalized} possibility distributions defined on $\T$.
+The Generalized Fuzzy Temporal Domain, $\T_G$ is
+\begin{equation}
+\T_G \subseteq \left \lbrace \tilde \Pow\left( \T\right) \cup \text{NULL} \right \rbrace
+\end{equation}
+\end{definition}
+
+Note that $\T_G \subseteq D_G$. The datatypes for this domain have been studied previously in section \ref{sec:time-rep} and are shown in tables \ref{tbl:time-point-types} and \ref{tbl:time-interval-types}.
+
+A generalized fuzzy relation is defined in \cite{Medina1994}. Here, we will extend the definition to a generalized fuzzy temporal relation.
+
+\begin{definition}
+\emph{Generalized fuzzy temporal relation.}
+\label{def:fuzzy-temporal-relation}
+Consider the elements in definition \ref{def:valid-time-relation}. Some of them will be extended for the fuzzy case.
+
+\begin{itemize}
+%  \item A set of non-temporal fuzzy  or crisp attributes.
+% 	\begin{equation}
+% 	\label{eq:fuzzy-attribute-set}
+% 	A = \left \lbrace A_1, A_2, \ldots, A_n \right \rbrace
+% 	\end{equation}
+%       The domain for each attribute $A_1, \ldots, A_n$ is $D_1, \ldots, D_n$ respectively. 
+% \item The primary key $A_K$ is a subset of $A$.
+%       \begin{equation}
+%        \label{eq:fuzzy-primary-key-a}
+%       A_K \subset A
+%       \end{equation}
+% A formal definition of primary key for fuzzy relational databases will be given later in Definition \ref{def:generalized-primary-key}.
+% \item A set of two attributes; $S$  and $E$ the attributes for the starting and ending ill-known points respectively. $I$ is a possibilistic validity period \emph{PVP} as explained in Section \ref{subsec:ill-known-interval}.
+% \begin{equation}
+%  \label{eq:fuzzy-attribute-time-interval}
+% I = \left \lbrace S, E \right \rbrace
+% \end{equation}
+\item An attribute called version identifier, $V_{ID}$, will be added to the schema. This attribute is a counter for each different version of the entities. 
+% \begin{equation}
+%  \label{eq:fuzzy-version-identifier}
+% V_{ID} \subset \N
+% \end{equation}
+
+
+
+\item Then $R_{FTG}$, the schema for the fuzzy valid-time relation is:
+\begin{equation}
+ \label{eq:fuzzy-valid-time-relation}
+R_{FTG} = A \cup V_{ID} \cup  I
+\end{equation}
+\item The primary key for the fuzzy valid-time relation $R_{FTG}$ is:
+\begin{equation}
+ \label{eq:fuzzy-valid-time-temporal-pk}
+K_{GT} = A_K \cup V_{ID}
+\end{equation}
+A formal definition of the primary key for fuzzy valid-time relations will be given later in Definition \ref{def:generalized-fuzzy-temporal-key}.
+
+
+\item We will note by $r$ any valid instance of $R_{FTG}$. 
+      \begin{equation}
+       \label{eq:fuzzy-valid-time-instance}
+      r \subseteq D_1\ x\ \ldots\ x\ D_n x\ \mathbb{N}  x\  \T_G\  x\ \T_G 
+      \end{equation}
+
+% \item Let $t$ be a tuple in the instance $r$; $t \in r$:
+%       \begin{itemize}
+%       \item We will note the values for the starting and the ending  points,$s$ and $e$  respectively. The value for the time interval is given by $i$.
+%       \begin{align}
+%        \label{eq:fuzzy-starting-point}
+%       s = t\left[S \right]\\
+%       e = t\left[E \right]\\
+%       i = \left(s, e\right)
+%       \end{align}
+% 
+% 
+%       \item Let $A_k \subset A$ be the set of the non-temporal attributes that are part of the primary key (equation \eqref{eq:fuzzy-primary-key-a}). Then, $a_k$ denotes the values for the non-temporal attributes of the primary key.
+% 	    \begin{equation}
+% 	     \label{eq:fuzzy-pk-attribute} 
+% 	      a_k = t\left[A_K \right]
+% 	    \end{equation}
+% 
+    \item Let $K_{GT}$ be the primary key for the valid-time relation as given in equation \eqref{eq:fuzzy-valid-time-temporal-pk}. Then, $k$ denotes the values for the attributes in the primary key.
+	  \begin{equation}
+	   \label{eq:fuzzy-value-pk}
+	  k = t\left[K_{GT} \right]
+	  \end{equation}
+% 
+% 
+%       \end{itemize}
+% \item $Vt$ is the set with all the versions for a given tuple $t$.
+% 
+% \begin{equation}
+%  \label{eq:fuzzy-all-the-versions}
+% Vt = r\left(t\left[A_K\right] \right)
+% \end{equation}
+% If a tuple $t$ contains more than one version, the result of $Vt$ is a set. We will use the index $k$ to address the elements of the set. E.g. $Vt = \left \lbrace t_1, t_2, \ldots, t_n \right \rbrace$. Then $t_k , k \in \left \lbrace 1, \ldots, n \right \rbrace$ is an element of $Vt$.
+\end{itemize}
+%\end{definition}
+
+Table \ref{tbl:fuzzy-sample-definitions} contains an example instance.
+
+
+\begin{table}
+\caption{\label{tbl:fuzzy-sample-definitions}Sample database containing the instance $r$ of the fuzzy valid-time relation $R_{FTG}$.}
+\centering
+%\centerline{\small DATA TYPES}
+\begin{tabular}{c c c c c c c}\\
+\hline
+& \textbf{A$_1$}  & \textbf{A$_2$}  & $A_3$ & $V_{ID}$ & $S$ & $E$ \\
+\hline
+$t_1$&$a_{11}$ & $a_{12}$ & $a_{13}$ & $001$ & $s_1$ & $e_1$ \\
+$t_2$ & $a_{21}$ & $a_{22}$ & $a_{23}$& $001$ &  $s_2$ & $e_2$ \\
+$t_3$ & $a_{11}$ & $a_{12}$ & $a_{31}$& $002$ & $s_3$ & $e_3$\\
+\hline\\
+\end{tabular}
+\end{table}
+
+
+
+% 
+% 
+% Consider $\A$ to be the set of all the entities, and let $A=\left(A_1, \ldots, A_n \right), A \in \A$ be the set of (fuzzy) attributes that define an entity. Let $\I_{PVP}$ be the set of all the ill-known time intervals and let $I = \left(X, Y \right)$ be a PVP, $I \in \I_{PVP}$.  The pair $\left(A, I\right)$ expresses that the data regarding the entity A are valid during the ill-known time interval I. Let $R_{FTG} \subseteq \A \  x\  \I_{PVP}$ be a valid-time relation. Then, the following equation indicates that the pair $\left(A, I\right)$ is in the relation R:
+% 
+% \begin{equation}
+% \label{eq:fuzzy-rel-def}
+% \left( R_{FTG}, \left(A , I\right) \right)
+% \end{equation}
+% 
+ A generalized fuzzy temporal relation $R_{FTG}$ can be noted also by:
+\label{def:generalized-fuzzy-temporal-relation}
+\begin{equation}
+\label{eq:generalized-fuzzy-temporal-relation}
+R_{FTG} = \left(\Head, \Body \right)
+\end{equation}
+Where $\Head$ is the Head of the relation and consists on a fixed set of triplets attribute- domain - compatibility with an optional the valid-time attribute:
+
+\begin{align}
+\label{eq:head-valid-time}
+\Head = \big \lbrace \left(A_{G1}:D_{G1}\left[,C_{A_{G1}} \right] \right),\\
+\nonumber
+ \ldots,\\
+ \nonumber
+  \left(A_{Gn}:D_{Gn}\left[,C_{A_{Gn}} \right] \right),\\
+  \nonumber
+  \Big[  \left( \text{PVP}, D_{\text{PVP}}\left[,C_{A_{\text{PVP}}} \right] \right) \Big] \big \rbrace
+\end{align}
+Note that $D_{Gj}$ ($j = 1, \ldots, n$) is the domain for the attribute $A_{Gj}$. $C_{A_{Gj}}$ is the compatibility attribute in the unit interval $\left[0, 1 \right]$.
+
+$\Body$ is the body of the relation and it consists on a set of tuples. Each tuple is a set of triplets attribute- value- degree with an optional valid-time attribute:
+
+\begin{align}
+\label{eq:body-valid-time}
+\Body = \big \lbrace \ldots \{ \left(A_{G1}:\tilde{d}_{i1}\left[,c_{i1} \right] \right),\\
+\nonumber
+ \ldots,\\
+ \nonumber
+  \left(A_{Gn}:\tilde{d}_{in}\left[,c_{in} \right] \right),\\
+  \nonumber
+   \Big[  \left( \text{PVP}, \tilde{d}_{\text{PVP}} \left[,C_{A_{\text{PVP}}} \right] \right)  \Big] \} \ldots \big \rbrace
+\end{align}
+
+\end{definition}
+
+
+
+
 
 
 
 \section{\label{sec:selection}Selection}
-The selection operator $\sigma$ obtain a subset of tuples that fulfill a set of constraints from a given relation $R$. The set of constraints is usually a boolean combination of atomic constraints. The selection operator is noted as follows:
+The selection operator $\sigma$ obtain a subset of tuples that fulfill a set of constraints $P$ from an instance $r$ of the relation $R \subseteq
+ A \times I$. The set of constraints is usually a boolean combination of atomic constraints. The selection operator is noted as follows:
 \begin{equation}
  \label{eq:selection}
-\sigma_{P} \left( R \right)
+\sigma_{P} \left( r \right)
 \end{equation}
 
-Where $R$ is the relation, and $P$ is the selection formula. The selection formula is a set of two elements:
+Where $r \in R$ is the relation, and $P$ is the selection formula. The selection formula is a set of two elements:
 % \begin{itemize}
 % \item relation.attribute boolean relation relation.attribute
 % \item relation.temporal-attribute allen-relation relation.temporal-attribute 
 % \end{itemize}
 \begin{equation}
  \label{eq:selection_formula}
-P = \left \lbrace Q, Q^{t}\right \rbrace
+P = \left \lbrace Q, Q^{T}\right \rbrace
 \end{equation}
 
-Where $q$ is a boolean combination of (possibly) fuzzy (and bipolar) non-temporal constraints and $q^{t}$ is also a boolean combination of fuzzy temporal constraints.
+Where $Q$ is the set of (possibly) fuzzy (and bipolar) non-temporal constraints and $Q^{T}$ is also a boolean combination of fuzzy temporal constraints.
 
 \begin{equation}
  \label{eq:non-temporal-constraints}
-Q = \left \lbrace q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_1}  \theta \mbox{ val }, \ldots, q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_n}  \theta \mbox{ val } \right \rbrace
+Q = \left \lbrace q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{a}_1}  \theta \mbox{ val }, \ldots, q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{a}_n}  \theta \mbox{ val } \right \rbrace
 \end{equation}
-Where $\theta$ is an artihmetic operator; one of $\left \lbrace =, \neq, <, \leq, >, \geq \right \rbrace$ and val is a value in the domain of the attribute. 
+
+
+Where:
+\begin{itemize}
+ \item $q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{a \in A }$ is an atomic constraint.A possitive preference is notated by $q^{\left \lbrace \mbox{pos} \right \rbrace}$ whether a negative preference is notated by $q^{\left \lbrace \mbox{neg} \right \rbrace}$. The constraint refers to an attribute $a$ that belongs to the set of attributes $A \subseteq A_1 \ldots A_n $ of the relation $R$.
+\item $\theta$ is an artihmetic operator; one of $\left \lbrace =, \neq, <, \leq, >, \geq \right \rbrace$.
+\item \emph{val} is a value in the domain of the queried attribute. 
+ \end{itemize}
+
+ 
 
 Then, consider a boolean function $\bool:\Boolean^{n}  \rightarrow \Boolean$. The evaluation function for the constraints in $Q$  is given by:
 
@@ -541,6 +814,16 @@ R \Join_{r \theta s}^{T} S= \sigma_{r \theta s} \left(R \times^T S \right)
 
 \end{definition}
 
+
+\begin{figure}
+ \includegraphics[scale=0.60]{graphs/innerjoin.eps}
+\caption{\label{fi:innerjoin} Comparison between the relational (non-temporal) inner join (left graph) and the temporal inner join (right graph).}
+\end{figure}
+
+
+
+Figure \ref{fi:innerjoin} compares the relational inner join with respect to the temporal inner join. The right graph illustrates the temporal case. It is clear that the temporal inner join is a subset or is equal to the relational inner join.
+
 \subsection{\label{subsec:Equijoin}Equijoin}
 The equijoin operator for relational databases enforces equality between specified subsets of the attributes of the relations. Then, the temporal equijoin operator is defined as the temporal join operator.
 
@@ -564,9 +847,27 @@ Temporal equijoin ($R$ TE-join $S$). Let $R, S$ be two relations and $r, s$ the 
  \label{eq:temporal-equijoin} 
 R \mbox{TE-join} S \equiv R \Join_{r\left[ID\right] = s\left[ID\right]}^{T} S
 \end{equation}
-
-
 \end{definition}
+
+\subsection{\label{subsec:natural-join}Natural Join}
+The temporal natural join is a temporal equijoin on identically named attributes.
+
+\begin{definition}
+ \label{def:temporal-natural-join}
+Temporal natural join. Consider the following relations $R = \left(A_1, \ldots, A_n, C_1, \ldots, C_k, T_s, T_e \right)$ and $S = \left(B_1, \ldots, B_m, C_1, \ldots, C_k, T_s, T_e \right)$. The temporal natural join is defined as follows:
+\begin{equation}
+ \label{eq:temporal-natural-join}
+R \Join^T S = R \Join_{r\left[C_1\right] = s\left[C_1\right] \wedge \ldots \wedge r\left[C_k\right] = s\left[C_k\right]} S
+\end{equation}
+\end{definition}
+
+\subsection{\label{subsec:outer-joins}Outer Joins}
+
+
+\begin{figure}
+ \includegraphics[scale=0.60]{graphs/outerjoin.eps}
+\caption{\label{fi:outerjoin} Comparison between a left outer join (left graph) and a right inner join (right graph).}
+\end{figure}
 
 
 %The following example illustrates the behaviour of the join operator in a crisp temporal database.

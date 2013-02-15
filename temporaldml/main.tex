@@ -144,7 +144,7 @@ PK = A_K \cup I
 \item We will note by $r$ any valid instance of $R$. 
       \begin{equation}
        \label{eq:valid-time-instance}
-      r \subseteq D_1\ x\ \ldots\ x\ D_n x\ T x\ T
+      r \subseteq D_1\times \ \ldots\ \times \ D_n \times \ T \times \ T
       \end{equation}
 
 
@@ -380,29 +380,39 @@ $\Body$ is the body of the relation and it consists on a set of tuples. Each tup
 
 
 \section{\label{sec:selection}Selection}
-The selection operator $\sigma$ obtain a subset of tuples that fulfill a set of constraints from a given relation $R$. The set of constraints is usually a boolean combination of atomic constraints. The selection operator is noted as follows:
+The selection operator $\sigma$ obtain a subset of tuples that fulfill a set of constraints $P$ from an instance $r$ of the relation $R \subseteq
+ A \times I$. The set of constraints is usually a boolean combination of atomic constraints. The selection operator is noted as follows:
 \begin{equation}
  \label{eq:selection}
-\sigma_{P} \left( R \right)
+\sigma_{P} \left( r \right)
 \end{equation}
 
-Where $R$ is the relation, and $P$ is the selection formula. The selection formula is a set of two elements:
+Where $r \in R$ is the relation, and $P$ is the selection formula. The selection formula is a set of two elements:
 % \begin{itemize}
 % \item relation.attribute boolean relation relation.attribute
 % \item relation.temporal-attribute allen-relation relation.temporal-attribute 
 % \end{itemize}
 \begin{equation}
  \label{eq:selection_formula}
-P = \left \lbrace Q, Q^{t}\right \rbrace
+P = \left \lbrace Q, Q^{T}\right \rbrace
 \end{equation}
 
-Where $q$ is a boolean combination of (possibly) fuzzy (and bipolar) non-temporal constraints and $q^{t}$ is also a boolean combination of fuzzy temporal constraints.
+Where $Q$ is the set of (possibly) fuzzy (and bipolar) non-temporal constraints and $Q^{T}$ is also a boolean combination of fuzzy temporal constraints.
 
 \begin{equation}
  \label{eq:non-temporal-constraints}
-Q = \left \lbrace q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_1}  \theta \mbox{ val }, \ldots, q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{attribute}_n}  \theta \mbox{ val } \right \rbrace
+Q = \left \lbrace q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{a}_1}  \theta \mbox{ val }, \ldots, q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{\mbox{a}_n}  \theta \mbox{ val } \right \rbrace
 \end{equation}
-Where $\theta$ is an artihmetic operator; one of $\left \lbrace =, \neq, <, \leq, >, \geq \right \rbrace$ and val is a value in the domain of the attribute. 
+
+
+Where:
+\begin{itemize}
+ \item $q^{\left \lbrace \mbox{pos,neg} \right \rbrace}_{a \in A }$ is an atomic constraint. A possitive preference is notated by $q^{\left \lbrace \mbox{pos} \right \rbrace}$ whether a negative preference is notated by $q^{\left \lbrace \mbox{neg} \right \rbrace}$. The constraint refers to an attribute $a$ that belongs to the set of attributes $A \subseteq A_1 \ldots A_n $ of the relation $R$.
+\item $\theta$ is an artihmetic operator; one of $\left \lbrace =, \neq, <, \leq, >, \geq \right \rbrace$.
+\item \emph{val} is a value in the domain of the queried attribute. 
+ \end{itemize}
+
+ 
 
 Then, consider a boolean function $\bool:\Boolean^{n}  \rightarrow \Boolean$. The evaluation function for the constraints in $Q$  is given by:
 
