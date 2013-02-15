@@ -1,6 +1,7 @@
 package es.ugr.decsai.idbis.fuzzycalculator;
 
 import es.ugr.decsai.idbis.fuzzy.FuzzyConstraintException;
+import es.ugr.decsai.idbis.fuzzy.relationship.FuzzyRelationship;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,30 @@ public class App
         TrapezoidalFuzzyNumber t3 = new TrapezoidalFuzzyNumber(20D, 30D, 30D, 35D);
         
         
+        TriangularFN start = new TriangularFN(5D, 2D, 2D);
+        TriangularFN end = new TriangularFN(10D, 2D, 2D);
+        
+        IllKnownConstraint ikc = new IllKnownConstraint(start, FuzzyRelationship.FGT);
+        IllKnownConstraint ik2 = new IllKnownConstraint(end, FuzzyRelationship.FLEQ);
+        
+        TriangularFN a = new TriangularFN(6D, 0D, 0D);
+        TriangularFN b = new TriangularFN(7D, 0D, 0D);
+        try {
+            Double vala = ikc.evaluate(a);
+            Double valb = ikc.evaluate(b);
+            
+            System.out.println("Minimo:" + ((vala<valb)?vala:valb));
+            
+        } catch (FuzzyConstraintException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        
+        
+        
 //        for(double i=0;i< 30;i++){
 //            try {
 //                System.out.println("i: "+i + " eval "+t.evaluate(i)); 
@@ -31,22 +56,11 @@ public class App
 //        }
         try {
             
-            ArrayList<Double> feq,nfeq,fgt,nfgt,fgeq,nfgeq,flt,nflt,fleq,nfleq,mgt,nmgt,mlt,nmlt;
+            ArrayList<Double> ikcList;
             ArrayList<TrapezoidalFuzzyNumber> numbers;
             
-            feq = new ArrayList<Double>();
-            nfeq = new ArrayList<Double>();
-            fgt = new ArrayList<Double>();
-            nfgt = new ArrayList<Double>();
-            fgeq = new ArrayList<Double>();
-            nfgeq = new ArrayList<Double>();
-            flt = new ArrayList<Double>();
-            nflt = new ArrayList<Double>();
-            fleq = new ArrayList<Double>();
-            nfleq = new ArrayList<Double>();
-            mgt = new ArrayList<Double>();
-            mlt = new ArrayList<Double>();
-            nmlt = new ArrayList<Double>();
+            ikcList = new ArrayList<Double>();
+            
             
             numbers = new ArrayList<TrapezoidalFuzzyNumber>();
             
@@ -56,6 +70,16 @@ public class App
             numbers.add(t3);
             
             Double much = 30D;
+            
+            
+            // show illknownconstraints:
+            for(int i = 0; i< numbers.size(); i++){
+                System.out.println(String.format("|%1$20s|", ikc.evaluate(numbers.get(i))));
+                
+                
+            }
+            
+            
             
             System.out.println(" FEQ  | D-FEQ |  NEQ  | D-NEQ | FGT | NFGT  | FGEQ  | NFGEQ  | FLT  | NFLT  | FLEQ  | NFLEQ  | MGT  | NMGT  | MLT  | NMLT ");
             
@@ -94,6 +118,9 @@ public class App
                         
                         );
             }
+            
+            
+            
             
             
             

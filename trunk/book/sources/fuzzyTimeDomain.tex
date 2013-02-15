@@ -14,7 +14,7 @@ Generally, in temporal modelling, a distinction is made between the following ty
 
 
 \begin{itemize}
-	\item \emph{Uncertainty}: Temporal information or data may contain uncertainty. This means that the exact temporal value is (partially) unknown, however, generally some knowledge is present anyhow, possibly describing the value~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in},~\cite{nagypal2003},~\cite{Dubois89},~\cite{343607}. E.g., the temporal notion described in a sentence like `The Belfry of Bruges was finished on a day somewhere between 01/01/1201 A.D. and 31/12/1300 A.D.' contains uncertainty: it is known that the belfry of Bruges was finished on a single day and that this day lays somewhere between 01/01/1201 A.D. and 31/12/1300 A.D., but it is not known exactly which day it is.
+	\item \emph{Uncertainty}: Temporal information or data may contain uncertainty. This means that the exact temporal value is (partially) unknown, however, generally some knowledge is present anyhow, possibly describing the value~\cite{Dubois2003},~\cite{nagypal2003},~\cite{Dubois1989},~\cite{343607}. E.g., the temporal notion described in a sentence like `The Belfry of Bruges was finished on a day somewhere between 01/01/1201 A.D. and 31/12/1300 A.D.' contains uncertainty: it is known that the belfry of Bruges was finished on a single day and that this day lays somewhere between 01/01/1201 A.D. and 31/12/1300 A.D., but it is not known exactly which day it is.
 	\item \emph{Vagueness}: Temporal information or data might contain inherent vagueness, as a precise instant or time interval may be intended, but the description of it is certainly vague~\cite{schockaert08},~\cite{nagypal2003},~\cite{Dev98}. E.g., the temporal notion described in a sentence like `It happened during summer.' contains vagueness, as even the boundaries of the mentioned temporal notion are not clearly expressed.
 	\item \emph{Subjectivity or ambiguity}: Temporal notions might be subject to subjectivity or ambiguity. In certain cases, the temporal notion concerns a historical period like `late romanticism' or `the early middle ages' and thus contains subjectivity~\cite{nagypal2003}. In other cases, the interpretation of the temporal notion depends on extra factors. E.g., consider a person saying to another person `Let's meet each other at six.' The person hearing these words doesn't now if 6 a.m. or 6 p.m. is intended, though the person saying the words does.
 \end{itemize}
@@ -34,17 +34,17 @@ In an information system, temporal information is usually related to facts or ev
 Definite temporal information contains information describing a situation in which all time indications associated with some fact are absolute time indications. The temporal information is precisely known.
 
 \item \emph{Indefinite temporal information}~\cite{Dey1996}:
-Indefinite temporal information contains information describing a situation in which the time indication associated with some fact has not been fully defined. E.g., consider an event that in fact occured but it is not known exactly when.
+Indefinite temporal information contains information describing a situation in which the time indication associated with some fact has not been fully defined. E.g., consider an event that in fact occurred but it is not known exactly when.
 
 \item \emph{Infinite temporal uncertain information}~\cite{Kabanza1990}:
-Infinite temporal uncertain information contains information describing a situation in which an infinite number of time indications are associated with some fact. This is usually found in recurrent events like meetings. E.g., consider meetings that take place every Wednesday at noon. Some systems (usually with different information providers) may dispute the occurence and/or the duration of a fact.
+Infinite temporal uncertain information contains information describing a situation in which an infinite number of time indications are associated with some fact. This is usually found in recurrent events like meetings. E.g., consider meetings that take place every Wednesday at noon. Some systems (usually with different information providers) may dispute the occurrence and/or the duration of a fact.
 \end{itemize}
 
 \subsection{\label{subsec:representation}Representation of Imperfect Information}
 As mentioned before, information systems may have to deal with time indications which contain vagueness. Even for some specific events or facts, the temporal indications may become imprecise. Therefore, a time point might be specified by means of a time interval of which the boundaries may not be precisely known. An example.
 
 \begin{example}
-Consider a speaker and a hearer. The speaker wants to make an appointment with the hearer. Now, consider the speaker saysing: \\
+Consider a speaker and a hearer. The speaker wants to make an appointment with the hearer. Now, consider the speaker saying: \\
 \begin{center}
 \emph{`We will meet each other tomorrow around 10'}\\
 \end{center}
@@ -60,12 +60,12 @@ In order to represent and manage uncertain temporal information properly, severa
 
 \begin{itemize}
 \item \emph{Probability theory}:
-Probability theory~\cite{Dey1996},~\cite{Lakshmanan1997},~\cite{Haddawy1996} is usually employed when uncertainty concerning a time interval allows a probability to be associated to the time interval. The use of probability theory is very usual in logistics information systems. E.g., \emph{`The package will arrive at its destination on monday morning with a probability of 0.8'}.
+Probability theory~\cite{Dey1996},~\cite{Lakshmanan1997},~\cite{Haddawy1996} is usually employed when uncertainty concerning a time interval allows a probability to be associated to the time interval. The use of probability theory is very usual in logistics information systems. E.g., \emph{`The package will arrive at its destination on Monday morning with a probability of 0.8'}.
 
 
 
 \item \emph{Possibility theory}:
-Using possibility theory~\cite{DidierDubois1988a}, a possibility degree is associated to the temporal fact or event. Possibility theory is widely used to model uncertainty and vaguenes in time~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in},\cite{Dubois89},\cite{devos94},\cite{nagypal2003}. Several works~\cite{schockaert08},~\cite{ohlbach2004} present fuzzy versions of the temporal relations proposed by Allen~\cite{Allen83}. The aim of these works is generally to obtain a flexible way to compare uncertain, ill-known temporal intervals by means of temporal relationships. The study of imperfect temporal metadata is done in \cite{Bordogna2009}, \cite{Bordogna2011}. In ~\cite{Soysangwarn2009} a proposal to use in fuzzy databases temporal fuzzy linguistic terms is studied. Burney ~\cite{burney2010a}, \cite{burney2010b} has studied recently the combination of fuzzy databases with temporal data.
+Using possibility theory~\cite{DidierDubois1988a}, a possibility degree is associated to the temporal fact or event. Possibility theory is widely used to model uncertainty and vagueness in time~\cite{Dubois:jucs_9_9:fuzziness_and_uncertainty_in},\cite{Dubois89},\cite{devos94},\cite{nagypal2003}. Several works~\cite{schockaert08},~\cite{ohlbach2004} present fuzzy versions of the temporal relations proposed by Allen~\cite{Allen83}. The aim of these works is generally to obtain a flexible way to compare uncertain, ill-known temporal intervals by means of temporal relationships. The study of imperfect temporal metadata is done in \cite{Bordogna2009}, \cite{Bordogna2011}. In ~\cite{Soysangwarn2009} a proposal to use in fuzzy databases temporal fuzzy linguistic terms is studied. Burney ~\cite{burney2010a}, \cite{burney2010b} has studied recently the combination of fuzzy databases with temporal data.
 
 
 \item \emph{Rough sets}:

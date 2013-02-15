@@ -45,10 +45,13 @@ public class TemporalQuery {
     protected AllenRelation  ar;
     protected PossibilisticVTP pvp;
     
+    protected List<TemporalQuery> temporalQueryList;
+    
     public TemporalQuery(Session session, Object entity){
         this.session = session;
         crispCriteria = session.createCriteria(entity.getClass());
         temporalCriteria = session.createCriteria(entity.getClass());
+        this.temporalQueryList = new ArrayList<TemporalQuery>();
         
     }
 
@@ -126,8 +129,9 @@ public class TemporalQuery {
         
         
         for(QueryResult q:merge){
+            q.temporalSatisfaction = 0.0D;
             
-            
+            if(ar!=null){
             switch(ar){
                 case before: q.temporalSatisfaction = CriteriaAllenRelations.computeBeforeSatisfactionDegree(q.vtp, pvp);
                     break;
@@ -147,6 +151,7 @@ public class TemporalQuery {
                 case contains: q.temporalSatisfaction = CriteriaAllenRelations.computeContainsSatisfactionDegree(q.vtp, pvp);
                     break;
                 
+            }
             }
            
             q.aggregation = weight*(q.crispSatisfaction) + (1-weight)*q.temporalSatisfaction;
@@ -215,7 +220,68 @@ public class TemporalQuery {
         
         
         return this;
+        
+        
     }
+    
+    
+    
+    /**
+     * Function to create a new temporal query.
+     * This is used to make cartesian products and temporal joins.
+     * @param entity An entity
+     * @return An instance of the temporal query object.
+     */
+    public TemporalQuery createTemporalQuery(Object entity){
+        TemporalQuery tq = new TemporalQuery(session, entity);
+        temporalQueryList.add(tq);
+        return tq;
+    }
+    
+    
+    public List<QueryResult> cartesianProduct() throws TemporalException{
+        List<QueryResult> queryResult = this.getList();
+        if(this.temporalQueryList.size()>0){
+//            List<QueryResult> queryResult = this.getList();
+            
+            for(TemporalQuery tq:temporalQueryList){
+                if(!tq.equals(this)){
+                    List<QueryResult> queryResult2 = tq.getList();
+                    queryResult = mergeCartesianProduct(queryResult, queryResult2);
+                    
+                }
+            }
+            
+            
+        }
+        return queryResult;
+        
+    }
+    
+    protected List<QueryResult> mergeCartesianProduct(List<QueryResult> qr1, List<QueryResult> qr2) throws TemporalException{
+        List<QueryResult> resultList = new ArrayList<QueryResult>();
+        
+        
+        // if there is intersection between both tuples, then, compute the time interval:
+        for(int i=0;i<qr1.size();i++){
+            for(int j=0;j<qr2.size();j++){
+               if(CriteriaAllenRelations.computeIntersectsSatisfactionDegree(qr1.get(i).getVtp(), qr2.get(j).getVtp())>=0.5){
+                   List l = new ArrayList();
+                   l.add(qr1.get(i).getEntity());
+                   l.add(qr2.get(j).getEntity());
+                   
+                   
+                   QueryResult qr = new QueryResult(l);
+                   qr.vtp = CriteriaAllenRelations.overlappingInterval(qr1.get(i).getVtp(), qr2.get(j).getVtp()) ;
+                        
+                   resultList.add(qr);
+               }
+            }
+        }
+        return resultList;
+        
+    }
+    
     
    
 }
