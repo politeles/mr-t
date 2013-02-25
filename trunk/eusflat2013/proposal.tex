@@ -1,0 +1,36 @@
+In this section we will analyze first the calculation of all the possible Allen's relations between a crisp time point and an ill-known time point and between a crisp time point and an uncertain time indication (UTI). Then, we will compare two ill-known time points and two uncertain time indications.
+
+\subsection{\label{subsec:prop-crisp-vs-ill}Calculation of crisp time intervals}
+In this section we first study how uncertainty about wheter crisp interval is enclosed by the ill-known interval given by $[X,Y]$ or by the UTI.
+
+\subsubsection{Crisp time interval enclosed by an ill-known time interval}
+Consider a crisp time interval given by $I=[a, b]$. We want to know whether all the points in this interval are within the boundaries of the ill-known interval given by $[X, Y]$. The calculation is done by means of two ill-known constraints as explained in \cite{}:
+\begin{eqnarray}
+C_1\stackrel{\triangle}{=}\left(\geq,X\right)\\
+C_2\stackrel{\triangle}{=}\left(\leq,Y\right).
+\end{eqnarray}
+
+The possibility and the necessity are given by:
+\begin{eqnarray}
+\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\Pos(C_1([a,b])),\Pos(C_2([a,b]))\bigg)\\
+\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\Nec(C_1([a,b])),\Nec(C_2([a,b]))\bigg).
+\end{eqnarray}
+Which can be expanded to:
+\begin{eqnarray}
+\label{eq:interval-pos}
+\Pos\left(\lambda([a,b])\right)&=&\min\bigg(\sup_{a\leq w}\pi_{X}(w),\sup_{b\geq w}\pi_{Y}(w)\bigg)\\
+\label{eq:interval-nec}
+\Nec\left(\lambda([a,b])\right)&=&\min\bigg(\inf_{a>w}1-\pi_{X}(w),\inf_{b<w}1-\pi_{Y}(w)\bigg).
+\end{eqnarray}
+
+
+\subsubsection{\label{subsubsec:crisp-uti}Crisp time interval enclosed by an UTI}
+Consider now a crisp time interval given by $I=[a, b]$ and an Uncertain Time Interval given by $\pi_I = \left(\pi_s, \pi_e \right)$. Again, we want to know if all the points in the interval are within the boundaries of the UTI. The calculation is done as explained in \cite{}:
+\begin{equation}
+ \pi_I \left( \left[a, b  \right] \right) =
+\begin{cases}
+ \min \left(\pi_s(a),\pi_e(b)\right) & \mbox{ if } a \leq b\\
+0 				     & \mbox{ otherwise. }
+\end{cases}
+\end{equation}
+
