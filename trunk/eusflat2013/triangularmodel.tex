@@ -1,0 +1,131 @@
+In this section we will explain a graphical visualization of temporal data called the triangular model (TM). This has been widely used mainly on rough sets for the visualization of historical data. More recently, the model has been extended on possibility theory to model Uncertain Time Intervals (UTI).
+First of all we will explain the main concepts and properties of the triangular model to model Uncertain Time Intervals (UTI). Then, we will detail how to compute the Allen's Relations between a crisp time point and an UTI.
+
+
+\subsection{\label{subsec:utis}Uncertain Time Intervals}
+As mentioned in the previous section, the boundaries of time intervals are not always well-known. The available knowledge about the interval can be modelled by using possibility distributions ~\cite{Billiet2012}, ~\cite{JoseEnriquePons2012} on both starting and ending points as mentioned in the previous section. Informally, an Uncertain Time Interval UTI is a time interval for which one or both boundaries are not precisely known. 
+
+\begin{definition}
+ \label{def:uncertain-time-interval}
+An uncertain time interval UTI $I$ is composed by an starting point $S$, and an ending point $E$. For both points, two different convex possibility distributions are defined, namely $\pi_s$, $\pi_e$. These two possibility distributions represent all the possible time intervals that can be constructed from $I$. The following formula obtains the possibility $\pi_{I}$ that a crisp interval  given by  $[a, b]$ is constructed from $I$. 
+\begin{equation}
+ \label{eq:possibility-uti}
+\pi_{I} \left(\left[t_s, t_e\right] \right) = 
+\begin{cases}
+ \min \left(\pi_s (t_s), \pi_e (t_e) \right), & \mbox{ if } t_s \leq t_e\\
+0, & \mbox{ otherwise. }
+\end{cases}
+\end{equation}
+
+In the following we will note an UTI as $\pi_{I} = \left(\pi_s, \pi_e \right)$.
+% It is important to notice that, the main diference with respect to the ill-known time interval (see Definition \ref{}) is that an UTI only consider as possible starting and ending points 
+
+\end{definition}
+
+
+
+
+\subsection{\label{subsec:visualization-tm}Visualization within the triangular model}
+Time intervals are usually represented in a one dimensional scale. This is due to its linear characteristic. This approach has also been used in Figure \ref{fig:ill-known-ti} and \ref{}. The dificulty of accurate visual analisys on the temporal data arises when the number of time intervals increase. 
+
+The triangular model (TM) ~\cite{Kulpa1997}, \cite{Weghe2007} represents time intervals in a two dimensional space. The procedure to represent a time interval $[t_s, t_e]$ as an interval point in a two dimensional space is the following:
+
+\begin{enumerate}
+ \item Draw each time point of the interval in the horizontal line.
+\item Construct one straight line from $t_s$ with an angle $\alpha$.
+\item Construct one straight line from $t_e$ with an angle $-\alpha$.
+\item The intersection of these two lines is the interval point.
+\end{enumerate}
+
+For the shake of simplicity, in this work, the angle for $\alpha$ is $45^{\circ}$ .
+
+% Mainly due to its linear characteristic, time is traditionally visualised using a linear representation where several time intervals are depicted as linear segments on top of a horizontal time axis. This approach has also been used in Fig. \ref{fig:ill-known-ti}. One can read the start and end point of each interval the horizontal scale. The vertical dimension is solely used to differentiate multiple overlapping intervals, if used at all. The linear representation works well as long as the number of represented time intervals remains low. As soon as a large number of overlapping intervals have to be represented the representation becomes overloaded and accurate visual data analysis becomes almost impossible.
+
+
+For that reason, an alternative Triangular time Model (TM) has been presented in \cite{Weghe2007}. This model is an extension of Kulpa's triangular model for the modelling of crisp time intervals \cite{Kulpa1997}. Basically, intervals are modelled as interval points in a two-dimensional space as follows. First, a horizontal time axis is considered. Second, for each time interval $\left[t_s, t_e \right]$ two straight lines $L_s$ and $L_e$ are constructed as depicted in Fig. \ref{}. Line $L_s$ is passing through $t_s$ and makes a fixed angle $\alpha$ with the horizontal time axis, whereas Le is passing through te making a fixed angle $-\alpha$ with the horizontal time axis. The interval $\left[t_s, t_e \right]$ is then represented by the intersection of $L_s$ and $L_e$ , which is called the interval point of $\left[t_s, t_e \right]$. For the ease of use, $\alpha$ is here chosen to be $45^{\circ}$ . In TM all time intervals are represented by their corresponding interval point. So, because $\alpha$ is fixed for all interval points, the position of the interval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR \cite{Kulpa2006}.
+
+%Figure 3
+
+From the observation that the start points and end points of two crisp time intervals $I^{1} = \left[t_s^1, t_e^1 \right]$ and $I^2 = \left[t_s^2, t_e^2 \right]$ can be smaller than ($<$), equal to ($=$) or larger than ($>$) each other, Allen proposed the thirteen possible relations between two crisp time intervals given in Table \ref{} \cite{Allen1983}.
+
+
+
+
+
+
+
+
+% \subsection{\label{subsec:uncertainty-about-time-intervals}Uncertainty about Time Intervals}
+% Time is a complex natural phenomenon that, among others, allows humans to organise life and plan activities. Time also plays an important role in information management as it allows to register facts with different kinds of timestamps and make use of these timestamps during querying and information retrieval. Dealing with time in an information system requires a time model. In this paper, it is implicitly assumed that time is modelled as being discrete, linear and finite. This means that it is considered that time can only be/ observed using a limited precision, say $\delta$. Observing time using a maximum precision $\delta$ and with respect to a given origin $t_0$ involves a crisp discrete (countable) set of time points, given by
+% \begin{equation}
+%  \label{eq:t0-delta}
+% T_{0,\delta} = \lbrace t_K \in T | t_k = t_0 + k\delta, k \in \Z \rbrace
+% \end{equation}
+% 
+% where $Z = \left \lbrace 0, 1, -1, 2, -2, \ldots \rbrace \right. T_{0, \delta}$ is a proper subset of the continuum $T$ of the physical time points. The discretisation can be described as a surjective mapping from $T$ on $T_{0,\delta}$, which maps each $\tau \in T$ on the element $t_k \in T_{0,\delta}$ that lies in the interval
+% \begin{equation}
+% \gamma_{0,k} = \left[ t_0 + k\delta, t_0 + (k+1)\delta \right[, k \in \Z 
+% \end{equation}
+% 
+% Discretisation implies that all time points within an interval $\gamma_{0,k}$ are considered to be indistinguishable and mapped to the same time point $t_k$. This is not really a limitation, on condition that the precision $\delta$ is chosen sufficiently accurate. The discretisation is necessary to circumvent the density problem (i.e., the fact that between any two distinct points, there always exists at least one other point). Linearity implies a total order over the time points. Finally, our model is chosen to be finite in view of a computer representation. This implies that all values that exceed the determined upper and lower bound will be handled by introducing two special values $(- \infty $ and  $+\infty)$.
+% 
+% The intervals $\gamma_{0,k}$ with $\delta$ as length are usually called `chronons' in literature (cf. \cite{Dyreson1994}). The introduction of chronons eliminates the necessity of making a distinction between points and intervals, because even a chronon, the smallest unit in the model, is essentially an interval. 
+% 
+% A time interval $\left[t_s, t_e \right]$ is defined by a start time point $t_s$  and a length $l$, which defines the distance (number of chronons) from ts to the end time point $t_e$, i.e., $l = t_e - t_s$.
+% 
+% 
+% A time point is equivalent to a time interval with $l = 0$ (or $t_e = t_s$ ). Note that the length of an interval is not the same as the duration of the interval: the length of a time point is 0, its duration is 1 chronon ($\delta$). 
+% 
+% In practice, it often occurs that time intervals cannot be exactly specified. Especially, in historical data it is often the case that either the starting date or the ending date (or both) of a time interval are partially or completely unknown. In such cases, the best thing to do is modelling the available knowledge about (the uncertainty of) the interval as accurate as possible, hereby avoiding information loss. Soft computing techniques, more specifically possibility theory \cite{DidierDubois1988a}, can be used for that purpose. In \cite{Billiet2012}, \cite{JoseEnriquePons2012} a possibilistic valid time model able to cope with time intervals that have an uncertain start and/or end point has been presented. The basics of this model are used in this paper and briefly described as follows. Each (Un)certain Time Interval (UTI) is defined by a pair
+% \begin{equation}
+%  \label{eq:uncertain-time-interval}
+% \left(\pi_s, \pi_e \right)
+% \end{equation}
+% 
+% where $\pi_s$ and $\pi_e$ are two convex possibility distributions, respectively reflecting the knowledge about the start and end point of the UTI (as illustrated in Fig. \ref{}(a)). In case of certainty, the possibility distribution is characterised by a fuzzy set with singleton support and core containing the crisp date. In case of uncertainty, the possibility distribution is characterised by a fuzzy set containing all possible candidate values for the date and their associated degree of possibility. 
+% % figura 2
+% 
+% Together, both possibility distributions reflect the available knowledge about the start and end of the UTI they model. This implies that $\pi$s and $\pi$e together represent another possibility distribution $\pi$I consisting of all possible time intervals that can be constructed from $\pi$s and $\pi$e . Some of the intervals in $\pi_I$ are depicted in Fig. \ref{}(b). For each time interval $\left[t_s , t_e \right]$, its associated possibility grade in $\pi_I$ is computed by
+% \begin{equation}
+%  \label{eq:possibility-uti}
+% \pi_{I} \left(\left[t_s, t_e\right] \right) = 
+% \begin{cases}
+%  \min \left(\pi_s (t_s), \pi_e (t_e) \right), & \mbox{ if } t_s \leq t_e\\
+% 0, & \mbox{ otherwise. }
+% \end{cases}
+% \end{equation}
+% 
+% Eq. \eqref{eq:possibility-uti} reflects that given the uncertainty about the start point, modelled by $\pi$s and the uncertainty about the end point, modelled by $\pi_e$ $\pi$e , the possibility that $\left[t_s, t_e \right]$ is the actual value of the UTI equals the possibility that ts is the actual start point (i.e., $\pi_s (t_s)$) and te is the actual end point (i.e., $\pi_e (t_e)$) of $I$, where the conjunction of both conditions is modelled by the minimum t-norm. In the inconsistent case where $t_s > t_e$ the interval is considered to be completely impossible. In the remainder of this paper we will denote an UTI as $\pi_I$, i.e., $\pi_I = \left( \pi_s, \pi_e \right)$.
+
+
+
+\subsection{\label{subsec:the-triangular-model}The triangular model}
+Mainly due to its linear characteristic, time is traditionally visualised using a linear representation where several time intervals are depicted as linear segments on top of a horizontal time axis. This approach has also been used in Fig. \ref{}(b). One can read the start and end point of each interval the horizontal scale. The vertical dimension is solely used to differentiate multiple overlapping intervals, if used at all. The linear representation works well as long as the number of represented time intervals remains low. As soon as a large number of overlapping intervals have to be represented the representation becomes overloaded and accurate visual data analysis becomes almost impossible.
+
+For that reason, an alternative Triangular time Model (TM) has been presented in \cite{Weghe2007}. This model is an extension of Kulpa's triangular model for the modelling of crisp time intervals \cite{Kulpa1997}. Basically, intervals are modelled as interval points in a two-dimensional space as follows. First, a horizontal time axis is considered. Second, for each time interval $\left[t_s, t_e \right]$ two straight lines $L_s$ and $L_e$ are constructed as depicted in Fig. \ref{}. Line $L_s$ is passing through $t_s$ and makes a fixed angle $\alpha$ with the horizontal time axis, whereas Le is passing through te making a fixed angle $-\alpha$ with the horizontal time axis. The interval $\left[t_s, t_e \right]$ is then represented by the intersection of $L_s$ and $L_e$ , which is called the interval point of $\left[t_s, t_e \right]$. For the ease of use, $\alpha$ is here chosen to be $45^{\circ}$ . In TM all time intervals are represented by their corresponding interval point. So, because $\alpha$ is fixed for all interval points, the position of the interval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR \cite{Kulpa2006}.
+
+%Figure 3
+
+From the observation that the start points and end points of two crisp time intervals $I^{1} = \left[t_s^1, t_e^1 \right]$ and $I^2 = \left[t_s^2, t_e^2 \right]$ can be smaller than ($<$), equal to ($=$) or larger than ($>$) each other, Allen proposed the thirteen possible relations between two crisp time intervals given in Table \ref{} \cite{Allen1983}.
+
+In TM, these thirteen Allen relations each correspond to a specific zone in the interval space IR \cite{Kulpa1997}. These thirteen zones are called Crisp Relational Zones (CRZs). The CRZs with respect to a reference interval point $I$ are depicted in Fig. \ref{}. Hereby, the following shorthand notations are used: equals (E), starts (S), started by (SB), finishes (F ), finished by (F B), meets (M ), met by (M B), overlaps (O), overlapped by (OB), during (D), contains (C), before (B) and after (A).
+
+% TABLE I
+% T HE THIRTEEN POSSIBLE A LLEN RELATIONS BETWEEN CRISP TIME
+% INTERVALS
+% 
+% I 1 equals I 2
+% I 1 starts I 2
+% I 1 started by I 2
+% I 1 f inishes I 2
+% I 1 f inished by I 2
+% I 1 meets I 2
+% I 1 met by I 2
+% I 1 overlaps I 2
+% I 1 overlapped by I 2
+% I 1 during I 2
+% I 1 contains I 2
+% I 1 bef ore I 2
+% I 1 af ter I 2
+
+Each CRZ represents the set of interval points of the crisp time intervals that are in the corresponding Allen relation with respect to the reference interval $I$. For example, all interval points of intervals that come before $I$ are located in the CRZ represented by the leftmost lower triangle in the interval space. Likewise, if an interval point is located in the top quadrangle above $I$, then its corresponding interval contains $I$. CRZs allow to visually analyse relations between (large) sets of interval points.
