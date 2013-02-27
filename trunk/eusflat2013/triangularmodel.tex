@@ -26,28 +26,144 @@ In the following we will note an UTI as $\pi_{I} = \left(\pi_s, \pi_e \right)$.
 
 
 \subsection{\label{subsec:visualization-tm}Visualization within the triangular model}
-Time intervals are usually represented in a one dimensional scale. This is due to its linear characteristic. This approach has also been used in Figure \ref{fig:ill-known-ti} and \ref{}. The dificulty of accurate visual analisys on the temporal data arises when the number of time intervals increase. 
+Time intervals are usually represented in a one dimensional scale. This is due to its linear characteristic. This approach has also been used in Figure\ref{fig:allen-relationships} and \ref{fig:ill-known-ti}. The dificulty of accurate visual analisys on the temporal data arises when the number of time intervals increase. 
 
-The triangular model (TM) ~\cite{Kulpa1997}, \cite{Weghe2007} represents time intervals in a two dimensional space. The procedure to represent a time interval $[t_s, t_e]$ as an interval point in a two dimensional space is the following:
+The triangular model (TM) ~\cite{Kulpa1997}, \cite{Weghe2007} represents time intervals in a two dimensional space called IRterval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR ~\cite{Kulpa2006}. The procedure to represent a time interval $[t_s, t_e]$ as an interval point in a two dimensional space is the following:
 
 \begin{enumerate}
- \item Draw each time point of the interval in the horizontal line.
-\item Construct one straight line from $t_s$ with an angle $\alpha$.
-\item Construct one straight line from $t_e$ with an angle $-\alpha$.
+\item Draw each time point of the interval $[t_s, t_e]$ in the horizontal line.
+\item Construct one straight line $L_s$ from $t_s$ with an angle $\alpha$.
+\item Construct one straight line $L_e$ from $t_e$ with an angle $-\alpha$.
 \item The intersection of these two lines is the interval point.
 \end{enumerate}
 
-For the shake of simplicity, in this work, the angle for $\alpha$ is $45^{\circ}$ .
+For the shake of simplicity, in this work, the angle for $\alpha$ is chosen to be $45^{\circ}$.
+
+
+In TM, these thirteen Allen relations each correspond to a specific zone in the interval space IR \cite{Kulpa1997}. These thirteen zones are called Crisp Relational Zones (CRZs). The CRZs with respect to a reference interval point $I$ are depicted in Figure \ref{fig:allencrz}. 
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{graphs/allencrc.eps}
+   \caption{CRZs corresponding to the thirdteen Allen's relations. The following shorthand notations are used: equals (E), starts (S), started by (SB), finishes (F), finished by (FB), meets (M), met by (MB), overlaps (O), overlapped by (OB), during (D), contains (C), before (B) and after (A).  }
+   \label{fig:allencrz}
+ \end{figure}
+
+
+
+Each CRZ represents the set of interval points of the crisp time intervals that are in the corresponding Allen relation with respect to the reference interval $I$. For example, all interval points of intervals that come before $I$ are located in the CRZ represented by the leftmost lower triangle in the interval space. Likewise, if an interval point is located in the top quadrangle above $I$, then its corresponding interval contains $I$. CRZs allow to visually analyse relations between (large) sets of interval points.
+
+\subsection{\label{subsec:utis-in-tm}Representation of Uncertain Time Intervals}
+In \cite{DeTre2012} a technique to represent UTIs in the triangular model has been presented. Basically, the procedure is an extension of the method to represent crisp time intervals in the triangular space. An UTI $\pi_I = \left(\pi_s, \pi_e \right)$ can be represented in the triangular model by the following procedure, considering that both $\pi_s, \pi_e$ are given by triangular membership functions (see Section \ref{subsec:fuzzy-numbers}).
+
+\begin{enumerate}
+ \item Let $\pi_s = \left[D_s, a_s, b_s\right]$ a triangular membership function.
+\item Let $\pi_e = \left[D_e, a_e, b_e \right]$ a triangular membership function.
+\item Let $t_s^{-} = D_s - a_s$, and $t_s^{+} = D_s + b_s$.
+\item Let $t_e^{-} = D_e -a_e$, and $t_e^{+} = D_e + b_e$.
+\item Construct two straight lines $L_s^{-}, L_s^{-}$ from $t_s^{-}, t_s^{+}$ with an angle $\alpha$.
+\item Construct two straight lines $L_e^{-}, L_e^{-}$ from $t_e^{-}, t_e^{+}$ with an angle $-\alpha$.
+\end{enumerate}
+
+The intersection of these lines is a quadrangle zone where the UTI is contained. Note that not all the interval points in this zone are to the same extent representing candidate intervals for the UTI.  A grey scaled color gradient is obtained from Eq. \eqref{eq:possibility-uti}. As shown in Fig. \ref{fig:utitm} the color black is associated with a possibility degree of 1, whereas the color white is used when the possibility is 0.
+%Equation \eqref{eq:possibility-uti} computes the possibility obtained for the UTI with respect to a candidate interval.
+% This formula is used to calculate a grey scaled gradient in which the color black denotes the possibility degree 1 and the color white denotes the possibility degree 0.
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{graphs/utitm.eps}
+   \caption{Representation in the triangular model for an UTI $\pi_I$.  }
+   \label{fig:utitm}
+ \end{figure}
+
+\subsection{\label{subsec:relational-info-uti}Obtaining Relational Information}
+In order to make temporal reasoning with UTIs, in the triangular model, the thirteen Allen's Relations, and its respectives Crisp Relational Zones (CRZ) have been generalized. In this case, we obtain fifteen Uncertain Relational Zones (URZ) , shown in Fig. \ref{fig:urz} and in Table \ref{tab:urz}. 
+
+
+
+
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{graphs/urz.eps}
+   \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
+   \label{fig:urz}
+ \end{figure}
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Symbol & Name & Possible Relations \\
+\hline
+B    & Before & B \\
+O    & Overlaps & O \\
+C    & Contains & C \\
+D    & During & D \\
+OB   & Overlapped by & OB \\
+A    & After & A \\
+PM   & Possibly meets & M, B, O \\
+PS   & Possibly starts & O, S, D \\
+PFB  & Possibly finished by & O, FB, C \\
+\multirow{2}{*}
+{PE}   & Possibly equal  & E, FB, SB, F,\\
+       &                 & S, C, D,O, OB \\
+%       &                 &  \\
+PSB  & Possibly started by & C, OB, SB \\
+PF   & Possibly finishes & OB, MB, A \\
+PMB  & Possibly met by & B, M, O, S, D \\
+UB   & Uncertain beginning & B, M, O, S, D \\
+UE   & Uncertain ending & D, F, OB, MB, A \\
+\hline
+\end{tabular}
+\caption{The fifteen possible relations between an interval point $J$ and an UTI $\pi_I$.}
+\label{tab:urz}
+\end{table}
+
+
+The way to obtain the relational information between an interval point $J = \left[s_j, e_j \right]$, and an UTI $\pi_I$ depends on the location of $J$ with respect to the UTI $\pi_I$:
+
+\begin{itemize}
+ \item If $J$ is located in a zone with only one possible Allen relation, then it is true that $J$ is in the relation. (And therefore, the possibility is always 1).
+\begin{equation}
+ \label{eq:possibility-iz-uti-certain}
+\mu_{\left(J R \pi_I \right)} \left(R \right) = 1.
+\end{equation}
+
+
+\item If $J$ is located in a zone with multiple candidate Allen's relations, then there is uncertainty about the Allen relation that applies between $J$ and the UTI $\pi_I$. The procedure to obtain the possibility degree is the following:
+
+\begin{enumerate}
+ \item Draw the lines $L_s, L_e$ that represent the interval point $J$, with the procedure shown un Section \ref{subsec:visualization-tm}. 
+\item Draw the orthogonal lines from $L_s, L_e$. 
+\item One or several of these lines could intersect with the UIZ of $\pi_I$. Then, the UIZ is divided into as many different subzones $\pi_I^{R'}$ as possible candidate Allen relations $R'$ between $J$ and $\pi_I$ exist.
+\item $\pi_I^{R'}$ is the zone that correspond to a candidate Allen Relation $R'$.
+\end{enumerate}
+The possibility that a candidate relation $R'$ is the actual relation between $J$ and $\pi_I$ is given by:
+\begin{equation}
+ \label{eq:possibility-iz-uti}
+\mu_{\left(J R \pi_I \right)} \left(R' \right) = \sup_{I \in \pi_I^{R'}} \pi_I(I).
+\end{equation}
+\end{itemize}
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[width=0.8\columnwidth]{graphs/calculation.eps}
+   \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
+   \label{fig:calculation}
+ \end{figure}
 
 % Mainly due to its linear characteristic, time is traditionally visualised using a linear representation where several time intervals are depicted as linear segments on top of a horizontal time axis. This approach has also been used in Fig. \ref{fig:ill-known-ti}. One can read the start and end point of each interval the horizontal scale. The vertical dimension is solely used to differentiate multiple overlapping intervals, if used at all. The linear representation works well as long as the number of represented time intervals remains low. As soon as a large number of overlapping intervals have to be represented the representation becomes overloaded and accurate visual data analysis becomes almost impossible.
 
 
-For that reason, an alternative Triangular time Model (TM) has been presented in \cite{Weghe2007}. This model is an extension of Kulpa's triangular model for the modelling of crisp time intervals \cite{Kulpa1997}. Basically, intervals are modelled as interval points in a two-dimensional space as follows. First, a horizontal time axis is considered. Second, for each time interval $\left[t_s, t_e \right]$ two straight lines $L_s$ and $L_e$ are constructed as depicted in Fig. \ref{}. Line $L_s$ is passing through $t_s$ and makes a fixed angle $\alpha$ with the horizontal time axis, whereas Le is passing through te making a fixed angle $-\alpha$ with the horizontal time axis. The interval $\left[t_s, t_e \right]$ is then represented by the intersection of $L_s$ and $L_e$ , which is called the interval point of $\left[t_s, t_e \right]$. For the ease of use, $\alpha$ is here chosen to be $45^{\circ}$ . In TM all time intervals are represented by their corresponding interval point. So, because $\alpha$ is fixed for all interval points, the position of the interval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR \cite{Kulpa2006}.
+% For that reason, an alternative Triangular time Model (TM) has been presented in \cite{Weghe2007}. This model is an extension of Kulpa's triangular model for the modelling of crisp time intervals \cite{Kulpa1997}. Basically, intervals are modelled as interval points in a two-dimensional space as follows. First, a horizontal time axis is considered. Second, for each time interval $\left[t_s, t_e \right]$ two straight lines $L_s$ and $L_e$ are constructed as depicted in Fig. \ref{}. Line $L_s$ is passing through $t_s$ and makes a fixed angle $\alpha$ with the horizontal time axis, whereas Le is passing through te making a fixed angle $-\alpha$ with the horizontal time axis. The interval $\left[t_s, t_e \right]$ is then represented by the intersection of $L_s$ and $L_e$ , which is called the interval point of $\left[t_s, t_e \right]$. For the ease of use, $\alpha$ is here chosen to be $45^{\circ}$ . In TM all time intervals are represented by their corresponding interval point. So, because $\alpha$ is fixed for all interval points, the position of the interval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR \cite{Kulpa2006}.
 
 %Figure 3
 
-From the observation that the start points and end points of two crisp time intervals $I^{1} = \left[t_s^1, t_e^1 \right]$ and $I^2 = \left[t_s^2, t_e^2 \right]$ can be smaller than ($<$), equal to ($=$) or larger than ($>$) each other, Allen proposed the thirteen possible relations between two crisp time intervals given in Table \ref{} \cite{Allen1983}.
-
+% From the observation that the start points and end points of two crisp time intervals $I^{1} = \left[t_s^1, t_e^1 \right]$ and $I^2 = \left[t_s^2, t_e^2 \right]$ can be smaller than ($<$), equal to ($=$) or larger than ($>$) each other, Allen proposed the thirteen possible relations between two crisp time intervals given in Table \ref{} \cite{Allen1983}.
+% 
 
 
 
@@ -98,34 +214,34 @@ From the observation that the start points and end points of two crisp time inte
 % Eq. \eqref{eq:possibility-uti} reflects that given the uncertainty about the start point, modelled by $\pi$s and the uncertainty about the end point, modelled by $\pi_e$ $\pi$e , the possibility that $\left[t_s, t_e \right]$ is the actual value of the UTI equals the possibility that ts is the actual start point (i.e., $\pi_s (t_s)$) and te is the actual end point (i.e., $\pi_e (t_e)$) of $I$, where the conjunction of both conditions is modelled by the minimum t-norm. In the inconsistent case where $t_s > t_e$ the interval is considered to be completely impossible. In the remainder of this paper we will denote an UTI as $\pi_I$, i.e., $\pi_I = \left( \pi_s, \pi_e \right)$.
 
 
-
-\subsection{\label{subsec:the-triangular-model}The triangular model}
-Mainly due to its linear characteristic, time is traditionally visualised using a linear representation where several time intervals are depicted as linear segments on top of a horizontal time axis. This approach has also been used in Fig. \ref{}(b). One can read the start and end point of each interval the horizontal scale. The vertical dimension is solely used to differentiate multiple overlapping intervals, if used at all. The linear representation works well as long as the number of represented time intervals remains low. As soon as a large number of overlapping intervals have to be represented the representation becomes overloaded and accurate visual data analysis becomes almost impossible.
-
-For that reason, an alternative Triangular time Model (TM) has been presented in \cite{Weghe2007}. This model is an extension of Kulpa's triangular model for the modelling of crisp time intervals \cite{Kulpa1997}. Basically, intervals are modelled as interval points in a two-dimensional space as follows. First, a horizontal time axis is considered. Second, for each time interval $\left[t_s, t_e \right]$ two straight lines $L_s$ and $L_e$ are constructed as depicted in Fig. \ref{}. Line $L_s$ is passing through $t_s$ and makes a fixed angle $\alpha$ with the horizontal time axis, whereas Le is passing through te making a fixed angle $-\alpha$ with the horizontal time axis. The interval $\left[t_s, t_e \right]$ is then represented by the intersection of $L_s$ and $L_e$ , which is called the interval point of $\left[t_s, t_e \right]$. For the ease of use, $\alpha$ is here chosen to be $45^{\circ}$ . In TM all time intervals are represented by their corresponding interval point. So, because $\alpha$ is fixed for all interval points, the position of the interval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR \cite{Kulpa2006}.
-
-%Figure 3
-
-From the observation that the start points and end points of two crisp time intervals $I^{1} = \left[t_s^1, t_e^1 \right]$ and $I^2 = \left[t_s^2, t_e^2 \right]$ can be smaller than ($<$), equal to ($=$) or larger than ($>$) each other, Allen proposed the thirteen possible relations between two crisp time intervals given in Table \ref{} \cite{Allen1983}.
-
-In TM, these thirteen Allen relations each correspond to a specific zone in the interval space IR \cite{Kulpa1997}. These thirteen zones are called Crisp Relational Zones (CRZs). The CRZs with respect to a reference interval point $I$ are depicted in Fig. \ref{}. Hereby, the following shorthand notations are used: equals (E), starts (S), started by (SB), finishes (F ), finished by (F B), meets (M ), met by (M B), overlaps (O), overlapped by (OB), during (D), contains (C), before (B) and after (A).
-
-% TABLE I
-% T HE THIRTEEN POSSIBLE A LLEN RELATIONS BETWEEN CRISP TIME
-% INTERVALS
 % 
-% I 1 equals I 2
-% I 1 starts I 2
-% I 1 started by I 2
-% I 1 f inishes I 2
-% I 1 f inished by I 2
-% I 1 meets I 2
-% I 1 met by I 2
-% I 1 overlaps I 2
-% I 1 overlapped by I 2
-% I 1 during I 2
-% I 1 contains I 2
-% I 1 bef ore I 2
-% I 1 af ter I 2
-
-Each CRZ represents the set of interval points of the crisp time intervals that are in the corresponding Allen relation with respect to the reference interval $I$. For example, all interval points of intervals that come before $I$ are located in the CRZ represented by the leftmost lower triangle in the interval space. Likewise, if an interval point is located in the top quadrangle above $I$, then its corresponding interval contains $I$. CRZs allow to visually analyse relations between (large) sets of interval points.
+% \subsection{\label{subsec:the-triangular-model}The triangular model}
+% Mainly due to its linear characteristic, time is traditionally visualised using a linear representation where several time intervals are depicted as linear segments on top of a horizontal time axis. This approach has also been used in Fig. \ref{}(b). One can read the start and end point of each interval the horizontal scale. The vertical dimension is solely used to differentiate multiple overlapping intervals, if used at all. The linear representation works well as long as the number of represented time intervals remains low. As soon as a large number of overlapping intervals have to be represented the representation becomes overloaded and accurate visual data analysis becomes almost impossible.
+% 
+% For that reason, an alternative Triangular time Model (TM) has been presented in \cite{Weghe2007}. This model is an extension of Kulpa's triangular model for the modelling of crisp time intervals \cite{Kulpa1997}. Basically, intervals are modelled as interval points in a two-dimensional space as follows. First, a horizontal time axis is considered. Second, for each time interval $\left[t_s, t_e \right]$ two straight lines $L_s$ and $L_e$ are constructed as depicted in Fig. \ref{}. Line $L_s$ is passing through $t_s$ and makes a fixed angle $\alpha$ with the horizontal time axis, whereas Le is passing through te making a fixed angle $-\alpha$ with the horizontal time axis. The interval $\left[t_s, t_e \right]$ is then represented by the intersection of $L_s$ and $L_e$ , which is called the interval point of $\left[t_s, t_e \right]$. For the ease of use, $\alpha$ is here chosen to be $45^{\circ}$ . In TM all time intervals are represented by their corresponding interval point. So, because $\alpha$ is fixed for all interval points, the position of the interval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR \cite{Kulpa2006}.
+% 
+% %Figure 3
+% 
+% From the observation that the start points and end points of two crisp time intervals $I^{1} = \left[t_s^1, t_e^1 \right]$ and $I^2 = \left[t_s^2, t_e^2 \right]$ can be smaller than ($<$), equal to ($=$) or larger than ($>$) each other, Allen proposed the thirteen possible relations between two crisp time intervals given in Table \ref{} \cite{Allen1983}.
+% 
+% In TM, these thirteen Allen relations each correspond to a specific zone in the interval space IR \cite{Kulpa1997}. These thirteen zones are called Crisp Relational Zones (CRZs). The CRZs with respect to a reference interval point $I$ are depicted in Fig. \ref{}. Hereby, the following shorthand notations are used: equals (E), starts (S), started by (SB), finishes (F ), finished by (F B), meets (M ), met by (M B), overlaps (O), overlapped by (OB), during (D), contains (C), before (B) and after (A).
+% 
+% % TABLE I
+% % T HE THIRTEEN POSSIBLE A LLEN RELATIONS BETWEEN CRISP TIME
+% % INTERVALS
+% % 
+% % I 1 equals I 2
+% % I 1 starts I 2
+% % I 1 started by I 2
+% % I 1 f inishes I 2
+% % I 1 f inished by I 2
+% % I 1 meets I 2
+% % I 1 met by I 2
+% % I 1 overlaps I 2
+% % I 1 overlapped by I 2
+% % I 1 during I 2
+% % I 1 contains I 2
+% % I 1 bef ore I 2
+% % I 1 af ter I 2
+% 
+% Each CRZ represents the set of interval points of the crisp time intervals that are in the corresponding Allen relation with respect to the reference interval $I$. For example, all interval points of intervals that come before $I$ are located in the CRZ represented by the leftmost lower triangle in the interval space. Likewise, if an interval point is located in the top quadrangle above $I$, then its corresponding interval contains $I$. CRZs allow to visually analyse relations between (large) sets of interval points.
