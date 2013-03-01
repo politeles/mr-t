@@ -106,12 +106,12 @@ Several ill-known constraints can be aggregated by using the possibilistic exten
  \begin{figure}[h]
    \centering
    \includegraphics[scale=1.5]{graphs/ill-known-ti.eps}
-   \caption{An ill-known time interval $J = \left[X, Y  \right]$ given by two ill-known values. }
+   \caption{An ill-known time interval IKTI $J = \left[X, Y  \right]$ given by two ill-known values. }
    \label{fig:ill-known-ti}
  \end{figure}
 
-
-An ill-known time interval is defined by two ill-known values (see Figure \ref{fig:ill-known-ti}). Therefore, both starting and ending points are not precissely known. The following is the notation for an ill-known time interval.
+\begin{definition}
+An ill-known time interval \emph{(IKTI)} is defined by two ill-known values (see Figure \ref{fig:ill-known-ti}). Therefore, both starting and ending points are not precissely known. The following is the notation for an IKTI.
 
 \begin{align}
 \label{eq:ill-known-time-interval}
@@ -119,9 +119,9 @@ J = \left[X, Y \right]
 \end{align}
 
 Where both $X$ and $Y$ are ill-known time values.
+\end{definition}
 
-
-The Allen's Relations between a crisp time interval $I = [a,b]$ ($a, b$ are crisp time points) and an ill-known time interval given by $J = [X,Y]$ ($X, Y$ are ill-known values, see Definition \ref{def:ill-known-value}) can be defined by using aggregations of ill-known constraints. Table \ref{tab:allen-relations} shows the corresponding ill-known constraints for each Allen's Relation. These ill-known constraints are aggregated by using the equations \eqref{and-ill-known-pos} to \eqref{not-ill-known-nec}.
+The Allen's Relations between a crisp time interval $I = [a,b]$ ($a, b$ are crisp time points) and an IKTI given by $J = [X,Y]$ ($X, Y$ are ill-known values, see Definition \ref{def:ill-known-value}) can be defined by using aggregations of ill-known constraints. Table \ref{tab:allen-relations} shows the corresponding ill-known constraints for each Allen's Relation. These ill-known constraints are aggregated by using the equations \eqref{and-ill-known-pos} to \eqref{not-ill-known-nec}.
 
 
 

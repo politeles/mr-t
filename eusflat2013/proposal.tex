@@ -1,7 +1,47 @@
-
+Two frameworks for dealing with uncertainty in time intervals have been presented. In this section, we will study the equivalences between an uncertain time interval (UTI) and an ill-known time interval (IKTI). Nevertheless, there are some diferences in the semantics of UTIs and IKTIs which are also explained. Next to that, the computation of the Allen's Relations are compared.
 
 \subsection{\label{subsec:sim-dif}Similarities and differences}
+A time interval is defined by a starting and an ending point. When uncertainty arises, in one or both starting and / or ending points, then either an UTI $\pi_I$ or an IKTI can be used. 
 
+\begin{itemize}
+ \item An IKTI $J = \left[X, Y \right]$ is defined by two ill-known values $X, Y$ which are respectively, the starting and ending points of the time interval. Two possibility distributions $\pi_X, \pi_Y$ are defined for $X$ and $Y$ respectively.
+\item An UTI $\pi_I$ is defined by two possibility distributions, $\pi_S$, $\pi_E$ for the starting  and ending point respectively.
+\end{itemize}
+
+In the following, we will assume that:
+
+\begin{align}
+\pi_X &= \pi_S = \mu_S \\
+\pi_Y &= \pi_E = \mu_E
+\end{align}
+
+Where $\mu_S, \mu_E$ are triangular membership functions. Notice that the main diference between an UTI and an IKTI is a matter of interpretation. IKTIs  keep both possibility distributions for both starting and ending poins, while UTIs take a t-norm (the minimum) of both possibility distributions (see Eq. \eqref{eq:possibility-uti}). That is, not all the crisp intervals between the boundaries of the starting and ending point are candidate intervals for the UTI.
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[scale=1.5]{graphs/equivalences.eps}
+   \caption{Possibility degrees for two candidate intervals with respect to the UTI $\pi_I$. The upper crisp time interval has a possibility degree of 1, whereas the lower crisp interval has a possibility degree of 0. }
+   \label{fig:ikc-greater}
+ \end{figure}
+
+It is possible to obtain the same interpretation for an IKTI, but some ill-known constraints must be defined over the starting and ending ill-known values $X$, $Y$. In \cite{Pons2011}, two constraints are defined to determinte whether a crisp time interval $[a, b]$ resides between the boundaries of $J$. In this case, all the crisp intervals whose boundaries are within the boundaries of $X$ and $Y$ are considered to be a candidate interval. Nevertheless, if we want to obtain the same interpretation as in the UTI, the following two ill-known constraints must be defined:
+
+\begin{align}
+ \label{eq:ikc-ikti-uti}
+C_1 &\triangleq \left(=, X \right) \\
+C_2 &\triangleq \left(=, Y \right)\\
+\Pos \left(\left[a, b\right] \right) &= C_1 \left(a \right) \wedge C_2\left(b \right) =\\
+\label{eq:equivalence-ikti-uti}
+\Pos \left(\left[a, b\right] \right) &= \min \left( \pi_X(a), \pi_Y(b) \right)
+\end{align}
+
+In this case, Eq. \eqref{eq:equivalence-ikti-uti} is equivalent to Eq. \eqref{eq:possibility-uti}.
+In the following subsection, we will study the connection between the Allen's relations in each framework.
+
+\subsection{\label{subsec:eval-allen-relations}Evaluation of the Allen's Relations}
+
+
+ 
 
 
 
