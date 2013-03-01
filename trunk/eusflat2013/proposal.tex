@@ -39,14 +39,66 @@ In this case, Eq. \eqref{eq:equivalence-ikti-uti} is equivalent to Eq. \eqref{eq
 In the following subsection, we will study the connection between the Allen's relations in each framework.
 
 \subsection{\label{subsec:eval-allen-relations}Evaluation of the Allen's Relations}
+As it has been shown in Table \ref{tab:urz}, when using UTIs in the triangular model, it is possible to obtain a more detailed relational information (there are fifteen possible relations) than with the ill-known constraint approach. The following observations should be taken into account when extracting relational information from both frameworks:
 
+\begin{itemize}
+ \item In TM, the Allen's Relations $R \in \left \lbrace B, O, C, D, OB, A \right \rbrace$ between an interval point $J$  and an UTI $\pi_I$ are computed by Eq. \eqref{eq:possibility-iz-uti-certain}. Therefore, for the Allen's Relations in $R$, 
+ possibility that an Allen Relation between an interval point $J$  and an UTI $\pi_I$ is $1$ if the interval point $J$ is in the Allen Relation, or $0$ in other case.
+\item In the TM, the other nine Allen's Relations between an interval point $J$ and an UTI $\pi_I$ are graded from $1$ to $0$ and computed by using the Eq. \eqref{eq:possibility-iz-uti}. 
+\item In the ill-known constraint framework, all the thirdteen Allen's Relations are computed by using an aggregation of ill-known constraints (see Table \ref{tab:allen-relations}). Therefore, the possibility that a time point $J$ is in a given Allen Relation is always graded from $1$ to $0$.
+\end{itemize}
+
+For example, consider that we want to know whether the relation Before (B) holds between a time point $J$ and an IKTI $I$. We will note $\Pos \left(C_B (J)  \right)$ the possibility that the relation before holds. There are three possibilities:
+\begin{enumerate}
+ \item $\Pos \left(C_B (J)  \right)$ = 1: The time point $J$ is before the IKTI $I$.
+\item $\Pos \left(C_B (J)  \right)$ = 0: The time point $J$ is not before the IKTI $I$.
+\item $0 < \Pos \left(C_B (J)  \right) < 1$: The time point $J$ is to some extent before the IKTI $I$.
+\end{enumerate}
+
+The last case corresponds in the TM to case when the before relation is one of the possible relations (See Table \ref{tab:urz}). That is, one of $\left \lbrace PM, PMB, UB \right \rbrace$.
+
+The following table stablishes the correspondences between the Allen's relations in the TM and in the ill-known constraints framework.
+
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Symbol & Name & Possible Relations \\
+\hline
+B & Before & B, PM, PMB, UB \\
+\multirow{2}{*}
+{O} & Overlaps & O, PM, PS, PFB,\\
+     &          &  PE, PMB, UB \\
+C & Contains & C, PFB, PE, PSB \\
+\multirow{2}{*}
+D & During & D, PS, PE, \\
+  &         &  PMB, UB  \\
+OB & Overlapped by & OB, PE, PSB, PF \\
+A & After & A, PF, UE \\
+M & Meets & M, PM, PMB, UB \\
+MB & Met By & MB, PF, UE \\
+E & Equals & E, PE \\
+\multirow{2}{*}
+S & Starts & S, PS, PE, \\
+  &         &   PMB, UB \\
+SB & Started by & SB, PE, PSB \\
+F & Finishes & F, PE \\
+FB & Finished By & FB, PE, PFB\\
+\hline
+\end{tabular}
+\caption{Correspondences between the Allen's Relations in the ill-known constraint framework and the triangular model,}
+\label{tab:correspondences-tm-ikcf}
+\end{table}
 
  
 
 
 
-
-In this section we will analyze first the calculation of all the possible Allen's relations between a crisp time point and an ill-known time point and between a crisp time point and an uncertain time indication (UTI). Then, we will compare two ill-known time points and two uncertain time indications.
+% 
+% In this section we will analyze first the calculation of all the possible Allen's relations between a crisp time point and an ill-known time point and between a crisp time point and an uncertain time indication (UTI). Then, we will compare two ill-known time points and two uncertain time indications.
 
 % \subsection{\label{subsec:prop-crisp-vs-ill}Calculation of crisp time intervals}
 % In this section we first study how uncertainty about wheter crisp interval is enclosed by the ill-known interval given by $[X,Y]$ or by the UTI.
