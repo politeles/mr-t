@@ -1,4 +1,4 @@
-Two frameworks for dealing with uncertainty in time intervals have been presented. In this section, we will study the equivalences between an uncertain time interval (UTI) and an ill-known time interval (IKTI). Nevertheless, there are some diferences in the semantics of UTIs and IKTIs which are also explained. Next to that, the computation of the Allen's Relations are compared.
+Two frameworks for dealing with uncertainty in time intervals have been presented. In this section, we will study the equivalences between an uncertain time interval (UTI) and an ill-known time interval (IKTI). Nevertheless, there are some differences in the semantics of UTIs and IKTIs which are also explained. Next to that, the computation of the Allen's Relations are compared.
 
 \subsection{\label{subsec:sim-dif}Similarities and differences}
 A time interval is defined by a starting and an ending point. When uncertainty arises, in one or both starting and / or ending points, then either an UTI $\pi_I$ or an IKTI can be used. 
@@ -15,7 +15,7 @@ In the following, we will assume that:
 \pi_Y &= \pi_E = \mu_E
 \end{align}
 
-Where $\mu_S, \mu_E$ are triangular membership functions. Notice that the main diference between an UTI and an IKTI is a matter of interpretation. IKTIs  keep both possibility distributions for both starting and ending poins, while UTIs take a t-norm (the minimum) of both possibility distributions (see Eq. \eqref{eq:possibility-uti}). That is, not all the crisp intervals between the boundaries of the starting and ending point are candidate intervals for the UTI.
+Where $\mu_S, \mu_E$ are triangular membership functions. Notice that the main difference between an UTI and an IKTI is a matter of interpretation. IKTIs  keep both possibility distributions for both starting and ending poins, while UTIs take a t-norm (the minimum) of both possibility distributions (see Eq. \eqref{eq:possibility-uti}). That is, not all the crisp intervals between the boundaries of the starting and ending point are candidate intervals for the UTI.
 
 \begin{figure}[h]
    \centering
@@ -24,7 +24,7 @@ Where $\mu_S, \mu_E$ are triangular membership functions. Notice that the main d
    \label{fig:ikc-greater}
  \end{figure}
 
-It is possible to obtain the same interpretation for an IKTI, but some ill-known constraints must be defined over the starting and ending ill-known values $X$, $Y$. In \cite{Pons2011}, two constraints are defined to determinte whether a crisp time interval $[a, b]$ resides between the boundaries of $J$. In this case, all the crisp intervals whose boundaries are within the boundaries of $X$ and $Y$ are considered to be a candidate interval. Nevertheless, if we want to obtain the same interpretation as in the UTI, the following two ill-known constraints must be defined:
+It is possible to obtain the same interpretation for an IKTI, but some ill-known constraints must be defined over the starting and ending ill-known values $X$, $Y$. In \cite{Pons2011}, two constraints are defined to determinate whether a crisp time interval $[a, b]$ resides between the boundaries of $J$. In this case, all the crisp intervals whose boundaries are within the boundaries of $X$ and $Y$ are considered to be a candidate interval. Nevertheless, if we want to obtain the same interpretation as in the UTI, the following two ill-known constraints must be defined:
 
 \begin{align}
  \label{eq:ikc-ikti-uti}
@@ -45,7 +45,7 @@ As it has been shown in Table \ref{tab:urz}, when using UTIs in the triangular m
  \item In TM, the Allen's Relations $R \in \left \lbrace B, O, C, D, OB, A \right \rbrace$ between an interval point $J$  and an UTI $\pi_I$ are computed by Eq. \eqref{eq:possibility-iz-uti-certain}. Therefore, for the Allen's Relations in $R$, 
  possibility that an Allen Relation between an interval point $J$  and an UTI $\pi_I$ is $1$ if the interval point $J$ is in the Allen Relation, or $0$ in other case.
 \item In the TM, the other nine Allen's Relations between an interval point $J$ and an UTI $\pi_I$ are graded from $1$ to $0$ and computed by using the Eq. \eqref{eq:possibility-iz-uti}. 
-\item In the ill-known constraint framework, all the thirdteen Allen's Relations are computed by using an aggregation of ill-known constraints (see Table \ref{tab:allen-relations}). Therefore, the possibility that a time point $J$ is in a given Allen Relation is always graded from $1$ to $0$.
+\item In the ill-known constraint framework, all the thirteen Allen's Relations are computed by using an aggregation of ill-known constraints (see Table \ref{tab:allen-relations}). Therefore, the possibility that a time point $J$ is in a given Allen Relation is always graded from $1$ to $0$.
 \end{itemize}
 
 For example, consider that we want to know whether the relation Before (B) holds between a time point $J$ and an IKTI $I$. We will note $\Pos \left(C_B (J)  \right)$ the possibility that the relation before holds. There are three possibilities:
@@ -57,7 +57,7 @@ For example, consider that we want to know whether the relation Before (B) holds
 
 The last case corresponds in the TM to case when the before relation is one of the possible relations (See Table \ref{tab:urz}). That is, one of $\left \lbrace PM, PMB, UB \right \rbrace$.
 
-The following table stablishes the correspondences between the Allen's relations in the TM and in the ill-known constraints framework.
+The following table establishes the correspondences between the Allen's relations in the TM and in the ill-known constraints framework.
 
 
 
@@ -94,6 +94,59 @@ FB & Finished By & FB, PE, PFB\\
 \end{table}
 
  
+We will illustrate the calculation of one Allen Relation with an example.
+\begin{example}
+Consider a crisp time interval $J = [1, 3]$ the two ill-known time points $S, E$ that define a time interval. 
+We want to obtain the possibility that $J$ is before the time interval.
+The points are defined by two triangular membership functions $\mu_S$, $\mu_E$.
+
+\begin{align}
+\label{eq:ex-point}
+\pi_S &= \mu_S = \left[2,5,7 \right] \\
+\pi_E &= \mu_E = \left[9,12,15 \right]
+\end{align}
+
+Then, it is possible to define both an IKTI $I$ and an UTI $\pi_I$. 
+
+\begin{align}
+\label{eq:ex-uti-ikti}
+I = \left[S, E \right]\\
+\mu_I = \left(\mu_S, \mu_E \right)
+\end{align}
+
+First we will obtain the possibility for the UTI $\pi_I$. The relation possibly meets has three candidates: Before, Meets and Overlaps.
+
+\begin{align}
+  \mu_{\left(J R \pi_I \right)}(B) &= \sup_{a < e} \pi_S(a)\\
+\mu_{\left(J R \pi_I \right)}(M) &= \pi_S(e)\\
+\mu_{\left(J R \pi_I \right)}(O) &= \sup_{a > e} \pi_S(a)
+\end{align}
+
+\begin{align}
+\mu_{\left(J R \pi_I \right)}(B) &= 0.67\\
+\mu_{\left(J R \pi_I \right)}(M) &= 0.33\\
+\mu_{\left(J R \pi_I \right)}(O) &= 0
+\end{align}
+
+In order to compute the possibility  for the before relation between the crisp interval $J$ and the IKTI $I$, a ill-known constraint is needed.
+
+\begin{equation}
+ C_1\stackrel{\triangle}{=} \left(<,X\right)
+\end{equation}
+
+Then the possibility is computed as follows:
+
+\begin{align}
+\Pos \left(C_1 (J) \right) &= \sup_{a < e} \pi_S(a)\\
+\Pos \left(C_1 (J) \right) &= 0.67 
+\end{align}
+
+
+
+
+
+
+\end{example}
 
 
 

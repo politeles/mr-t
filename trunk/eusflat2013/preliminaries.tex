@@ -1,7 +1,7 @@
-This section introduces the framework of the ill-known contraints. First of all, some preliminary concepts about possibility theory is explained. Next to that, the representation of time intervals by using the presented framework is done. Finally, the evaluation of the Allen's relationships between a crisp time interval and a possibilistic time interval is provided.
+This section introduces the framework of the ill-known constraints. First of all, some preliminary concepts about possibility theory is explained. Next to that, the representation of time intervals by using the presented framework is done. Finally, the evaluation of the Allen's relationships between a crisp time interval and a possibilistic time interval is provided.
  
 \subsection{\label{subsec:possibilistic-variables}Possibilistic Variables}
-Informally speaking, a possibilistic variable is a variable that takes only one value but that, for some reason, this value is unknown. This is rather usual for historical events. For example, the conquest of Granada by the Christians' kings took place on February of 1492, but the exact day is not precissely known.
+Informally speaking, a possibilistic variable is a variable that takes only one value but that, for some reason, this value is unknown. This is rather usual for historical events. For example, the conquest of Granada by the Christians' kings took place on February of 1492, but the exact day is not precisely known.
 A more formal definition of possibilistic variables is given as follows.
 %Possibilistic variables rely on possibility theory \cite{Dubois1988a}. A \emph{possibilistic variable} is defined as follows \cite{Pons2011}.
 
@@ -77,17 +77,17 @@ A possibility distribution $\pi_{V}$ is defined on the variable $V$. Then, the  
 \Nec(A\text{ sat. }C) & = \min_{a \in A}\left(\inf_{(a,w) \notin R} 1-\pi_{V}(w)\right) \label{ill-known-nec}
 \end{align}
 
-For example, consider an ill-known value $X$ given by a triangular possibility distribution $\left[15, 1, 1\right]$. The ill-known contraint for all the points greater than $X$ is given by $C \triangleq (>, X)$. See Figure \ref{fig:ikc-greater}.
+For example, consider an ill-known value $X$ given by a triangular possibility distribution $\left[15, 1, 1\right]$. The ill-known constraint for all the points greater than $X$ is given by $C \triangleq (>, X)$. See Figure \ref{fig:ikc-greater}.
  
 \begin{figure}[h]
    \centering
    \includegraphics[scale=1.5]{graphs/gt.eps}
-   \caption{An ill-known value $X = \left[15, 1, 1\right]$ and an ill-known contraint $C \triangleq (>, X)$. }
+   \caption{An ill-known value $X = \left[15, 1, 1\right]$ and an ill-known constraint $C \triangleq (>, X)$. }
    \label{fig:ikc-greater}
  \end{figure}
 
 
-Several ill-known constraints can be aggregated by using the possibilistic extension of boolean operators: and ($\wedge$), or ($\vee$), not ($\neg$). The possibility and neccesity for these operators are computed as follows. 
+Several ill-known constraints can be aggregated by using the possibilistic extension of boolean operators: and ($\wedge$), or ($\vee$), not ($\neg$). The possibility and necessity for these operators are computed as follows. 
 
 \begin{align}
 \Pos(C_1 \wedge \ldots \wedge C_n) & = \min_{i= 1}^{n} \left(\Pos(C_i)\right) \label{and-ill-known-pos}\\
@@ -111,7 +111,7 @@ Several ill-known constraints can be aggregated by using the possibilistic exten
  \end{figure}
 
 \begin{definition}
-An ill-known time interval \emph{(IKTI)} is defined by two ill-known values (see Figure \ref{fig:ill-known-ti}). Therefore, both starting and ending points are not precissely known. The following is the notation for an IKTI.
+An ill-known time interval \emph{(IKTI)} is defined by two ill-known values (see Figure \ref{fig:ill-known-ti}). Therefore, both starting and ending points are not precisely known. The following is the notation for an IKTI.
 
 \begin{align}
 \label{eq:ill-known-time-interval}
