@@ -106,15 +106,23 @@ The points are defined by two triangular membership functions $\mu_S$, $\mu_E$.
 \pi_E &= \mu_E = \left[9,12,15 \right]
 \end{align}
 
-Then, it is possible to define both an IKTI $I$ and an UTI $\pi_I$. 
+Then, it is possible to define both an IKTI $I$ Eq. \eqref{eq:ex-uti-ikti} and an UTI $\pi_I$ Eq. \eqref{eq:ex-uti-uti}. The intervals are illustrated in Figure \ref{fig:example}.
+
+\begin{figure}[h]
+   \centering
+   \includegraphics[scale=1.5]{graphs/example.eps}
+   \caption{In the top, the crisp time interval $J$ and the IKTI given by $I = [S, E]$. The ill-known constraint for the before relation is illustrated in grey color. In the lower graphic, the interval point $J$ and the UTI $\pi_I$. }
+   \label{fig:example}
+ \end{figure}
 
 \begin{align}
 \label{eq:ex-uti-ikti}
 I = \left[S, E \right]\\
+\label{eq:ex-uti-uti}
 \mu_I = \left(\mu_S, \mu_E \right)
 \end{align}
 
-First we will obtain the possibility for the UTI $\pi_I$. The relation possibly meets has three candidates: Before, Meets and Overlaps.
+First we will obtain the possibility between $J$ and the UTI $\pi_I$. The relation possibly meets has three candidates: Before, Meets and Overlaps.
 
 \begin{align}
   \mu_{\left(J R \pi_I \right)}(B) &= \sup_{a < e} \pi_S(a)\\
