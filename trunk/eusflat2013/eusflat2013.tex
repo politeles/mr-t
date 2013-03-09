@@ -80,13 +80,13 @@
 
 \begin{document}
 
-\title{Equivalences between the triangular model and the ill-known constraint framework.}
+\title{A Comparison of Approaches to Model Uncertainty in Time Intervals}
 
 \begin{aug}
 \author[1]{Christophe Billiet}
 \author[2]{Jos\'{e} Enrique Pons}
-\author[1]{Guy de Tr\'{e}}
 \author[2]{Olga Pons Capote}
+\author[1]{Guy de Tr\'{e}}
 \affilation[1]{Department of Telecommunications and Information Processing. Ghent University, Belgium.
 %\\ Sint-Pietersnieuwstraat 41, B-9000 Ghent, Belgium
 }
@@ -100,7 +100,8 @@
 \thispagestyle{empty}
 
 \begin{abstract}
-In an Information System, an event is usually modelled as a time interval. Several Soft-Computing techniques have been proposed to represent uncertain time intervals. In this paper we analyze two frameworks to represent and handle uncertain time intervals: the ill-known constraint and the triangular model. We obtain that despite of the differences in the representation, both frameworks provide the same consistent results when reasoning about uncertain time intervals.
+Information systems model parts of reality by representing properties of real-world objects or concepts. As these often have temporal aspects, temporal notions such as time intervals are often represented too. However, such temporal notions may contain imperfections like uncertainties, complicating their representations. One of the most important purposes of information systems is to be able to query them to retrieve information. The presence of representations of temporal notions containing uncertainties severely complicates querying. Thus, several Soft Computing techniques have been proposed to represent time intervals subject to uncertainties and reason with them, without losing (much) information. In the presented work, two such frameworks are compared. It is found that, despite differences in the intervals the frameworks could represent, they provide the same results when reasoning about (and thus querying) uncertain time intervals.
+%In an Information System, an event is usually modelled as a time interval. Several Soft-Computing techniques have been proposed to represent uncertain time intervals. In this paper we analyze two frameworks to represent and handle uncertain time intervals: the ill-known constraint and the triangular model. We obtain that despite of the differences in the representation, both frameworks provide the same consistent results when reasoning about uncertain time intervals.
 \end{abstract}
 
 \begin{keywords}
@@ -110,11 +111,13 @@ temporal representation, temporal reasoning, possibility theory, information sys
 \section{\label{sec:introduction}Introduction}
 \input{introduction}
 
+\section{\label{sec:general-preliminaries}General Preliminaries}
+\input{general_preliminaries}
 
-\section{\label{sec:preliminaries}The Ill-known Constraint Framework}
+\section{\label{sec:ikc}The Ill-known Constraint Framework}
 \input{preliminaries}
 
-\section{\label{sec:triangular-model}The Triangular Model}
+\section{\label{sec:tm}The Triangular Model}
 \input{triangularmodel}
 
 \section{\label{sec:proposal}Analysis of relational information in both frameworks}
