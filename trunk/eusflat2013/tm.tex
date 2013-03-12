@@ -1,87 +1,134 @@
-In this section we will explain a graphical visualization of temporal data called the triangular model (TM). This has been widely used mainly on rough sets for the visualization of historical data. More recently, the model has been extended on possibility theory to model Uncertain Time Intervals (UTI).
-First of all we will explain the main concepts and properties of the triangular model to model Uncertain Time Intervals (UTI). Then, we will detail how to compute the Allen's Relations between a crisp time point and an UTI.
+In~\cite{Weghe2007}, the triangular model framework is introduced, based on~\cite{Kulpa1997}. In~\cite{DeTre2012}, the framework is generalized to allow the representation of and reasoning with time intervals subject to uncertainty. In this section, this generalization's main aspects are briefly presented. 
 
+\subsection{\label{subsec:tm-preliminaries}Preliminary Concepts}
+Usually, different time intervals are visualized as different parallel line segments in the image plane. However, as this linear approach introduces a few difficulties, the TM framework was conceived to visualize time intervals as points in the image plane.
 
-\subsection{\label{subsec:utis}Uncertain Time Intervals}
-As mentioned in the previous section, the boundaries of time intervals are not always well-known. The available knowledge about the interval can be modelled by using possibility distributions ~\cite{Billiet2012}, ~\cite{JoseEnriquePons2012} on both starting and ending points as mentioned in the previous section. Informally, an Uncertain Time Interval UTI is a time interval for which one or both boundaries are not precisely known. 
-
-\begin{definition}
- \label{def:uncertain-time-interval}
-An uncertain time interval UTI $I$ is composed by an starting point $S$, and an ending point $E$. For both points, two different convex possibility distributions are defined, namely $\pi_s$, $\pi_e$. These two possibility distributions represent all the possible time intervals that can be constructed from $I$. The following formula obtains the possibility $\pi_{I}$ that a crisp interval  given by  $[a, b]$ is constructed from $I$. 
-\begin{equation}
- \label{eq:possibility-uti}
-\pi_{I} \left(\left[t_s, t_e\right] \right) = 
-\begin{cases}
- \min \left(\pi_s (t_s), \pi_e (t_e) \right), & \mbox{ if } t_s \leq t_e\\
-0, & \mbox{ otherwise. }
-\end{cases}
-\end{equation}
-
-In the following we will note an UTI as $\pi_{I} = \left(\pi_s, \pi_e \right)$.
-% It is important to notice that, the main diference with respect to the ill-known time interval (see Definition \ref{}) is that an UTI only consider as possible starting and ending points 
-
-\end{definition}
-
-
-
-
-\subsection{\label{subsec:visualization-tm}Visualization within the triangular model}
-Time intervals are usually represented in a one dimensional scale. This is due to its linear characteristic. This approach has also been used in Figure\ref{fig:allen-relationships} and \ref{fig:ill-known-ti}. The difficulty of accurate visual analysis on the temporal data arises when the number of time intervals increase. 
-
-The triangular model (TM) ~\cite{Kulpa1997}, \cite{Weghe2007} represents time intervals in a two dimensional space called IRterval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR ~\cite{Kulpa2006}. The procedure to represent a time interval $[t_s, t_e]$ as an interval point in a two dimensional space is the following:
+To achieve this, on the image plane, a horizontal line segment visualizing the used (part of the) time axis is drawn. Then, a triangle is drawn, using this line segment as a side of which the angles with the other two sides have sizes $\alpha$ and $-\alpha$ respectively. The area contained in this triangle is called the \emph{interval space} and will contain all visualizations of intervals. Now, the procedure used to visualize a time interval $\left[s, e\right]$ in the interval space is the following:
 
 \begin{enumerate}
-\item Draw each time point of the interval $[t_s, t_e]$ in the horizontal line.
-\item Construct one straight line $L_s$ from $t_s$ with an angle $\alpha$.
-\item Construct one straight line $L_e$ from $t_e$ with an angle $-\alpha$.
-\item The intersection of these two lines is the interval point.
+	\item Visualize $s$ as a point on the visualization of the time axis.
+	\item Construct a straight half-line $L_s$ from this point, with an angle of size $\alpha$ with the visualization of the time axis.
+	\item Visualize $e$ as a point on the visualization of the time axis.
+	\item Construct a straight half-line $L_e$ from this point, with an angle of size $-\alpha$ with the visualization of the time axis.
+	\item The intersection point of $L_s$ and $L_e$ is the visualization of interval $\left[s, e\right]$.
 \end{enumerate}
 
-For the shake of simplicity, in this work, the angle for $\alpha$ is chosen to be $45^{\circ}$.
-
-
-In TM, these thirteen Allen relations each correspond to a specific zone in the interval space IR \cite{Kulpa1997}. These thirteen zones are called Crisp Relational Zones (CRZs). The CRZs with respect to a reference interval point $I$ are depicted in Figure \ref{fig:allencrz}. 
+The resulting point visualizing an interval is generally called an \emph{interval point}. In this work, as it is usually done, the size of $\alpha$ is chosen to be $45^{\circ}$. An example of such construction is shown in figure \ref{fig:tm-const-ex}.
 
 \begin{figure}[h]
-   \centering
-   \includegraphics[width=0.8\columnwidth]{graphs/allencrc.eps}
-   \caption{CRZs corresponding to the thirteen Allen's relations. The following shorthand notations are used: equals (E), starts (S), started by (SB), finishes (F), finished by (FB), meets (M), met by (MB), overlaps (O), overlapped by (OB), during (D), contains (C), before (B) and after (A).  }
-   \label{fig:allencrz}
- \end{figure}
+	\centering
+	\includegraphics[width=0.8\columnwidth]{graphs/TM_model_several.eps}
+	\caption{The visualization of several time intervals using the TM framework.}
+	\label{fig:tm-const-ex}
+\end{figure}
 
 
+%Time intervals are usually represented in a one dimensional scale. This is due to its linear characteristic. This approach has also been used in Figure\ref{fig:allen-relationships} and \ref{fig:ill-known-ti}. The difficulty of accurate visual analysis on the temporal data arises when the number of time intervals increase. 
 
-Each CRZ represents the set of interval points of the crisp time intervals that are in the corresponding Allen relation with respect to the reference interval $I$. For example, all interval points of intervals that come before $I$ are located in the CRZ represented by the leftmost lower triangle in the interval space. Likewise, if an interval point is located in the top quadrangle above $I$, then its corresponding interval contains $I$. CRZs allow to visually analyse relations between (large) sets of interval points.
+%The triangular model (TM) ~\cite{Kulpa1997}, \cite{Weghe2007} represents time intervals in a two dimensional space called IRterval point completely determines the start and end of the interval. The two-dimensional space of interval points is called the interval space and is denoted by IR ~\cite{Kulpa2006}. The procedure to represent a time interval $[t_s, t_e]$ as an interval point in a two dimensional space is the following:
 
-\subsection{\label{subsec:utis-in-tm}Representation of Uncertain Time Intervals}
-In \cite{DeTre2012} a technique to represent UTIs in the triangular model has been presented. Basically, the procedure is an extension of the method to represent crisp time intervals in the triangular space. An UTI $\pi_I = \left(\pi_s, \pi_e \right)$ can be represented in the triangular model by the following procedure, considering that both $\pi_s, \pi_e$ are given by triangular membership functions (see Section \ref{subsec:fuzzy-numbers}).
+%\begin{enumerate}
+%\item Draw each time point of the interval $[t_s, t_e]$ in the horizontal line.
+%\item Construct one straight line $L_s$ from $t_s$ with an angle $\alpha$.
+%\item Construct one straight line $L_e$ from $t_e$ with an angle $-\alpha$.
+%\item The intersection of these two lines is the interval point.
+%\end{enumerate}
 
-\begin{enumerate}
- \item Let $\pi_s = \left[D_s, a_s, b_s\right]$ a triangular membership function.
-\item Let $\pi_e = \left[D_e, a_e, b_e \right]$ a triangular membership function.
-\item Let $t_s^{-} = D_s - a_s$, and $t_s^{+} = D_s + b_s$.
-\item Let $t_e^{-} = D_e -a_e$, and $t_e^{+} = D_e + b_e$.
-\item Construct two straight lines $L_s^{-}, L_s^{-}$ from $t_s^{-}, t_s^{+}$ with an angle $\alpha$.
-\item Construct two straight lines $L_e^{-}, L_e^{-}$ from $t_e^{-}, t_e^{+}$ with an angle $-\alpha$.
-\end{enumerate}
+%For the shake of simplicity, in this work, the angle for $\alpha$ is chosen to be $45^{\circ}$.
 
-The intersection of these lines is a quadrangle zone where the UTI is contained. Note that not all the interval points in this zone are to the same extent representing candidate intervals for the UTI.  A grey scaled color gradient is obtained from Eq. \eqref{eq:possibility-uti}. As shown in Fig. \ref{fig:utitm} the color black is associated with a possibility degree of 1, whereas the color white is used when the possibility is 0.
+%In TM, these thirteen Allen relations each correspond to a specific zone in the interval space IR \cite{Kulpa1997}. These thirteen zones are called Crisp Relational Zones (CRZs). The CRZs with respect to a reference interval point $I$ are depicted in Figure \ref{fig:allencrz}. 
+
+%\begin{figure}[h]
+%   \centering
+%   \includegraphics[width=0.8\columnwidth]{graphs/allencrc.eps}
+%   \caption{CRZs corresponding to the thirteen Allen's relations. The following shorthand notations are used: equals (E), starts (S), started by (SB), finishes (F), finished by (FB), meets (M), met by (MB), overlaps (O), overlapped by (OB), during (D), contains (C), before (B) and after (A).  }
+%   \label{fig:allencrz}
+% \end{figure}
+
+%Each CRZ represents the set of interval points of the crisp time intervals that are in the corresponding Allen relation with respect to the reference interval $I$. For example, all interval points of intervals that come before $I$ are located in the CRZ represented by the leftmost lower triangle in the interval space. Likewise, if an interval point is located in the top quadrangle above $I$, then its corresponding interval contains $I$. CRZs allow to visually analyse relations between (large) sets of interval points.
+
+\subsection{\label{subsec:tm-interval}Representation of Uncertainty in Intervals}
+The TM framework allows uncertainty in time intervals by supporting uncertain time intervals:
+
+\begin{definition}
+Given an ordered set of instants $T$, an \emph{uncertain time interval} (UTI) $J$ in $T$ is here a time interval defined by a pair
+\begin{align}
+J \triangleq (\pi_s, \pi_e)
+\end{align}
+where $\pi_s$ and $\pi_e$ are two convex possibility distributions on $T$.
+\end{definition}
+
+For a UTI $J$ defined by $(\pi_s, \pi_e)$ with $\pi_s$ and $\pi_e$ two possibility distributions on an ordered set of instants $T$, $\pi_s$ and $\pi_e$ define the confidence that an instant in $T$ is the starting instant, respectively the ending instant of $J$. Because for such UTI $J$, $\pi_s$ and $\pi_e$ are required to be convex, the possibility $\pi_J(I)$ that a given crisp time interval $I = \left[s_i, e_i\right]$ is the exact time interval represented by $J$ can be uniquely determined by:
+
+\begin{align}
+\pi_J(I) = \begin{cases}
+ \min \left(\pi_s (s_i), \pi_e (e_i) \right), & \mbox{ if } s_i \leq e_i\\
+0, & \mbox{ otherwise }
+\end{cases}
+\end{align}
+
+An UTI $J$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in the image plane, using a single-color greyscale. Every crisp time interval $I$ for which the possibility $\pi_J(I)$ of $I$ being the time interval represented by $J$ is higher than zero, is considered. For every such $I$, the interval point is drawn and is given the greyscale color which reflects the possibility that $I$ is the time interval represented by $J$. For this, a single-color greyscale is used where the saturation of the color is linearly related to the possibility. An example of such construction is shown in figure \ref{fig:tm-ill-const-ex}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{graphs/TM_model_ill_known.eps}
+	\caption{The visualization of a UTI defined by a pair $(\pi_s, \pi_e)$ using the TM framework.}
+	\label{fig:tm-ill-const-ex}
+\end{figure}
+
+\subsection{\label{subsec:tm-evaluation}Evaluation of Allen Relationships}
+
+
+%In this section we will explain a graphical visualization of temporal data called the triangular model (TM). This has been widely used mainly on rough sets for the visualization of historical data. More recently, the model has been extended on possibility theory to model Uncertain Time Intervals (UTI).
+%First of all we will explain the main concepts and properties of the triangular model to model Uncertain Time Intervals (UTI). Then, we will detail how to compute the Allen's Relations between a crisp time point and an UTI.
+
+%\subsection{\label{subsec:utis}Uncertain Time Intervals}
+%As mentioned in the previous section, the boundaries of time intervals are not always well-known. The available knowledge about the interval can be modelled by using possibility distributions ~\cite{Billiet2012}, ~\cite{JoseEnriquePons2012} on both starting and ending points as mentioned in the previous section. Informally, an Uncertain Time Interval UTI is a time interval for which one or both boundaries are not precisely known. 
+
+%\begin{definition}
+% \label{def:uncertain-time-interval}
+%An uncertain time interval UTI $I$ is composed by an starting point $S$, and an ending point $E$. For both points, two different convex possibility distributions are defined, namely $\pi_s$, $\pi_e$. These two possibility distributions represent all the possible time intervals that can be constructed from $I$. The following formula obtains the possibility $\pi_{I}$ that a crisp interval  given by  $[a, b]$ is constructed from $I$. 
+%\begin{equation}
+% \label{eq:possibility-uti}
+%\pi_{I} \left(\left[t_s, t_e\right] \right) = 
+%\begin{cases}
+% \min \left(\pi_s (t_s), \pi_e (t_e) \right), & \mbox{ if } t_s \leq t_e\\
+%0, & \mbox{ otherwise. }
+%\end{cases}
+%\end{equation}
+
+%In the following we will note an UTI as $\pi_{I} = \left(\pi_s, \pi_e \right)$.
+% It is important to notice that, the main diference with respect to the ill-known time interval (see Definition \ref{}) is that an UTI only consider as possible starting and ending points 
+
+%\end{definition}
+
+%\subsection{\label{subsec:visualization-tm}Visualization within the triangular model}
+
+%\subsection{\label{subsec:utis-in-tm}Representation of Uncertain Time Intervals}
+%In \cite{DeTre2012} a technique to represent UTIs in the triangular model has been presented. Basically, the procedure is an extension of the method to represent crisp time intervals in the triangular space. An UTI $\pi_I = \left(\pi_s, \pi_e \right)$ can be represented in the triangular model by the following procedure, considering that both $\pi_s, \pi_e$ are given by triangular membership functions (see Section \ref{subsec:fuzzy-numbers}).
+
+%\begin{enumerate}
+% \item Let $\pi_s = \left[D_s, a_s, b_s\right]$ a triangular membership function.
+%\item Let $\pi_e = \left[D_e, a_e, b_e \right]$ a triangular membership function.
+%\item Let $t_s^{-} = D_s - a_s$, and $t_s^{+} = D_s + b_s$.
+%\item Let $t_e^{-} = D_e -a_e$, and $t_e^{+} = D_e + b_e$.
+%\item Construct two straight lines $L_s^{-}, L_s^{-}$ from $t_s^{-}, t_s^{+}$ with an angle $\alpha$.
+%\item Construct two straight lines $L_e^{-}, L_e^{-}$ from $t_e^{-}, t_e^{+}$ with an angle $-\alpha$.
+%\end{enumerate}
+
+%The intersection of these lines is a quadrangle zone where the UTI is contained. Note that not all the interval points in this zone are to the same extent representing candidate intervals for the UTI.  A grey scaled color gradient is obtained from Eq. \eqref{eq:possibility-uti}. As shown in Fig. \ref{fig:utitm} the color black is associated with a possibility degree of 1, whereas the color white is used when the possibility is 0.
 %Equation \eqref{eq:possibility-uti} computes the possibility obtained for the UTI with respect to a candidate interval.
 % This formula is used to calculate a grey scaled gradient in which the color black denotes the possibility degree 1 and the color white denotes the possibility degree 0.
 
-\begin{figure}[h]
-   \centering
-   \includegraphics[width=0.8\columnwidth]{graphs/utitm.eps}
-   \caption{Representation in the triangular model for an UTI $\pi_I$.  }
-   \label{fig:utitm}
- \end{figure}
+%\begin{figure}[h]
+%   \centering
+%   \includegraphics[width=0.8\columnwidth]{graphs/utitm.eps}
+%   \caption{Representation in the triangular model for an UTI $\pi_I$.  }
+%   \label{fig:utitm}
+% \end{figure}
 
 \subsection{\label{subsec:relational-info-uti}Obtaining Relational Information}
 In order to make temporal reasoning with UTIs, in the triangular model, the thirteen Allen's Relations, and its respective Crisp Relational Zones (CRZ) have been generalized. In this case, we obtain fifteen Uncertain Relational Zones (URZ) , shown in Fig. \ref{fig:urz} and in Table \ref{tab:urz}. 
-
-
-
-
 
 \begin{figure}[h]
    \centering
@@ -89,8 +136,6 @@ In order to make temporal reasoning with UTIs, in the triangular model, the thir
    \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
    \label{fig:urz}
  \end{figure}
-
-
 
 \begin{table}[h]
 \centering
