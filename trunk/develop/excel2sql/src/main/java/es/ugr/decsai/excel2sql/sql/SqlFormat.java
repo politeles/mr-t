@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ugr.decsai.excel2sql;
+package es.ugr.decsai.excel2sql.sql;
 
 import java.util.List;
 
@@ -20,11 +20,20 @@ public class SqlFormat {
     private static final String SIMPLE_COMMA = "'";
     private static final String END = ";";
     
-    public String createSentece(String tableName, List<String> fieldName, List<String> fieldType){
+    protected AbstractSQLRenderer sqlTypeRender;
+
+    public SqlFormat(AbstractSQLRenderer sqlTypeRender) {
+        this.sqlTypeRender = sqlTypeRender;
+    }
+    
+    
+    
+    
+    public String createSentece(String tableName, List<String> fieldName, List<SqlDatatypes> fieldType){
         String commandText = TOKEN_CREATE + BLANK + TOKEN_TABLE + BLANK + tableName+ BLANK + LEFT_PARENTHESIS;
         
         for(int i=0;i< fieldName.size();i++){
-            commandText += SIMPLE_COMMA + fieldName.get(i)+SIMPLE_COMMA+BLANK+fieldType.get(i);
+            commandText += SIMPLE_COMMA + fieldName.get(i)+SIMPLE_COMMA+BLANK+ sqlTypeRender.render(fieldType.get(i));
             if(i<fieldName.size()-1){
                 commandText += COMMA;
             }
