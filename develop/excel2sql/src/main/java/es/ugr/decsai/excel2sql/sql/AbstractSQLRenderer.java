@@ -25,7 +25,8 @@ package es.ugr.decsai.excel2sql.sql;
  *
  */
 public abstract class AbstractSQLRenderer {
-
+    private static final String COMMA = "'";
+    private static final String NULL = "NULL";
     /**
      * Function that returns the rendered type for that SQL type.
      *
@@ -33,4 +34,25 @@ public abstract class AbstractSQLRenderer {
      * @return an string with the given datatype.
      */
     public abstract String render(SqlDatatypes type);
+    
+    public String renderValue(SqlDatatypes type, String value){
+        String renderedText = value;
+        boolean isNull = (value==null || value.compareTo("")==0)?true:false;
+        if(!isNull){
+        switch(type){
+            case DOUBLE:
+                break;
+            case INTEGER:
+                break;
+            case STRING: renderedText = COMMA + value + COMMA;
+                break;
+                default:
+                    renderedText = COMMA + value + COMMA;
+                   
+        }
+        }else{
+            renderedText = NULL;
+        }
+        return renderedText;
+    }
 }

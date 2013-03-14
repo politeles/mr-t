@@ -28,7 +28,7 @@ public class ExcelReader {
 
     Workbook wb;
     private int MAX_ITER = 10;
-
+    
     /**
      * Open an excel file
      *
@@ -148,5 +148,21 @@ public class ExcelReader {
             j++;
         }
         return typeList;
+    }
+    
+    public List<String> getRowContents(int index){
+        List<String> valueList = new ArrayList<String>();
+          Sheet s = wb.getSheetAt(0);
+        Row row = s.getRow(index);
+
+        Iterator<Cell> cellIterator = row.cellIterator();
+       
+        while (cellIterator.hasNext()) {
+
+            Cell cell = cellIterator.next();
+            String content = cell.getRichStringCellValue().getString();
+            valueList.add(content);
+        }
+        return valueList;
     }
 }
