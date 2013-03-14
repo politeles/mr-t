@@ -4,6 +4,7 @@
  */
 package es.ugr.decsai.excel2sql;
 
+import es.ugr.decsai.excel2sql.sql.SqlDatatypes;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -92,8 +93,8 @@ public class ExcelReader {
         return fieldList;
     }
 
-    public List<String> heuristicHibernateTypes() {
-        List<String> typeList = new ArrayList<String>();
+    public List<SqlDatatypes> heuristicHibernateTypes() {
+        List<SqlDatatypes> typeList = new ArrayList<SqlDatatypes>();
         Sheet s = wb.getSheetAt(0);
         Row row = s.getRow(0);
 
@@ -135,11 +136,11 @@ public class ExcelReader {
            
 
             if (candidateInt >= candidateDouble && candidateInt >= candidateString) {
-                typeList.add("INTEGER");
+                typeList.add(SqlDatatypes.INTEGER);
             } else if (candidateDouble >= candidateString) {
-                typeList.add("DOUBLE");
+                typeList.add(SqlDatatypes.DOUBLE);
             } else {
-                typeList.add("STRING");
+                typeList.add(SqlDatatypes.STRING);
             }
 
 

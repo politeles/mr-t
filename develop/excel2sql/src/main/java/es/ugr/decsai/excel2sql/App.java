@@ -1,5 +1,8 @@
 package es.ugr.decsai.excel2sql;
 
+import es.ugr.decsai.excel2sql.sql.SqlDatatypes;
+import es.ugr.decsai.excel2sql.sql.SqlFormat;
+import es.ugr.decsai.excel2sql.sql.sqlite.SqLiteTypeRender;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +25,10 @@ public class App {
             System.out.println("File read");
             List<String> fieldList = er.getFieldList();
             System.out.println("Computing field list done");
-            List<String> heuristicHibernateTypes = er.heuristicHibernateTypes();
+            List<SqlDatatypes> heuristicHibernateTypes = er.heuristicHibernateTypes();
             System.out.println("Computing types done");
 
-            SqlFormat sqlf = new SqlFormat();
+            SqlFormat sqlf = new SqlFormat(new SqLiteTypeRender());
             String createSentece = sqlf.createSentece("Contents", fieldList, heuristicHibernateTypes);
             System.out.println(createSentece);
 //            for(int i = 0; i<fieldList.size();i++){
