@@ -19,6 +19,8 @@ public class SqlFormat {
     private static final String COMMA = " , ";
     private static final String SIMPLE_COMMA = "'";
     private static final String END = ";";
+    private static final String INSERT = "INSERT INTO";
+    private static final String VALUES = "VALUES";
     
     protected AbstractSQLRenderer sqlTypeRender;
 
@@ -40,6 +42,18 @@ public class SqlFormat {
         }
         
         
+        commandText += BLANK + RIGHT_PARENTHESIS + END;
+        return commandText;
+    }
+    
+    public String insertSentence(String tableName,List<String> values,List<SqlDatatypes> fieldType){
+        String commandText = INSERT + BLANK + tableName + BLANK + VALUES + LEFT_PARENTHESIS;
+        for(int i =0;i< values.size();i++){
+            commandText += sqlTypeRender.renderValue(fieldType.get(i), values.get(i));
+            if(i<values.size()-1){
+                commandText += COMMA;
+            }
+        }
         commandText += BLANK + RIGHT_PARENTHESIS + END;
         return commandText;
     }

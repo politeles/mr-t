@@ -31,10 +31,12 @@ public class App {
             SqlFormat sqlf = new SqlFormat(new SqLiteTypeRender());
             String createSentece = sqlf.createSentece("Contents", fieldList, heuristicHibernateTypes);
             System.out.println(createSentece);
-//            for(int i = 0; i<fieldList.size();i++){
-//                System.out.println(fieldList.get(i)+ " type :"+heuristicHibernateTypes.get(i));
-//                
-//            }
+            String insertSentence = sqlf.insertSentence("Contents",er.getRowContents(1) , heuristicHibernateTypes);
+            System.out.println(insertSentence);
+            //            for(int i = 0; i<fieldList.size();i++){
+            //                System.out.println(fieldList.get(i)+ " type :"+heuristicHibernateTypes.get(i));
+            //
+            //            }
 
 
         } catch (Exception ex) {
