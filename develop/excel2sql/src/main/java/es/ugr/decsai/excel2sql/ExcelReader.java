@@ -165,4 +165,9 @@ public class ExcelReader {
         }
         return valueList;
     }
+    
+    public int getRows(){
+        Sheet s = wb.getSheetAt(0);
+       return s.getLastRowNum();
+    }
 }
