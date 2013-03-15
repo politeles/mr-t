@@ -3,7 +3,7 @@ In~\cite{Weghe2007}, the triangular model framework is introduced, based on~\cit
 \subsection{\label{subsec:tm-preliminaries}Preliminary Concepts}
 Usually, different time intervals are visualized as different parallel line segments in the image plane. However, as this linear approach introduces a few difficulties, the TM framework was conceived to visualize time intervals as points in the image plane.
 
-To achieve this, on the image plane, a horizontal line segment visualizing the used (part of the) time axis is drawn. Then, a triangle is drawn, using this line segment as a side of which the angles with the other two sides have sizes $\alpha$ and $-\alpha$ respectively. The area contained in this triangle is called the \emph{interval space} and will contain all visualizations of intervals. Now, the procedure used to visualize a time interval $\left[s, e\right]$ in the interval space is the following:
+To achieve this, on the image plane, a horizontal line segment visualizing the used (part of the) time axis is drawn. Then, a triangle is drawn, using this line segment as a side of which the angles with the other two sides have sizes $\alpha$ and $-\alpha$ respectively. The area contained in this triangle is called the \emph{interval space} and will contain all visualizations of intervals. Now, the procedure used to visualize a crisp time interval $\left[s, e\right]$ in the interval space is the following:
 
 \begin{enumerate}
 	\item Visualize $s$ as a point on the visualization of the time axis.
@@ -67,7 +67,7 @@ For a UTI $J$ defined by $(\pi_s, \pi_e)$ with $\pi_s$ and $\pi_e$ two possibili
 \end{cases}
 \end{align}
 
-An UTI $J$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in the image plane, using a single-color greyscale. Every crisp time interval $I$ for which the possibility $\pi_J(I)$ of $I$ being the time interval represented by $J$ is higher than zero, is considered. For every such $I$, the interval point is drawn and is given the greyscale color which reflects the possibility that $I$ is the time interval represented by $J$. For this, a single-color greyscale is used where the saturation of the color is linearly related to the possibility. An example of such construction is shown in figure \ref{fig:tm-ill-const-ex}.
+An UTI $J$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in the image plane, using a single-color greyscale. Every crisp time interval $I$ for which the possibility $\pi_J(I)$ of $I$ being the time interval represented by $J$ is higher than zero, is considered. For every such $I$, the interval point is drawn and is given the greyscale color which reflects the possibility that $I$ is the time interval represented by $J$. For this, a single-color greyscale is used where the saturation of the color is linearly related to the possibility. Thus, every interval point in this visualization corresponds to an interval with a higher-than-zero possibility of being the time interval represented by the UTI. An example of such construction is shown in figure \ref{fig:tm-ill-const-ex}. In this figure, a darker color indicates a higher possibility and a lighter color indicates a lower possibility.
 
 \begin{figure}[h]
 	\centering
@@ -77,7 +77,90 @@ An UTI $J$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in th
 \end{figure}
 
 \subsection{\label{subsec:tm-evaluation}Evaluation of Allen Relationships}
+At the base of the evaluation of Allen relationships in the TM framework is the concept of uncertain relational zones.
 
+\begin{definition}
+For a given UTI $J$, the \emph{uncertain relational zones} (URZ) are fixed areas in the interval space.
+\end{definition}
+
+Now, given an UTI $J$, the procedure to visualize its URZ is the following:
+
+
+\begin{enumerate}
+	\item Determine the visualizations (the points) of both the smallest and greatest instant with a non-zero possibility of being the starting instant of $J$.
+	\item Construct two straight half-lines from each of these points: one with an angle of size $\alpha$ with the visualization of the time axis and one with an angle of size $-\alpha$ with the visualization of the time axis. The parts of these half-lines that lie outside of the interval space are not of interest.
+	\item Determine the visualizations (the points) of both the smallest and greatest instant with a non-zero possibility of being the ending instant of $J$.
+	\item Construct two straight half-lines from each of these points: one with an angle of size $\alpha$ with the visualization of the time axis and one with an angle of size $-\alpha$ with the visualization of the time axis. The parts of these half-lines that lie outside of the interval space are not of interest.
+	\item The thusly constructed lines divide the interval space in at most fifteen different areas, including the area corresponding to the visualization of $J$ itself. These areas are $J$'s URZ.
+\end{enumerate}
+
+In this procedure, $\alpha$ is the same angle as in the procedure for the visualization of crisp time intervals. The results of this procedure for an example UTI $J$ (as wel as the $J$ itself) are shown in figure \ref{fig:tm-urz}. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{graphs/TM_model_URZ.eps}
+	\caption{The visualization of the URZ for a given UTI $J$.}
+	\label{fig:tm-urz}
+\end{figure}
+
+Given a UTI $J$ and its URZ, every URZ is assigned a symbol and a name and corresponds to a set of Allen relationships. The symbol and name are used to uniquely identify each of $J$'s URZ. The set of Allen relationships corresponding to an URZ contains every Allen relationship in which the intervals visualized by the URZ's interval points could be with the interval represented by $J$, depending on what time interval $J$ actually represents. In figure \ref{fig:tm-urz}, the URZ symbols are also shown. In table \ref{tab:urz}, every different row corresponds to a different URZ for a given UTI. In the first two columns, the symbol and name of the URZ are given, the last column contains the set of corresponding Allen relationships. For these, the following notations are used:
+
+\begin{itemize}
+	\item `E' denotes `equals'.
+	\item `S' denotes `starts'.
+	\item `SB' denotes `started by'.
+	\item `F' denotes `finishes'.
+	\item `FB' denotes `finished by'.
+	\item `M' denotes `meets'.
+	\item `MB' denotes `met by'.
+	\item `O' denotes `overlaps'.
+	\item `OB' denotes `overlapped by'.
+	\item `D' denotes `during'.
+	\item `C' denotes `contains'.
+	\item `B' denotes `before'.
+	\item `A' denotes `after'.
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Symbol & Name & Relationships \\
+\hline
+B    & Before & B \\
+O    & Overlaps & O \\
+C    & Contains & C \\
+D    & During & D \\
+OB   & Overlapped by & OB \\
+A    & After & A \\
+PM   & Possibly meets & M, B, O \\
+PS   & Possibly starts & O, S, D \\
+PFB  & Possibly finished by & O, FB, C \\
+\multirow{2}{*}
+{PE}   & Possibly equal  & E, FB, SB, F,\\
+       &                 & S, C, D,O, OB \\
+PSB  & Possibly started by & C, OB, SB \\
+PF   & Possibly finishes & OB, F, D \\
+PMB  & Possibly met by & OB, MB A \\
+UB   & Uncertain beginning & B, M, O, S, D \\
+UE   & Uncertain ending & D, F, OB, MB, A \\
+\hline
+\end{tabular}
+\caption{The fifteen possible URZ for a given UTI.}
+\label{tab:urz}
+\end{table}
+
+The TM framework now allows evaluating all possible Allen relationships between a given crisp time interval $I$ and a given UTI $J$. This is done as follows. First, $J$ and its URZ are visualized. Next, $I$'s interval point and its construction half-lines $L_s$ and $L_e$ are drawn in the same interval space. Then, evaluation is a matter of positioning (in the following, the possibility that $I$ is in Allen relationship $AR$ with $J$ is denoted  $\Pos(I\ AR\ J)$):
+
+\begin{itemize}
+	\item if $I$'s interval point is located in an URZ corresponding with a singleton of Allen relationships $\{R\}$, it is in relationship $R$ with the interval represented by $J$, whichever this interval is. Thus: $\Pos(I\ AR\ J) = 1$.
+	\item if $I$'s interval point is located in an URZ corresponding with a non-singleton set of $n$ Allen relationships $\{R_1, R_2, \ldots, R_n\}$, two more half-lines are drawn: one (denoted $L_s'$) from the intersection point of $L_s$ and the visualization of the time axis, its angle with this visualization having size $-\alpha$ and one (denoted $L_e'$) from the intersection point of $L_e$ and the visualization of the time axis, having an angle $\alpha$ with this visualization. Now, some of these half-lines $L_s$, $L_s'$, $L_e$ and $L_e'$ may intersect with the area visualizing $J$. These will divide the area visualizing $J$ in $n$ parts $p_i, 1 \leq i \leq n$ (intersection line segments also count as parts) and each of these parts will correspond to an Allen relationship $R_i$. Now, for each $R_i$:
+	\begin{equation}
+		\Pos(I\ R_i\ J) = \sup_{I \in p_i} \pi_J(I)
+	\end{equation}
+\end{itemize}
+
+%TODO: example!
 
 %In this section we will explain a graphical visualization of temporal data called the triangular model (TM). This has been widely used mainly on rough sets for the visualization of historical data. More recently, the model has been extended on possibility theory to model Uncertain Time Intervals (UTI).
 %First of all we will explain the main concepts and properties of the triangular model to model Uncertain Time Intervals (UTI). Then, we will detail how to compute the Allen's Relations between a crisp time point and an UTI.
@@ -127,78 +210,50 @@ An UTI $J$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in th
 %   \label{fig:utitm}
 % \end{figure}
 
-\subsection{\label{subsec:relational-info-uti}Obtaining Relational Information}
-In order to make temporal reasoning with UTIs, in the triangular model, the thirteen Allen's Relations, and its respective Crisp Relational Zones (CRZ) have been generalized. In this case, we obtain fifteen Uncertain Relational Zones (URZ) , shown in Fig. \ref{fig:urz} and in Table \ref{tab:urz}. 
+%\subsection{\label{subsec:relational-info-uti}Obtaining Relational Information}
+%In order to make temporal reasoning with UTIs, in the triangular model, the thirteen Allen's Relations, and its respective Crisp Relational Zones (CRZ) have been generalized. In this case, we obtain fifteen Uncertain Relational Zones (URZ) , shown in Fig. \ref{fig:urz} and in Table \ref{tab:urz}. 
 
-\begin{figure}[h]
-   \centering
-   \includegraphics[width=0.8\columnwidth]{graphs/urz.eps}
-   \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
-   \label{fig:urz}
- \end{figure}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-Symbol & Name & Possible Relations \\
-\hline
-B    & Before & B \\
-O    & Overlaps & O \\
-C    & Contains & C \\
-D    & During & D \\
-OB   & Overlapped by & OB \\
-A    & After & A \\
-PM   & Possibly meets & M, B, O \\
-PS   & Possibly starts & O, S, D \\
-PFB  & Possibly finished by & O, FB, C \\
-\multirow{2}{*}
-{PE}   & Possibly equal  & E, FB, SB, F,\\
-       &                 & S, C, D,O, OB \\
-%       &                 &  \\
-PSB  & Possibly started by & C, OB, SB \\
-PF   & Possibly finishes & OB, MB, A \\
-PMB  & Possibly met by & B, M, O, S, D \\
-UB   & Uncertain beginning & B, M, O, S, D \\
-UE   & Uncertain ending & D, F, OB, MB, A \\
-\hline
-\end{tabular}
-\caption{The fifteen possible relations between an interval point $J$ and an UTI $\pi_I$.}
-\label{tab:urz}
-\end{table}
+%\begin{figure}[h]
+%   \centering
+%   \includegraphics[width=0.8\columnwidth]{graphs/urz.eps}
+%   \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
+%   \label{fig:urz}
+% \end{figure}
 
 
-The way to obtain the relational information between an interval point $J = \left[s_j, e_j \right]$, and an UTI $\pi_I$ depends on the location of $J$ with respect to the UTI $\pi_I$:
-
-\begin{itemize}
- \item If $J$ is located in a zone with only one possible Allen relation, then it is true that $J$ is in the relation. (And therefore, the possibility is always 1).
-\begin{equation}
- \label{eq:possibility-iz-uti-certain}
-\mu_{\left(J R \pi_I \right)} \left(R \right) = 1.
-\end{equation}
 
 
-\item If $J$ is located in a zone with multiple candidate Allen's relations, then there is uncertainty about the Allen relation that applies between $J$ and the UTI $\pi_I$. The procedure to obtain the possibility degree is the following:
+%The way to obtain the relational information between an interval point $J = \left[s_j, e_j \right]$, and an UTI $\pi_I$ depends on the location of $J$ with respect to the UTI $\pi_I$:
 
-\begin{enumerate}
- \item Draw the lines $L_s, L_e$ that represent the interval point $J$, with the procedure shown in Section \ref{subsec:visualization-tm}. 
-\item Draw the orthogonal lines from $L_s, L_e$. 
-\item One or several of these lines could intersect with the UIZ of $\pi_I$. Then, the UIZ is divided into as many different subzones $\pi_I^{R'}$ as possible candidate Allen relations $R'$ between $J$ and $\pi_I$ exist.
-\item $\pi_I^{R'}$ is the zone that correspond to a candidate Allen Relation $R'$.
-\end{enumerate}
-The possibility that a candidate relation $R'$ is the actual relation between $J$ and $\pi_I$ is given by:
-\begin{equation}
- \label{eq:possibility-iz-uti}
-\mu_{\left(J R \pi_I \right)} \left(R' \right) = \sup_{I \in \pi_I^{R'}} \pi_I(I).
-\end{equation}
-\end{itemize}
+%\begin{itemize}
+% \item If $J$ is located in a zone with only one possible Allen relation, then it is true that $J$ is in the relation. (And therefore, the possibility is always 1).
+%\begin{equation}
+% \label{eq:possibility-iz-uti-certain}
+%\mu_{\left(J R \pi_I \right)} \left(R \right) = 1.
+%\end{equation}
 
-\begin{figure}[h]
-   \centering
-   \includegraphics[width=0.8\columnwidth]{graphs/calculation.eps}
-   \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
-   \label{fig:calculation}
- \end{figure}
+
+%\item If $J$ is located in a zone with multiple candidate Allen's relations, then there is uncertainty about the Allen relation that applies between $J$ and the UTI $\pi_I$. The procedure to obtain the possibility degree is the following:
+
+%\begin{enumerate}
+% \item Draw the lines $L_s, L_e$ that represent the interval point $J$, with the procedure shown in Section \ref{subsec:visualization-tm}. 
+%\item Draw the orthogonal lines from $L_s, L_e$. 
+%\item One or several of these lines could intersect with the UIZ of $\pi_I$. Then, the UIZ is divided into as many different subzones $\pi_I^{R'}$ as possible candidate Allen relations $R'$ between $J$ and $\pi_I$ exist.
+%\item $\pi_I^{R'}$ is the zone that correspond to a candidate Allen Relation $R'$.
+%\end{enumerate}
+%The possibility that a candidate relation $R'$ is the actual relation between $J$ and $\pi_I$ is given by:
+%\begin{equation}
+% \label{eq:possibility-iz-uti}
+%\mu_{\left(J R \pi_I \right)} \left(R' \right) = \sup_{I \in \pi_I^{R'}} \pi_I(I).
+%\end{equation}
+%\end{itemize}
+
+%\begin{figure}[h]
+%   \centering
+%   \includegraphics[width=0.8\columnwidth]{graphs/calculation.eps}
+%   \caption{Uncertain Relational Zones (URZ) for a given UTI.  }
+%   \label{fig:calculation}
+% \end{figure}
 
 % Mainly due to its linear characteristic, time is traditionally visualised using a linear representation where several time intervals are depicted as linear segments on top of a horizontal time axis. This approach has also been used in Fig. \ref{fig:ill-known-ti}. One can read the start and end point of each interval the horizontal scale. The vertical dimension is solely used to differentiate multiple overlapping intervals, if used at all. The linear representation works well as long as the number of represented time intervals remains low. As soon as a large number of overlapping intervals have to be represented the representation becomes overloaded and accurate visual data analysis becomes almost impossible.
 
