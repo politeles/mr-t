@@ -32,6 +32,14 @@ public class SqlFormat {
     private static final String VALUES = "VALUES";
     private static final String PARAM = "?";
     private static final String EMPTY_STRING = "";
+    private static final String PRIMARY = "PRIMARY";
+    private static final String KEY = "KEY";
+    private static final String ASC = "ASC";
+    private static final String DEC = "DESC";
+    private static final String CACHED = "CACHED";
+    private static final String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ-";
+    // Cadena de caracteres ASCII que reemplazarán los originales.
+    private static final String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC ";
     protected AbstractSQLRenderer sqlTypeRender;
 
     public SqlFormat(AbstractSQLRenderer sqlTypeRender) {
@@ -39,10 +47,18 @@ public class SqlFormat {
     }
 
     public String createSentece(String tableName, List<String> fieldName, List<SqlDatatypes> fieldType) {
-        String commandText = TOKEN_CREATE + BLANK + TOKEN_TABLE + BLANK + tableName + BLANK + LEFT_PARENTHESIS;
+        String commandText = TOKEN_CREATE + BLANK + "TEXT" + BLANK + TOKEN_TABLE + BLANK + tableName + BLANK + LEFT_PARENTHESIS;
 
         for (int i = 0; i < fieldName.size(); i++) {
-            commandText += SIMPLE_COMMA + fieldName.get(i) + SIMPLE_COMMA + BLANK + sqlTypeRender.render(fieldType.get(i));
+            //commandText += SIMPLE_COMMA + cleanString(fieldName.get(i)) + SIMPLE_COMMA + BLANK + sqlTypeRender.render(fieldType.get(i));
+            commandText += cleanString(fieldName.get(i)) + BLANK + sqlTypeRender.render(fieldType.get(i));
+
+            //by default first field is primary key:
+            if (i == 0) {
+                commandText += BLANK + PRIMARY + BLANK + KEY + BLANK; //+ ASC+BLANK;
+
+            }
+
             if (i < fieldName.size() - 1) {
                 commandText += COMMA;
             }
@@ -71,7 +87,8 @@ public class SqlFormat {
 
 
         for (int i = 0; i < values.size(); i++) {
-            commandText += sqlTypeRender.renderValue(SqlDatatypes.STRING, attributes.get(i));
+//            commandText += sqlTypeRender.renderValue(SqlDatatypes.STRING, cleanString(attributes.get(i)));
+            commandText += cleanString(attributes.get(i));
             valuesParam += PARAM;
             if (i < values.size() - 1) {
                 commandText += COMMA;
@@ -88,41 +105,56 @@ public class SqlFormat {
         try {
             stm = conn.prepareStatement(commandText);
             for (int i = 0; i < values.size(); i++) {
-               // System.out.println("Field: " + i + " value: " + values.get(i));
+                // System.out.println("Field: " + i + " value: " + values.get(i));
                 int index = i + 1;
-                if (isNull(values.get(i))) {
-                    stm.setNull(index, Types.NULL);
-                   // System.out.println("is null");
-                } else {
+//                 else {
 
-                    switch (fieldType.get(i)) {
-                        case DOUBLE:
-                           
-                            try{
-                               
-                                stm.setDouble(index, new Double(values.get(i)));
-                            }catch(NumberFormatException ex){
-                                stm.setNull(index, Types.NULL);
+                switch (fieldType.get(i)) {
+                    case DOUBLE:
+
+                        try {
+                            if (isNull(values.get(i))) {
+                                stm.setNull(index, Types.DOUBLE);
+                                // System.out.println("is null");
                             }
-                            
-                            
-                            break;
-                        case INTEGER:
-                            try{
-                            stm.setInt(index, new Integer(values.get(i)));
-                            }catch(NumberFormatException ex){
-                                stm.setNull(index, Types.NULL);
+                            stm.setDouble(index, new Double(values.get(i)));
+                        } catch (NumberFormatException ex) {
+                            stm.setNull(index, Types.DOUBLE);
+                        }
+
+
+                        break;
+                    case INTEGER:
+                        try {
+                            if (isNull(values.get(i))) {
+                                stm.setNull(index, Types.INTEGER);
+                                // System.out.println("is null");
+                            } else {
+                                stm.setInt(index, new Integer(values.get(i)));
                             }
-                            break;
-                        case STRING:
+                        } catch (NumberFormatException ex) {
+                            stm.setNull(index, Types.INTEGER);
+                        }
+                        break;
+                    case STRING:
+                        if (isNull(values.get(i))) {
+                            stm.setNull(index, Types.VARCHAR);
+                            // System.out.println("is null");
+                        } else {
                             stm.setString(index, values.get(i));
-                            break;
-                        default:
+                        }
+                        break;
+                    default:
+                        if (isNull(values.get(i))) {
+                            stm.setNull(index, Types.VARCHAR);
+                            // System.out.println("is null");
+                        } else {
                             stm.setString(index, values.get(i));
-                    }
+                        }
                 }
             }
-            stm.executeUpdate();
+//            }
+            stm.execute();
         } catch (Exception ex) {
             ex.printStackTrace();
             Logger.getLogger(SqlFormat.class.getName()).log(Level.SEVERE, null, ex);
@@ -157,5 +189,12 @@ public class SqlFormat {
     protected boolean isNull(String value) {
         return value.trim().compareTo(EMPTY_STRING) == 0;
     }
-    
+
+    protected String cleanString(String str) {
+        String output = str;
+        for (int i = 0; i < original.length(); i++) {
+            output = output.replace(original.charAt(i), ascii.charAt(i)).replaceAll("\\s", "");
+        }
+        return output;
+    }
 }

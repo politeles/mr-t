@@ -28,7 +28,8 @@ public class ExcelReader {
 
     Workbook wb;
     private int MAX_ITER = 10;
-    
+    private static final String EMPTY_STRING = "";
+
     /**
      * Open an excel file
      *
@@ -111,29 +112,27 @@ public class ExcelReader {
                 Row row1 = s.getRow(i);
                 Cell cell2 = row1.getCell(j);
 
-        
+
 
                 try {
-                    if(cell2.getCellType()!=Cell.CELL_TYPE_BLANK){
-                    String content = cell2.getRichStringCellValue().getString();
-                    candidateString++;
-                    new Integer(content);
-                    candidateInt++;
-                    new Double(content);
-                    candidateDouble++;
+                    if (cell2.getCellType() != Cell.CELL_TYPE_BLANK) {
+                        String content = cell2.getRichStringCellValue().getString();
+                        if (content.trim().compareTo(EMPTY_STRING) != 0) {
+                            candidateString++;
+                            new Integer(content);
+                            candidateInt++;
+                            new Double(content);
+                            candidateDouble++;
+                        }
                     }
 
                 } catch (Exception ex) {
-            
-                    
                 } finally {
-                    
-
                 }
 
             }
             //check the max:
-           
+
 
             if (candidateInt >= candidateDouble && candidateInt >= candidateString) {
                 typeList.add(SqlDatatypes.INTEGER);
@@ -149,14 +148,14 @@ public class ExcelReader {
         }
         return typeList;
     }
-    
-    public List<String> getRowContents(int index){
+
+    public List<String> getRowContents(int index) {
         List<String> valueList = new ArrayList<String>();
-          Sheet s = wb.getSheetAt(0);
+        Sheet s = wb.getSheetAt(0);
         Row row = s.getRow(index);
 
         Iterator<Cell> cellIterator = row.cellIterator();
-       
+
         while (cellIterator.hasNext()) {
 
             Cell cell = cellIterator.next();
@@ -165,9 +164,9 @@ public class ExcelReader {
         }
         return valueList;
     }
-    
-    public int getRows(){
+
+    public int getRows() {
         Sheet s = wb.getSheetAt(0);
-       return s.getLastRowNum();
+        return s.getLastRowNum();
     }
 }
