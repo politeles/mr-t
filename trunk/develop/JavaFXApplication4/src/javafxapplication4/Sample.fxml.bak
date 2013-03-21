@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="764.0" prefWidth="635.0" xmlns:fx="http://javafx.com/fxml" fx:controller="javafxapplication4.SampleController">
+  <children>
+    <Label fx:id="label" layoutX="126.0" layoutY="120.0" minHeight="16.0" minWidth="69.0" />
+    <Pane layoutX="15.0" layoutY="20.0" prefHeight="212.0" prefWidth="606.0">
+      <children>
+        <Slider fx:id="startYear" layoutX="110.0" layoutY="44.0" max="1300.0" min="600.0" onMouseDragged="#startDragDone3" prefWidth="454.0" showTickLabels="true" showTickMarks="true" />
+        <Slider fx:id="endYear" layoutX="110.0" layoutY="136.0" max="1300.0" min="600.0" onMouseDragged="#onMouseEnd" prefWidth="454.0" showTickLabels="true" showTickMarks="true" />
+      </children>
+    </Pane>
+    <Pane layoutX="26.0" layoutY="253.0" prefHeight="497.0" prefWidth="595.0">
+      <children>
+        <ScatterChart id="ScatterChartNxN" layoutX="48.0" layoutY="14.0">
+          <xAxis>
+            <NumberAxis id="xA" fx:id="xAxis" side="BOTTOM" />
+          </xAxis>
+          <yAxis>
+            <NumberAxis fx:id="yAxis" side="LEFT" />
+          </yAxis>
+        </ScatterChart>
+      </children>
+    </Pane>
+  </children>
+</AnchorPane>
