@@ -1,11 +1,11 @@
 In~\cite{Pons2011}, the ill-known constraint framework is introduced. In this section, its main aspects concerning interval representation and Allen relationship evaluation are briefly presented.
 
 \subsection{\label{subsec:ikc-preliminaries}Preliminary Concepts}
-The IKC framework relies on the concepts of possibilistic variables, ill-known values and ill-known intervals. These are introduced below.
+The IKC framework relies on the concepts of possibilistic variables, ill-known values and ill-known intervals~\cite{Dubois1983},~\cite{Pons2011},~\cite{Billiet2012},~\cite{JoseEnriquePons2012}. These are introduced below.
 
 \begin{definition}
 \label{def:poss-variable}
-A \emph{possibilistic variable}~\cite{Dubois1988a},~\cite{Pons2011},~\cite{Billiet2012} $X$ on a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The variable $X$'s possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u \in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
+A \emph{possibilistic variable} $X$ on a universe $U$ is defined as a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The variable $X$'s possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u \in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
 \end{definition}
 
 As mentioned above, possibility is interpreted as plausibility in the presented work and thus the possibility that possibilistic variable $X$ on $U$ takes the value $u \in U$ is interpreted as a measure of how plausible it is that $X$ takes the value $u$, given (partial) knowledge about the value $X$ takes.
@@ -15,7 +15,7 @@ Now consider a set $U$ containing single values (and not collections of values).
 In this paper, possibilistic variables will be denoted using uppercase letters and IKV using lower-case letters.
 
 \subsection{\label{subsec:ikc-interval}Representation of Time Intervals Subject to Uncertainty}
-The IKC framework allows uncertainty in intervals by supporting a kind of ill-known intervals:
+The IKC framework allows uncertainty in intervals by supporting a kind of ill-known intervals~\cite{Dubois1983},~\cite{Pons2011},~\cite{Billiet2012},~\cite{JoseEnriquePons2012}:
 
 \begin{definition}
 Consider an ordered set $U$. An \emph{ill-known interval} (IKI) in $U$ is an interval in $U$ of which both boundary values are ill-known values in $U$.
@@ -24,7 +24,7 @@ Consider an ordered set $U$. An \emph{ill-known interval} (IKI) in $U$ is an int
 Specifically with regards to time, an IKI in an ordered set of instants representing time is called an \emph{ill-known time interval} (IKTI) in the presented work. In this paper, an IKTI with starting instant $s$ and ending instant $e$ will be noted $\left[s, e\right]$.
 
 \subsection{\label{subsec:ikc-evaluation}Evaluation of Allen Relationships}
-At the base of the framework's approach to evaluating Allen relationships are ill-known constraints:
+At the base of the framework's approach to evaluating Allen relationships are ill-known constraints~\cite{Pons2011}:
 
 \begin{definition}
 Given an ordered set $U$, an \emph{ill-known constraint} (IKC) $C$ on $U$ is specified by means of a binary relation $R \subseteq U^{2}$ and a fixed IKV $v$ in $U$ defined by its possibilistic variable $V$ on $U$, i.e.:
@@ -59,7 +59,7 @@ Given an ordered set $U$, possibility and necessity degrees expressing confidenc
 
 Here, $C$ and all $C_i$ for which $i \in \mathbb{N}_0$ and $1 \leq i \leq n$ denote IKC on $U$.
 
-The IKC framework now allows evaluating a given Allen relationship $AR$ between a given crisp time interval $I$ and a given IKTI $J = \left[s, e\right]$ by allowing to calculate the possibility and necessity that $I$ $AR$ $J$ holds. For this, the combination of $AR$ and $J$ is translated to a specific boolean aggregation of specific IKC. These translations are shown in table \ref{tab:allen-relations}. Every row of this table corresponds to an Allen relationship. The Allen relationships the rows correspond to, are shown in the `Allen Relationship' column, the collections of specific IKC for given Allen relationships are shown in the `Constraints' column (every $C_i, i \in \{1, 2, 3, 4\}$ denotes an IKC) and the specific aggregation of these IKC used for evaluation of the Allen relationships are shown in column `Aggregation'. Finally, the possibility and necessity degrees expressing confidence about the plausibility that $I$ $AR$ $J$ holds are then the possibility and necessity expressing confidence about the plausibility that $I$ satisfies the specific aggregation of specific IKC found as translation of the combination of $AR$ and $J$.
+The IKC framework now allows evaluating a given Allen relationship $AR$ between a given CTI $I$ and a given IKTI $J = \left[s, e\right]$ by allowing to calculate the possibility and necessity that $I$ $AR$ $J$ holds. For this, the combination of $AR$ and $J$ is translated to a specific boolean aggregation of specific IKC. These translations are shown in table \ref{tab:allen-relations}. Every row of this table corresponds to an Allen relationship. The Allen relationships the rows correspond to, are shown in the `Allen Relationship' column, the collections of specific IKC for given Allen relationships are shown in the `Constraints' column (every $C_i, i \in \{1, 2, 3, 4\}$ denotes an IKC) and the specific aggregation of these IKC used for evaluation of the Allen relationships are shown in column `Aggregation'. Finally, the possibility and necessity degrees expressing confidence about the plausibility that $I$ $AR$ $J$ holds are then the possibility and necessity expressing confidence about the plausibility that $I$ satisfies the specific aggregation of specific IKC found as translation of the combination of $AR$ and $J$.
 
 
 Using the formulas shown above, the requested possibility and necessity degrees can be calculated from these.

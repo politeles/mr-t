@@ -1,11 +1,7 @@
 In~\cite{Weghe2007}, the TM framework for crisp intervals is introduced, based on~\cite{Kulpa1997}. In~\cite{DeTre2012}, the framework is generalized to allow the representation of and reasoning with time intervals subject to uncertainty. In this section, this generalization's main aspects towards interval representation and Allen relationship evaluation are briefly presented. 
 
 \subsection{\label{subsec:tm-preliminaries}Preliminary Concepts}
-In the triangular model framework, the approaches to interval representation and Allen relationship evaluation are closely linked with the approach to interval visualization.
-
-Usually, different time intervals are visualized as different parallel line segments in the same image plane. However, as this linear approach introduces a few issues, time intervals are visualized as points in the image plane in the TM framework.
-
-To achieve this, a horizontal line segment visualizing the used (part of the) time axis is drawn in the image plane. Then, a triangle is drawn, using this line segment as a side of which the angles with the other two sides have sizes $\alpha$ and $-\alpha$ respectively. The area contained in this triangle is called the \emph{interval space} and will contain all visualizations of intervals. Now, the procedure used to visualize a crisp time interval $\left[s, e\right]$ in the interval space is the following:
+In the triangular model framework, the approaches to interval representation and Allen relationship evaluation are closely related to the approach to interval visualization. Usually, different time intervals are visualized as different parallel line segments in the same image plane. However, as this linear approach introduces a few issues, time intervals are visualized as points in the image plane in the TM framework~\cite{Weghe2007},~\cite{DeTre2012}. To achieve this, a horizontal line segment visualizing the used (part of the) time axis is drawn in the image plane. Then, a triangle is drawn, using this line segment as a side of which the angles with the other two sides have sizes $\alpha$ and $-\alpha$ respectively. The area contained in this triangle is called the \emph{interval space} and will contain all visualizations of intervals. Now, the procedure used to visualize a CTI $\left[s, e\right]$ in the interval space is the following~\cite{Weghe2007},~\cite{DeTre2012}:
 
 \begin{enumerate}
 	\item $s$ is visualized as a point on the visualization of the time axis.
@@ -15,17 +11,17 @@ To achieve this, a horizontal line segment visualizing the used (part of the) ti
 	\item The intersection point of $L_s$ and $L_e$ is the intended visualization of interval $\left[s, e\right]$.
 \end{enumerate}
 
-A similar point visualizing an interval is generally called an \emph{interval point}. In this work, as it is usually done, the size of $\alpha$ is chosen to be $45^{\circ}$. An example of such construction is shown in figure \ref{fig:tm-const-ex}.
+A similar point visualizing an interval is generally called an \emph{interval point}~\cite{Weghe2007},~\cite{DeTre2012}. In this work, as it is usually done, the size of $\alpha$ is chosen to be $45^{\circ}$. An example of such construction is shown in figure \ref{fig:tm-const-ex}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{graphs/TM_model_several.eps}
-	\caption{The visualization of several crisp time intervals using the TM framework.}
+	\includegraphics[width=0.9\columnwidth]{graphs/TM_model_several.eps}
+	\caption{The visualization of several CTI using the TM framework.}
 	\label{fig:tm-const-ex}
 \end{figure}
 
 \subsection{\label{subsec:tm-interval}Representation of Time Intervals Subject to Uncertainty}
-The TM framework allows uncertainty in time intervals by supporting uncertain time intervals:
+The TM framework allows uncertainty in time intervals by supporting uncertain time intervals~\cite{DeTre2012}:
 
 \begin{definition}
 Given an ordered set of instants $T$, an \emph{uncertain time interval} (UTI) $J$ in $T$ is here a time interval defined by a pair
@@ -35,7 +31,7 @@ J \triangleq (\pi_s, \pi_e)
 where $\pi_s$ and $\pi_e$ are two convex possibility distributions on $T$.
 \end{definition}
 
-Consider an ordered set of instants $T$ and an UTI $J$ in $T$, defined by the pair $(\pi_s, \pi_e)$. Given an instant $x \in T$, $\pi_s(x)$ now expresses the possibility that $x$ is the starting instant of $J$ and $\pi_e(x)$ expresses the possibility that $x$ is the ending instant of $J$. Thus, $J$ intends to indicate just one crisp time interval, but due to a (partial) lack of knowledge, it is (partially) unknown exactly which time interval this is. Because $\pi_s$ and $\pi_e$ are required to be convex, the possibility $\pi_J(I)$ that a given crisp time interval $I = \left[s_i, e_i\right]$ is the exact time interval intended by $J$ can now be uniquely determined by:
+Consider an ordered set of instants $T$ and an UTI $J$ in $T$, defined by the pair $(\pi_s, \pi_e)$. Given an instant $x \in T$, $\pi_s(x)$ now expresses the possibility that $x$ is the starting instant of $J$ and $\pi_e(x)$ expresses the possibility that $x$ is the ending instant of $J$. Thus, $J$ intends to indicate just one CTI, but due to a (partial) lack of knowledge, it is (partially) unknown exactly which time interval this is. Because $\pi_s$ and $\pi_e$ are required to be convex, the possibility $\pi_J(I)$ that a given CTI $I = \left[s_i, e_i\right]$ is the exact time interval intended by $J$ can now be uniquely determined by~\cite{DeTre2012}:
 
 \begin{align}
 \pi_J(I) = \begin{cases}
@@ -44,23 +40,23 @@ Consider an ordered set of instants $T$ and an UTI $J$ in $T$, defined by the pa
 \end{cases}
 \end{align}
 
-Now consider an ordered set of instants $T$ and a visualization of this in an image plane, using the TM framework. An UTI $J$ in $T$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in the image plane. This area is constructed as follows: for every crisp time interval $K$ for which the possibility $\pi_J(K)$ of $K$ being the time interval represented by $J$ is higher than zero, the interval point is drawn and is given a color. This color is part of a linear single-color greyscale and its saturation is linearly related to the degree of possibility that $K$ is the time interval intended by $J$. Thus, every drawn interval point in this visualization corresponds to an interval with a higher-than-zero possibility of being the time interval intended by $J$. Together, these drawn interval points form the visualization of $J$. An example of such construction is shown in figure \ref{fig:tm-ill-const-ex}. In this figure, a darker color of interval point indicates a higher and a lighter color a lower possibility that the corresponding interval is the intended interval.
+Now consider an ordered set of instants $T$ and a visualization of this in an image plane, using the TM framework. An UTI $J$ in $T$ defined by a pair $(\pi_s, \pi_e)$ is now visualized as an area in the image plane. This area is constructed as follows: for every CTI $K$ for which the possibility $\pi_J(K)$ of $K$ being the time interval represented by $J$ is higher than zero, the interval point is drawn and is given a color. This color is part of a linear single-color greyscale and its saturation is linearly related to the degree of possibility that $K$ is the time interval intended by $J$. Thus, every drawn interval point in this visualization corresponds to an interval with a higher-than-zero possibility of being the time interval intended by $J$. Together, these drawn interval points form the visualization of $J$~\cite{DeTre2012}. An example of such construction is shown in figure \ref{fig:tm-ill-const-ex}. In this figure, a darker color of interval point indicates a higher and a lighter color a lower possibility that the corresponding interval is the intended interval.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{graphs/TM_model_ill_known.eps}
+	\includegraphics[width=0.9\columnwidth]{graphs/TM_model_ill_known.eps}
 	\caption{The visualization of one UTI defined by a pair $(\pi_s, \pi_e)$ using the TM framework.}
 	\label{fig:tm-ill-const-ex}
 \end{figure}
 
 \subsection{\label{subsec:tm-evaluation}Evaluation of Allen Relationships}
-At the base of the framework's approach to evaluating Allen relationships is the concept of uncertain relational zones:
+At the base of the framework's approach to evaluating Allen relationships is the concept of uncertain relational zones~\cite{DeTre2012}:
 
 \begin{definition}
 For a given UTI $J$, the \emph{uncertain relational zones} (URZ) are fixed areas in the interval space.
 \end{definition}
 
-Now, given an UTI $J$ and its visualization in an interval space, the procedure to visualize its URZ is the following:
+Now, given an UTI $J$ and its visualization in an interval space, the procedure to visualize its URZ is the following~\cite{DeTre2012}:
 
 \begin{enumerate}
 	\item The visualizations (the points) on the visualization of the time axis of both the smallest and greatest instant with a non-zero possibility of being the starting instant of $J$ are determined.
@@ -70,16 +66,16 @@ Now, given an UTI $J$ and its visualization in an interval space, the procedure 
 	\item The lines constructed this way divide the interval space in at most fifteen different areas, including the area corresponding to the visualization of $J$ itself. These areas are the intended visualizations of $J$'s URZ.
 \end{enumerate}
 
-In this procedure, $\alpha$ is the same angle size as in the procedure for the visualization of crisp time intervals. The results of this procedure for an example UTI $J$ (as wel as the visualization of $J$ itself) are shown in figure \ref{fig:tm-urz}. 
+In this procedure, $\alpha$ is the same angle size as in the procedure for the visualization of CTI. The results of this procedure for an example UTI $J$ (as wel as the visualization of $J$ itself) are shown in figure \ref{fig:tm-urz}. 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{graphs/TM_model_URZ.eps}
+	\includegraphics[width=0.9\columnwidth]{graphs/TM_model_URZ.eps}
 	\caption{The visualization of the URZ for a given UTI $J$, using the TM framework.}
 	\label{fig:tm-urz}
 \end{figure}
 
-Given an UTI $J$ and its URZ, every URZ is assigned a symbol and a name and corresponds to a set of Allen relationships. These symbols and names are used to uniquely identify each of $J$'s URZ. The set of Allen relationships corresponding to an URZ contains every Allen relationship in which any interval visualized by one of the URZ's interval points could be with the interval intended by $J$, depending on exactly which time interval $J$ actually intends to represent. In figure \ref{fig:tm-urz}, the URZ's symbols are noted inside the areas visualizing their respective URZ's. In table \ref{tab:urz}, every different row corresponds to a different URZ. In the first two columns, the symbol and name of the URZ are given, the last column contains the set of corresponding Allen relationships. For these, the following notations are used:
+Given an UTI $J$ and its URZ, every URZ is assigned a symbol and a name and corresponds to a set of Allen relationships~\cite{DeTre2012}. These symbols and names are used to uniquely identify each of $J$'s URZ. The set of Allen relationships corresponding to an URZ contains every Allen relationship in which any interval visualized by one of the URZ's interval points could be with the interval intended by $J$, depending on exactly which time interval $J$ actually intends to represent. In figure \ref{fig:tm-urz}, the URZ's symbols are noted inside the areas visualizing their respective URZ's. In table \ref{tab:urz}, every different row corresponds to a different URZ. In the first two columns, the symbol and name of the URZ are given, the last column contains the set of corresponding Allen relationships. For these, the following notations are used:
 
 \begin{itemize}
 	\item `E' denotes `equals'.
@@ -107,26 +103,26 @@ B    & Before & B \\
 O    & Overlaps & O \\
 C    & Contains & C \\
 D    & During & D \\
-OB   & Overlapped by & OB \\
+OB   & Overlapped By & OB \\
 A    & After & A \\
-PM   & Possibly meets & M, B, O \\
-PS   & Possibly starts & O, S, D \\
-PFB  & Possibly finished by & O, FB, C \\
+PM   & Possibly Meets & M, B, O \\
+PS   & Possibly Starts & O, S, D \\
+PFB  & Possibly Finished By & O, FB, C \\
 \multirow{2}{*}
-{PE}   & Possibly equal  & E, FB, SB, F,\\
+{PE}   & Possibly Equal  & E, FB, SB, F,\\
        &                 & S, C, D,O, OB \\
-PSB  & Possibly started by & C, OB, SB \\
-PF   & Possibly finishes & OB, F, D \\
-PMB  & Possibly met by & OB, MB A \\
-UB   & Uncertain beginning & B, M, O, S, D \\
-UE   & Uncertain ending & D, F, OB, MB, A \\
+PSB  & Possibly Started By & C, OB, SB \\
+PF   & Possibly Finishes & OB, F, D \\
+PMB  & Possibly Met By & OB, MB A \\
+UB   & Uncertain Beginning & B, M, O, S, D \\
+UE   & Uncertain Ending & D, F, OB, MB, A \\
 \hline
 \end{tabular}
 \caption{The fifteen possible URZ for a given UTI.}
 \label{tab:urz}
 \end{table}
 
-The TM framework now allows evaluating the Allen relationships a given crisp time interval $I = \left[s, e\right]$ could be in with a given UTI $J$, depending on the exact interval intended by $J$. This is done as follows. First, $J$ and its URZ are visualized in an interval space. Next, $I$'s interval point, its construction half-lines $L_s$ and $L_e$ and the visualization of its starting and ending instants on the visualization of the time are drawn in the same interval space. Then, evaluation is a matter of position (in the following, the possibility that $I$ is the interval intended by $J$ is denoted $\pi_J(I)$ and the possibility that $I$ is in Allen relationship $AR$ with $J$ is denoted  $\Pos(I\ AR\ J)$):
+The TM framework now allows evaluating the Allen relationships a given CTI $I = \left[s, e\right]$ could be in with a given UTI $J$, depending on the exact interval intended by $J$. This is done as follows. First, $J$ and its URZ are visualized in an interval space. Next, $I$'s interval point, its construction half-lines $L_s$ and $L_e$ and the visualization of its starting and ending instants on the visualization of the time are drawn in the same interval space. Then, evaluation is a matter of position (in the following, the possibility that $I$ is the interval intended by $J$ is denoted $\pi_J(I)$ and the possibility that $I$ is in Allen relationship $AR$ with $J$ is denoted  $\Pos(I\ AR\ J)$)~\cite{DeTre2012}:
 
 \begin{itemize}
 	\item if $I$'s interval point is located in an URZ corresponding with a singleton of Allen relationships $\{R\}$, it is in relationship $R$ with the interval intended by $J$, whichever this interval is. Thus: $\Pos(I\ AR\ J) = 1$.
@@ -136,7 +132,7 @@ The TM framework now allows evaluating the Allen relationships a given crisp tim
 	\end{equation}
 \end{itemize}
 
-Here, the intervals $K$ are crisp time intervals and the expression `$K \in p_i$' is a notation to express that $K$ is visualized by an interval point contained in area part $p_i$.
+Here, the intervals $K$ are CTI and the expression `$K \in p_i$' is a notation to express that $K$ is visualized by an interval point contained in area part $p_i$.
 
 %Time intervals are usually represented in a one dimensional scale. This is due to its linear characteristic. This approach has also been used in Figure\ref{fig:allen-relationships} and \ref{fig:ill-known-ti}. The difficulty of accurate visual analysis on the temporal data arises when the number of time intervals increase. 
 
