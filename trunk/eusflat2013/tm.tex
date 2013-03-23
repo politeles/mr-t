@@ -26,9 +26,9 @@ The TM framework allows uncertainty in time intervals by supporting uncertain ti
 \begin{definition}
 Given an ordered set of instants $T$, an \emph{uncertain time interval} (UTI) $J$ in $T$ is here a time interval defined by a pair
 \begin{align}
-J \triangleq (\pi_s, \pi_e)
+J \triangleq (\pi_s, \pi_e) \nonumber
 \end{align}
-where $\pi_s$ and $\pi_e$ are two convex possibility distributions on $T$.
+where $\pi_s$ and $\pi_e$ are two convex~\cite{Dubois1983} possibility distributions on $T$.
 \end{definition}
 
 Consider an ordered set of instants $T$ and an UTI $J$ in $T$, defined by the pair $(\pi_s, \pi_e)$. Given an instant $x \in T$, $\pi_s(x)$ now expresses the possibility that $x$ is the starting instant of $J$ and $\pi_e(x)$ expresses the possibility that $x$ is the ending instant of $J$. Thus, $J$ intends to indicate just one CTI, but it is (partially) unknown exactly which time interval this is. The possibility $\pi_J(I)$ that a given CTI $I = \left[s_i, e_i\right]$ is the exact time interval intended by $J$ can now be uniquely determined by~\cite{DeTre2012}:
