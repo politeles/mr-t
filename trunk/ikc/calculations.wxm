@@ -1,0 +1,19 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 12.04.0 ] */
+
+/* [wxMaxima: input   start ] */
+f(x,D,a,b):= if x=D then 1 else if x >=(D-a) and x<D then (x-(D-a))/a else if x >D and x<(D+b) then ((D+b)-x)/b else 0;
+f(6.5,5,3,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d(f(x,5,3,2),[x,0,10]);
+
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lbfgs(f(x,5,3,2), [x], [1.0], 1e-4, [-1,0]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

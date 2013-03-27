@@ -1,0 +1,145 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\hyphenation{pro-per-ties}
+\hyphenation{ge-ne-ral-ly}
+\hyphenation{pre-fe-ren-ces}
+\hyphenation{u-sing}
+\hyphenation{pu-nish-ment}
+
+\newcommand{\Pow}{\mathcal{P}}
+\newcommand{\N}{\operatorname{N}}
+\newcommand{\bool}{\operatorname*{\mathcal{B}}}
+\newcommand{\Pos}{\operatorname{Pos}}
+\newcommand{\Nec}{\operatorname{Nec}}
+\newcommand{\T}{\mathcal{T}}
+
+
+\author{Jose Enrique}
+\title{Possibility and necessity for each Ill-known Constraint}
+\begin{document}
+Implementation of the ill-known constraints:
+We will consider the following elements:
+\begin{itemize}
+\item $X$ an ill-known value.
+\item $[D,c,e]$ a triangular possibility distribution. Where the core is $D$ and $D-c$ is the lower bound, $D+e$ is the higher bound.
+\item $I = [a, b]$ a crisp interval where $a$ is the starting point and $b$ is the ending point.
+\end{itemize}
+
+
+\section*{$C\triangleq(\leq,X)$}
+\begin{align}
+\Pos (C([a,b])) &= \min_{r \in [a,b]} \sup_{\omega \leq r} \pi_X(\omega) = \\
+\Pos (C([a,b])) &= \sup_{\omega \leq a} \pi_X(\omega)
+\end{align}
+
+So, for $I=[a,b]$ and  $X=[D,c,e]$ we have:
+
+\begin{equation}
+Pos (C[a,b]) = \mu_{\leq}(a) =
+\begin{cases}
+1 & \mbox{ if } a \leq D \\
+\frac{a-(D+e)}{e} & \mbox{ if } a > D \wedge a < (D+e) \\
+0 & \mbox{ otherwise }
+\end{cases}
+\end{equation}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{graphs/lte.pdf}
+\end{figure}
+
+
+
+\section*{$C\triangleq(<,X)$}
+\begin{align}
+\Pos (C([a,b])) &= \min_{r \in [a,b]} \sup_{\omega < r} \pi_X(\omega) = \\
+\Pos (C([a,b])) &= \sup_{\omega < a} \pi_X(\omega)
+\end{align}
+
+\begin{equation}
+Pos (C[a,b]) = \mu_{<}(a) =
+\begin{cases}
+1 & \mbox{ if } a < (D-c) \\
+\frac{a-D}{c} & \mbox{ if } a \geq (D-c) \wedge a \leq D \\
+0 & \mbox{ otherwise }
+\end{cases}
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{graphs/lt.pdf}
+\end{figure}
+
+
+\section*{$C\triangleq(\geq,X)$}
+\begin{align}
+\Pos (C([a,b])) &= \min_{r \in [a,b]} \sup_{\omega \geq r} \pi_X(\omega) = \\
+\Pos (C([a,b])) &= \sup_{\omega \geq b} \pi_X(\omega)
+\end{align}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{graphs/gte.pdf}
+\end{figure}
+
+\begin{equation}
+Pos (C[a,b]) = \mu_{\geq}(b) =
+\begin{cases}
+1 & \mbox{ if } b \geq D \\
+\frac{(D-c)-b}{c} & \mbox{ if } a \geq (D-c) \wedge a \leq D \\
+0 & \mbox{ otherwise }
+\end{cases}
+\end{equation}
+
+
+
+\section*{$C\triangleq(<,X)$}
+\begin{align}
+\Pos (C([a,b])) &= \min_{r \in [a,b]} \sup_{\omega > r} \pi_X(\omega) = \\
+\Pos (C([a,b])) &= \sup_{\omega > b} \pi_X(\omega)
+\end{align}
+
+
+\begin{equation}
+Pos (C[a,b]) = \mu_{<}(b) =
+\begin{cases}
+1 & \mbox{ if } b \geq (D+e) \\
+\frac{D-b}{e} & \mbox{ if } a \geq (D-c) \wedge a \leq D \\
+0 & \mbox{ otherwise }
+\end{cases}
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{graphs/gt.pdf}
+\end{figure}
+
+
+\section*{$C\triangleq(=,X)$}
+\begin{align}
+\Pos (C([a,b])) = \min_{r \in [a,b]} \sup_{\omega = r} \pi_X(\omega)
+\end{align}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{graphs/eq.pdf}
+\end{figure}
+
+\section*{$C\triangleq(\neq,X)$}
+\begin{align}
+\Pos (C([a,b])) = \min_{r \in [a,b]} \sup_{\omega \neq r} \pi_X(\omega)
+\end{align}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1]{graphs/neq.pdf}
+\end{figure}
+
+
+
+
+\end{document}
