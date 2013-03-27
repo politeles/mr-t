@@ -34,63 +34,63 @@ jpons@decsai.ugr.es, opc@decsai.ugr.es
 
 
 \begin{abstract}
-Here goes the abstract.
-\keywords{keyword1, keyword2}
+Databases model parts of reality by containing data representing properties of real-world objects or concepts. Often, some of these properties are time-related. Thus, databases often contain data representing temporal values. However, as they may be produced by humans, such data may contain imperfections like uncertainties. Now, an important purpose of databases is to allow their data to be queried to allow access to the information these data represent. In queries, users describe their preferences concerning the data they are interested in. Because users may have both positive and negative preferences, they may want to query databases in a bipolar way. Such preferences may also have a temporal nature. In this paper, a novel technique is presented to query a valid-time relation containing uncertain valid-time data in a bipolar way, which allows the query to have a single bipolar temporal query constraint.
+
+\keywords{Bipolar Querying, Valid-time Relation, Uncertainty, Temporal Databases, Ill-known Time Intervals}
 \end{abstract}
 
 
 \section{Introduction}
-%1.1. On databases and their purpose
-Databases are collections of data. These data are usually the result of measurements or descriptions of aspects or properties of real-world objects or concepts. As these data represent properties of objects or concepts in reality, the database itself represents a part of reality~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
+The general purpose of database systems (DS) is to model (a part of) reality. Therefore, databases contain data representing properties of real-world objects or concepts~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}. Some essential properties of real-world objects or concepts are time-related. Thus, databases often contain data representing temporal values which describe such properties~\cite{Pons2012ijcis},~\cite{Bolour1982acm},~\cite{Jensen1999ieeetkde},~\cite{Galindo2001}. These temporal values are usually either time intervals~\cite{Bohlen1998lncs} or instants~\cite{Bohlen1998lncs}, which may informally be seen as infinitesimally short `points' in time. Based on their interpretation and purpose, temporal values can be classified into several categories, but the presented work will only consider valid-time notions, which indicate when database data is a true representation of the reality modelled by the database~\cite{Bohlen1998lncs},~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
 
-%1.2. Time in databases
-To many real-world concepts or objects, time is an essential aspect. E.g., certain historical events are meaningless without time frame. Therefore, many databases contain data representing temporal notions which describe the temporal properties of real-world objects or concepts. In the context of database systems, such temporal values~\cite{Dyreson1994sigmod},~\cite{Bohlen1998lncs} can be classified into different categories, based on their interpretation and purpose:
+A lot of data in DS are produced by humans, but human-made data are prone to imperfections: some data may be vague, imprecise, contradictory, incomplete or uncertain~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Medina1994is},~\cite{Bosc2010ijufkbs},~\cite{Bosc2009sum}. Of course, such imperfections may arise in data representing temporal notions too~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Pons2012ijcis},~\cite{Dyreson1998acm}. The presented work will consider DS containing data representing time intervals subject to uncertainty and will assume all non-temporal data in these DS to contain no imperfections.
 
-\begin{itemize}
-	\item \textbf{valid-time indications} describe when a database fact or data is a true or valid representation of the reality modelled by the database~\cite{Dyreson1994sigmod},~\cite{Bohlen1998lncs}.
-	\item \textbf{transaction-time indications} describe when a fact or data is current in the database, which means it is not logically deleted and can thus be retrieved~\cite{Dyreson1994sigmod},~\cite{Bohlen1998lncs}.
-	\item \textbf{decision-time indications} describe when certain events were decided to happen~\cite{Nascimento1995siwtrr}.
-\end{itemize}
+One of the most important purposes of a database is allowing its data to be queried, which allows the information or knowledge represented by the data to be retrieved. A database may be queried in a `regular' way: the user describes the data which he or she finds desired or satisfactory and thus wants to retrieve, by perfectly describing the preferred values of this data. A database may also be queried in a `fuzzy' way: the user describes the data which he or she finds desired or satisfactory by imperfectly describing the preferred values of this data ~\cite{Zadrozny2008hrfipd},~\cite{DeCaluwe2007ijis}. These imperfect descriptions may contain vagueness or imprecision, often through the use of linguistic terms ~\cite{Devos1998jql},~\cite{Kacprzyk2001is}. A database may also be queried in a `bipolar' way. Generally, two main approaches to this exist. One is for the user to describe the data which he or she finds acceptable and to describe the data among this acceptable data, which he or she finds really desired (wished-for), both by describing the preferred values of this data ~\cite{Dubois2008hrfipd},~\cite{Dubois2002lnai}. The other is for the user to describe both the data which he or she finds desired or satisfactory and the data which he or she finds undesired or unsatisfactory, both by describing the preferred values of this data~\cite{DeTre2010ieeetfs},~\cite{Matthe2011ijis}. The descriptions used in bipolar querying might or might not contain imperfections. The presented work will only consider the latter approach to bipolar querying and will allow a simple form of imprecision in non-temporal elementary query conditions.
 
-%1.3. Imperfect data
-%1.3.1. General
-%1.3.2. In time
-A lot of data is made by humans. Human-made data is prone to imperfections: it can be vague or imprecise, may contain contradictions, be incomplete or contain uncertainties~\cite{Pons2012ipmu},~\cite{Pons2012ijcis}. Uncertainties in data may be caused by variability in the outcomes of an experiment and confidence in the context of such uncertainty may be modelled using probability theory~\cite{Pons2013ijufkbs}. Uncertainties in data may also be caused by a (partial) lack of knowledge: the exact value which is the answer to a certain question might not be known, even if there is just one correct answer and as such no variability. Confidence in the context of this kind of uncertainty may be modelled using possibility theory~\cite{Zadeh1978fss},~\cite{Dubois1988},~\cite{Pons2013ijufkbs}, ~\cite{Pons2012ipmu},~\cite{Pons2012ijcis}. Uncertainties caused by a (partial) lack of knowledge may exist in temporal notions~\cite{Pons2012ijcis},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}. E.g., consider a medieval document defining a legal act. The document contains the date defining the day on which the legal act took effect. Consider the document damaged, making this date unreadable. In this case, there is uncertainty about the exact day on which the legal act took effect and this uncertainty is caused by the lack of some knowledge: it is known that there is exactly one day on which the act took effect, but it is not known which one.
+In querying, temporal preferences are usually expressed specifically. Because of their temporal nature and interpretation, users usually prefer using specific temporal operators to express temporal preferences. Hence, several proposals have considered specific sets of temporal operators~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}, often based on the possible temporal relationships between two time indications~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}. Such temporal relationships define semantically meaningful relationships with a temporal nature, between two time indications. In~\cite{Allen1983cacm}, a groundbreaking collection of temporal relationships between two time intervals (and as a special case instants) is introduced. Of course, to query temporal data in a fuzzy way, fuzzy variants of temporal operators are necessary and several proposals have thus introduced such variants~\cite{Galindo2001},~\cite{Pons2012ipmu}, often based on fuzzy variants of temporal relationships~\cite{Schockaert2008ieeetfs},~\cite{Pons2013ijufkbs}.
 
-%1.4. Querying databases
-%1.4.1. Crisp querying of databases
-%1.4.2. Fuzzy querying of databases
-%1.4.3. Bipolar querying of databases
-One of the most important purposes of a database is of course to allow the retrieval of information and knowledge deduced from its data. Often, this is done by querying the database. Databases can be queried in a `regular' way: the user describes the data which are desired or satisfactory to him or her and which he or she thus wants to retrieve, by perfectly describing the allowed values of this data for certain attributes in clearly stated user preferences. However, databases can also be queried in a `fuzzy' way: the user describes the data which are desired or satisfactory to him or her by imperfectly describing the allowed values of this data for certain attributes~\cite{DeCaluwe2007ijis}. These imperfect descriptions may contain vagueness or imprecision, often through the use of linguistic terms~\cite{Kacprzyk2001is}. Databases can also be queried in what is called a `bipolar' way. Generally, there are two main approaches to this. One is for the user to describe the data which are required (acceptable) to him or her and to describe the data among the required data, which are really desired (wished-for) to him or her, both by describing the allowed values of this data for certain attributes~\cite{Dubois2002lnai}. In the other, the user describes the data which are desired or satisfactory to him or her and the data which are undesired or unsatisfactory to him or her, both by describing the allowed values of this data for certain attributes~\cite{DeTre2010ieeetfs},~\cite{Matthe2011ijis}. These descriptions might or might not contain imperfections. The presented work will only consider the latter approach to bipolar querying.
-
-%1.5. Querying temporal data
-Generally, in querying, temporal data are handled specifically. Because of the temporal capacity and interpretation of temporal data, users usually like expressing their temporal constraints or preferences using a specific set of temporal operators~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}. Often, such temporal operators are based on the possible temporal relationships between two temporal values~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}. Such temporal relationships express semantically meaningful relationships between two temporal values. In~\cite{Allen1983cacm} a groundbreaking collection of temporal relationships between two time intervals (and as a special case time instants or time points)~\cite{Dyreson1994sigmod},~\cite{Bohlen1998lncs} is presented. To query temporal data in an imperfect way, fuzzy variants of temporal operators are of course necessary. Thus, several proposals have considered fuzzy variants of temporal relationships~\cite{Schockaert2008ieeetfs},~\cite{Pons2013ijufkbs} and of temporal operators used for the fuzzy querying of temporal databases~\cite{Galindo2001},~\cite{Pons2012ipmu}.
-
-%1.5. About the presented work
-%1.5.1. Situating among others
-%1.5.2. content
-Several existing proposals have covered the regular or fuzzy querying of valid-time relational databases containing uncertain valid-time da\-ta~\cite{Pons2012ijcis},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}. However, to the knowledge of the authors, few proposals have considered the bipolar querying of valid-time databases and even fewer the bipolar querying of valid-time databases containing temporal data subject to uncertainty. The presented work tries to fill part of this gap by presenting a novel technique to query a valid-time relation containing uncertain valid-time data in a bipolar way. This novel technique allows the specification of a valid-time constraint related to each bipolar elementary query constraint. This novel technique is presented in Section~\ref{sec:proposal}. In Section~\ref{sec:preliminaries}, some necessary preliminary concepts and techniques are clarified and in Section~\ref{sec:conclusions}, the conclusions of this paper and some directions for future research are given.
+Techniques for the regular or fuzzy querying of valid-time databases containing uncertain valid-time data are considered by several existing proposals~\cite{Pons2012ijcis},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}. However, to the knowledge of the authors, few proposals have considered the bipolar querying of valid-time databases~\cite{Billiet2011fqas} and even fewer the bipolar querying of valid-time databases containing temporal data subject to uncertainty. This paper presents a novel technique to query a valid-time relation containing uncertain valid-time data in a bipolar way, which allows the query to have a single bipolar temporal query constraint. This paper is structured as follows: in section \ref{sec:preliminaries}, some necessary preliminary concepts and techniques are described, in section \ref{sec:proposal} the novel technique which is the contribution of the work presented in this paper is presented and in section \ref{sec:conclusions}, the conclusions of this paper and some directions for future research are given.
 
 
-\section{Preliminaries}
+\section{Preliminaries\label{sec:preliminaries}}
 
-\subsection{Relational Databases and Time}
+\subsection{Time in Relational Databases}
+TODO: explain everything about time in relational databases (categories of time indications, mostly, and such basic things)
 
-\subsection{Valid-time Relations Subject to Uncertainty}
+\subsection{Valid-time Relations}
+TODO: 'formally' explain what we will call a relation
+TODO: 'formally' explain what we will cal a valid-time relation
 
-\subsection{Ill-known Time Intervals}
-
-\subsection{Convexity}
+\subsection{Uncertainty in Valid-time Intervals}
+TODO: explain all theory for IKTI
+TODO: explain that we will require the poss. dist. to be convex and what this means
 
 \subsection{Evaluation of Temporal Relationships}
+TODO: explain how temporal relationships boil down to combinations of Allen relationships and what the crisp Allen relationships are
+TODO: explain all theory for IKC
+TODO: explain 
 
 \subsection{Bipolar Querying}
 
-\section{A Novel Querying Approach}
+\section{A Novel Querying Approach\label{sec:proposal}}
+
+\subsection{Valid-time Relations Subject to Uncertainty}
+TODO: mention that we will consider valid-time relations subject to uncertainty and how they are composed (refer to earlier work)
+TODO: present the example table
+
+\subsection{Querying Using Bipolar Valid-time Constraints}
+TODO: present the used query structure
+
+\subsection{Evaluation}
+TODO: explain how temporal query evaluation requires the use of Allen Relationships, so in this case a poss. equivalent has to be found
+TODO: explain how this equivalent is provided by the IKC framework.
+TODO: present the used evaluation technique
+
+\subsection{Aggregation and Ranking}
+TODO: figure correct interpretation and subsequent aggregation out
 
 
-
-\section{Conclusions}
+\section{Conclusions and Future Work\label{sec:conclusions}}
 
 
 \bibliographystyle{splncs}
