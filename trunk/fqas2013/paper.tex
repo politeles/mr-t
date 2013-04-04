@@ -4,17 +4,24 @@
 \documentclass[runningheads,a4paper]{llncs}
 
 \usepackage{amssymb}
-\setcounter{tocdepth}{3}
+\usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{multirow}
+\setcounter{tocdepth}{3}
+
+\newcommand{\Pos}{\operatorname{Pos}}
+\newcommand{\Nec}{\operatorname{Nec}}
+
+\newcommand{\mytitlestring}{Bipolar Querying of Valid-time Intervals Subject to Uncertainty}
 
 \begin{document}
 
 \mainmatter  %start of the contribution
 
-\title{Bipolar Querying of Valid-time Intervals Subject to Uncertainty}
+\title{\mytitlestring}
 
 %Short form of title for running heads
-\titlerunning{Bipolar Valid-time Querying}
+\titlerunning{\mytitlestring}
 
 \author{Christophe Billiet\inst{1} \and Jos\'{e} Enrique Pons\inst{2} \and Olga Pons\inst{2} \and Guy De Tr\'{e}\inst{1}}
 
@@ -23,7 +30,7 @@
 \institute{
 Department of Telecommunications and Information Processing, Ghent University,\\
 Sint-Pietersnieuwstraat 41, B-9000, Ghent, Belgium\\
-Christophe.Billiet@UGent.be, Guy.DeTr\'{e}@UGent.be\\
+Christophe.Billiet@UGent.be, Guy.DeTre@UGent.be\\
 \and
 Department of Computer Science and Artificial Intelligence, University of Granada,\\
 C/Periodista Daniel Saucedo Aranda, S/N, E-18071, Granada, Spain\\
@@ -34,43 +41,154 @@ jpons@decsai.ugr.es, opc@decsai.ugr.es
 
 
 \begin{abstract}
-Databases model parts of reality by containing data representing properties of real-world objects or concepts. Often, some of these properties are time-related. Thus, databases often contain data representing temporal values. However, as they may be produced by humans, such data may contain imperfections like uncertainties. Now, an important purpose of databases is to allow their data to be queried to allow access to the information these data represent. In queries, users describe their preferences concerning the data they are interested in. Because users may have both positive and negative preferences, they may want to query databases in a bipolar way. Such preferences may also have a temporal nature. In this paper, a novel technique is presented to query a valid-time relation containing uncertain valid-time data in a bipolar way, which allows the query to have a single bipolar temporal query constraint.
+Databases model parts of reality by containing data representing properties of real-world objects or concepts. Often, some of these properties are time-related. Thus, databases often contain data representing time-related information. However, as they may be produced by humans, such data or information may contain imperfections like uncertainties. An important purpose of databases is to allow their data to be queried, to allow access to the information these data represent. Users may do this using queries, in which they describe their preferences concerning the data they are (not) interested in. Because users may have both positive and negative such preferences, they may want to query databases in a bipolar way. Such preferences may also have a temporal nature, but, traditionally, temporal query constraints are handled specifically. In this paper, a novel technique is presented to query a valid-time relation containing uncertain valid-time data in a bipolar way, which allows the query to have a single bipolar temporal query constraint.
 
-\keywords{Bipolar Querying, Valid-time Relation, Uncertainty, Temporal Databases, Ill-known Time Intervals}
+\keywords{Bipolar Querying, Valid-time Relation, Valid Time, Temporal Databases, Uncertainty, Possibility Theory, Ill-known Intervals}
 \end{abstract}
 
 
 \section{Introduction}
-The general purpose of database systems (DS) is to model (a part of) reality. Therefore, databases contain data representing properties of real-world objects or concepts~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}. Some essential properties of real-world objects or concepts are time-related. Thus, databases often contain data representing temporal values which describe such properties~\cite{Pons2012ijcis},~\cite{Bolour1982acm},~\cite{Jensen1999ieeetkde},~\cite{Galindo2001}. These temporal values are usually either time intervals~\cite{Bohlen1998lncs} or instants~\cite{Bohlen1998lncs}, which may informally be seen as infinitesimally short `points' in time. Based on their interpretation and purpose, temporal values can be classified into several categories, but the presented work will only consider valid-time notions, which indicate when database data is a true representation of the reality modelled by the database~\cite{Bohlen1998lncs},~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
+Generally, database systems model (parts of) reality. For this, their databases contain data representing properties of real-world objects or concepts~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}. Some essential properties of real-world objects or concepts are time-related. Thus, databases often contain data representing temporal values~\cite{Bohlen1998lncs}, which are basically indications of time and describe such properties~\cite{Pons2012ijcis},~\cite{Jensen1999ieeetkde},~\cite{Galindo2001}. These temporal values are usually either time intervals~\cite{Bohlen1998lncs} or instants~\cite{Bohlen1998lncs}, which may informally be seen as infinitesimally short `periods' or `points' in time. Based on their interpretation and purpose, temporal values can be classified into several categories, but the presented work will only consider valid-time indications, which indicate when corresponding data is a valid or true representation of the reality modelled by its database~\cite{Bohlen1998lncs},~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
 
-A lot of data in DS are produced by humans, but human-made data are prone to imperfections: some data may be vague, imprecise, contradictory, incomplete or uncertain~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Medina1994is},~\cite{Bosc2010ijufkbs},~\cite{Bosc2009sum}. Of course, such imperfections may arise in data representing temporal notions too~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Pons2012ijcis},~\cite{Dyreson1998acm}. The presented work will consider DS containing data representing time intervals subject to uncertainty and will assume all non-temporal data in these DS to contain no imperfections.
+A lot of database data are produced by humans, but human-made data are prone to imperfections, as some of these data may be vague, imprecise, contradictory, incomplete or uncertain~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Medina1994is},~\cite{Bosc2010ijufkbs}. Of course, data representing temporal values may contain such imperfections too~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Pons2012ijcis},~\cite{Dyreson1998acm}. The work presented in this paper will consider databases containing data representing valid-time intervals subject to uncertainty and will assume all non-temporal data in these databases to contain no imperfections.
 
-One of the most important purposes of a database is allowing its data to be queried, which allows the information or knowledge represented by the data to be retrieved. A database may be queried in a `regular' way: the user describes the data which he or she finds desired or satisfactory and thus wants to retrieve, by perfectly describing the preferred values of this data. A database may also be queried in a `fuzzy' way: the user describes the data which he or she finds desired or satisfactory by imperfectly describing the preferred values of this data ~\cite{Zadrozny2008hrfipd},~\cite{DeCaluwe2007ijis}. These imperfect descriptions may contain vagueness or imprecision, often through the use of linguistic terms ~\cite{Devos1998jql},~\cite{Kacprzyk2001is}. A database may also be queried in a `bipolar' way. Generally, two main approaches to this exist. One is for the user to describe the data which he or she finds acceptable and to describe the data among this acceptable data, which he or she finds really desired (wished-for), both by describing the preferred values of this data ~\cite{Dubois2008hrfipd},~\cite{Dubois2002lnai}. The other is for the user to describe both the data which he or she finds desired or satisfactory and the data which he or she finds undesired or unsatisfactory, both by describing the preferred values of this data~\cite{DeTre2010ieeetfs},~\cite{Matthe2011ijis}. The descriptions used in bipolar querying might or might not contain imperfections. The presented work will only consider the latter approach to bipolar querying and will allow a simple form of imprecision in non-temporal elementary query conditions.
+One of the most important purposes of a database is to allow its data to be queried, to allow the information or knowledge represented by this data to be retrieved. A user may query a database in a `regular' way: the user describes the data which he or she finds desired or satisfactory and thus wants to retrieve, by perfectly describing the allowed values of these data. A user may also query a database in a `fuzzy' way: the user describes the data which he or she finds desired or satisfactory by imperfectly describing the allowed values of these data~\cite{Zadrozny2008hrfipd}. These imperfect descriptions may contain vagueness or imprecision, often through the use of linguistic terms ~\cite{Devos1998jql},~\cite{Kacprzyk2001is}. A user may also query a database in a `bipolar' way. Generally, two main approaches to this exist. One is for the user to describe the data which he or she finds acceptable and to describe the data among this acceptable data, which he or she finds really desired, both by describing the allowed values of these data~\cite{Dubois2002lnai}. The other is for the user to independently describe both the data which he or she finds desired or satisfactory and the data which he or she finds undesired or unsatisfactory, both by describing the allowed values of these data~\cite{DeTre2010ieeetfs},~\cite{Matthe2011ijis}. The descriptions used in bipolar querying may contain imperfections. The presented work will only consider the latter approach to bipolar querying and will allow a simple form of imprecision in non-temporal elementary query conditions.
 
-In querying, temporal preferences are usually expressed specifically. Because of their temporal nature and interpretation, users usually prefer using specific temporal operators to express temporal preferences. Hence, several proposals have considered specific sets of temporal operators~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}, often based on the possible temporal relationships between two time indications~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}. Such temporal relationships define semantically meaningful relationships with a temporal nature, between two time indications. In~\cite{Allen1983cacm}, a groundbreaking collection of temporal relationships between two time intervals (and as a special case instants) is introduced. Of course, to query temporal data in a fuzzy way, fuzzy variants of temporal operators are necessary and several proposals have thus introduced such variants~\cite{Galindo2001},~\cite{Pons2012ipmu}, often based on fuzzy variants of temporal relationships~\cite{Schockaert2008ieeetfs},~\cite{Pons2013ijufkbs}.
+Compared to non-temporal user preferences, temporal user preferences usually have an uncommon nature and interpretation and thus expressing them relies on uncommon mechanics in querying: users usually prefer using specific temporal operators to express temporal preferences. Hence, several proposals have considered specific sets of temporal operators~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}, often based on the possible temporal relationships between two time indications~\cite{Galindo2001},~\cite{Pons2012ijcis},~\cite{Schockaert2008ieeetfs}. Such temporal relationships define semantically meaningful relationships with a temporal nature, between two time indications. In~\cite{Allen1983cacm}, a collection of temporal relationships between two time intervals (and as a special case instants) is introduced and this collection is considered groundbreaking. Of course, to query temporal data in a fuzzy way, fuzzy variants of such temporal operators are necessary and several proposals have thus introduced such variants~\cite{Galindo2001},~\cite{Pons2012ipmu}, often based on fuzzy variants of such temporal relationships~\cite{Schockaert2008ieeetfs},~\cite{Pons2013ijufkbs}.
 
-Techniques for the regular or fuzzy querying of valid-time databases containing uncertain valid-time data are considered by several existing proposals~\cite{Pons2012ijcis},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}. However, to the knowledge of the authors, few proposals have considered the bipolar querying of valid-time databases~\cite{Billiet2011fqas} and even fewer the bipolar querying of valid-time databases containing temporal data subject to uncertainty. This paper presents a novel technique to query a valid-time relation containing uncertain valid-time data in a bipolar way, which allows the query to have a single bipolar temporal query constraint. This paper is structured as follows: in section \ref{sec:preliminaries}, some necessary preliminary concepts and techniques are described, in section \ref{sec:proposal} the novel technique which is the contribution of the work presented in this paper is presented and in section \ref{sec:conclusions}, the conclusions of this paper and some directions for future research are given.
+Techniques for the regular or fuzzy querying of valid-time databases containing valid-time data subject to uncertainty are considered by several existing proposals~\cite{Pons2012ijcis},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}. However, to the knowledge of the authors, few proposals have considered the bipolar querying of valid-time databases~\cite{Billiet2011fqas} and even fewer the bipolar querying of valid-time databases containing temporal data subject to uncertainty. Thus, this paper presents a novel technique to query a valid-time relation containing valid-time data subject to uncertainty in a bipolar way, which allows the user to specify a single bipolar temporal query constraint. This paper is structured as follows: in section \ref{sec:preliminaries}, some preliminary concepts and techniques are described, in section \ref{sec:proposal}, the novel technique which is the main contribution of the work presented in this paper, is presented and in section \ref{sec:conclusions}, the conclusions of this paper and some directions for future research are given.
 
 
 \section{Preliminaries\label{sec:preliminaries}}
 
-\subsection{Time in Relational Databases}
-TODO: explain everything about time in relational databases (categories of time indications, mostly, and such basic things)
+\subsection{General Preliminaries, Notations and Nomenclature}
+Databases may contain data representing temporal values. Based on their purpose and interpretation, such time indications can be classified into different categories~\cite{Bohlen1998lncs},~\cite{Billiet2012ipmu}. The work presented in this paper only considers temporal values of the category \emph{valid time}. Their purpose or interpretation is for every valid-time indication to correspond to a collection of data and to indicate a period of time during which this data is a valid or true representation of reality.
+
+The work presented in this paper concerns time indications subject to uncertainty. This uncertainty is always assumed to be caused by a (partial) lack of knowledge: the exact, intended time indication is not known, eventhough there is only one time indication intended and as such no variability. Confidence about exactly which time indication is the intended one in the context of such uncertainty is modelled using possibility theory~\cite{Dubois1988},~\cite{Pons2013ijufkbs}. In the presented work, `possibility' and `necessity' are always interpreted as measures of plausibility, respectively necessity, given all available knowledge. Time intervals not subject to any imperfection are called \emph{crisp time intervals} (CTI) in this paper.
 
 \subsection{Valid-time Relations}
-TODO: 'formally' explain what we will call a relation
-TODO: 'formally' explain what we will cal a valid-time relation
+The presented work uses the relational database model~\cite{Pons2012ijcis},~\cite{Galindo2001}. Here, a \emph{relation} models a collection of similar real-world concepts or objects. To achieve this, such a relation has a set of $n$ \emph{attributes}, of which each describes a different property shared by all of these concepts or objects, and a set of $n$-tuples, of which each represents one of these real-world objects or concepts and contains $n$ values, each representing the capacity of the object or concept corresponding to the tuple, of the property described by the attribute corresponding to the value~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
+
+A \emph{valid-time relation} (VTR) always has \emph{valid-time attributes}. These are attributes describing a single valid time~\cite{Bohlen1998lncs} for the objects or concepts represented by the VTR's tuple. A VTR may contain different tuples corresponding to the same real-world concept or object. The non-valid-time attribute values of such a tuple represent the capacities of their corresponding properties which were or are true or valid for the object or concept corresponding to the tuple during the period in time indicated by the valid-time indication represented by the tuple's valid-time attribute values. In the presented work, such valid-time indications will always be time intervals~\cite{Bohlen1998lncs} and will always be referred to as \emph{valid-time intervals} (VTI).
 
 \subsection{Uncertainty in Valid-time Intervals}
-TODO: explain all theory for IKTI
-TODO: explain that we will require the poss. dist. to be convex and what this means
+The presented work allows VTI to be subject to uncertainty, by allowing them to be \emph{ill-known valid-time intervals} (IKVTI). The concept of IKVTI is based on the concepts of \emph{possibilistic variables} (PV) and \emph{ill-known intervals} (IKI)~\cite{Dubois1988cma},~\cite{Pons2013ijufkbs},~\cite{Billiet2012ipmu}:
+
+\begin{definition}
+\label{def:poss-variable}
+A \emph{possibilistic variable} (PV) $X$ on a universe $U$ is a variable taking exactly one value in $U$, but for which this value is (partially) unknown. The possibility distribution $\pi_X$ on $U$ models the available knowledge about the value that $X$ takes: for each $u \in U$, $\pi_X(u)$ represents the possibility that $X$ takes the value $u$.
+\end{definition}
+
+Now consider a set $U$ containing single values (and not collections of values). When a PV $X_{v}$ is defined on such a set $U$, the unique value $X_{v}$ takes, which is (partially) unknown, will be a single value in $U$ and is called an \emph{ill-known value} (IKV) in $U$ in the presented work~\cite{Dubois1988cma},~\cite{Pons2013ijufkbs},~\cite{Billiet2012ipmu}. In this paper, IKV will be denoted using lower-case letters. The work presented in this paper uses a specific kind of IKI, defined as follows, although other definitions exist~\cite{Pons2012ipmu},~\cite{Billiet2012ipmu}:
+
+\begin{definition}
+Consider an ordered set $U$. An \emph{ill-known interval} (IKI) in $U$ is an interval in $U$ of which both boundary values are IKV in $U$.
+\end{definition}
+
+Specifically concerning valid time, an IKI in a time domain modelled by the domains of a VTR's valid-time attributes is called an \emph{ill-known valid-time interval} (IKVTI) in the presented work. The work presented in this paper requires the possibility distributions defining an IKVTI's IKV to be convex~\cite{Pons2013ijufkbs}. In this paper, an IKVTI with boundary IKV $s$ and $e$ will be noted $\left[s, e\right]$.
 
 \subsection{Evaluation of Temporal Relationships}
-TODO: explain how temporal relationships boil down to combinations of Allen relationships and what the crisp Allen relationships are
-TODO: explain all theory for IKC
-TODO: explain 
+In~\cite{Allen1983cacm}, Allen presents a collection of basic temporal relationships. Using these, every meaningful temporal relationship between time intervals can be expressed. Thus, it suffices to consider the evaluation of these Allen relationships. When uncertainty is involved, evaluation can be done using the \emph{ill-known constraints} (IKC) framework presented in~\cite{Pons2013ijufkbs}.
+
+\begin{definition}
+Given an ordered set $U$, an \emph{ill-known constraint} (IKC) $C$ on $U$ is specified by means of a binary relation $R \subseteq U^{2}$ and a fixed IKV $v$ in $U$ defined by its possibilistic variable $V$ on $U$, i.e.:
+\begin{align}
+C \triangleq (R,v) \nonumber
+\end{align}
+Any set $A \subseteq U$ now satisfies IKC $C = (R,v)$ if and only if:
+\begin{align}
+\forall a \in A : (a,v) \in R \nonumber
+\end{align}
+\end{definition}
+
+The satisfaction of an IKC $C$ by a set $A$ will be noted $C(A)$ in this paper.  Consider an ordered set $U$, an IKC $C \triangleq (R,v)$ on $U$ and a set $A \subseteq U$. Due to the uncertainty about the exact value of $v$, it is uncertain whether $A$ satisfies $C$ or not. Confidence about the plausibility that $A$ satisfies $C$ can be expressed using a possibility degree $\Pos(C(A))$ and a necessity degree $\Nec(C(A))$, which are shown to be calculated as follows:
+
+\begin{align}
+\Pos(C(A)) & = \min_{a \in A}\left(\sup_{(a,w) \in R}\pi_{V}(w)\right) \label{ill-known-pos}\\
+\Nec(C(A)) & = \min_{a \in A}\left(\inf_{(a,w) \notin R} 1-\pi_{V}(w)\right) \label{ill-known-nec}
+\end{align}
+
+Given an ordered set $U$, possibility and necessity degrees expressing confidence about the plausibility that a set $A \subseteq U$ satisfies a boolean aggregation of IKC on $U$ can be found by using the possibilistic extensions of boolean operators `and' ($\wedge$), `or' ($\vee$) and `not' ($\neg$)~\cite{Pons2013ijufkbs},~\cite{Pons2012ipmu},~\cite{Billiet2012ipmu}.
+
+The IKC framework now allows evaluating a given Allen relationship $AR$ between a given CTI $I$ and a given IKVTI $J = \left[s, e\right]$ by allowing to calculate the possibility and necessity that $I$ $AR$ $J$ holds. For this, the combination of $AR$ and $J$ is translated to a specific boolean aggregation of specific IKC. These translations are shown in table \ref{tab:allen-relations}. Every row of this table corresponds to an Allen relationship. The Allen relationships the rows correspond to, are shown in the `Allen Relationship' column, the collections of specific IKC for given Allen relationships are shown in the `Constraints' column (every $C_i, i \in \{1, 2, 3, 4\}$ denotes an IKC) and the specific aggregation of these IKC used for evaluation of the Allen relationships are shown in column `Aggregation'. Finally, the possibility and necessity degrees expressing confidence about the plausibility that $I$ $AR$ $J$ holds are then the possibility and necessity expressing confidence about the plausibility that $I$ satisfies the specific aggregation of specific IKC found as translation of the combination of $AR$ and $J$. Using the formulas shown above, the requested possibility and necessity degrees can be calculated from these.
+
+%TODO: show this table and explain these things?
+
+\begin{table}[ht]
+\caption{The translations of Allen relationships to the IKC framework.}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Allen Relationship & Constraints & Aggregation \\
+\hline
+I before J & $C_1\stackrel{\triangle}{=} \left(<,s\right)$ & $C_1(I)$ \\
+\hline
+\multirow{2}{*}
+{I equal J} & $C_1\stackrel{\triangle}{=} \left(\geq,s\right)$, $C_2\stackrel{\triangle}{=} \left(\neq,s\right)$ & $C_1(I)\wedge$ $\neg C_2(I)\wedge$\\
+& $C_3\stackrel{\triangle}{=} \left(\leq,e\right)$, $C_4\stackrel{\triangle}{=} \left(\neq,e\right)$ & $C_3(I)\wedge$ $\neg C_4(I)$\\
+\hline
+I meets J & $C_1\stackrel{\triangle}{=} \left(\leq,s\right)$ $C_2\stackrel{\triangle}{=} \left(\neq,s\right)$ & $C_1(I)\wedge$ $\neg C_2(I)$\\
+\hline
+I overlaps J & $C_1\stackrel{\triangle}{=} \left(<,e\right)$, $C_2\stackrel{\triangle}{=} \left(\leq,s\right)$, $C_3\stackrel{\triangle}{=} \left(\geq,s\right)$ & $C_1(I)\wedge$ $\neg C_2(I)\wedge$ $\neg C_3(I)$\\
+\hline
+\multirow{2}{*}
+{I during J} & $C_1\stackrel{\triangle}{=} \left(>,s\right)$, $C_2\stackrel{\triangle}{=} \left(\leq,e\right)$ & $\big(C_1(I)\wedge$ $ C_2(I)\big)\vee$\\
+ & $C_3\stackrel{\triangle}{=} \left(\geq,s\right)$, $C_4\stackrel{\triangle}{=} \left(<,e\right)$ & $\big(C_3(I)\wedge$ $C_4(I)\big)$\\
+\hline
+I starts J & $C_1\stackrel{\triangle}{=} \left(\geq,s\right)$, $C_2\stackrel{\triangle}{=} \left(\neq,s\right)$ & $C_1(I)\wedge$, $\neg C_2(I)$\\
+\hline
+I finishes J & $C_1\stackrel{\triangle}{=} \left(\leq,e\right)$, $C_2\stackrel{\triangle}{=} \left(\neq,e\right)$ & $C_1(I)\wedge$ $\neg C_2(I)$\\
+\hline
+\end{tabular}
+\label{tab:allen-relations}
+\end{table}
 
 \subsection{Bipolar Querying}
+As mentioned before, people may express their query preferences using both positive and negative query conditions. If the semantics of these conditions are non-symmetric, meaning that the positive preferences can not be derived from the negative or vice versa, the bipolarity in this query is called \emph{heterogenous}. The presented work will consider such heterogeneous bipolar query specification.
+
+Bipolarity in a query can either be specified between or inside the elementary query conditions. In~\cite{Matthe2011ijis}, it is shown that combining both approaches makes no sense and that the approach where bipolarity is specified inside elementary query conditions, using intuitionistic fuzzy sets~\cite{Atanassov1986fss}, is a more intuitive one. In the presented work, we will only use the latter approach. In this approach, elementary query conditions express both what is accepted and what is not accepted by the query, at once. Such conditions are called \emph{bipolar query conditions}~\cite{Matthe2011ijis}.
+
+Consider an attribute $A$. Let $dom_{A}$ be the domain of $A$'s data type, let $\mu_{c_{A}}$ and $\nu_{c_{A}}$ be membership functions on $dom_{A}$, where $\mu_{c_{A}}(x)$ represents to what extent $x \in dom_{A}$ is satisfactory and $\nu_{c_{A}}(x)$ to what extent $x$ is unsatisfactory to the user, then a bipolar query condition $c_{A}$ expressing a user's preferences about the values of an attribute $A$ can be modelled by an Intuitionistic Fuzzy Set (IFS)~\cite{Atanassov1986fss} as~\cite{Matthe2011ijis},~\cite{DeTre2010ieeetfs}:
+\begin{equation}
+c_{A} = \{(x, \mu_{c_{A}}(x), \nu_{c_{A}}(x)) : x \in dom_{A}\} \nonumber
+\end{equation}
+
+Note that to allow overspecification of the user's preferences, the IFS's consistency condition can be relaxed, which means that 
+\begin{equation}
+\forall x \in dom_{A}: \mu_{c_{A}}(x) + \nu_{c_{A}}(x) \leq 1 \nonumber
+\end{equation}
+does not necessarily have to hold.
+
+If the user explicitely defines $\mu_{c_{A}}(x)$, but doesn't define $\nu_{c_{A}}(x)$, then the non-membership function will be assumed to be the inverse of the membership function, i.e., 
+\begin{equation}
+\nu_{c_{A}}(x) = 1 - \mu_{c_{A}}(x), \forall x \in dom_{A} \nonumber
+\end{equation}
+
+If the user explicitely defines $\nu_{c_{A}}(x)$, but doesn't define $\mu_{c_{A}}(x)$, then the membership function will be assumed to be the inverse of the non-membership function, i.e.,
+\begin{equation}
+\mu_{c_{A}}(x) = 1 - \nu_{c_{A}}(x), \forall x \in dom_{A} \nonumber
+\end{equation}
+
+Thus, in the absence of clear heterogeneousness of the bipolarity, the bipolarity will be assumed homogeneous.
+
+The evaluation of a bipolar query condition $c_A$ results in a so-called {\em bipolar satisfaction degree} (BSD)~\cite{Matthe2011ijis}, which is a pair
+\begin{equation}
+(s,d),\; s,d \in [0,1] \nonumber
+\end{equation}
+where $s$ is called the \emph{satisfaction degree} and $d$ is called the \emph{dissatisfaction degree}~\cite{Matthe2011ijis}. Here, $s$ and $d$ are independent from each other and denote to which extent the BSD respectively represents `satisfied' and `dissatisfied'~\cite{Matthe2011ijis}. For this, both $s$ and $d$ take values in the unit interval $[0,1]$: extreme values for $s$ and $d$ are 0 (`not at all') and 1 (`fully'). For example: the BSD $(1,0)$ represents `fully satisfied, not dissatisfied at all', whereas $(0,1)$ represents `not satisfied at all, fully dissatisfied'.
+
+As with bipolar query conditions, there is no consistency condition for BSD's, i.e., a condition like $0\leq s+d\leq 1$ is missing~\cite{Matthe2011ijis}. Indeed, because $s$ and $d$ are considered to be completely independent from each other, allowed $s+d>1$ is allowed. The motivation is that BSD's try to reflect heterogeneous bipolarity in human reasoning, which can sometimes be inconsistent.
+
+In general, the evaluation of a bipolar query condition $c_{A}$ on attribute $A$ for a relation tuple $R$ will result in a BSD, which is calculated as follows. Let $R[A]$ denote the value of tuple $R$ for attribute $A$, then~\cite{Matthe2011ijis}:
+\begin{equation}\label{eq:bsdeval}
+(s_{c_A}^R, d_{c_A}^R)=(\mu_{c_A}(R[A]), \nu_{c_A}(R[A]))
+\end{equation}
+with $s_{c_A}^R$ and $d_{c_A}^R$ the satisfaction degree, respectively dissatisfaction degree, of tuple $R$ for condition $c_A$.
+
+Remark that the traditional approach to fuzzy querying using regular fuzzy sets can be obtained from this as a special case, where the bipolarity is symmetric. In that case, a user only specifies positive query preferences~\cite{Matthe2011ijis}.
+%If only positive information is given by the user ($\mu_{c_A}$), this is reduced to \[(s_{c_A}^R, d_{c_A}^R) = (\mu_{c_A}(R[A]),1-\mu_{c_A}(R[A]))\]
+%Analogously, when only negative information is given ($\nu_{c_A}$), this is reduced to \[(s_{c_A}^R, d_{c_A}^R) = (1-\nu_{c_A}(R[A]),\nu_{c_A}(R[A]))\]
+
 
 \section{A Novel Querying Approach\label{sec:proposal}}
 
