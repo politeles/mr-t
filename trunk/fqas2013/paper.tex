@@ -146,9 +146,10 @@ I finishes J & $C_1\stackrel{\triangle}{=} \left(\leq,e\right)$, $C_2\stackrel{\
 \subsection{Bipolar Querying}
 As mentioned before, humans may express their query preferences using both positive and negative query conditions~\cite{Matthe2011ijis},~\cite{DeTre2010ieeetfs}. If the semantics of these conditions are non-symmetric, meaning that the positive preferences can not be derived from the negative or vice versa, the bipolarity in this query is called \emph{heterogenous}~\cite{Matthe2011ijis}. The presented work will concern only such heterogenous query bipolarity.
 
-Bipolarity in a query can either be specified between or inside the elementary query conditions. In~\cite{Matthe2011ijis}, it is shown that combining both approaches makes no sense and that the approach where bipolarity is specified inside elementary query conditions, using intuitionistic fuzzy sets~\cite{Atanassov1986fss}, is a more intuitive one. In the presented work, only the latter approach is used. In this approach, elementary query conditions express both what is accepted and what is not accepted by the query, at once, and are called \emph{bipolar query conditions}~\cite{Matthe2011ijis}.
+Bipolarity in a query can either be specified between or inside the elementary query conditions. In~\cite{Matthe2011ijis}, it is shown that combining both approaches makes no sense and that the approach where bipolarity is specified inside elementary query conditions, using intuitionistic fuzzy sets~\cite{Atanassov1986fss}, is a more intuitive one. In the presented work, only the latter approach is used. In this approach, elementary query conditions express both what is accepted and what is not accepted by the query, at once, and are called \emph{bipolar query conditions} (BQC)~\cite{Matthe2011ijis}.
 
-Consider a relation attribute $A$. Let $dom_{A}$ be the domain of $A$'s data type, let $\mu_{c_{A}}$ and $\nu_{c_{A}}$ be membership functions from $dom_{A}$ to the unit interval $\left[0, 1\right]$, where $\mu_{c_{A}}(x)$ represents to what extent $x \in dom_{A}$ is satisfactory and $\nu_{c_{A}}(x)$ to what extent $x$ is unsatisfactory to a user, then a bipolar query condition $c_{A}$ expressing this user's preferences concerning $A$ can be modelled by an Intuitionistic Fuzzy Set (IFS)~\cite{Atanassov1986fss} as~\cite{Matthe2011ijis},~\cite{DeTre2010ieeetfs}:
+Consider a relation attribute $A$. Let $dom_{A}$ be the domain of $A$'s data type, let $\mu_{c_{A}}$ and $\nu_{c_{A}}$ be membership functions from $dom_{A}$ to the unit interval $\left[0, 1\right]$, where $\mu_{c_{A}}(x)$ represents to what extent $x \in dom_{A}$ is satisfactory and $\nu_{c_{A}}(x)$ to what extent $x$ is unsatisfactory to a user, then a BQC $c_{A}$ expressing this user's preferences concerning $A$ can be modelled by an Intuitionistic Fuzzy Set (IFS)~\cite{Atanassov1986fss} as~\cite{Matthe2011ijis},~\cite{DeTre2010ieeetfs}:
+\vspace{-5pt}
 \begin{equation}
 c_{A} = \{(v, \mu_{c_{A}}(v), \nu_{c_{A}}(v)) : v \in dom_{A}\}
 \end{equation}
@@ -157,7 +158,8 @@ Note that to allow overspecification of the user's preferences, the IFS's consis
 
 If the user explicitely defines $\mu_{c_{A}}$, but doesn't define $\nu_{c_{A}}$, then $\nu_{c_{A}}$ will be assumed to be the inverse of $\mu_{c_{A}}$~\cite{Matthe2011ijis}. If the user explicitely defines $\nu_{c_{A}}$, but doesn't define $\mu_{c_{A}}$, then $\mu_{c_{A}}$ will be assumed to be the inverse of $\nu_{c_{A}}$~\cite{Matthe2011ijis}. Thus, in the absence of clear heterogenousness of the bipolarity in a query condition, the bipolarity will be assumed homogenous~\cite{Matthe2011ijis}.
 
-The evaluation of a bipolar query condition results in a so-called {\em bipolar satisfaction degree} (BSD)~\cite{Matthe2011ijis}, which is a pair
+The evaluation of a BQC results in a so-called {\em bipolar satisfaction degree} (BSD)~\cite{Matthe2011ijis}, which is a pair
+\vspace{-10pt}
 \begin{equation}
 (s,d),\; s,d \in [0,1] \nonumber
 \end{equation}
@@ -165,7 +167,7 @@ where $s$ is called the \emph{satisfaction degree} and $d$ is called the \emph{d
 
 As explained in~\cite{Matthe2011ijis}, there is no consistency condition for BSD's and for a BSD $(s, d)$, $s+d>1$ is allowed. The motivation is that BSD's try to reflect heterogenous bipolarity in human reasoning, which can sometimes be inconsistent.
 
-In general, the evaluation of a bipolar query condition $c_{A}$ on relation attribute $A$ for a relation tuple $R$ will result in a BSD $(s_{c_A}^R, d_{c_A}^R)$, which is calculated as follows. Let $R[A]$ denote the value of tuple $R$ for attribute $A$, then~\cite{Matthe2011ijis}:
+In general, the evaluation of a BQC $c_{A}$ on relation attribute $A$ for a relation tuple $R$ will result in a BSD $(s_{c_A}^R, d_{c_A}^R)$, which is calculated as follows. Let $R[A]$ denote the value of tuple $R$ for attribute $A$, then~\cite{Matthe2011ijis}:
 \begin{equation}\label{eq:bsdeval}
 (s_{c_A}^R, d_{c_A}^R)=(\mu_{c_A}(R[A]), \nu_{c_A}(R[A]))
 \end{equation}
@@ -176,22 +178,9 @@ Remark that the traditional approach to fuzzy querying using regular fuzzy sets 
 \section{A Novel Querying Approach\label{sec:proposal}}
 
 \subsection{Valid-time Relations Subject to Uncertainty}
-The presented proposal will concern VTR of which the VTI are IKVTI. Generally, such a VTR $R$ can be seen as constructed in the following way. Let $R$ have $n$ non-temporal attributes $A_{i}, 1 \leq i \leq n, i \in \mathbb{N}$ and two valid-time attributes $VST$ and $VET$. Every tuple $T$ of $R$ represents an object or concept version or state which is valid during the time period indicated by the tuple's IKVTI $I_T$. This IKVTI $I_T$ is now defined by two IKV, which respectively describe the starting and ending instants of $I_T$. The IKV's describing the tuple's IKVTI's starting, respectively ending instants are represented by the tuple's VST, respectively VET values. The interpretation here is that the object or concept version or state corresponding to a tuple was, is or will be valid during a period of time, but exactly which period this is intended to be, is unknown. Confidence about exactly which period is intended, is modelled by the tuple's IKVTI~\cite{Pons2012ijcis},~\cite{Pons2012ipmu}.
-
-Throughout the rest of this paper, the relation shown in table~\ref{tab:ex-relation} will be used as example relation. This relation models the being in effect of legal acts written down in medieval charters. However, since the properties of a legal act cannot change once it has taken effect, every legal act has only one version or state. This absence of multiple versions or states was deliberately chosen for simplicity in the example. Thus, every tuple of the relation corresponds with a legal act. A tuple's value for attribute `ID' is a number uniquely identifying the legal act corresponding to the tuple. A tuple's value for attribute `Author' is a character string containing only the name of the author of the charter containing the legal act corresponding to the tuple. A tuple's IKVTI represents the time period during which the act corresponding to the tuple was in effect. For this, every value for $VST$ and $VET$ now defines an IKV describing the day on which the legal act respectively took effect and stopped taking effect. For this, every value for $VST$ or $VET$ is a triple $\left[d_1, d_2, d_3\right]$, where $d_1, d_2, d_3$ are elements of the ordered set $\mathbb{T}$ of days in history. This triple now defines a triangular (and thus convex) possibility distribution $\pi$ which defines the mentioned IKV and which is defined by (differences in dates in this function prescription are expressed in amounts of days):
+The presented proposal will concern VTR where the VTI are IKVTI. Generally, such a VTR $R$ can be seen as constructed in the following way. Let $R$ have $n$ non-temporal attributes $A_{i}, 1 \leq i \leq n, i \in \mathbb{N}$ and two valid-time attributes $VST$ and $VET$. Every tuple $T$ of $R$ represents an object or concept version or state which is valid during the time period indicated by the tuple's IKVTI $I_T$. This IKVTI $I_T$ is now defined by two IKV, which respectively describe the starting and ending instants of $I_T$ and are represented by the tuple's VST, respectively VET values. The interpretation is that the version or state corresponding to a tuple was, is or will be valid during a period of time, but exactly which period this is intended to be, is unknown. Confidence about exactly which period is intended, is modelled by the tuple's IKVTI~\cite{Pons2012ijcis},~\cite{Pons2012ipmu}.
 
 \vspace{-10pt}
-\begin{align}
-\pi(x) =
-\begin{cases}
-\frac{x - d_1}{d_2 - d_1}, & \text{if } d_1 \leq x < d_2 \\
-\frac{d_3 - x}{d_3 - d_2}, & \text{if } d_2 \leq x \leq d_3 \\
-0, & \text{else}
-\end{cases}
-\end{align}
-
-\vspace{-10pt}
-
 \begin{table}[ht]
 \caption{The example relation used in this paper.}
 \centering
@@ -217,51 +206,51 @@ Throughout the rest of this paper, the relation shown in table~\ref{tab:ex-relat
 \end{tabular}
 \label{tab:ex-relation}
 \end{table}
+\vspace{-10pt}
+
+In this paper, the relation shown in table~\ref{tab:ex-relation} will be used as example relation. This relation models the being in effect of medieval legal acts. Since the properties of a legal act cannot change once it has taken effect, every legal act has only one version or state. This was deliberately done to simplify the example. Thus, every tuple of the relation corresponds to a legal act. A tuple's value for attribute `ID' is a number uniquely identifying the legal act corresponding to the tuple. A tuple's value for attribute `Author' is a character string representation of the name of the author of the legal act corresponding to the tuple. A tuple's IKVTI represents the time period during which the act corresponding to the tuple was in effect. For this, every value for $VST$, respectively $VET$ represents an IKV describing the day on which the legal act respectively took effect and stopped taking effect. For this, every value for $VST$ or $VET$ is a triple $\left[d_1, d_2, d_3\right]$, where $d_1, d_2, d_3$ are elements of the ordered set of days in history. Such a triple $\left[d_1, d_2, d_3\right]$ now defines a triangular (and thus convex) possibility distribution $\pi$ which defines the mentioned IKV and which is defined by (differences in dates in this function prescription are expressed in amounts of days):
+
+\vspace{-10pt}
+\begin{align}
+\pi(x) =
+\begin{cases}
+\frac{x - d_1}{d_2 - d_1}, & \text{if } d_1 \leq x < d_2 \\
+\frac{d_3 - x}{d_3 - d_2}, & \text{if } d_2 \leq x \leq d_3 \\
+0, & \text{else}
+\end{cases}
+\end{align}
+
 
 \subsection{Querying Using Bipolar Valid-time Conditions}
-The presented work introduces a novel querying technique. Using this technique, a user query $Q$ consists of two separate parts $Q_N$ and $Q_T$:
+The presented work introduces a novel querying technique. According to this technique, a user query $Q$ consists of two separate parts $Q_N$ and $Q_T$: $Q = (Q_N, Q_T)$. Here, $Q_N$ is a boolean combination of BQC on non-valid-time attributes, expressing the user's non-temporal demands. $Q_T$ expresses the user's valid-time demands and is a single crisp temporal BQC $((AR_{pos}, I_{pos}), (AR_{neg}, I_{neg}))$, where both $AR_{pos}$ and $AR_{neg}$ are Allen relationships and both $I_{pos}$ and $I_{neg}$ are CTI.: $Q_T = ((AR_{pos}, I_{pos}), (AR_{neg}, I_{neg}))$. The interpretation is that the user requires an object or concept that has a version or state that complies with his or her non-temporal demands and was, is or will be valid during a time interval which is in Allen relationship $AR_{pos}$ with $I_{pos}$ and wasn't, isn't or won't be valid during a time interval which is in Allen relationship $AR_{neg}$ with $I_{neg}$.
 
-\begin{equation}
-Q = (Q_N, Q_T) \nonumber
-\end{equation}
-
-Here, $Q_N$ is a boolean combination of bipolar query conditions on non-valid-time attributes, expressing the user's non-temporal demands. $Q_T$ expresses the user's valid-time demands and is in fact a single crisp temporal bipolar query condition $((AR_{pos}, I_{pos}), (AR_{neg}, I_{neg}))$, where both $AR_{pos}$ and $AR_{neg}$ are Allen relationships and both $I_{pos}$ and $I_{neg}$ are CTI.:
-
-\begin{equation}
-Q_T = ((AR_{pos}, I_{pos}), (AR_{neg}, I_{neg})) \nonumber
-\end{equation}
-
-The interpretation here is that the user requires an object or concept that has a version or state that complies with his or her non-temporal demands (both positive and negative), that was, is or will be valid during a time interval which is in Allen relationship $AR_{pos}$ with CTI $I_{pos}$ and that wasn't, isn't or won't be valid during a time interval which is in Allen relationship $AR_{neg}$ with CTI $I_{neg}$.
-
-Consider the example relation shown in table~\ref{tab:ex-relation}. Now assume a user is interested in the writing style of authors of charters containing legal acts which actually took effect in a certain period of time. The user could then query the relation to find all legal acts of which the charter's author is preferably named Alo\"isius, less preferably Euforius and perhaps Eugenius, and of which the author is preferably not named Ambrosius, rather not Theofilus and perhaps not Antonius and which took effect preferably before $2/1/1210$ and preferably not after $1/1/1214$. These demands can now be translated to a query $Q_{ex}$ in the following way:
+Consider the example relation shown in table~\ref{tab:ex-relation}. Now assume a user queries the relation to find all legal acts of which the author is preferably named Alo\"isius, less preferably Euforius and perhaps Eugenius, and of which the author is preferably not named Ambrosius, rather not Theofilus and perhaps not Antonius and which took effect preferably before $2/1/1210$ and preferably not after $1/1/1214$. These demands can now be translated to a query $Q_{ex}$ in the following way:
 
 \vspace{-15pt}
-
 \begin{align}
-Q_{ex} = & (Q_{N,ex}, ((AR_{pos,ex}, I_{pos,ex}), (AR_{neg,ex}, I_{neg,ex}))), \\
-Q_{N,ex} = & \{(x, \mu_{ex}(x), \nu_{ex}(x)\}, \forall x \in \mathbb{S} \nonumber \\
-AR_{pos,ex}, AR_{neg,ex} = & DURING \nonumber \\
-I_{pos,ex} = & \left]- infinity, 1/1/1210\right] \nonumber \\
-I_{neg,ex} = & \left[1/1/1214, + infinity\right[ \nonumber
+Q_{ex} = &\ (Q_{N,ex}, ((AR_{pos,ex}, I_{pos,ex}), (AR_{neg,ex}, I_{neg,ex}))), \\
+Q_{N,ex} = &\ \{(x, \mu_{ex}(x), \nu_{ex}(x)\}, \forall x \in \mathbb{S} \nonumber \\
+AR_{pos,ex} = &\ \ AR_{neg,ex}\ =\ DURING \nonumber \\
+I_{pos,ex} = &\ \left]- infinity, 1/1/1210\right],\ \ I_{neg,ex}\ =\ \left[1/1/1214, + infinity\right[ \nonumber
 \end{align}
-\\
+\vspace{-10pt}\\
 and $\mu_{ex}$ and $\nu_{ex}$ are the membership functions of the fuzzy sets:
 \begin{align}
 \{(Aloisius, 1), (Euforius, 0.7), (Eugenius, 0.1)\} &\text{, respectively} \nonumber \\
 \{(Ambrosius, 1), (Theofilus, 0.7), (Antonius, 0.1)\} & \nonumber
 \end{align}
-
+\vspace{-25pt}
 
 \subsection{Elementary Query Condition Evaluation}
-Generally, a first step in determining which objects or concepts corresponding to relation tuples to present to a user as answer to his or her query towards this relation, is evaluating the elementary query conditions in the user query for every relation tuple. In the presented work, for every tuple $T$ of VTR $R$, the following is done separately:
+Generally, a first step in determining which objects or concepts corresponding to relation tuples to present to a user as answer to his or her query, is evaluating the query's elementary conditions for every relation tuple. In the presented work, for every tuple $T$ of VTR $R$, the following is done separately:
 
 \begin{itemize}
-\item every non-temporal bipolar query condition in $Q_N$ is evaluated as described in~\cite{Matthe2011ijis}, resulting in a BSD for each. The interpretation is as described in~\cite{Matthe2011ijis}: the BSD's satisfaction, respectively dissatisfaction degrees express to which extent $T$ satisfies, respectively dissatisfies the user preferences expressed by the query condition.
-\item the query's crisp temporal bipolar query condition $Q_T$ is evaluated as follows: let $I_T$ be the tuple's IKVTI, then separately, both $I_T$ $AR_{pos}$ $I_{pos}$ and $I_T$ $AR_{neg}$ $I_{neg}$ are evaluated using the IKC framework, exactly as explained in~\cite{Pons2013ijufkbs},~\cite{Pons2012ijcis},~\cite{Pons2012ipmu}, resulting in a possibility degree $pos_{I_{pos}}(T)$ and a necessity degree $nec_{I_{pos}}(T)$, respectively a possibility degree $pos_{I_{neg}}(T)$ and a necessity degree $nec_{I_{neg}}(T)$. The interpretation here is that $pos_{I_{pos}}(T)$ and $nec_{I_{pos}}(T)$ express the plausibility, respectively necessity, given available knowledge, that the time interval during which the object or concept version or state represented by $T$ is actually valid and which is intended by $I_T$, is in relationship $AR_{pos}$ with $I_{pos}$ and thus complies with the user's positive temporal demand and is preferred, while $pos_{I_{neg}}(T)$ and $nec_{I_{neg}}(T)$ express the plausibility, respectively necessity, given a (partial) lack of knowledge, that the time interval during which the object or concept version or state represented by $T$ is actually valid and which is intended by $I_T$, is in relationship $AR_{neg}$ with $I_{neg}$ and thus complies with the user's negative temporal demand and is not preferred.
+\item every non-temporal BQC in $Q_N$ is evaluated as described in~\cite{Matthe2011ijis}, resulting in a BSD for each. The interpretation is as described in~\cite{Matthe2011ijis}: the BSD's satisfaction, respectively dissatisfaction degrees express to which extent $T$ satisfies, respectively dissatisfies the user preferences expressed by the BQC.
+\item the query's temporal BQC $Q_T$ is evaluated as follows: let $I_T$ be the tuple's IKVTI, then separately, $I_T$ $AR_{pos}$ $I_{pos}$, respectively $I_T$ $AR_{neg}$ $I_{neg}$ are evaluated using the IKC framework as described in~\cite{Pons2013ijufkbs},~\cite{Pons2012ijcis},~\cite{Pons2012ipmu}, resulting in a possibility degree $pos_{I_{pos}}(T)$ and a necessity degree $nec_{I_{pos}}(T)$, respectively a possibility degree $pos_{I_{neg}}(T)$ and a necessity degree $nec_{I_{neg}}(T)$. The interpretation is that $pos_{I_{pos}}(T)$ and $nec_{I_{pos}}(T)$ express the possibility, respectively necessity, that the time interval during which the version or state represented by $T$ is actually valid and which is intended by $I_T$, is in relationship $AR_{pos}$ with $I_{pos}$ and thus complies with the user's positive temporal demand and is preferred, while $pos_{I_{neg}}(T)$ and $nec_{I_{neg}}(T)$ express the possibility, respectively necessity, that the time interval during which the version or state represented by $T$ is actually valid and which is intended by $I_T$, is in relationship $AR_{neg}$ with $I_{neg}$ and thus complies with the user's negative temporal demand and is not preferred.
 \end{itemize}
 
 Table \ref{tab:ex-evaluation} shows the results of the evaluation of the example query's elementary query conditions for the tuples of the example relation.
-
+\vspace{-10pt}
 \begin{table}[ht]
 \caption{Elementary query condition evaluation results for the example relation.}
 \centering
@@ -271,29 +260,35 @@ Table \ref{tab:ex-evaluation} shows the results of the evaluation of the example
 \hline
 \hline
 1 & $(1, 0)$ & $(1,1)$ & $(0,0)$ \\
+\hline
 2 & $(0, 0.7)$ & $(1,0)$ & $(0,0)$ \\
+\hline
 3 & $(0, 0)$ & $(11/25,0)$ & $(0,0)$ \\
+\hline
 4 & $(0.7, 0)$ & $(0,0)$ & $(0,0)$ \\
+\hline
 5 & $(0, 1)$ & $(0,0)$ & $(14/25,0)$ \\
+\hline
 6 & $(1, 0)$ & $(0,0)$ & $(1,0)$ \\
+\hline
 7 & $(0, 0)$ & $(0,0)$ & $(1,1)$ \\
 \hline
 \end{tabular}
 \label{tab:ex-evaluation}
 \end{table}
-\vspace{-10pt}
+\vspace{-30pt}
 
 \subsection{Aggregation and Ranking}
-Generally, a second step in determining which objects or concepts corresponding to relation tuples to present to a user as answer to his or her query towards this relation, is aggregating, for every tuple in the relation, the tuple's evaluation results for the elementary query conditions, to determine a single `score' expressing how well the tuple complies with the general user request expressed by the combination of the elementary query conditions in the user query. Usually, these evaluation results are quantifications of (dis)satisfaction. However, in the presented proposal, two different types of evaluation results can be discerned:
+Generally, a second step in determining which objects or concepts corresponding to relation tuples to present to a user as answer to his or her query, is aggregating, for every relation tuple, the tuple's evaluation results for the query's elementary conditions, in order to to determine how well the tuple complies with the entire user request expressed by the combination of the elementary query conditions. Usually, these evaluation results are quantifications of (dis)satisfaction. However, in the presented proposal, two different types of evaluation results can be discerned:
 
 \begin{itemize}
-	\item the BSD (dis)satisfaction degrees constitute quantifications of (dis)satisfaction: they quantify to which extent a tuple's attribute values (dis)satisfy a user's non-temporal preferences and thus assess an answer to the question: `To what extent does an object or concept represented in the relation (dis)satisfy the user's request and could thus be a (un)wanted result?'
-	\item the possibility and necessity degrees $pos_{I_{pos}}$, $nec_{I_{pos}}$, respectively $pos_{I_{neg}}$, $nec_{I_{neg}}$ constitute quantifications of plausibility and necessity, given a (partial) lack of knowledge: they quantify the plausibility that a tuple's intended crisp VTI (dis)satisfies the user's temporal preferences by quantifying confidence about exactly which crisp VTI is the tuple's intended VTI and thus assess an answer to the question: `How plausible is it that an object or concept represented in the relation that may or may not (dis)satisfy the user's request actually existed, exists or will exist during the time period requested by the user?'
+	\item the BSD's (dis)satisfaction degrees constitute quantifications of (dis)satisfaction: they quantify to which extent a tuple's attribute values (dis)satisfy a user's non-temporal preferences and thus assess an answer to the question: `To what extent does a version or state represented in the relation (dis)satisfy the user's request and could thus be a (un)wanted result?'
+	\item the possibility and necessity degrees $pos_{I_{pos}}$, $nec_{I_{pos}}$, respectively $pos_{I_{neg}}$, $nec_{I_{neg}}$ constitute quantifications of possibility and necessity: they quantify the possibility that a tuple's intended crisp VTI (dis)satisfies the user's temporal preferences by quantifying confidence about exactly which crisp VTI is the tuple's intended VTI and thus assess an answer to the question: `How plausible is it that a version or state represented in the relation (that may or may not (dis)satisfy the user's request) actually existed, exists or will exist during the time period indicated by the user?'
 \end{itemize}
 
-A fundamental question arises now: should one consider combining quantifications of these different categories? On one hand, quantifications of these different categories have clearly different and even orthogonal semantics and it would not be clear what exactly the meaning would be of the result of such a combination or what the semantically most coherent ways would be to further process such combination results. Thus, it is important, for every query result tuple presented to the user, to certainly keep both different types of evaluations as separate (meta)data. On the other hand, without an unambiguous and straightforward ranking of the query results, the user cannot clearly discern the result tuples which comply well with his or her demands from those which don't, which defeats the purpose of querying. Reasonably, such ranking should be based on the elementary query condition evaluation results. As there cannot already exist a ranking between quantifications of categories with different semantics, a combination seems to be required. In most existing proposals requiring a combination of quantifications of satisfaction and plausibility, both quantifications are combined as to restrict one another. The result is usually seen as a quantification of plausibility. Below, this approach is translated to the specific situation encountered in the presented work.
+A fundamental question arises now: should one consider combining quantifications of these different categories? On one hand, such quantifications have clearly different semantics and it would not be clear what exactly the meaning would be of the result of such a combination or what the semantically most coherent ways would be to further process such combination results. Thus, it is important, for every query result tuple presented to the user, to certainly keep both different types of evaluation results as separate (meta)data. On the other hand, without an unambiguous and straightforward ranking of the query result tuples, the user cannot clearly discern the result tuples which comply well with his or her demands from those which don't, which defeats the purpose of querying. Reasonably, such a ranking should be based on the elementary query condition evaluation results. As there cannot exist a ranking between quantifications of categories with different semantics, a combination seems to be required. In most existing proposals requiring a combination of quantifications of satisfaction and possibility, both quantifications are combined as to restrict one another. The result is usually seen as a quantification of possibility. Below, this approach is translated to the specific situation encountered in the presented work.
 
-For every tuple $T$, the BSD's which are the evaluations of the non-temporal bipolar query conditions are combined to a single BSD $(s_N(T), d_N(T))$ as described in~\cite{Matthe2011ijis}. In this combination method, satisfaction degrees expressing how well $T$ fits the user's positive demands are combined with each other and separately, dissatisfaction degrees expressing how well $T$ fits the user's negative demands are combined with each other. This reasoning is extended to include $pos_{I_{pos}}(T)$, $nec_{I_{pos}}(T)$, $pos_{I_{neg}}(T)$ and $nec_{I_{neg}}(T)$: a couple $(pos_{pos}(T), nec_{pos}(T))$, respectively $(pos_{neg}(T), nec_{neg}(T))$ is calculated, expressing the plausibility and necessity, given a (partial) lack of knowledge, that the object or concept version or state corresponding to $T$ complies with the user's positive, respectively negative demands. This calculation is done as follows:
+For every tuple $T$, the BSD's which are the evaluation results of the non-temporal BQC are combined to a single BSD $(s_N(T), d_N(T))$ as described in~\cite{Matthe2011ijis}. In this combination method, satisfaction degrees are combined with each other and separately, dissatisfaction degrees are combined with each other. This reasoning is extended to include $pos_{I_{pos}}(T)$, $nec_{I_{pos}}(T)$, $pos_{I_{neg}}(T)$ and $nec_{I_{neg}}(T)$: a couple $(pos_{pos}(T), nec_{pos}(T))$, respectively $(pos_{neg}(T), nec_{neg}(T))$ is calculated, expressing the possibility and necessity that the version or state corresponding to $T$ complies with the user's positive, respectively negative demands. This calculation is done as follows:
 
 \vspace{-10pt}
 \begin{align}
@@ -313,16 +308,11 @@ nec_{neg}(T) = &
 	\nonumber
 \end{align}
 
-Next, for every object or concept $o$ which is being represented in $R$, a couple $(pos_{pos}(o), nec_{pos}(o))$, respectively $(pos_{neg}(o), nec_{neg}(o))$ is calculated, expressing the plausibility and necessity, given a (partial) lack of knowledge, that $o$ complies with the user's positive, respectively negative demands. This calculation is done as follows:
+Next, a tie-break approach is used to rank the versions or states represented in $R$: ranking is done based on the value of $pos_{pos}(T)$, with $nec_{pos}(T)$ as tie-breaker for $pos_{pos}(T)$, with $pos_{neg}(T)$ as tie-breaker for $(pos_{pos}(T), nec_{pos}(T))$ and finally $nec_{neg}(T)$ as tiebreaker for $(pos_{pos}(T), nec_{pos}(5), pos_{neg}(5))$. The results of this aggregation and ranking approach for the example relation and query are shown in table \ref{tab:ex-ranking}.
+
+The introduced technique for aggregating elementary query condition evaluation results and determining a ranking does not require the combination of quantifications with different interpretations and still presents the query result tuples in a ordered manner, where this ordering is consistent with the expected extend to which each tuple is usefull to the user. However, the technique still requires the user to decide which objects or concepts constitute the best query answer, although this decision is heavily supported.
 
 \vspace{-10pt}
-\begin{align}
-(pos_{pos}(o), nec_{pos}(o)) = (\max_{T_{o,i}, 1 \leq i \leq k}(pos_{pos}(T_{o,i})), \max_{T_{o,i}, 1 \leq i \leq k}(nec_{pos}(T_{o,i}))) \nonumber \\
-(pos_{neg}(o), nec_{neg}(o)) = (\max_{T_{o,i}, 1 \leq i \leq k}(pos_{neg}(T)_{o,i}), \max_{T_{o,i}, 1 \leq i \leq k}(nec_{neg}(T)_{o,i})) \nonumber
-\end{align}
-
-Here, $\{T_{o,i}, 1 \leq i \leq k, i \in \mathbb{N}\}$ is the set of tuples $T_{o,i}, 1 \leq i \leq k, i \in \mathbb{N}$ which represent the $k$ versions or states of $o$. Next, a tie-break approach is used to rank the objects or concepts $o$ represented in $R$: ranking is done based on the value of $pos_{pos}(o)$, with $nec_{pos}(o)$ as tie-breaker for $pos_{pos}(o)$, with $pos_{neg}(o)$ as tie-breaker for $( pos_{pos}(o), pos_{neg}(o))$ and finally $nec_{neg}(o)$ as tiebreaker for $(pos_{pos}(o), pos_{neg}(o), pos_{neg}(o))$. The results of this aggregation and ranking approach for the example relation and query are shown in table \ref{tab:ex-ranking}.
-
 \begin{table}[ht]
 \caption{Aggregation and ranking results for the example relation and query.}
 \centering
@@ -332,20 +322,26 @@ Here, $\{T_{o,i}, 1 \leq i \leq k, i \in \mathbb{N}\}$ is the set of tuples $T_{
 \hline
 \hline
 1 & 1 & 1 & 0 & 0 & $(1, 0)$ & $(1,1)$ & $(0,0)$ \\
+\hline
 2 & 0 & 0 & 0 & 0 & $(0, 0.7)$ & $(1,0)$ & $(0,0)$ \\
+\hline
 3 & 0 & 0 & 0 & 0 & $(0, 0)$ & $(11/25,0)$ & $(0,0)$ \\
+\hline
 4 & 0 & 0 & 0 & 0 & $(0.7, 0)$ & $(0,0)$ & $(0,0)$ \\
-5 & 0 & 0 & 14/25 & 0 & $(0, 1)$ & $(0,0)$ & $(14/25,0)$ \\
+\hline
 6 & 0 & 0 & 0 & 0 & $(1, 0)$ & $(0,0)$ & $(1,0)$ \\
+\hline
 7 & 0 & 0 & 0 & 0 & $(0, 0)$ & $(0,0)$ & $(1,1)$ \\
+\hline
+5 & 0 & 0 & 14/25 & 0 & $(0, 1)$ & $(0,0)$ & $(14/25,0)$ \\
 \hline
 \end{tabular}
 \label{tab:ex-ranking}
 \end{table}
-
+\vspace{-15pt}
 
 \section{Conclusions and Future Work\label{sec:conclusions}}
-In this paper, a novel technique is presented, to query a valid-time relation containing valid-time data subject to uncertainty in a bipolar way, which allows the user to specify a single valid-time bipolar query condition. A major issue concerning the necessity to combine quantifications of (dis)satisfaction with quantifications of plausibility resulting from this technique and a solution for this is presented and shortly discussed. In the near future, the interactions between these types of quantifications and between uncertainty in valid-time data and bipolar querying will be further studied. Also, an approach to allow the valid-time bipolar query condition to be fuzzy will be considered.
+In this paper, a novel technique is presented, to query a valid-time relation containing valid-time data subject to uncertainty in a bipolar way, which allows the user to specify a single valid-time bipolar query condition. A major issue concerning the necessity to combine quantifications of (dis)satisfaction with quantifications of possibility resulting from this technique and a solution for this is presented and shortly discussed. In the near future, the interactions between these types of quantifications and between uncertainty in valid-time data and bipolar querying will be further studied. Also, an approach to allow the valid-time bipolar query condition to be fuzzy will be considered.
 
 \bibliographystyle{splncs}
 \bibliography{sources}
