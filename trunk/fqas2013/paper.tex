@@ -12,7 +12,7 @@
 \newcommand{\Pos}{\operatorname{Pos}}
 \newcommand{\Nec}{\operatorname{Nec}}
 
-\newcommand{\mytitlestring}{Bipolar Querying of Valid-time Intervals Subject to Uncertainty}
+\newcommand{\mytitlestring}{Bipolar Querying of Valid-Time Intervals Subject to Uncertainty}
 
 \begin{document}
 
@@ -48,9 +48,9 @@ Databases model parts of reality by containing data representing properties of r
 
 
 \section{Introduction}
-Generally, database systems model (parts of) reality. For this, their databases contain data representing properties of real-world objects or concepts. Some essential properties of real-world objects or concepts are time-related. Thus, databases often contain data representing temporal values~\cite{Bohlen1998lncs}, which are basically indications of time and describe such properties. These temporal values are usually either time intervals~\cite{Bohlen1998lncs} or instants~\cite{Bohlen1998lncs}, which may informally be seen as infinitesimally short `periods' or `points' in time. Based on their interpretation and purpose, temporal values can be classified into several categories, but the presented work will only consider valid-time indications, which indicate when corresponding data is a valid or true representation of the reality modelled by its database~\cite{Bohlen1998lncs},~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
+Generally, database systems model (parts of) reality. For this, their databases contain data representing properties of real-world objects or concepts. Some essential properties of real-world objects or concepts are time-related. Thus, databases often contain data representing temporal values~\cite{Bohlen1998lncs}, which are basically indications of time and describe such properties. These temporal values are usually either time intervals~\cite{Bohlen1998lncs} or instants~\cite{Bohlen1998lncs}, which may informally be seen as infinitesimally short `periods' or `points' in time. Based on their interpretation and purpose, temporal values can be classified into several categories, but the presented work will only consider valid-time indications, which indicate when corresponding data is a valid or true representation of the reality modelled by its database~\cite{Bohlen1998lncs,Pons2012ijcis,Billiet2012ipmu,Pons2012ipmu}.
 
-A lot of database data are produced by humans, but human-made data are prone to imperfections, as some of these data may be vague or imprecise~\cite{Medina1994is}, contradictory, incomplete or uncertain~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Bosc2010ijufkbs}. Of course, data representing temporal values may contain such imperfections too~\cite{Pons2012ijcis},~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Dyreson1998acm}. The work presented in this paper will consider databases containing data representing valid-time intervals subject to uncertainty and will assume all non-temporal data in these databases to contain no imperfections.
+A lot of database data are produced by humans, but human-made data are prone to imperfections, as some of these data may be vague or imprecise~\cite{Medina1994is}, contradictory, incomplete or uncertain~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Bosc2010ijufkbs}. Of course, data representing temporal values may contain such imperfections too~\cite{Pons2012ijcis,Billiet2012ipmu,Pons2012ipmu},~\cite{Dyreson1998acm}. The work presented in this paper will consider databases containing data representing valid-time intervals subject to uncertainty and will assume all non-temporal data in these databases to contain no imperfections.
 
 One of the most important purposes of a database is to allow its data to be queried, to allow the information or knowledge represented by this data to be retrieved. A user may query a database in a `regular' way: the user describes the data which he or she finds desired or satisfactory and thus wants to retrieve, by perfectly describing the allowed values of these data. A user may also query a database in a `fuzzy' way: the user describes the data which he or she finds desired or satisfactory by imperfectly describing the allowed values of these data~\cite{Zadrozny2008hrfipd}. These imperfect descriptions may contain vagueness or imprecision, often through the use of linguistic terms~\cite{Devos1998jql},~\cite{Kacprzyk2001is}. A user may also query a database in a `bipolar' way. Generally, two main approaches to this exist. One is for the user to describe the data which he or she finds acceptable and to describe the data among this acceptable data, which he or she finds really desired, both by describing the allowed values of these data~\cite{Dubois2002lnai}. The other is for the user to independently describe both the data which he or she finds desired or satisfactory and the data which he or she finds undesired or unsatisfactory, both by describing the allowed values of these data~\cite{DeTre2010ieeetfs},~\cite{Matthe2011ijis}. The descriptions used in bipolar querying may contain imperfections. The presented work will only consider the latter approach to bipolar querying and will allow a simple form of imprecision in non-temporal elementary query conditions.
 
@@ -66,12 +66,10 @@ Databases may contain data representing temporal values. Based on their purpose 
 
 The work presented in this paper concerns time indications subject to uncertainty. This uncertainty is always assumed to be caused by a (partial) lack of knowledge: the exact, intended time indication is not known, eventhough there is only one time indication intended and as such no variability. Confidence about exactly which time indication is the intended one in the context of such uncertainty is modelled using possibility theory~\cite{Pons2013ijufkbs},~\cite{Dubois1988}. In the presented work, `possibility' and `necessity' are always interpreted as measures of plausibility, respectively necessity, given all available knowledge. Time intervals not subject to any imperfection are called \emph{crisp time intervals} (CTI) in this paper.
 
-\subsection{Valid-time Relations}
-%The presented work uses the relational database model~\cite{Pons2012ijcis},~\cite{Galindo2001}. Here, a \emph{relation} models a collection of similar real-world concepts or objects. To achieve this, such a relation has a set of $n$ \emph{attributes}, of which each describes a different property shared by all of these concepts or objects, and a set of $n$-tuples, of which each represents one of these real-world objects or concepts and contains $n$ values, each representing the capacity of the object or concept corresponding to the tuple, of the property described by the attribute corresponding to the value~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu}.
-
+\subsection{Valid-Time Relations}
 A \emph{valid-time relation} (VTR) always has \emph{valid-time attributes}. These are attributes describing a single valid time~\cite{Bohlen1998lncs} for the objects or concepts represented by the VTR's tuples. A VTR may contain different tuples corresponding to the same real-world concept or object. The non-valid-time attribute values of such a tuple represent the capacities of the properties described by their corresponding attributes which were, are or will be true or valid for the object or concept corresponding to the tuple during the period in time indicated by the valid-time indication represented by the tuple's valid-time attribute values. Thus, such a tuple represents the `version' of the object or concept corresponding to this tuple which was, is or will be real or valid or the `state' this object or concept was, is or will be in, during the period in time indicated by the valid-time indication represented by the tuple's valid-time attribute values. In the presented work, such valid-time indications will always be time intervals~\cite{Bohlen1998lncs} and will always be referred to as \emph{valid-time intervals} (VTI).
 
-\subsection{Uncertainty in Valid-time Intervals}
+\subsection{Uncertainty in Valid-Time Intervals}
 The presented work allows VTI to be subject to uncertainty, by allowing them to be \emph{ill-known valid-time intervals} (IKVTI). The concept of IKVTI is based on the concepts of \emph{possibilistic variables} (PV) and \emph{ill-known intervals} (IKI)~\cite{Billiet2012ipmu},~\cite{Pons2013ijufkbs},~\cite{Dubois1988cma}.
 
 \begin{definition}
@@ -99,19 +97,13 @@ Given an ordered set $U$, an \emph{ill-known constraint} (IKC) $C = (R,v)$ on $U
 
 The satisfaction of an IKC $C$ by a set $A$ will be noted $C(A)$ in this paper. Consider an ordered set $U$, an IKC $C = (R,v)$ on $U$ and a set $A \subseteq U$. Due to the uncertainty inherent to $v$, it is uncertain whether $A$ satisfies $C$ or not. The degree of possibility $\Pos(C(A))$ that $A$ satisfies $C$ and the degree of necessity $\Nec(C(A))$ that $A$ satisfies $C$, can be calculated as follows~\cite{Pons2013ijufkbs}:
 
-\vspace{-10pt}
 \begin{align}
 \Pos(C(A)) & = \min_{a \in A}\left(\sup_{(a,w) \in R}\pi_{X_{v}}(w)\right) \label{ill-known-pos}\\
 \Nec(C(A)) & = \min_{a \in A}\left(\inf_{(a,w) \notin R} 1-\pi_{X_{v}}(w)\right) \label{ill-known-nec}
 \end{align}
 
-Given an ordered set $U$, degrees of possibility and necessity that a set $A \subseteq U$ satisfies a boolean combination of IKC on $U$ can be found by using the possibilistic extensions of boolean operators `and' ($\wedge$), `or' ($\vee$) and `not' ($\neg$), as described in~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}.
-
-The IKC framework now allows evaluating a given Allen relationship $AR$ between a given CTI $I$ and a given IKVTI $J = \left[s, e\right]$ by allowing the calculation of the degrees of possibility and necessity that $I$ $AR$ $J$ holds. For this, the combination of $AR$ and $J$ is translated to a specific boolean combination of specific IKC. These translations are shown in table \ref{tab:allen-relations}. Every row of this table corresponds to a given Allen relationship between $I$ and $J$, indicated by the row's value in the `Allen Relationship' column. The collections of specific IKC for given Allen relationships are shown in the `Constraints' column (every $C_i, i \in \{1, 2, 3, 4\}$ denotes an IKC) and the specific combination of these IKC used for evaluation of the Allen relationships are shown in the `Combination' column. Finally, the degrees of possibility and necessity that $I$ $AR$ $J$ holds are then the degrees of possibility, respectively necessity that $I$ satisfies the specific aggregation of specific IKC found as translation of the combination of $AR$ and $J$. Using the formulas shown above, the requested possibility and necessity degrees can be calculated from these.
-
-\vspace{-10pt}
-\begin{table}[ht]
-\caption{The translations of Allen relationships to the IKC framework.}
+\begin{table}[b]
+\caption{The translations of Allen relationships to the IKC framework}
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
@@ -139,7 +131,10 @@ I finishes J & $C_1\stackrel{\triangle}{=} \left(\leq,e\right)$, $C_2\stackrel{\
 \end{tabular}
 \label{tab:allen-relations}
 \end{table}
-\vspace{-10pt}
+
+Given an ordered set $U$, degrees of possibility and necessity that a set $A \subseteq U$ satisfies a boolean combination of IKC on $U$ can be found by using the possibilistic extensions of boolean operators `and' ($\wedge$), `or' ($\vee$) and `not' ($\neg$), as described in~\cite{Billiet2012ipmu},~\cite{Pons2012ipmu},~\cite{Pons2013ijufkbs}.
+
+The IKC framework now allows evaluating a given Allen relationship $AR$ between a given CTI $I$ and a given IKVTI $J = \left[s, e\right]$ by allowing the calculation of the degrees of possibility and necessity that $I$ $AR$ $J$ holds. For this, the combination of $AR$ and $J$ is translated to a specific boolean combination of specific IKC. These translations are shown in table \ref{tab:allen-relations}. Every row of this table corresponds to a given Allen relationship between $I$ and $J$, indicated by the row's value in the `Allen Relationship' column. The collections of specific IKC for given Allen relationships are shown in the `Constraints' column (every $C_i, i \in \{1, 2, 3, 4\}$ denotes an IKC) and the specific combination of these IKC used for evaluation of the Allen relationships are shown in the `Combination' column. Finally, the degrees of possibility and necessity that $I$ $AR$ $J$ holds are then the degrees of possibility, respectively necessity that $I$ satisfies the specific aggregation of specific IKC found as translation of the combination of $AR$ and $J$. Using the formulas shown above, the requested possibility and necessity degrees can be calculated from these.
 
 \subsection{Bipolar Querying}
 As mentioned before, humans may express their query preferences using both positive and negative query conditions~\cite{DeTre2010ieeetfs},~\cite{Matthe2011ijis}. If the semantics of these conditions are non-symmetric, meaning that the positive preferences can not be derived from the negative or vice versa, the bipolarity in this query is called \emph{heterogenous}~\cite{Matthe2011ijis}. The presented work will concern only such heterogenous query bipolarity.
@@ -175,12 +170,12 @@ Remark that the traditional approach to fuzzy querying using regular fuzzy sets 
 
 \section{A Novel Querying Approach\label{sec:proposal}}
 
-\subsection{Valid-time Relations Subject to Uncertainty}
+\subsection{Valid-Time Relations Subject to Uncertainty}
 The presented proposal will concern VTR where the VTI are IKVTI. Generally, such a VTR $R$ can be seen as constructed in the following way. Let $R$ have $n$ non-temporal attributes $A_{i}, 1 \leq i \leq n, i \in \mathbb{N}$ and two valid-time attributes $VST$ and $VET$. Every tuple $T$ of $R$ represents an object or concept version or state which is valid during the time period indicated by the tuple's IKVTI $I_T$. This IKVTI $I_T$ is now defined by two IKV, which respectively describe the starting and ending instants of $I_T$ and are represented by the tuple's VST, respectively VET values. The interpretation is that the version or state corresponding to a tuple was, is or will be valid during a period of time, but exactly which period this is intended to be, is unknown. Confidence about exactly which period is intended, is modelled by the tuple's IKVTI~\cite{Pons2012ijcis},~\cite{Pons2012ipmu}.
 
 \vspace{-10pt}
 \begin{table}[ht]
-\caption{The example relation used in this paper.}
+\caption{The example relation used in this paper}
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -204,7 +199,7 @@ The presented proposal will concern VTR where the VTI are IKVTI. Generally, such
 \end{tabular}
 \label{tab:ex-relation}
 \end{table}
-\vspace{-10pt}
+\vspace{-15pt}
 
 In this paper, the relation shown in table~\ref{tab:ex-relation} will be used as example relation. This relation models the being in effect of medieval legal acts. Since the properties of a legal act cannot change once it has taken effect, every legal act has only one version or state. This was deliberately done to simplify the example. Thus, every tuple of the relation corresponds to a legal act. A tuple's value for attribute `ID' is a number uniquely identifying the legal act corresponding to the tuple. A tuple's value for attribute `Author' is a character string representation of the name of the author of the legal act corresponding to the tuple. A tuple's IKVTI represents the time period during which the act corresponding to the tuple was in effect. For this, every value for $VST$, respectively $VET$ represents an IKV describing the day on which the legal act respectively took effect and stopped taking effect. For this, every value for $VST$ or $VET$ is a triple $\left[d_1, d_2, d_3\right]$, where $d_1, d_2, d_3$ are elements of the ordered set of days in history. Such a triple $\left[d_1, d_2, d_3\right]$ now defines a triangular (and thus convex) possibility distribution $\pi$ which defines the mentioned IKV and which is defined by (differences in dates in this function prescription are expressed in amounts of days):
 
@@ -219,7 +214,7 @@ In this paper, the relation shown in table~\ref{tab:ex-relation} will be used as
 \end{align}
 \vspace{-15pt}
 
-\subsection{Querying Using Bipolar Valid-time Conditions \label{sec:query}}
+\subsection{Querying Using Bipolar Valid-Time Conditions \label{sec:query}}
 The presented work introduces a novel querying technique. The most interesting aspect of this technique is that it allows the user to specify a bipolar valid-time demand. According to this technique, a user query $Q$ consists of two separate parts $Q_n$ and $Q_t$: $Q = (Q_n, Q_t)$. Here, $Q_n$ is a boolean combination of BQC on non-valid-time attributes, expressing the user's non-temporal demands. $Q_t$ expresses the user's valid-time demands and is a single crisp temporal BQC $((AR_{+}, I_{+}), (AR_{-}, I_{-}))$, where both $AR_{+}$ and $AR_{-}$ are Allen relationships and both $I_{+}$ and $I_{-}$ are CTI. The interpretation is that the user requires an object or concept that has a version or state that complies with his or her non-temporal demands and was, is or will be valid during a time interval which is in Allen relationship $AR_{+}$ with $I_{+}$ and wasn't, isn't or won't be valid during a time interval which is in Allen relationship $AR_{-}$ with $I_{-}$.
 
 Consider the example relation shown in table~\ref{tab:ex-relation}. Now assume a user queries the relation to find all legal acts of which the author is preferably named Alo\"isius, less preferably Euforius and perhaps Eugenius, and of which the author is preferably not named Ambrosius, rather not Theofilus and perhaps not Antonius and which took effect preferably before $2/1/1210$ and preferably not after $1/1/1214$. These demands can now be translated to a query $Q_{ex}$ in the following way:
@@ -251,7 +246,7 @@ Generally, a first step in determining which objects or concepts corresponding t
 Table \ref{tab:ex-evaluation} shows the results of the evaluation of the example query's elementary query conditions for the tuples of the example relation.
 \vspace{-10pt}
 \begin{table}[ht]
-\caption{Elementary query condition evaluation results for the example relation.}
+\caption{Elementary query condition evaluation results for the example relation}
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -311,9 +306,9 @@ Next, a tie-break approach is used to rank the versions or states represented in
 
 The introduced technique for aggregating elementary query condition evaluation results and determining a ranking does not require the combination of quantifications with different interpretations and still presents the query result tuples in a ordered manner, where this ordering is consistent with the expected extend to which each tuple is usefull to the user. However, the technique still requires the user to decide which objects or concepts constitute the best query answer, although this decision is heavily supported.
 
-\vspace{-10pt}
+\vspace{-15pt}
 \begin{table}[ht]
-\caption{Aggregation and ranking results for the example relation and query.}
+\caption{Aggregation and ranking results for the example relation and query}
 \centering
 \begin{tabular}{|c|c|c|c|c||c|c|c|}
 \hline
@@ -337,10 +332,12 @@ The introduced technique for aggregating elementary query condition evaluation r
 \end{tabular}
 \label{tab:ex-ranking}
 \end{table}
-\vspace{-15pt}
+\vspace{-20pt}
 
 \section{Conclusions and Future Work\label{sec:conclusions}}
 In this paper, a novel technique to query a valid-time relation containing valid-time data subject to uncertainty in a bipolar way, is presented. This technique allows the user to specify a single valid-time bipolar query condition. A major issue concerning the need to combine quantifications of (dis)satisfaction with quantifications of possibility resulting from this technique is presented and shortly discussed, along with a solution for this issue. In the near future, the interactions between these types of quantifications and between uncertainty in valid-time data and bipolar querying will be further studied. Also, an approach to allow the valid-time bipolar query condition to be fuzzy will be considered.
+
+\vspace{-10pt}
 
 \bibliographystyle{splncs}
 \bibliography{sources}
