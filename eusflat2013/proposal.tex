@@ -8,7 +8,7 @@ Now, a major difference between the two frameworks, concerning their approaches 
 A first consequence of this is that the TM framework allows the visualization of multiple CTI in the same image plane. In theory, it should also allow the visualization of multiple UTI in the same image plane. However, if the interval space area's visualizing these UTI overlap, it is not yet researched which greyscale (or other) color and intensity each interval point in this overlapping area should have, as the appearance of such interval point should both reflect the possibility of it being the interval intended by the one UTI and the possibility of it being the interval intended by the other UTI. The advantage of the ability to visualize multiple time intervals in the same image plane is that a human observer could easily assess certain characteristics of a distribution of time intervals from an image containing their visualization. The IKC framework, on the other hand, doesn't incorporate any form of visualization and doesn't allow such human assessments.
 
 A second consequence of this is that the TM framework requires that an UTI can be visualized, using a visualization method which actually visualizes the possibility of a CTI of being the interval intended by this UTI for every CTI that has a non-zero possibility of this. Thus, a method is required, to calculate the possibility of a given CTI of being the interval intended by an UTI based on the possibility distributions defining this UTI. This method is found by demanding that the given CTI's starting instant is the intended interval's starting instant \emph{and} that the given CTI's ending instant is the intended interval's ending instant and by determining the possibility of the conjunction of both demands using the standard possibility theory conjunction operator `minimum'. Although not necessary for the correct and consistent functioning of the TM framework, it appears to be the intention of the TM framework that possibility about the exact starting or ending instant of the interval intended by the UTI could be derived from the possibility distribution defining the possibility that a given CTI is the interval intended by the UTI. For this derivation to be consistent, the possibility distributions defining the UTI must be convex~\cite{Dubois1983}. Given an ordered set $T$ and an UTI $J = (\pi_{J_s}, \pi_{J_e})$ in $T$ with possibility $\pi_J(I)$ that a given CTI $I = \left[s_i, e_i\right]$ is the exact time interval intended by $J$, the derivations can be calculated as follows:
-
+\vspace{-5pt}
 \begin{align}
 \pi_{J_s}(s_i) = \max_{K = \left[s_i, k\right], k \in T, k > s_i}(\pi_J(K)) \nonumber \\
 \pi_{J_e}(e_i) = \max_{K = \left[k, e_i\right], k \in T, k < e_i}(\pi_J(K)) \nonumber
@@ -32,14 +32,14 @@ In this section, some of the comparison results presented above will be illustra
 
 \begin{example}
 Consider an ordered set of instants $T$ coinciding with $\mathbb{R}$, a CTI $I = \left[1, 3\right]$ and a time interval $J$ of which the starting instant is defined by a triangular possibility distribution on $T$ with core $\{5\}$ and support $\left[2, 7\right]$ and of which the ending instant is defined by a triangular possibility distribution on $T$ with core $\{12\}$ and support $\left[9, 15\right]$. In a real-life situation, such distributions could be decided by experts or deduced from existing evidence. The visualization of this example situation using the TM framework is shown in figure \ref{fig:ex}. The interval point for $I$ lies in the URZ `PM'. Thus, possibility is higher than zero for $I$ to be in a `meets', `before', or `overlaps' relationship with $J$. As the darkest point in the `overlaps' area part is very light, the darkest point in the `meets' line segment is of almost exactly the same lightness and the darkest point in the `before' area part is perfectly black, it can be estimated that $I$ overlaps $J$ with a low possibility, $I$ meets $J$ with the same low possibility and $I$ is before $J$ with possibility $1$. Calculation using the IKC framework now learns that:
-
+\vspace{-5pt}
 \begin{align}
 \Pos(I overlaps J) & = \min(1, 1/3, 1) = 1/3 \nonumber \\
 \Pos(I meets J) & = \min(1, 1/3) = 1/3\nonumber \\
 \Pos(I before J) & = \min(1) = 1\nonumber
 \end{align}
-
 \end{example}
+\vspace{-10pt}
 
 \begin{figure}[h]
 	\centering
@@ -47,3 +47,4 @@ Consider an ordered set of instants $T$ coinciding with $\mathbb{R}$, a CTI $I =
 	\caption{The visualization of the example using the TM framework.}
 	\label{fig:ex}
 \end{figure}
+\vspace{-5pt}
