@@ -2,7 +2,7 @@ In~\cite{Weghe2007}, the TM framework for crisp intervals is introduced, based o
 
 \subsection{\label{subsec:tm-preliminaries}Preliminary Concepts}
 In the triangular model framework, the approaches to interval representation and Allen relationship evaluation are closely related to the approach to interval visualization. Usually, different time intervals are visualized as different parallel line segments in the same image plane. However, as this linear approach introduces a few issues, time intervals are visualized as points in the image plane in the TM framework~\cite{DeTre2012},~\cite{Weghe2007}. To achieve this, a horizontal line segment visualizing the used (part of the) time axis is drawn in the image plane (this is called the \emph{time line}). Then, a triangle is drawn, using this line segment as a side of which the angles with the other two sides have sizes $\alpha$ and $-\alpha$ respectively. The area contained in this triangle is called the \emph{interval space} and will contain all visualizations of intervals. Now, the procedure used to visualize a CTI $\left[s, e\right]$ in the interval space is the following~\cite{DeTre2012},~\cite{Weghe2007}:
-
+\vspace{-5pt}
 \begin{enumerate}
 	\item $s$ is visualized as a point on the time line.
 	\item A straight half-line $L_s$ is constructed from this point, having, in this point, an angle of size $\alpha$ with the time line.
@@ -10,7 +10,7 @@ In the triangular model framework, the approaches to interval representation and
 	\item A straight half-line $L_e$ is constructed from this point, having, in this point, an angle of size $-\alpha$ with the time line.
 	\item The intersection point of $L_s$ and $L_e$ is the intended visualization of interval $\left[s, e\right]$.
 \end{enumerate}
-
+\vspace{-5pt}
 A similar point visualizing an interval is generally called an \emph{interval point}~\cite{DeTre2012},~\cite{Weghe2007}. In this work, as it is usually done, the size of $\alpha$ is chosen to be $45^{\circ}$. An example of such construction is shown in figure \ref{fig:tm-const-ex}.
 
 \begin{figure}[h]
@@ -19,6 +19,7 @@ A similar point visualizing an interval is generally called an \emph{interval po
 	\caption{The visualization of several CTI using the TM framework.}
 	\label{fig:tm-const-ex}
 \end{figure}
+\vspace{-10pt}
 
 \subsection{\label{subsec:tm-interval}Representation of Time Intervals Subject to Uncertainty}
 The TM framework allows uncertainty in time intervals by supporting uncertain time intervals~\cite{DeTre2012}:
@@ -32,7 +33,7 @@ where $\pi_s$ and $\pi_e$ are two convex~\cite{Dubois1983} possibility distribut
 \end{definition}
 
 Consider an ordered set of instants $T$ and an UTI $J$ in $T$, defined by the pair $(\pi_s, \pi_e)$. Given an instant $x \in T$, $\pi_s(x)$ now expresses the possibility that $x$ is the starting instant of $J$ and $\pi_e(x)$ expresses the possibility that $x$ is the ending instant of $J$. Thus, $J$ intends to indicate just one CTI, but it is (partially) unknown exactly which time interval this is. The possibility $\pi_J(I)$ that a given CTI $I = \left[s_i, e_i\right]$ is the exact time interval intended by $J$ can now be uniquely determined by~\cite{DeTre2012}:
-
+\vspace{-5pt}
 \begin{align}
 \pi_J(I) = \begin{cases}
  \min \left(\pi_s (s_i), \pi_e (e_i) \right), & \mbox{ if } s_i \leq e_i\\
@@ -48,6 +49,7 @@ Now consider an ordered set of instants $T$ and a visualization of this in an im
 	\caption{The visualization of one UTI defined by a pair $(\pi_s, \pi_e)$ using the TM framework.}
 	\label{fig:tm-ill-const-ex}
 \end{figure}
+\vspace{-10pt}
 
 \subsection{\label{subsec:tm-evaluation}Evaluation of Allen Relationships}
 At the base of the framework's approach to evaluating Allen relationships is the concept of uncertain relational zones~\cite{DeTre2012}:
@@ -92,7 +94,7 @@ Given an UTI $J$ and its URZ, every URZ is assigned a symbol and a name and corr
 	\item `B' denotes `before'.
 	\item `A' denotes `after'.
 \end{itemize}
-
+\vspace{-10pt}
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -121,9 +123,9 @@ UE   & Uncertain Ending & D, F, OB, MB, A \\
 \caption{The fifteen possible URZ for a given UTI.}
 \label{tab:urz}
 \end{table}
-
+\vspace{-5pt}
 The TM framework now allows evaluating the Allen relationships a given CTI $I = \left[s, e\right]$ could be in with a given UTI $J$, depending on the exact CTI intended by $J$. This is done as follows. First, $J$ and its URZ are visualized in an interval space. Next, $I$'s interval point, its construction half-lines $L_s$ and $L_e$ and the visualization of its starting and ending instants on the time line are drawn in the same interval space. Then, evaluation is a matter of position (in the following, the possibility that $I$ is the interval intended by $J$ is denoted $\pi_J(I)$ and the possibility that $I$ is in Allen relationship $AR$ with $J$ is denoted  $\Pos(I\ AR\ J)$)~\cite{DeTre2012}:
-
+\vspace{-5pt}
 \begin{itemize}
 	\item if $I$'s interval point is located in an URZ corresponding with a singleton of Allen relationships $\{R\}$, it is in relationship $R$ with the interval intended by $J$, whichever this interval is. Thus: $\Pos(I\ AR\ J) = 1$.
 	\item if $I$'s interval point is located in an URZ corresponding to a non-singleton set of $n$ Allen relationships $\{R_1, R_2, \ldots, R_n\}$, two more half-lines are drawn: one (denoted $L_s'$) from the visualization of $s$ on the time line, having, in this point, an angle of size $-\alpha$ with the time line and one (denoted $L_e'$) from the visualization of $e$ on the time line, having, in this point, an angle of size $\alpha$ with the time line. Now, some of these half-lines $L_s$, $L_s'$, $L_e$ and $L_e'$ may intersect with the area visualizing $J$. These intersection line segments will divide the area visualizing $J$ in $n$ area parts $p_i, 1 \leq i \leq n$ (intersection line segments also count as area parts), each containing only interval points visualizing intervals with a non-zero possibility of being the interval intended by $J$. Each of these parts $p_i$ will now correspond to an Allen relationship $R_i$. Now, for each $R_i$:

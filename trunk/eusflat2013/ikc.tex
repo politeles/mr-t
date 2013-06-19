@@ -32,6 +32,7 @@ Given an ordered set $U$, an \emph{ill-known constraint} (IKC) $C$ on $U$ is spe
 C \triangleq (R,v) \nonumber
 \end{align}
 Any set $A \subseteq U$ now satisfies IKC $C = (R,v)$ if and only if:
+\vspace{-10pt}
 \begin{align}
 \forall a \in A : (a,v) \in R \nonumber
 \end{align}
@@ -40,14 +41,14 @@ Any set $A \subseteq U$ now satisfies IKC $C = (R,v)$ if and only if:
 The satisfaction of an IKC $C$ by a set $A$ will be noted $C(A)$ in this paper. 
 
 Consider an ordered set $U$, an IKC $C \triangleq (R,v)$ on $U$ and a set $A \subseteq U$. Due to the uncertainty about the exact value of $v$, it is uncertain whether $A$ satisfies $C$ or not. Confidence about the plausibility that $A$ satisfies $C$ can be expressed using a possibility degree $\Pos(C(A))$ and a necessity degree $\Nec(C(A))$, which are shown to be calculated as follows:
-
+\vspace{-5pt}
 \begin{align}
 \Pos(C(A)) & = \min_{a \in A}\left(\sup_{(a,w) \in R}\pi_{V}(w)\right) \label{ill-known-pos}\\
 \Nec(C(A)) & = \min_{a \in A}\left(\inf_{(a,w) \notin R} 1-\pi_{V}(w)\right) \label{ill-known-nec}
 \end{align}
 
 Given an ordered set $U$, possibility and necessity degrees expressing confidence about the plausibility that a set $A \subseteq U$ satisfies a boolean aggregation of IKC on $U$ can be found by using the possibilistic extensions of boolean operators `and' ($\wedge$), `or' ($\vee$) and `not' ($\neg$) and can be calculated using the following expressions:
-
+\vspace{-5pt}
 \begin{align}
 \Pos\left(\left(C_1(A)\right) \wedge \ldots \wedge \left(C_n(A)\right)\right) = \min_{i=1 \ldots n} \left(\Pos\left(C_i(A)\right)\right) \nonumber \\
 \Nec\left(\left(C_1(A)\right) \wedge \ldots \wedge \left(C_n(A)\right)\right) = \min_{i=1 \ldots n} \left(\Nec\left(C_i(A)\right)\right) \nonumber \\
@@ -105,3 +106,4 @@ I before J & $C_1\stackrel{\triangle}{=} \left(<,s\right)$ & $C_1(I)$ \\
 \caption{The translations of Allen relationships to the IKC framework.}
 \label{tab:allen-relations}
 \end{table}
+\vspace{-10pt}
